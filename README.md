@@ -60,6 +60,7 @@ The shortcode takes the following arguments
 The /pbsoauth/authenticate URL can be hit via AJAX, and it takes no arguments.  It reads cookie and session info to find and decrypt a current oAuth access token and use that token to confirm the identity against PBS's PIDS and the MVAULT.   
 
 It returns JSON with some basic info:  
+
 * `authenticated`: true|false.  If false, no other fields are returned.
 * `first_name` and `last_name`: The 'pbs_profile' first/last names.  These will be from the login provider (Facebook/Google/PBS), not from the MVault profile.
 * `login_provider`: google/facebook/pbs
@@ -67,6 +68,7 @@ It returns JSON with some basic info:
 * `thumbnail_URL`: the avatar for the user provided by the login provider.  May be a generic icon if the user never set one up.  The 'pbs' login provider always provides a generic icon.
 
 If the PIDS account is associated with a WNET member in the MVault, further info will appear in a 'membership_info' object:
+
 * `offer`: the offer code, typically 'AVOD'.  This will match up against permissions in the COVE windowing system.
 * `first_name` and `last_name`: these are what his or her membership is listed under, and can be completely different from the google etc provided values.
 * `expire_date`: The expiration date of their membership
