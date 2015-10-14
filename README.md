@@ -10,6 +10,8 @@ PBS Passport Authenticate includes the following files:
 * pbs-passport-authenticate.php, which invokes the plugin and provides the basic required functions.
 * A subdirectory named `classes` containing the core PHP class files that most functions depend on.
 * A subdirectory named `assets` containing JavaScript, CSS, and image files.
+* A subdirectory named `templates` that contains PHP files to respond to some custom endpoints.
+* A subdirectory named `examples` with sample code for custom interactions.
 
 ## Installation
 
@@ -19,6 +21,7 @@ PBS Passport Authenticate includes the following files:
 4. Click on *Activate*
 5. Navigate to *Settings* and select *PBS Passport Authenticate Settings* 
 6. Enter values for all fields
+7. It may be necessary to visit the 'Permalinks' settings page to make sure that the endpoints provided by the plugin resolve correctly.
 
 ## Usage
 
@@ -27,7 +30,7 @@ The plugin provides two functions:
 1. A [pbs-passport-authenticate] shortcode that provides a login/logout link for the user, including going through the PBS Passport 'activation' process
 2. A simple AJAX function to determine the login status of the user.
 
-
+Activation enqueues a custom CSS file and a custom javascript file on every user-facing page.  The CSS file can be disabled from the plugin's settings page.
 
 ### Shortcode
 
@@ -52,11 +55,33 @@ The shortcode takes the following arguments
 * `login_text` -- replaces the default login link text
 
 
+### 'authenticate' AJAX endpoint
 
-On activation, the plugin registers a hidden custom post type called 'pbsoauth' and creates some posts there with specific slugs:
+The /pbsoauth/authenticate URL can be hit via AJAX, and it takes no arguments.  It reads cookie and session info to find and decrypt a current oAuth access token and use that token to confirm the identity against PBS's PIDS and the MVAULT.   
+
+It returns JSON with some basic info:  
+* `authenticated`: true|false.  If false, no other fields are returned.
+* `first_name` and `last_name`: The 'pbs_profile' first/last names.  These will be from the login provider (Facebook/Google/PBS), not from the MVault profile.
+* `login_provider`: google/facebook/pbs
+* `email`: the email associated with the login provider.
+* `thumbnail_URL`: the avatar for the user provided by the login provider.  May be a generic icon if the user never set one up.  The 'pbs' login provider always provides a generic icon.
+
+If the PIDS account is associated with a WNET member in the MVault, further info will appear in a 'membership_info' object:
+* `offer`: the offer code, typically 'AVOD'.  This will match up against permissions in the COVE windowing system.
+* `first_name` and `last_name`: these are what his or her membership is listed under, and can be completely different from the google etc provided values.
+* `expire_date`: The expiration date of their membership
+* `grace_period`: Three months after the expiration date, when the user loses access to Passport videos.
+* `membership_id`: The user's membership id in the MVault.
+* `provisional`: true|false .  Provisional records haven't been confirmed to match actual member records, and expire a few days after creation if not matched.
+
+
+## Notes
+
+On activation, the plugin registers a hidden custom post type called 'pbsoauth' and creates two posts there with specific slugs:
 
 * `authenticate`, which is an endpoint for our jQuery files to interact with during the authentication process
-* `callback`, which will accept any callbacks from the PBS LAAS oAuth2 flow and forward the grant token to the appropriate script
+* `callback`, which will accept any callbacks from the PBS LAAS oAuth2 flow and forward the grant token to the appropriate script.  The callback URI must then be registered with PBS as a valid redirect_uri for your LAAS key -- this is typically done via email.
+
 
 
 
