@@ -79,10 +79,10 @@ If the PIDS account is associated with a WNET member in the MVault, further info
 
 ## Notes
 
-On activation, the plugin registers a hidden custom post type called 'pbsoauth' and creates two posts there with specific slugs:
+On activation, the plugin registers two rewrite rules that redirect to some custom template files:
 
-* `authenticate`, which is an endpoint for our jQuery files to interact with during the authentication process
-* `callback`, which will accept any callbacks from the PBS LAAS oAuth2 flow and forward the grant token to the appropriate script.  The callback URI must then be registered with PBS as a valid redirect_uri for your LAAS key -- this is typically done via email.
+* `pbsoauth/authenticate`, which is an endpoint for our jQuery files to interact with during the authentication process
+* `pbsoauth/callback`, which will accept any callbacks from the PBS LAAS oAuth2 flow and forward the grant token to the appropriate script.  The callback URI must then be registered with PBS as a valid redirect_uri for your LAAS key -- this is typically done via email.
 
 
 
