@@ -76,6 +76,14 @@ If the PIDS account is associated with a WNET member in the MVault, further info
 * `membership_id`: The user's membership id in the MVault.
 * `provisional`: true|false .  Provisional records haven't been confirmed to match actual member records, and expire a few days after creation if not matched.
 
+This endpoint is hit as part of the login process.  During login and/or reauthentication, the endpoint will also set an unencrypted cookie restricted to the current server but readable by Javascript with the values for `first_name`, `last_name`, `offer`, and `thumbnail_URL`.
+
+This endpoint reads and (as necessary) sets two encrypted cookies:
+
+* one with the user's oAuth 'access_token', for use to get access to PBS Passport resources such as member-restricted videos
+* one with the user's oAuth 'refresh_token', used to get a new 'access_token' when the current one expires.  
+
+These two cookies are encrypted with different keys, and both will be restricted from normal Javascript access.  
 
 ## Notes
 
