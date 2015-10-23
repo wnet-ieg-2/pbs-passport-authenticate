@@ -76,13 +76,21 @@ If the PIDS account is associated with a WNET member in the MVault, further info
 * `membership_id`: The user's membership id in the MVault.
 * `provisional`: true|false .  Provisional records haven't been confirmed to match actual member records, and expire a few days after creation if not matched.
 
+This endpoint is hit as part of the login process.  During login and/or reauthentication, the endpoint will also set an unencrypted cookie restricted to the current server but readable by Javascript with the values for `first_name`, `last_name`, `offer`, and `thumbnail_URL`.
+
+This endpoint reads and (as necessary) sets two encrypted cookies:
+
+* one with the user's oAuth 'access_token', for use to get access to PBS Passport resources such as member-restricted videos
+* one with the user's oAuth 'refresh_token', used to get a new 'access_token' when the current one expires.  
+
+These two cookies are encrypted with different keys, and both will be restricted from normal Javascript access.  
 
 ## Notes
 
-On activation, the plugin registers a hidden custom post type called 'pbsoauth' and creates two posts there with specific slugs:
+On activation, the plugin registers two rewrite rules that redirect to some custom template files:
 
-* `authenticate`, which is an endpoint for our jQuery files to interact with during the authentication process
-* `callback`, which will accept any callbacks from the PBS LAAS oAuth2 flow and forward the grant token to the appropriate script.  The callback URI must then be registered with PBS as a valid redirect_uri for your LAAS key -- this is typically done via email.
+* `pbsoauth/authenticate`, which is an endpoint for our jQuery files to interact with during the authentication process
+* `pbsoauth/callback`, which will accept any callbacks from the PBS LAAS oAuth2 flow and forward the grant token to the appropriate script.  The callback URI must then be registered with PBS as a valid redirect_uri for your LAAS key -- this is typically done via email.
 
 
 
