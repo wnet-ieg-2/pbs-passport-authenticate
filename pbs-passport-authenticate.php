@@ -19,12 +19,25 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 // Include plugin class files
 require_once( 'classes/class-pbs-passport-authenticate.php' );
 require_once( 'classes/class-pbs-passport-authenticate-settings.php' );
+require_once('classes/class-PBS-LAAS-client.php');
+require_once('classes/class-PBS-MVault-client.php');
+
+
 
 global $plugin_obj;
 $plugin_obj = new PBS_Passport_Authenticate( __FILE__ );
 
 if ( is_admin() ) {
   $plugin_settings_obj = new PBS_Passport_Authenticate_Settings( __FILE__ );
+}
+
+register_activation_hook(__FILE__, 'pbs_passport_authenticate_activation');
+
+function pbs_passport_authenticate_activation() {
+  // init the object, which will setup the object
+  $plugin_obj = new PBS_Passport_Authenticate( __FILE__ );
+  $plugin_obj->setup_rewrite_rules();
+  flush_rewrite_rules();    
 }
 
 // always cleanup after yourself

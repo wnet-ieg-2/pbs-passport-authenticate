@@ -82,18 +82,24 @@ class PBS_LAAS_Client {
   private $encrypt_iv;
   public $nonce;
 
-  public function __construct($client_id = '', $client_secret = '', $oauthroot = '', $redirect_uri ='', $tokeninfo_cookiename ='', $userinfo_cookiename ='', $cryptkey = '', $encrypt_iv = '', $encrypt_method = 'AES-256-CBC'){
-    $this->client_id = $client_id;
-    $this->client_secret = $client_secret;
-    $this->oauthroot = $oauthroot;
-    $this->cryptkey = $cryptkey;
-    $this->encrypt_method = $encrypt_method;
-    $this->encrypt_iv = $encrypt_iv;
-    $this->redirect_uri = $redirect_uri;
-    $this->tokeninfo_cookiename = $tokeninfo_cookiename;
-    $this->userinfo_cookiename = $userinfo_cookiename;
-    // set our cookie domain
+  public function __construct($args){
+    $this->client_id = $args['client_id'];
+    $this->client_secret = $args['client_secret'];
+    $this->oauthroot = $args['oauthroot'];
+    $this->redirect_uri = $args['redirect_uri'];
+
+    // cookie stuff
+    $this->tokeninfo_cookiename = $args['tokeninfo_cookiename'];
+    $this->userinfo_cookiename = $args['userinfo_cookiename'];
     $this->domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false;
+
+    // encryption stuff
+    $this->cryptkey = $args['cryptkey'];
+    $this->encrypt_iv = $args['encrypt_iv'];
+    $this->encrypt_method = (!empty($args['encrypt_method']) ? $args['encrypt_method'] : 'AES-256-CBC');
+
+
+
 
     if( !isset( $_SESSION ) ) {
       session_start();

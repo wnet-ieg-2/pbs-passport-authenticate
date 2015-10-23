@@ -1,6 +1,5 @@
 <?php
-/* Core functions such as post and taxonomy definition and a basic interface for 
-*  retrieving pledge premiums in PHP or via an AJAX call
+/* Core functions to create endpoint handling 
 */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -21,49 +20,55 @@ class PBS_Passport_Authenticate {
 		// Load public-facing style sheet and JavaScript.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
-    // make calls to pledge premium content use our custom AJAX templates
-    add_filter( 'archive_template', array( $this, 'use_custom_template' ) );
+    // Setup the shortcode
+    add_shortcode( 'pbs-passport-authenticate', array($this, 'do_shortcode') );
 
-   // Setup the shortcode
-    add_shortcode( 'pledge_premiums', array($this, 'do_shortcode') );
-
+    // Setup the rewrite rules and query vars to make our endpoints work
+    add_action( 'init', array($this, 'setup_rewrite_rules') );
+    add_filter( 'query_vars', array($this, 'register_query_vars') );
+    add_action( 'template_include', array($this, 'rewrite_templates') );
 	}
 
   public function enqueue_scripts() {
-    // colorbox is a common script so lets avoid conflicts and use whatever version is registered if one is already
-    if (! wp_script_is( 'colorbox', 'registered' ) ) {
-      wp_register_script( 'colorbox', $this->assets_url . 'js/jquery.colorbox-min.js', array('jquery'), '1.6.3', true );
-      // base colorbox styling 
-      wp_enqueue_style( 'colorbox_css', $this->assets_url . 'css/colorbox.css' );
-    }
-    wp_enqueue_script( 'colorbox' );
-    // our custom front-facing script to include everywhere since its called in a plugin
-
-    wp_register_script( 'pbs_passport_authenticate_js' , $this->assets_url . 'js/pbs_passport.js', array('colorbox', 'jquery'), '0.1', true );
+    wp_register_script( 'pbs_passport_authenticate_js' , $this->assets_url . 'js/pbs_passport.js', array('jquery'), '0.1', true );
     wp_enqueue_script( 'pbs_passport_authenticate_js' );
-    // custom styling
-    //wp_enqueue_style( 'pbs_passport_authenticate_css', $this->assets_url . 'css/pledge_premiums.css' );
   }
 
+  // these next functions setup the custom endpoints
 
-  public function use_custom_template($template) {
-    global $post;
+  public function setup_rewrite_rules() {
+    add_rewrite_rule( 'pbsoauth/(authenticate|callback|loginform)/?.*$', 'index.php?pbsoauth=$matches[1]', 'top');
+  }
 
-    if ($post->post_type == 'pbs_passport_authenticate' || is_post_type_archive( 'pbs_passport_authenticate') ) {
-      $template = trailingslashit($this->dir) . 'pledge-premiums-template.php';
+  public function register_query_vars( $vars ) {
+    $vars[] = 'pbsoauth';
+    return $vars;
+  }
+
+  public function rewrite_templates($template) {
+    if ( get_query_var('pbsoauth')== 'authenticate' ) {
+      $template = trailingslashit($this->dir) . 'templates/authenticate.php';
+    }
+    if ( get_query_var('pbsoauth')=='callback' )  {
+      $template = trailingslashit($this->dir) . 'templates/oauthcallback.php';
+    }
+    if ( get_query_var('pbsoauth')=='loginform' )  {
+      $template = trailingslashit($this->dir) . 'templates/loginform.php';
     }
     return $template;
   }
 
   public function do_shortcode( $atts ) {
-    $allowed_args = array('display_programs'=>null, 'featured_premium'=>null, 'featured_program'=>null, 'form_type'=>'sustainer', 'api_endpoint' => site_url('pledge_premiums'), 'render' => 'all' );
+    $allowed_args = array('login_text' => 'Sign in', 'render' => 'all' );
     $args = array();
     if (is_array($atts)) {
-      $args = shortcode_atts($allowed_args, $atts, 'pledge_premiums');
+      $args = shortcode_atts($allowed_args, $atts, 'pbs_passport_authenticate');
+    } else {
+      $args = $allowed_args;
     }
     $render = $args['render'];
     $json_args = json_encode($args);
-    $button = '<div id="pbs_passport_authenticate"><button class="launch">Select a premium <i class="fa fa-plus-circle"></i></button><div class="messages"></div><input type="hidden" name="pcode" id="pcode" value="" /><input type="hidden" name="req_amt" id="req_amt" value=0 /></div>';
+    $button = '<div class="pbs_passport_authenticate"><button class="launch">' . $args['login_text'] .  '<i class="fa fa-plus-circle"></i></button><div class="messages"></div></div>';
     $jsonblock = '<script language="javascript">var pbs_passport_authenticate_args = ' . $json_args . ' </script>';
     $style = '<style>' . file_get_contents($this->assets_dir . '/css/pledge_premiums.css') . '</style>';
     $return = '';
