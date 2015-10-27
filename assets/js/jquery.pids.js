@@ -1,65 +1,21 @@
 jQuery(document).ready(function($) {
 
-  var authenticate_script = 'authenticate.php';
-  if (typeof laas_authenticate_script !== "undefined"){
-    authenticate_script = laas_authenticate_script;
-  }
-
-  // constants 
-  var PBSAccessToken;
- 
-  var loggedIn = false;
-    
-  function loginOAuthPBS(serviceurl) {
-    if (serviceurl) {
-    var win =   window.open(serviceurl, "PBSloginwindow", 'width=800, height=600'); 
-    var pollTimer   =   window.setInterval(function() { 
-      try {
-        console.log('url: ' + win.document.URL);
-        if (win.document.URL.indexOf('code=') != -1) {
-          window.clearInterval(pollTimer);
-          var response_url = win.document.URL;
-          console.log('url: ' + response_url);
-          var request_code = response_url.substring(win.document.URL.indexOf('code='));
-          if (request_code.indexOf('#_=_') > 0){
-            request_code = request_code.replace(/#.*/, '');
-          }
-          console.log('requestcode: ' + request_code);
-          win.close();
-          finishPBSLogin(request_code);
-        }
-      } catch(e) {
-      }
-    }, 500);
-    }
+  var authenticate_script = '/authenticate';
+  var loginform = '/loginform';
+  if (typeof pbs_passport_authenticate_args !== "undefined"){
+    authenticate_script = pbs_passport_authenticate_args.laas_authenticate_script;
+    loginform = pbs_passport_authenticate_args.loginform;
   }
  
-
-  function finishPBSLogin(request_code) {
-    if ($('#rememberme:checked').val()){
-      request_code += "&rememberme=" + $('#rememberme:checked').val();
-    }
-    console.log(request_code);
-    $.ajax({
-      url: authenticate_script,
-      data: request_code,
-      type: 'POST',
-      dataType: 'json',
-      success: function(response) {
-        user = response;
-        console.log(user);
-        $('#statusdiv').text('You are logged in as ' + user.email);
-        $('#login-block').hide();
-        if (user.membership_info) {
-          $('#statusdiv').append(' and you are a member.  Your expiration date is ' + user.membership_info.expire_date);
-        }
-      }
-    });
+   
+  function loginToPBS(event) {
+    event.preventDefault();
+    document.cookie='pbsoauth_login_referrer=' +  window.location + '; path=/';
+    window.location = loginform;
   }
 
+ 
   function checkPBSLogin() {
-    $('#login-block').hide();
-
     $.ajax({
       url: authenticate_script,
       data: null,
@@ -69,43 +25,35 @@ jQuery(document).ready(function($) {
         user = response;
         console.log(user);
         if (user){
-          $('#statusdiv').text('You are logged in as ' + user.email);
-          $('#login-block').hide();
-          $('#logout-block').show();
-          if (user.membership_info) {
-            $('#statusdiv').append(' and you are a member.  Your expiration date is ' + user.membership_info.expire_date);
-          }
+          $('.pbs_passport_authenticate div.messages').text('Welcome ' + user.first_name);
+          $('.pbs_passport_authenticate div.messages').append("<img src=" + user.thumbnail_URL + " />");
+          $('.pbs_passport_authenticate button.launch').text('Sign out');
+          $('.pbs_passport_authenticate button.launch').click(logoutFromPBS);
         } else {
-          $('#login-block').show();
-          $('#logout-block').hide();
-        }
+          $('.pbs_passport_authenticate button.launch').click(loginToPBS);
+        } 
       }
     });
   }
 
 
-  function logoutFromPBS() {
+  function logoutFromPBS(event) {
+    event.preventDefault();
     $.ajax({
       url: authenticate_script,
       data: 'logout=true',
       type: 'POST',
       dataType: 'json',
       success: function(response) {
-        $('#login-block').show();
-        $('#logout-block').hide();
-        $('#statusdiv').text('You have logged out');
+        $('.pbs_passport_authenticate div.messages').text('You have signed out');
+        $('.pbs_passport_authenticate button.launch').text('Sign in');
+        $('.pbs_passport_authenticate button.launch').click(loginToPBS);
       }
     });
   }
 
   $(function() {
     checkPBSLogin();
-    $("a.service-login-link").click(function(event) {
-      event.preventDefault();
-      var serviceurl = $(this).attr("href");
-      loginOAuthPBS(serviceurl);
-    });
-    $('#logout-block').click(logoutFromPBS);
   });
 });
 

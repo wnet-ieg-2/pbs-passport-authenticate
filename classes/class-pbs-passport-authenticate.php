@@ -30,14 +30,14 @@ class PBS_Passport_Authenticate {
 	}
 
   public function enqueue_scripts() {
-    wp_register_script( 'pbs_passport_authenticate_js' , $this->assets_url . 'js/pbs_passport.js', array('jquery'), '0.1', true );
+    wp_register_script( 'pbs_passport_authenticate_js' , $this->assets_url . 'js/jquery.pids.js', array('jquery'), '0.1', true );
     wp_enqueue_script( 'pbs_passport_authenticate_js' );
   }
 
   // these next functions setup the custom endpoints
 
   public function setup_rewrite_rules() {
-    add_rewrite_rule( 'pbsoauth/(authenticate|callback|loginform)/?.*$', 'index.php?pbsoauth=$matches[1]', 'top');
+    add_rewrite_rule( 'pbsoauth/(authenticate|callback|loginform|activate)/?.*$', 'index.php?pbsoauth=$matches[1]', 'top');
   }
 
   public function register_query_vars( $vars ) {
@@ -55,6 +55,9 @@ class PBS_Passport_Authenticate {
     if ( get_query_var('pbsoauth')=='loginform' )  {
       $template = trailingslashit($this->dir) . 'templates/loginform.php';
     }
+    if ( get_query_var('pbsoauth')=='activate' )  {
+      $template = trailingslashit($this->dir) . 'templates/activate.php';
+    }
     return $template;
   }
 
@@ -67,10 +70,12 @@ class PBS_Passport_Authenticate {
       $args = $allowed_args;
     }
     $render = $args['render'];
+    $args['laas_authenticate_script'] = site_url('pbsoauth/authenticate');
+    $args['loginform'] = site_url('pbsoauth/loginform');
     $json_args = json_encode($args);
-    $button = '<div class="pbs_passport_authenticate"><button class="launch">' . $args['login_text'] .  '<i class="fa fa-plus-circle"></i></button><div class="messages"></div></div>';
+    $button = '<div class="pbs_passport_authenticate"><button class="launch">' . $args['login_text'] .  '</button><div class="messages"></div></div>';
     $jsonblock = '<script language="javascript">var pbs_passport_authenticate_args = ' . $json_args . ' </script>';
-    $style = '<style>' . file_get_contents($this->assets_dir . '/css/pledge_premiums.css') . '</style>';
+    $style = '';
     $return = '';
     if ($render == 'all'){
       $return = $button . $jsonblock . $style;
@@ -87,4 +92,45 @@ class PBS_Passport_Authenticate {
     }
     return $return;
   }
+
+  public function get_oauth_links(){
+    $defaults = get_option('pbs_passport_authenticate');
+    $oauthroot = $defaults['oauth2_endpoint'];
+    $redirect_uri = site_url('pbsoauth/callback/');
+    $client_id = $defaults['laas_client_id'];
+    
+    $return = array();
+    $return['pbs'] = $oauthroot . 'authorize/?scope=account&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id; 
+    $return['google'] = $oauthroot . 'social/login/google-oauth2/?scope=account&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id;
+    $return['facebook'] = $oauthroot . 'social/login/facebook/?scope=account&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id;
+    return $return;
+  }
+
+  public function get_laas_client(){
+    $defaults = get_option('pbs_passport_authenticate');
+    $laas_args = array(
+      'client_id' => $defaults['laas_client_id'],
+      'client_secret' => $defaults['laas_client_secret'],
+      'oauthroot' => $defaults['oauth2_endpoint'],
+      'redirect_uri' => site_url('/pbsoauth/callback/'),
+      'tokeninfo_cookiename' => 'safdsafa',
+      'userinfo_cookiename' => 'pbs_passport_userinfo',
+      'cryptkey' => 'rioueqnfa2e',
+      'encrypt_iv' => 'adsfafdsaafddsaf'
+    );
+    $laas_client = new PBS_LAAS_Client($laas_args);
+    return $laas_client;
+  }
+
+  public function get_mvault_client(){
+    $defaults = get_option('pbs_passport_authenticate');
+    $mvault_client = new PBS_MVault_Client($defaults['mvault_client_id'], $defaults['mvault_client_secret'],$defaults['mvault_endpoint'], $defaults['station_call_letters']);
+    return $mvault_client;
+  }
+  public function lookup_activation_token($activation_token) {
+    $mvault_client = $this->get_mvault_client();
+    $mvaultinfo = $mvault_client->lookup_activation_token($activation_token);
+    return $mvaultinfo;
+  }
+
 }

@@ -3,42 +3,39 @@ show_admin_bar(false);
 remove_all_actions('wp_footer',1);
 remove_all_actions('wp_header',1);
 
-$defaults = get_option('pbs_passport_authenticate');
 
-$oauthroot = $defaults['oauth2_endpoint'];
-$redirect_uri = site_url('/pbsoauth/callback/');
-$client_id = $defaults['laas_client_id'];
-// initvars
-$pbs_auth_endpoint = $oauthroot . 'authorize/?scope=account&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id;
-$facebook_auth_endpoint = $oauthroot . 'social/login/facebook/?scope=account&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id;
-$google_auth_endpoint = $oauthroot . 'social/login/google-oauth2/?scope=account&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id;
+$passport = new PBS_Passport_Authenticate();
+$links = $passport->get_oauth_links();
+// ADD A NONCE!!
+$laas_client = $passport->get_laas_client();
+$userinfo = $laas_client->check_pbs_login();
+$membership_id = (!empty($_REQUEST['membership_id']) ? $_REQUEST['membership_id'] : false);
+
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login to Thirteen Passport</title>
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="<?php echo plugins_url( 'pbs-passport-authenticate/assets/' ); ?>js/jquery.pids.js"></script>
-<script type="text/javascript">
-  var laas_authenticate_script="<?php echo site_url("pbsoauth/authenticate/"); ?>";
-<?php if (isset($_REQUEST["membership_id"])) { echo 'var membership_id="' . $_REQUEST["membership_id"] . '";';} ?>
-</script>
+<title>Login to Passport</title>
 </head>
 <body>
 <div id = "login-block">
-<h1>Thirteen Passport</h1>
-<p>Choose a service from the list below to login with and get access to member-exclusive video on demand and more</p>
+<h1>Login to Passport</h1>
+<p>Get access to member-exclusive video on demand and more</p>
 <ul>
-<li><a class = "service-login-link" href="<?php echo($google_auth_endpoint); ?>">Login using Google</a></li>
-<li><a class = "service-login-link" href="<?php echo($facebook_auth_endpoint); ?>">Login using Facebook</a></li>
-<li><a class = "service-login-link" href="<?php echo($pbs_auth_endpoint); ?>">Login using PBS</a></li>
+<?php if (empty($userinfo)) { ?>
+<li class = "service-login-link google"><a href="<?php echo($links['google']); ?>">Login using Google</a></li>
+<li class = "service-login-link facebook"><a href="<?php echo($links['facebook']); ?>">Login using Facebook</a></li>
+<li class = "service-login-link pbs"><a href="<?php echo($links['pbs']); ?>">Login using PBS</a></li>
 <li><input type="checkbox" id="rememberme" name="rememberme" value="true" />Keep me logged in on this computer</li>
+<!-- add jquery to make this checkbox a cookie -->
+<?php }
+if (! $membership_id){ ?>
+<li class = "service-login-link activate"><a href="<?php echo site_url('pbsoauth/activate'); ?>">I have an activation code</a></li>
+<?php } ?>
+<li class = "service-login-link becomemember"><a href="<?php echo $join_url; ?>">Become a member</a></li>
 </ul>
 </div>
-
-<div id = "statusdiv"></div>
-<div id = "logout-block"><a> Click here to logout </a><iframe name="PBSAuthIFrame" id="PBSAuthIFrame" style="display:none"></iframe></div>
 
 </body>
 </html>

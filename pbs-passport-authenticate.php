@@ -46,3 +46,14 @@ register_deactivation_hook(__FILE__, 'pbs_passport_authenticate_deactivation');
 function pbs_passport_authenticate_deactivation() {
   //tk
 }
+
+
+//TEMPORARY will find a better way to store this.  
+//it is a server-by-server thing
+function mvault_curl_extras($ch) {
+  curl_setopt($ch, CURLOPT_CAINFO, '/etc/pki/tls/certs/AddTrustExternalCARoot.crt');
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+  return $ch;
+}
+
