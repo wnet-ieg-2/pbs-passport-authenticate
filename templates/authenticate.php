@@ -33,12 +33,6 @@ foreach ($required as $arg) {
 }
 
 
-function mvault_curl_extras($ch) {
-  curl_setopt($ch, CURLOPT_CAINFO, '/etc/pki/tls/certs/AddTrustExternalCARoot.crt');
-  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-  curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-  return $ch;
-}
 
 $laas_args = array(
   'client_id' => $defaults['laas_client_id'],

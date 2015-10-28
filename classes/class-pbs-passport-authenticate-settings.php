@@ -55,6 +55,11 @@ class PBS_Passport_Authenticate_Settings {
     add_settings_section('general_settings', 'General settings', array( $this, 'settings_section_callback'), 'pbs_passport_authenticate');
 
     add_settings_field( 'station_call_letters', 'Station Call Letters', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'station_call_letters', 'class' => 'regular-text', 'label' => 'ID as used by PBS to identify the station, eg "WNET" or "WNJT" not "Thirteen" or "NJTV".  Upper/lower-case unimportant, we automatically transform as needed.'  ) );
+    add_settings_field( 'station_nice_name', 'Station "Nice" Name', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'station_nice_name', 'class' => 'regular-text', 'label' => 'Preferred name for your station, eg "Thirteen" or "Minnesota PTV"'  ) );
+    add_settings_field( 'station_passport_logo', 'Station Passport Logo', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'station_passport_logo', 'class' => 'regular-text', 'label' => 'URL to your logo file that has your station name "locked up" with the Passport logo.  The image will scale as necessary, and should be set for use on a white background.'  ) );
+    add_settings_field( 'help_text', 'Visitor Help Text', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'help_text', 'class' => 'large-text', 'label' => 'Help text to display to users below login forms.  Can include HTML for links.'  ) );
+    add_settings_field( 'join_url', 'Join/Donate URL', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'join_url', 'class' => 'regular-text', 'label' => 'Link to the specific donate form people should be directed to from the login screen.'  ) );
+ 
 
     add_settings_section('pbslaas_settings', 'PBS LAAS settings', array( $this, 'settings_section_callback'), 'pbs_passport_authenticate');
 

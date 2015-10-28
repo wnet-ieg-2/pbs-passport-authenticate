@@ -7,7 +7,7 @@ class PBS_Passport_Authenticate {
 	private $dir;
 	private $file;
 	private $assets_dir;
-	private $assets_url;
+	public $assets_url;
   private $token;
 
 	public function __construct($file) {
@@ -127,6 +127,7 @@ class PBS_Passport_Authenticate {
     $mvault_client = new PBS_MVault_Client($defaults['mvault_client_id'], $defaults['mvault_client_secret'],$defaults['mvault_endpoint'], $defaults['station_call_letters']);
     return $mvault_client;
   }
+
   public function lookup_activation_token($activation_token) {
     $mvault_client = $this->get_mvault_client();
     $mvaultinfo = $mvault_client->lookup_activation_token($activation_token);

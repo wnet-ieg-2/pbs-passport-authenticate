@@ -25,14 +25,6 @@ foreach ($required as $arg) {
   }
 }
 
-
-function mvault_curl_extras($ch) {
-  curl_setopt($ch, CURLOPT_CAINFO, '/etc/pki/tls/certs/AddTrustExternalCARoot.crt');
-  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-  curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-  return $ch;
-}
-
 $laas_args = array(
   'client_id' => $defaults['laas_client_id'],
   'client_secret' => $defaults['laas_client_secret'],
@@ -86,15 +78,15 @@ if (isset($userinfo["pid"])){
   $userinfo['errors'] = $errors;
 
 }
-// store it in its own cookie/session
 
 $login_referrer = site_url();
 
 if (!empty($_COOKIE["pbsoauth_login_referrer"])){
   $login_referrer = $_COOKIE["pbsoauth_login_referrer"];
+   unset($_COOKIE["pbsoauth_login_referrer"]);
 }
 
 
-wp_redirect(site_url($login_referrer));
+wp_redirect($login_referrer);
 exit()
 ?>
