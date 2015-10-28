@@ -16,6 +16,9 @@ $membership_id = (!empty($_REQUEST['membership_id']) ? $_REQUEST['membership_id'
 <div class="pbs-passport-authenticate login-block">
 <div class='passport-middle'>
 <h1>Login to Passport</h1>
+<?php if (!empty($defaults['station_passport_logo'])) {
+  echo '<img src="' . $defaults['station_passport_logo'] . '" />'; 
+} ?>
 <p>Get access to member-exclusive video on demand and more</p>
 <ul>
 <?php if (empty($userinfo)) { ?>
