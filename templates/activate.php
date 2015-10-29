@@ -17,7 +17,6 @@ $activation_token = (!empty($_REQUEST['activation_token']) ? $_REQUEST['activati
 
 if ($activation_token){
   $mvaultinfo = $passport->lookup_activation_token($activation_token);
-  error_log(json_encode($mvaultinfo));
   $return = array();
   if (empty($mvaultinfo['membership_id'])){
     $return['errors'] = 'This activation code is invalid';

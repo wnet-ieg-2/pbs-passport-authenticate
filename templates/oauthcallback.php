@@ -43,9 +43,17 @@ if (isset($_GET["state"])){
   $state=($_GET["state"]);
 }
 
+// this WILL be JWT, for now its just the membership_id
+// $jwt = $passport->jwt_decode($state);
+$membership_id = (!empty($state) ? $state : false);
 
-$rememberme = (isset($_POST["rememberme"])) ? $_POST["rememberme"] : false;
-$nonce = (isset($_POST["nonce"])) ? $_POST["nonce"] : false;
+$rememberme = false;
+if (!empty($_COOKIE["pbsoauth_rememberme"])) {
+  $rememberme = $_COOKIE["pbsoauth_rememberme"];
+}
+
+// nonce is going to be in the jwt
+$nonce = false;
 
 
 $errors = array();
@@ -64,11 +72,22 @@ if (isset($userinfo["pid"])){
 
   $mvault_client = new PBS_MVault_Client($defaults['mvault_client_id'], $defaults['mvault_client_secret'],$defaults['mvault_endpoint'], $defaults['station_call_letters']);
   $mvaultinfo = array();
+  if ($membership_id) {
+    // this is an activation!
+    $mvaultinfo = $mvault_client->get_membership($membership_id);
+    if (isset($mvaultinfo["membership_id"])) {
+      $mvaultinfo = $mvault_client->activate($membership_id, $pbs_uid);
+    }
+  }
+  
+  if (empty($mvaultinfo["membership_id"])){
+    // this wasn't an activation
+    // get the mvault record if available
+    $mvaultinfo = $mvault_client->get_membership_by_uid($pbs_uid);  
+    $errors['byuid'] = $mvaultinfo['errors'];
+  }
 
-  // get the mvault record if available
-  $mvaultinfo = $mvault_client->get_membership_by_uid($pbs_uid);  
-  $errors['byuid'] = $mvaultinfo['errors'];
-  if (isset ($mvaultinfo["membership_id"])) {
+  if (isset($mvaultinfo["membership_id"])) {
     $userinfo["membership_info"] = $mvaultinfo;
     $success = $laas_client->validate_and_append_userinfo($userinfo);
     if ($success) {
@@ -76,7 +95,6 @@ if (isset($userinfo["pid"])){
     }
   }
   $userinfo['errors'] = $errors;
-
 }
 
 $login_referrer = site_url();
@@ -88,5 +106,5 @@ if (!empty($_COOKIE["pbsoauth_login_referrer"])){
 
 
 wp_redirect($login_referrer);
-exit()
+exit();
 ?>

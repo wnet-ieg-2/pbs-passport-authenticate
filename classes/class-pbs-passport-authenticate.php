@@ -134,4 +134,10 @@ class PBS_Passport_Authenticate {
     return $mvaultinfo;
   }
 
+  public function create_authentication_jwt($nonce = null, $membership_id = null) {
+
+
+
+  }
+
 }
