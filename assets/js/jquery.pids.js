@@ -6,7 +6,7 @@ jQuery(document).ready(function($) {
     authenticate_script = pbs_passport_authenticate_args.laas_authenticate_script;
     loginform = pbs_passport_authenticate_args.loginform;
   }
- 
+
    
   function loginToPBS(event) {
     event.preventDefault();
