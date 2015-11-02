@@ -16,27 +16,35 @@ jQuery(document).ready(function($) {
 
  
   function checkPBSLogin() {
-    $.ajax({
-      url: authenticate_script,
-      data: null,
-      type: 'POST',
-      dataType: 'json',
-      success: function(response) {
-        user = response;
-        console.log(user);
-        if (user){
-          $('.pbs_passport_authenticate div.messages').text('Welcome ' + user.first_name);
-          $('.pbs_passport_authenticate div.messages').append("<img src=" + user.thumbnail_URL + " />");
-          $('.pbs_passport_authenticate button.launch').addClass('logout');
-          $('.pbs_passport_authenticate button.launch').text('Sign out');
-          $('.pbs_passport_authenticate button.launch').click(logoutFromPBS);
-        } else {
-          $('.pbs_passport_authenticate button.launch').click(loginToPBS);
-        } 
-      }
-    });
+    var currentlogin_raw = $.cookie('pbs_passport_userinfo');
+    user = JSON.parse(currentlogin_raw);
+    if (user) {
+      updateLoginVisuals(user);
+    } else {
+      $.ajax({
+        url: authenticate_script,
+        data: null,
+        type: 'POST',
+        dataType: 'json',
+        success: function(response) {
+          user = response;
+          updateLoginVisuals(user);
+        }
+      });
+    }
   }
 
+  function updateLoginVisuals(user){
+    if (user){
+      $('.pbs_passport_authenticate div.messages').text('Welcome ' + user.first_name);
+      $('.pbs_passport_authenticate div.messages').append("<img src=" + user.thumbnail_URL + " />");
+      $('.pbs_passport_authenticate button.launch').addClass('logout');
+      $('.pbs_passport_authenticate button.launch').text('Sign out');
+      $('.pbs_passport_authenticate button.launch').click(logoutFromPBS);
+    } else {
+      $('.pbs_passport_authenticate button.launch').click(loginToPBS);
+    }
+  }
 
   function logoutFromPBS(event) {
     event.preventDefault();
@@ -48,7 +56,7 @@ jQuery(document).ready(function($) {
       success: function(response) {
         $('.pbs_passport_authenticate div.messages').text('You have signed out');
         $('.pbs_passport_authenticate button.launch').text('Sign in');
-		$('.pbs_passport_authenticate button.launch').removeClass('logout');
+		    $('.pbs_passport_authenticate button.launch').removeClass('logout');
         $('.pbs_passport_authenticate button.launch').click(loginToPBS);
       }
     });

@@ -247,7 +247,7 @@ class PBS_LAAS_Client {
     } 
     // compare the PBS provided fields with the corresponding fields passed
     foreach ($userinfo as $key => $value) {
-      if (isset ($current_userinfo[$key]) && $current_userinfo[$key] != $value) {
+      if (isset ($current_userinfo->$key) && $current_userinfo->$key != $value) {
         return false;
       }
     }
@@ -478,7 +478,8 @@ class PBS_LAAS_Client {
     } elseif (isset($_COOKIE[$this->userinfo_cookiename])) {
       $userinfo_json = $_COOKIE[$this->userinfo_cookiename];
     }
-    $userinfo = base64_decode(json_decode($userinfo_json));
+    //$userinfo = base64_decode(json_decode($userinfo_json));
+    $userinfo = json_decode($userinfo_json);
     if (isset($userinfo->email)){
       return $userinfo;
     } else {
@@ -511,16 +512,18 @@ class PBS_LAAS_Client {
 
   private function store_pbs_userinfo($userinfo) {
     $userinfo_json = json_encode($userinfo);
-    $userinfo_json_64=base64_encode($userinfo_json);
+    //$userinfo_json_64=base64_encode($userinfo_json);
     if (isset($userinfo['email'])){
       // store the profile info in the session
       if (isset( $_SESSION )) {
-        $_SESSION[$this->userinfo_cookiename] = $userinfo_json_64;
+        //$_SESSION[$this->userinfo_cookiename] = $userinfo_json_64;
+        $_SESSION[$this->userinfo_cookiename] = $userinfo_json;
       }
 
       // optionally store profile info in a cookie
       if ($this->rememberme) {
-        setcookie($this->userinfo_cookiename, $userinfo_json_64, strtotime("+1 hour"), "/", $this->domain, false, false);
+        //setcookie($this->userinfo_cookiename, $userinfo_json_64, strtotime("+1 hour"), "/", $this->domain, false, false);
+        setcookie($this->userinfo_cookiename, $userinfo_json, strtotime("+1 hour"), "/", $this->domain, false, false);
       } else {
         setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, false, false);
       }

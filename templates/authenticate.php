@@ -60,6 +60,7 @@ if (isset($_POST["code"])){
   $userinfo = $laas_client->check_pbs_login();
 }
 
+$userinfo = get_object_vars($userinfo);
 // now we either have userinfo or null.
 
 if (! isset($userinfo["pid"])){
