@@ -63,7 +63,6 @@ if (isset($_GET["code"])){
 }
 
 // now we either have userinfo or null.
-
 if (isset($userinfo["pid"])){
 
   $pbs_uid = $userinfo["pid"];
@@ -91,7 +90,7 @@ if (isset($userinfo["pid"])){
     $userinfo["membership_info"] = $mvaultinfo;
     $success = $laas_client->validate_and_append_userinfo($userinfo);
     if ($success) {
-      //$userinfo = $success;
+      $userinfo = $success;
     }
   }
   $userinfo['errors'] = $errors;

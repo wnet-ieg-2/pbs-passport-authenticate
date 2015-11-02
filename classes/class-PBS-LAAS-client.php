@@ -198,7 +198,7 @@ class PBS_LAAS_Client {
 
     $userinfo = $this->retrieve_pbs_userinfo();
 
-    // if the user has logged out, or the session or cookie has expired
+    // if the user has logged out, or the cookie has expired
     if (! $userinfo) {
       // use access tokens to get the most recent info
 
@@ -264,9 +264,7 @@ class PBS_LAAS_Client {
   }
 
   public function logout() {
-     unset($_SESSION[$this->userinfo_cookiename]);
      setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, false, true);
-     unset($_SESSION[$this->tokeninfo_cookiename]);
      setcookie($this->tokeninfo_cookiename, NULL, -1, "/", $this->domain, false, true);
   }
 
@@ -378,10 +376,8 @@ class PBS_LAAS_Client {
 
   private function retrieve_encrypted_tokeninfo() {
 
-    // check for encrypted tokeninfo in session or cookie
-    if (isset( $_SESSION ) && isset($_SESSION[$this->tokeninfo_cookiename])) {
-      $tokeninfo = $_SESSION[$this->tokeninfo_cookiename];
-    } elseif (isset($_COOKIE[$this->tokeninfo_cookiename])){
+    // check for encrypted tokeninfo in cookie
+    if (isset($_COOKIE[$this->tokeninfo_cookiename])){
        $tokeninfo = $_COOKIE[$this->tokeninfo_cookiename];
     }
   
@@ -408,11 +404,6 @@ class PBS_LAAS_Client {
       $tokeninfo = $encrypted;
     }
 
-    // save encrypted tokeninfo in session
-
-    if (isset( $_SESSION )) {
-      $_SESSION[$this->tokeninfo_cookiename] = $tokeninfo;
-    }
     if ($this->rememberme) {
       // save encrypted tokeninfo in cookie if it exists or the user checked the remember me box
       return setcookie($this->tokeninfo_cookiename, $tokeninfo, strtotime("+1 year"), "/", $this->domain, false, true);
@@ -473,12 +464,9 @@ class PBS_LAAS_Client {
 
   private function retrieve_pbs_userinfo() {
     // check for profile info in session or cookie
-    if (isset($_SESSION) && isset($_SESSION[$this->userinfo_cookiename])){
-      $userinfo_json = $_SESSION[$this->userinfo_cookiename];
-    } elseif (isset($_COOKIE[$this->userinfo_cookiename])) {
+    if (isset($_COOKIE[$this->userinfo_cookiename])) {
       $userinfo_json = $_COOKIE[$this->userinfo_cookiename];
     }
-    //$userinfo = base64_decode(json_decode($userinfo_json));
     $userinfo = json_decode($userinfo_json);
     if (isset($userinfo->email)){
       return $userinfo;
@@ -512,26 +500,13 @@ class PBS_LAAS_Client {
 
   private function store_pbs_userinfo($userinfo) {
     $userinfo_json = json_encode($userinfo);
-    //$userinfo_json_64=base64_encode($userinfo_json);
     if (isset($userinfo['email'])){
-      // store the profile info in the session
-      if (isset( $_SESSION )) {
-        //$_SESSION[$this->userinfo_cookiename] = $userinfo_json_64;
-        $_SESSION[$this->userinfo_cookiename] = $userinfo_json;
-      }
-
-      // optionally store profile info in a cookie
-      if ($this->rememberme) {
-        //setcookie($this->userinfo_cookiename, $userinfo_json_64, strtotime("+1 hour"), "/", $this->domain, false, false);
-        setcookie($this->userinfo_cookiename, $userinfo_json, strtotime("+1 hour"), "/", $this->domain, false, false);
-      } else {
-        setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, false, false);
-      }
+      //  store profile info in a cookie
+      setcookie($this->userinfo_cookiename, $userinfo_json, strtotime("+1 hour"), "/", $this->domain, false, false);
       // return the profile info if there was any
-      return true;
+      return $userinfo;
     } else {
       //no email in userinfo means no data from userinfo, so we're not authenticated
-      unset($_SESSION[$this->userinfo_cookiename]);
       setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, false, false);
       return false;
     }

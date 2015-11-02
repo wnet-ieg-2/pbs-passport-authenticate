@@ -58,12 +58,14 @@ if (isset($_POST["code"])){
   $userinfo = $laas_client->logout();
 } else {
   $userinfo = $laas_client->check_pbs_login();
+  if (is_object($userinfo)) {
+    $userinfo = get_object_vars($userinfo);
+  }
 }
 
-$userinfo = get_object_vars($userinfo);
 // now we either have userinfo or null.
 
-if (! isset($userinfo["pid"])){
+if (empty($userinfo["pid"])){
   // we're not logged in, so exit
   echo json_encode($userinfo);
   die();
@@ -91,7 +93,7 @@ if (isset ($mvaultinfo["membership_id"])) {
   $userinfo["membership_info"] = $mvaultinfo;
   $success = $laas_client->validate_and_append_userinfo($userinfo);
   if ($success) {
-    //$userinfo = $success;
+    $userinfo = $success;
   }
 }
 $userinfo['errors'] = $errors;
