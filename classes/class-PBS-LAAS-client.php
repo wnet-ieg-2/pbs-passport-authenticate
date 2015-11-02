@@ -80,7 +80,9 @@ class PBS_LAAS_Client {
   private $cryptkey;
   private $encrypt_method;
   private $encrypt_iv;
+  private $domain;
   public $nonce;
+  
 
   public function __construct($args){
     $this->client_id = $args['client_id'];
@@ -527,7 +529,7 @@ class PBS_LAAS_Client {
     } else {
       //no email in userinfo means no data from userinfo, so we're not authenticated
       unset($_SESSION[$this->userinfo_cookiename]);
-      setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, false, true);
+      setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, false, false);
       return false;
     }
   }

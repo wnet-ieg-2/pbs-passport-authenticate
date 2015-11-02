@@ -101,7 +101,7 @@ $login_referrer = site_url();
 
 if (!empty($_COOKIE["pbsoauth_login_referrer"])){
   $login_referrer = $_COOKIE["pbsoauth_login_referrer"];
-  setcookie( 'pbsoauth_login_referrer', '', 1, '/', $_SERVER['SERVER_NAME']);
+  setcookie( 'pbsoauth_login_referrer', '', 1, '/', $_SERVER['HTTP_HOST']);
 }
 
 
