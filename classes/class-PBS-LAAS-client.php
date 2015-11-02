@@ -499,7 +499,6 @@ class PBS_LAAS_Client {
     $userinfo = json_decode($userinfo_json, true);
     if (isset($userinfo['email'])){
       //for debugging ONLY
-      $userinfo['access_token'] = $access_token;
       return $userinfo;
     } else {
       $userinfo['curlinfo'] = $info;
@@ -519,9 +518,9 @@ class PBS_LAAS_Client {
 
       // optionally store profile info in a cookie
       if ($this->rememberme) {
-        setcookie($this->userinfo_cookiename, $userinfo_json_64, strtotime("+1 hour"), "/", $this->domain, false, true);
+        setcookie($this->userinfo_cookiename, $userinfo_json_64, strtotime("+1 hour"), "/", $this->domain, false, false);
       } else {
-        setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, false, true);
+        setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, false, false);
       }
       // return the profile info if there was any
       return true;

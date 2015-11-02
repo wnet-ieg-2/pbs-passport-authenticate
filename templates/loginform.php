@@ -1,6 +1,9 @@
 <?php
 $defaults = get_option('pbs_passport_authenticate');
 $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
+
+wp_enqueue_script( 'pbs_passport_loginform_js' , $passport->assets_url . 'js/loginform_helpers.js', array('jquery'), $passport->version, true );
+
 $links = $passport->get_oauth_links();
 $pluginImageDir = $passport->assets_url . 'img';
 $station_nice_name = $defaults['station_nice_name'];
@@ -48,7 +51,7 @@ if ($membership_id){
 <li class = "service-login-link google"><a href="<?php echo($links['google']); ?>"><img src="<?php echo $pluginImageDir; ?>/button-google.png" alt="Login using Google"/></a></li>
 <li class = "service-login-link facebook"><a href="<?php echo($links['facebook']); ?>"><img src="<?php echo $pluginImageDir; ?>/button-facebook.png" alt="Login using Facebook"/></a></li>
 <li class = "service-login-link pbs"><a href="<?php echo($links['pbs']); ?>"><img src="<?php echo $pluginImageDir; ?>/button-pbs.png" alt="Login using PBS"></a></li>
-<li class="service-stay-logged-in"><input type="checkbox" id="rememberme" name="rememberme" value="true" /> Keep me logged in on this computer</li>
+<li class="service-stay-logged-in"><input type="checkbox" id="pbsoauth_rememberme" name="pbsoauth_rememberme" value="true" /> Keep me logged in on this computer</li>
 <!-- add jquery to make this checkbox a cookie -->
 <?php }
 if (!$membership_id){ ?>

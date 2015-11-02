@@ -27,7 +27,7 @@ jQuery(document).ready(function($) {
         if (user){
           $('.pbs_passport_authenticate div.messages').text('Welcome ' + user.first_name);
           $('.pbs_passport_authenticate div.messages').append("<img src=" + user.thumbnail_URL + " />");
-		  $('.pbs_passport_authenticate button.launch').addClass('logout');
+          $('.pbs_passport_authenticate button.launch').addClass('logout');
           $('.pbs_passport_authenticate button.launch').text('Sign out');
           $('.pbs_passport_authenticate button.launch').click(logoutFromPBS);
         } else {

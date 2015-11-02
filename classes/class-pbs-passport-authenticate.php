@@ -7,8 +7,10 @@ class PBS_Passport_Authenticate {
 	private $dir;
 	private $file;
 	private $assets_dir;
-	public $assets_url;
   private $token;
+
+	public $assets_url;
+  public $version;
 
 	public function __construct($file) {
 		$this->dir = dirname( $file );
@@ -16,6 +18,7 @@ class PBS_Passport_Authenticate {
 		$this->assets_dir = trailingslashit( $this->dir ) . 'assets';
 		$this->assets_url = esc_url( trailingslashit( plugins_url( '/assets/', $file ) ) );
     $this->token = 'pbs_passport_authenticate';
+    $this->version = '1';
 
 		// Load public-facing style sheet and JavaScript.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -30,8 +33,10 @@ class PBS_Passport_Authenticate {
 	}
 
   public function enqueue_scripts() {
-    wp_register_script( 'pbs_passport_authenticate_js' , $this->assets_url . 'js/jquery.pids.js', array('jquery'), '0.1', true );
+    wp_register_script( 'pbs_passport_authenticate_js' , $this->assets_url . 'js/jquery.pids.js', array('jquery'), $this->version, true );
     wp_enqueue_script( 'pbs_passport_authenticate_js' );
+    //only register this one, we'll enqueue it on just the loginform
+    wp_register_script( 'pbs_passport_loginform_js' , $this->assets_url . 'js/loginform_helpers.js', array('jquery'), $this->version, true );
   }
 
   // these next functions setup the custom endpoints

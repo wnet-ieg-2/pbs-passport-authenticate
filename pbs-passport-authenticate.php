@@ -22,8 +22,6 @@ require_once( 'classes/class-pbs-passport-authenticate-settings.php' );
 require_once('classes/class-PBS-LAAS-client.php');
 require_once('classes/class-PBS-MVault-client.php');
 
-
-
 global $plugin_obj;
 $plugin_obj = new PBS_Passport_Authenticate( __FILE__ );
 
