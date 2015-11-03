@@ -89,12 +89,14 @@ if (! isset($mvaultinfo["membership_id"])) {
   $mvaultinfo = $mvault_client->get_membership_by_uid($pbs_uid);  
   $errors['byuid'] = $mvaultinfo['errors'];
 }
+// preset these for later cleanup
+$userinfo["membership_info"] = array("offer" => null, "status" => "Off");
 if (isset ($mvaultinfo["membership_id"])) {
   $userinfo["membership_info"] = $mvaultinfo;
-  $success = $laas_client->validate_and_append_userinfo($userinfo);
-  if ($success) {
-    $userinfo = $success;
-  }
+}
+$success = $laas_client->validate_and_append_userinfo($userinfo);
+if ($success) {
+  $userinfo = $success;
 }
 $userinfo['errors'] = $errors;
 
