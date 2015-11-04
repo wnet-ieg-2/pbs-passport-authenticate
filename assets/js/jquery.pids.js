@@ -58,10 +58,7 @@ jQuery(document).ready(function($) {
       type: 'POST',
       dataType: 'json',
       success: function(response) {
-        $('.pbs_passport_authenticate div.messages').text('You have signed out');
-        $('.pbs_passport_authenticate button.launch').text('Sign in');
-		    $('.pbs_passport_authenticate button.launch').removeClass('logout');
-        $('.pbs_passport_authenticate button.launch').click(loginToPBS);
+        window.location.href = window.location.protocol + '//' + window.location.host;
       }
     });
   }
