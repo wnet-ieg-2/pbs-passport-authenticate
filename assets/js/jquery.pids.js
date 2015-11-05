@@ -2,6 +2,7 @@ jQuery(document).ready(function($) {
 
   var authenticate_script = '/authenticate';
   var loginform = '/loginform';
+  var joinlink = "http://support.thirteen.org/thirteen_topbutton";
   if (typeof pbs_passport_authenticate_args !== "undefined"){
     authenticate_script = pbs_passport_authenticate_args.laas_authenticate_script;
     loginform = pbs_passport_authenticate_args.loginform;
@@ -10,8 +11,18 @@ jQuery(document).ready(function($) {
    
   function loginToPBS(event) {
     event.preventDefault();
-    document.cookie='pbsoauth_login_referrer=' + window.location + ';domain=' + window.location.hostname + ';path=/';
+    if (window.location != loginform) {
+      document.cookie='pbsoauth_login_referrer=' + window.location + ';domain=' + window.location.hostname + ';path=/';
+    }
     window.location = loginform;
+  }
+
+  function joinPBS(event) {
+    event.preventDefault();
+    if (window.location != loginform) {
+      document.cookie='pbsoauth_login_referrer=' + window.location + ';domain=' + window.location.hostname + ';path=/';
+    }
+    window.location = joinlink;
   }
 
  
@@ -46,7 +57,10 @@ jQuery(document).ready(function($) {
       $('.pbs_passport_authenticate button.launch').click(logoutFromPBS);
       console.log(user);
     } else {
-      $('.pbs_passport_authenticate button.launch').click(loginToPBS);
+      setTimeout(function() {
+        $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_login').click(loginToPBS);
+        $('.pbs_passport_authenticate_join').click(joinPBS);
+      }, 500);
     }
   }
 
