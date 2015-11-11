@@ -42,7 +42,7 @@ function pbs_passport_authenticate_activation() {
 register_deactivation_hook(__FILE__, 'pbs_passport_authenticate_deactivation');
 
 function pbs_passport_authenticate_deactivation() {
-  //tk
+  flush_rewrite_rules();
 }
 
 
@@ -54,4 +54,12 @@ function mvault_curl_extras($ch) {
   curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
   return $ch;
 }
+
+
+function pbs_passport_authenticate_render_video($vidid) {
+
+
+
+}
+
 

@@ -44,7 +44,7 @@ class PBS_Passport_Authenticate {
   // these next functions setup the custom endpoints
 
   public function setup_rewrite_rules() {
-    add_rewrite_rule( 'pbsoauth/(authenticate|callback|loginform|activate)/?.*$', 'index.php?pbsoauth=$matches[1]', 'top');
+    add_rewrite_rule( 'pbsoauth/(authenticate|callback|loginform|activate|userinfo)/?.*$', 'index.php?pbsoauth=$matches[1]', 'top');
   }
 
   public function register_query_vars( $vars ) {
@@ -64,6 +64,9 @@ class PBS_Passport_Authenticate {
     }
     if ( get_query_var('pbsoauth')=='activate' )  {
       $template = trailingslashit($this->dir) . 'templates/activate.php';
+    }
+    if ( get_query_var('pbsoauth')=='userinfo' )  {
+      $template = trailingslashit($this->dir) . 'templates/userinfo.php';
     }
     return $template;
   }
