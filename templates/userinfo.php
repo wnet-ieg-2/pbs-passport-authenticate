@@ -48,6 +48,10 @@ if ($userinfo['membership_info']['offer'] != "" && $userinfo['membership_info'][
 	if ($defaults['watch_url'] != "") {echo "<p><a href='".$defaults['watch_url']."' class='passport-txt-button'>Watch Programs</a></p>";}
 }
 
+else {
+	echo "<p>" . $defaults['station_nice_name'] . " Passport <i class='fa fa-times-circle passport-red'></i></p>";
+	if ($defaults['join_url'] != "") {echo "<p><a href='".$defaults['join_url']."' class='passport-txt-button'>Renew Membership</a></p>";}
+}
 
 
 
@@ -55,7 +59,7 @@ if ($userinfo['membership_info']['offer'] != "" && $userinfo['membership_info'][
 echo "<p>" . $defaults['help_text'] . "</p>"; ?>
 
 
-<i class="fa fa-times-circle"></i>
+
 
 
 </div>
