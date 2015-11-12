@@ -32,7 +32,7 @@ get_header();
 }
 
 echo "<h3>USER STATUS</h3>";
-echo '<h2>' . $userinfo['first_name'] . ' ' . $userinfo['last_name'] . '</h2>';
+echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
 
   //echo print_r($userinfo['membership_info']);    
 
