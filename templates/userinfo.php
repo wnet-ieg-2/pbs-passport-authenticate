@@ -46,24 +46,26 @@ if (!empty($userinfo['membership_info']['first_name'])) {
   
   $station_nice_name = $defaults['station_nice_name'];
   $join_url = $defaults['join_url'];
-  
+  $watch_url = $defaults['watch_url'];
 
 if ($userinfo['membership_info']['offer'] != "" && $userinfo['membership_info']['status'] == "On") {
 	// active member
 	echo "<p>$station_nice_name Passport <i class='fa fa-check-circle passport-green'></i></p>";
-	if ($defaults['watch_url'] != "") {echo "<p><a href='".$defaults['watch_url']."' class='passport-txt-button'>Watch Programs</a></p>";}
+	if ($watch_url != "") {echo "<p><a href='$watch_url' class='passport-txt-button'>Watch Programs</a></p>";}
 }
 
 elseif ($userinfo['membership_info']['offer'] == "" && $userinfo['membership_info']['status'] == "Off") {
 	// not a member
-	echo "<p>" . $defaults['station_nice_name'] . " Passport <i class='fa fa-times-circle passport-red'></i></p>";
+	echo "<p>$station_nice_name Passport <i class='fa fa-times-circle passport-red'></i></p>";
 	if (!$membership_id){ 
 		$active_url = site_url('pbsoauth/activate');
 		echo "<li class='service-section-label'>$station_nice_name Members who have not activated their accounts:</li>";
 		echo "<li class='service-login-link activate'><a href='$active_url'><img src='$pluginImageDir/button-activate-account.png' alt='Activate Account'/></a></li>";
-		 if (!empty($join_url)) { echo "<li class='service-section-label'>Not a Member?</li>
-<li class='service-login-link becomemember'><a href='$join_url'><img src='$pluginImageDir/button-become-a-member.png' alt='Become a member'/></a></li>";}
+		 if (!empty($join_url)) { 
+		 	echo "<li class='service-section-label'>Not a Member?</li>";
+			echo "<li class='service-login-link becomemember'><a href='$join_url'><img src='$pluginImageDir/button-become-a-member.png' alt='Become a member'/></a></li>";
 	}
+}
 
 else {
 	// expired member
