@@ -40,7 +40,7 @@ if (!empty($userinfo['membership_info']['first_name'])) {
 
 
 
-if ($userinfo['membership_info']['offer'] != "" && $userinfo['membership_info']['status'] == "on") {
+if ($userinfo['membership_info']['offer'] != "" && $userinfo['membership_info']['status'] == "On") {
 	echo $defaults['station_nice_name'] . " Passport <i class='fa fa-check-circle passport-green'></i>";
 }
 
