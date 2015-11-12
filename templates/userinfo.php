@@ -34,11 +34,8 @@ get_header();
 echo "<h3>USER STATUS</h3>";
 echo '<h2>' . $userinfo['first_name'] . ' ' . $userinfo['last_name'] . '</h2>';
 
+  //echo print_r($userinfo['membership_info']);    
 
-
- echo "<hr>";
-  echo print_r($userinfo['membership_info']);    
-  echo "<hr>";
 
   
   $station_nice_name = $defaults['station_nice_name'];
