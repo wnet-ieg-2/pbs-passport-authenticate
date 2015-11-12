@@ -43,15 +43,20 @@ if (!empty($userinfo['membership_info']['first_name'])) {
   echo print_r($userinfo['membership_info']);    
   echo "<hr>";
 
+  
+  $station_nice_name = $defaults['station_nice_name'];
+  $join_url = $defaults['join_url'];
+  $watch_url = $defaults['watch_url'];
+  
 
 if ($userinfo['membership_info']['offer'] != "" && $userinfo['membership_info']['status'] == "On") {
-	echo "<p>" . $defaults['station_nice_name'] . " Passport <i class='fa fa-check-circle passport-green'></i></p>";
-	if ($defaults['watch_url'] != "") {echo "<p><a href='".$defaults['watch_url']."' class='passport-txt-button'>Watch Programs</a></p>";}
+	echo "<p>$station_nice_name Passport <i class='fa fa-check-circle passport-green'></i></p>";
+	if (!empty($watch_url)) {echo "<p><a href='$watch_url' class='passport-txt-button'>Watch Programs</a></p>";}
 }
 
 else {
-	echo "<p>" . $defaults['station_nice_name'] . " Passport <i class='fa fa-times-circle passport-red'></i></p>";
-	if ($defaults['join_url'] != "") {echo "<p><a href='".$defaults['join_url']."' class='passport-txt-button'>Renew Membership</a></p>";}
+	echo "<p>$station_nice_name Passport <i class='fa fa-times-circle passport-red'></i></p>";
+	if (!empty($join_url)) {echo "<p><a href='$join_url' class='passport-txt-button'>Renew Membership</a></p>";}
 }
 
 
