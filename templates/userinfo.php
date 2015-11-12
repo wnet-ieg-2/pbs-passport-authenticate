@@ -31,11 +31,8 @@ get_header();
   echo '<img src="' . $defaults['station_passport_logo'] . '" />'; 
 }
 
-echo '<h2>Welcome ' . $userinfo['first_name'] . ' ' . $userinfo['last_name'] . '</h2>';
-
-if (!empty($userinfo['membership_info']['first_name'])) {
-  ?><p>Your membership info is connected to your login.  Hooray!</p><?php
-}
+echo "<h3>USER STATUS</h3>";
+echo '<h2>' . $userinfo['first_name'] . ' ' . $userinfo['last_name'] . '</h2>';
 
 
 
