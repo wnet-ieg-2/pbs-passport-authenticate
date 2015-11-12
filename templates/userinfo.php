@@ -35,14 +35,17 @@ echo '<h2>Welcome ' . $userinfo['first_name'] . ' ' . $userinfo['last_name'] . '
 
 if (!empty($userinfo['membership_info']['first_name'])) {
   ?><p>Your membership info is connected to your login.  Hooray!</p><?php
+
+ echo "<hr>";
   echo print_r($userinfo['membership_info']);    
+  echo "<hr>";
 }
 
 
 
 if ($userinfo['membership_info']['offer'] != "" && $userinfo['membership_info']['status'] == "On") {
 	echo "<p>" . $defaults['station_nice_name'] . " Passport <i class='fa fa-check-circle passport-green'></i></p>";
-	if ($defaults['watch_url'] != "") {echo "<p><a href='".$defaults['watch_url']."' class='passport-watch-programs'>Watch Programs</a></p>";}
+	if ($defaults['watch_url'] != "") {echo "<p><a href='".$defaults['watch_url']."' class='passport-txt-button'>Watch Programs</a></p>";}
 }
 
 
