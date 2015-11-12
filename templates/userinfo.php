@@ -37,7 +37,23 @@ if (!empty($userinfo['membership_info']['first_name'])) {
   ?><p>Your membership info is connected to your login.  Hooray!</p><?php
   echo print_r($userinfo['membership_info']);    
 }
-echo "</ul><p>" . $defaults['help_text'] . "</p>"; ?>
+
+
+
+if ($userinfo['membership_info']['offer'] != "" && $userinfo['membership_info']['status'] == "on") {
+	echo $defaults['station_nice_name'] . " Passport <i class='fa fa-check-circle passport-green'></i>";
+}
+
+
+
+
+
+echo "<p>" . $defaults['help_text'] . "</p>"; ?>
+
+
+<i class="fa fa-times-circle"></i>
+
+
 </div>
 </div>
 </div>
