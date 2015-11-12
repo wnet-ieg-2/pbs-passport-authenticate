@@ -29,9 +29,10 @@ if ($membership_id) {
 
 get_header();
 ?>
-<div class='pbs-passport-authenticate-wrap cf'>
+<div class='pbs-passport-authenticate-wrap wide cf'>
 <div class="pbs-passport-authenticate login-block">
 <div class='passport-middle'>
+<div class='before-login'>
 <?php if (!empty($defaults['station_passport_logo'])) {
   echo '<img src="' . $defaults['station_passport_logo'] . '" />'; 
 }
@@ -43,6 +44,8 @@ if ($membership_id){
   echo '<p>Get access to member-exclusive video on demand and more</p>';
 }
  ?>
+ </div>
+ <div class='login-wrap cf'>
 <ul>
 <?php if (empty($userinfo)) {
   if (!$membership_id){ ?>
@@ -52,6 +55,9 @@ if ($membership_id){
 <li class = "service-login-link facebook"><a href="<?php echo($links['facebook']); ?>"><img src="<?php echo $pluginImageDir; ?>/button-facebook.png" alt="Login using Facebook"/></a></li>
 <li class = "service-login-link pbs"><a href="<?php echo($links['pbs']); ?>"><img src="<?php echo $pluginImageDir; ?>/button-pbs.png" alt="Login using PBS"></a></li>
 <li class="service-stay-logged-in"><input type="checkbox" id="pbsoauth_rememberme" name="pbsoauth_rememberme" value="true" /> Keep me logged in on this computer</li>
+
+</ul>
+<ul>
 <!-- add jquery to make this checkbox a cookie -->
 <?php }
 if (!$membership_id){ ?>
@@ -64,7 +70,13 @@ if (!empty($defaults['join_url'])) {
 <li class = "service-login-link becomemember"><a href="<?php echo $defaults['join_url']; ?>"><img src="<?php echo $pluginImageDir; ?>/button-become-a-member.png" alt="Become a member"/></a></li>
 <?php }
 }
-echo "</ul><p>" . $defaults['help_text'] . "</p>"; ?>
+
+echo "<li><p>" . $defaults['help_text'] . "</p></li>";
+
+echo "</ul>"; ?>
+
+</div><!-- .login-wrap -->
+
 </div>
 </div>
 </div>
