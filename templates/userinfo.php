@@ -58,14 +58,19 @@ elseif ($userinfo['membership_info']['offer'] == "" && $userinfo['membership_inf
 	// not a member
 	$active_url = site_url('pbsoauth/activate');
 	
-	echo "<p>$station_nice_name Passport <i class='fa fa-times-circle passport-red'></i></p>";
-	echo "<li class='service-section-label'>$station_nice_name Members who have not activated their accounts:</li>";
-	echo "<li class='service-login-link activate'><a href='$active_url'><img src='$pluginImageDir/button-activate-account.png' alt='Activate Account'/></a></li>";
+	echo "<li><p>$station_nice_name Passport <i class='fa fa-times-circle passport-red'></i></p></li>";
 	
+	echo "<li class='service-section-label'>I'm a member <strong>with</strong> an activation code</li>";
+	echo "<li class='service-login-link activate'><a href='$active_url'><img src='$pluginImageDir/button-activate-account.png' alt='Activate Account'/></a></li>";
+
 	if (!empty($join_url)) { 
+		echo "<li class='service-section-label'>I'm a member <strong>without</strong> an activation code</li>";
+		echo "<li class='service-login-link donatenow'><a href='$join_url'><img src='$pluginImageDir/button-donate-now.png' alt='Donate Now'/></a></li>";
+		
 	 	echo "<li class='service-section-label'>Not a Member?</li>";
 		echo "<li class='service-login-link becomemember'><a href='$join_url'><img src='$pluginImageDir/button-become-a-member.png' alt='Become a member'/></a></li>";
 	}
+	
 }
 
 else {
