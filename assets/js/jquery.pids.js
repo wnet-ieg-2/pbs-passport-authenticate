@@ -3,6 +3,7 @@ jQuery(document).ready(function($) {
   var authenticate_script = '/authenticate';
   var loginform = '/loginform';
   var joinlink = "http://support.thirteen.org/thirteen_topbutton";
+  var userinfolink = '/pbsoauth/userinfo/';
   if (typeof pbs_passport_authenticate_args !== "undefined"){
     authenticate_script = pbs_passport_authenticate_args.laas_authenticate_script;
     loginform = pbs_passport_authenticate_args.loginform;
@@ -50,7 +51,12 @@ jQuery(document).ready(function($) {
 
   function updateLoginVisuals(user){
     if (user){
-      $('.pbs_passport_authenticate div.messages').text('Welcome ' + user.first_name);
+      welcomestring = 'Welcome <a href="' + userinfolink + '">' + user.first_name;
+      if (user.membership_info.offer) {
+        welcomestring += '<div class="passport-icon"></div>';
+      } 
+       welcomestring += '</a>';
+      $('.pbs_passport_authenticate div.messages').html(welcomestring);
       $('.pbs_passport_authenticate div.messages').append("<img src=" + user.thumbnail_URL + " />");
       $('.pbs_passport_authenticate button.launch').addClass('logout');
       $('.pbs_passport_authenticate button.launch').text('Sign out');
