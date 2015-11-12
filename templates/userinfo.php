@@ -42,7 +42,7 @@ if (!empty($userinfo['membership_info']['first_name'])) {
 
 if ($userinfo['membership_info']['offer'] != "" && $userinfo['membership_info']['status'] == "On") {
 	echo "<p>" . $defaults['station_nice_name'] . " Passport <i class='fa fa-check-circle passport-green'></i></p>";
-	if ($defaults['watch_url'] != "") {echo "<p><a href='".$defaults['watch_url']."'>WATCH VIDEO</a></p>";}
+	if ($defaults['watch_url'] != "") {echo "<p><a href='".$defaults['watch_url']."' class='passport-watch-programs'>Watch Programs</a></p>";}
 }
 
 
