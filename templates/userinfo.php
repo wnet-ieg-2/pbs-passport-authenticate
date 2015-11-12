@@ -48,7 +48,7 @@ echo '<h2>' . $userinfo['first_name'] . ' ' . $userinfo['last_name'] . '</h2>';
 
 /* active member */
 if ($userinfo['membership_info']['offer'] != "" && $userinfo['membership_info']['status'] == "On") {
-	echo "<p>$station_nice_name Passport <i class='fa fa-check-circle passport-green'></i></p>";
+	echo "<p class='passport-status'>$station_nice_name Passport <i class='fa fa-check-circle passport-green'></i></p>";
 	if (!empty($watch_url)) {echo "<p><a href='$watch_url' class='passport-txt-button'>Watch Programs</a></p>";}
 }
 
@@ -56,7 +56,7 @@ if ($userinfo['membership_info']['offer'] != "" && $userinfo['membership_info'][
 elseif ($userinfo['membership_info']['offer'] == "" && $userinfo['membership_info']['status'] == "Off") {
 	$active_url = site_url('pbsoauth/activate');
 	echo "<div class='login-wrap cf'><ul>";
-	echo "<li><p>$station_nice_name Passport <i class='fa fa-times-circle passport-red'></i></p></li>";
+	echo "<li><p class='passport-status'>$station_nice_name Passport <i class='fa fa-times-circle passport-red'></i></p></li>";
 	echo "<li class='service-section-label'>I'm a member <strong>with</strong> an activation code</li>";
 	echo "<li class='service-login-link activate'><a href='$active_url'><img src='$pluginImageDir/button-activate-account.png' alt='Activate Account'/></a></li>";
 	if (!empty($join_url)) { 
@@ -70,7 +70,7 @@ elseif ($userinfo['membership_info']['offer'] == "" && $userinfo['membership_inf
 
 /* expired member */
 else {
-	echo "<p>" . $defaults['station_nice_name'] . " Passport <i class='fa fa-times-circle passport-red'></i></p>";
+	echo "<p class='passport-status'>" . $defaults['station_nice_name'] . " Passport <i class='fa fa-times-circle passport-red'></i></p>";
 	if (!empty($join_url)) {echo "<p><a href='$join_url' class='passport-txt-button'>Renew Membership</a></p>";}
 }
 
