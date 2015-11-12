@@ -35,12 +35,13 @@ echo '<h2>Welcome ' . $userinfo['first_name'] . ' ' . $userinfo['last_name'] . '
 
 if (!empty($userinfo['membership_info']['first_name'])) {
   ?><p>Your membership info is connected to your login.  Hooray!</p><?php
+}
+
+
 
  echo "<hr>";
   echo print_r($userinfo['membership_info']);    
   echo "<hr>";
-}
-
 
 
 if ($userinfo['membership_info']['offer'] != "" && $userinfo['membership_info']['status'] == "On") {
