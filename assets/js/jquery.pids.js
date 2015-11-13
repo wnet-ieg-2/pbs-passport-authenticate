@@ -51,7 +51,7 @@ jQuery(document).ready(function($) {
 
   function updateLoginVisuals(user){
     if (user){
-      welcomestring = 'Welcome <a href="' + userinfolink + '">' + user.first_name;
+      welcomestring = 'Welcome <a href="' + userinfolink + '" class="passport-link-icon">' + user.first_name;
       if (user.membership_info.offer) {
         welcomestring += '<div class="passport-icon"></div>';
       } 
