@@ -54,7 +54,7 @@ jQuery(document).ready(function($) {
 		if (user.membership_info.offer) {passportIcon = 'passport-link-icon';}
 		else {passportIcon = '';} 
 	
-		welcomestring = 'Welcome <a href="' + userinfolink + '" class="' + passportIcon + '">' + user.first_name = '</a>';
+		welcomestring = 'Welcome <a href="' + userinfolink + '" class="' + passportIcon + '">' + user.first_name + '</a>';
      
       $('.pbs_passport_authenticate div.messages').html(welcomestring);
       $('.pbs_passport_authenticate div.messages').append("<img src=" + user.thumbnail_URL + " />");
