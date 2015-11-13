@@ -51,11 +51,11 @@ jQuery(document).ready(function($) {
 
   function updateLoginVisuals(user){
     if (user){
-      welcomestring = 'Welcome <a href="' + userinfolink + '" class="passport-link-icon">' + user.first_name;
-      if (user.membership_info.offer) {
-        welcomestring += '<div class="passport-icon"></div>';
-      } 
-       welcomestring += '</a>';
+		if (user.membership_info.offer) {passportIcon = 'passport-link-icon';}
+		else {passportIcon = '';} 
+	
+		welcomestring = 'Welcome <a href="' + userinfolink + '" class="' + passportIcon + '">' + user.first_name = '</a>';
+     
       $('.pbs_passport_authenticate div.messages').html(welcomestring);
       $('.pbs_passport_authenticate div.messages').append("<img src=" + user.thumbnail_URL + " />");
       $('.pbs_passport_authenticate button.launch').addClass('logout');
