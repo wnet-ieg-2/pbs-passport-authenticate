@@ -2,8 +2,10 @@ jQuery(document).ready(function($) {
 
   var authenticate_script = '/authenticate';
   var loginform = '/loginform';
-  var joinlink = "http://support.thirteen.org/thirteen_topbutton";
+  var joinlink = "http://support.thirteen.org/passport";
   var userinfolink = '/pbsoauth/userinfo/';
+  var activatelink = '/pbsoauth/activate/';
+
   if (typeof pbs_passport_authenticate_args !== "undefined"){
     authenticate_script = pbs_passport_authenticate_args.laas_authenticate_script;
     loginform = pbs_passport_authenticate_args.loginform;
@@ -24,6 +26,14 @@ jQuery(document).ready(function($) {
       document.cookie='pbsoauth_login_referrer=' + window.location + ';domain=' + window.location.hostname + ';path=/';
     }
     window.location = joinlink;
+  }
+
+  function activatePBS(event) {
+    event.preventDefault();
+    if (window.location != loginform) {
+      document.cookie='pbsoauth_login_referrer=' + window.location + ';domain=' + window.location.hostname + ';path=/';
+    }
+    window.location = activatelink;
   }
 
  
@@ -68,6 +78,7 @@ jQuery(document).ready(function($) {
       setTimeout(function() {
         $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_login').click(loginToPBS);
         $('.pbs_passport_authenticate_join').click(joinPBS);
+        $('.pbs_passport_authenticate_activate').click(activatePBS);
       }, 500);
     }
   }
