@@ -62,7 +62,7 @@ jQuery(document).ready(function($) {
   function updateLoginVisuals(user){
     if (user){
 		if (user.membership_info.offer) {passportIcon = 'passport-link-icon';}
-		else {passportIcon = '';} 
+		else {passportIcon = 'passport-alert-icon';} 
 	
 		welcomestring = 'Welcome <a href="' + userinfolink + '" class="' + passportIcon + '">' + user.first_name + '</a>';
      
