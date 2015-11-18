@@ -71,6 +71,18 @@ if (!empty($return['errors'])){
 <button><i class="fa fa-arrow-circle-right"></i> <span>Enter Code</span></button>
 </form>
 
+<h2>What is an activation code and how do I find mine?</h2>
+
+
+<p>Your activation code will be four English words with dashes in between them that was sent to you from THIRTEEN.  This code is only used once, and we use it to connect your login account -- your Google, Facebook, or email sign-in --  with your membership information.</p>  
+
+<p>If you have already used your activation code, you will never need to use it again.  Just sign in with the Google, Facebook, or email sign-in that you used when you activated before.  This is true even if you activated on a different computer or device.</p>
+
+<p>If you are an up-to-date member of THIRTEEN at the $60 per year or higher level and we have your email address on file, we sent you an email with your activation code in it.</p>
+
+<p>If you can't find that email, or if THIRTEEN doesn't have your email address on file, we can send your activation code to you by email if you visit <a href="<?php echo site_url('pbsoauth/alreadymember'); ?>">this form</a>.</p>
+ 
+
 </div>
 </div>
 </div>
