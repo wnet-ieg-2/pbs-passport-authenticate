@@ -37,6 +37,7 @@ if ($activation_token){
       if ($userinfo){
         // the user is logged in already.  Activate them!
         $pbs_uid = $userinfo["pid"];
+        $mvault_client = $passport->get_mvault_client();
         $mvaultinfo = $mvault_client->activate($mvaultinfo['membership_id'], $pbs_uid);
         $userinfo["membership_info"] = $mvaultinfo;
         $success = $laas_client->validate_and_append_userinfo($userinfo);
