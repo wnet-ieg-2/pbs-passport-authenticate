@@ -7,7 +7,7 @@ show_admin_bar(false);
 get_header();
 
 $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
-
+$pluginImageDir = $passport->assets_url . 'img';
 // ADD A NONCE
 
 // this script only takes one possible argument
@@ -60,6 +60,7 @@ if ($activation_token){
 <div class='pbs-passport-authenticate-wrap cf'>
 <div class="pbs-passport-authenticate activate cf">
 <div class='passport-middle'>
+  <img src="<?php echo $pluginImageDir; ?>/passport-logo-activate.jpg" alt="Thirteen Passport">
 <h1>Enter your activation code:</h1>
 <?php 
 if (!empty($return['errors'])){
