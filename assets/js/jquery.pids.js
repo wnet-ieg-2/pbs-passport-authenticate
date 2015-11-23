@@ -9,6 +9,9 @@ jQuery(document).ready(function($) {
   if (typeof pbs_passport_authenticate_args !== "undefined"){
     authenticate_script = pbs_passport_authenticate_args.laas_authenticate_script;
     loginform = pbs_passport_authenticate_args.loginform;
+    joinlink = pbs_passport_authenticate_args.joinurl;
+    userinfolink = pbs_passport_authenticate_args.userinfolink;
+    activatelink = pbs_passport_authenticate_args.activatelink;
   }
 
    
