@@ -41,7 +41,7 @@ if ($membership_id){
   echo '<h2>Welcome ' . $mvaultinfo['first_name'] . ' ' . $mvaultinfo['last_name'] . '</h2>'; 
   echo '<p class="activation-text">To complete your activation, please choose a sign-in method below.  You can use this sign-in method whenever you visit <a href="' . get_bloginfo('url') . '">' . get_bloginfo('name') . '</a> in the future to enjoy members-only content.</p>';
 } else {
-  echo '<p>Get access to member-exclusive video on demand and more</p>';
+  echo '<h2>Get access to member-exclusive video on demand and more</h2>';
 }
  ?>
  </div>
