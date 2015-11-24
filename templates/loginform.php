@@ -56,8 +56,6 @@ if ($membership_id){
 <li class = "service-login-link pbs"><a href="<?php echo($links['pbs']); ?>"><img src="<?php echo $pluginImageDir; ?>/button-pbs.png" alt="Login using PBS"></a></li>
 <li class="service-stay-logged-in"><input type="checkbox" id="pbsoauth_rememberme" name="pbsoauth_rememberme" value="true" /> Keep me logged in on this computer</li>
 
-</ul>
-<ul>
 <!-- add jquery to make this checkbox a cookie -->
 <?php }
 if (!$membership_id){ ?>
