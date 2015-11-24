@@ -46,7 +46,7 @@ if ($membership_id){
  ?>
  </div>
  <div class='login-wrap cf'>
-<ul>
+<ul class='float'>
 <?php if (empty($userinfo)) {
   if (!$membership_id){ ?>
 <li class = "service-section-label"><?php echo $station_nice_name; ?> Members who have activated their accounts, please sign in:</li>
@@ -57,7 +57,7 @@ if ($membership_id){
 <li class="service-stay-logged-in"><input type="checkbox" id="pbsoauth_rememberme" name="pbsoauth_rememberme" value="true" /> Keep me logged in on this computer</li>
 </ul>
 
-<ul class="float">
+<ul class='float'>
 <!-- add jquery to make this checkbox a cookie -->
 <?php }
 if (!$membership_id){ ?>
@@ -66,9 +66,7 @@ if (!$membership_id){ ?>
 <?php 
 if (!empty($defaults['join_url'])) {
 ?>
-</ul>
-<ul class="float">
-<li class='service-section-label'><br>Not a Member?</li>
+<li class='service-section-label'>Not a Member?</li>
 <li class = "service-login-link becomemember"><a href="<?php echo $defaults['join_url']; ?>"><img src="<?php echo $pluginImageDir; ?>/button-become-a-member.png" alt="Become a member"/></a></li>
 <?php }
 }
