@@ -55,7 +55,9 @@ if ($membership_id){
 <li class = "service-login-link facebook"><a href="<?php echo($links['facebook']); ?>"><img src="<?php echo $pluginImageDir; ?>/button-facebook.png" alt="Login using Facebook"/></a></li>
 <li class = "service-login-link pbs"><a href="<?php echo($links['pbs']); ?>"><img src="<?php echo $pluginImageDir; ?>/button-pbs.png" alt="Login using PBS"></a></li>
 <li class="service-stay-logged-in"><input type="checkbox" id="pbsoauth_rememberme" name="pbsoauth_rememberme" value="true" /> Keep me logged in on this computer</li>
+</ul>
 
+<ul class="float">
 <!-- add jquery to make this checkbox a cookie -->
 <?php }
 if (!$membership_id){ ?>
@@ -64,14 +66,18 @@ if (!$membership_id){ ?>
 <?php 
 if (!empty($defaults['join_url'])) {
 ?>
-<li class='service-section-label'>Not a Member?</li>
+</ul>
+<ul class="float">
+<li class='service-section-label'><br>Not a Member?</li>
 <li class = "service-login-link becomemember"><a href="<?php echo $defaults['join_url']; ?>"><img src="<?php echo $pluginImageDir; ?>/button-become-a-member.png" alt="Become a member"/></a></li>
 <?php }
 }
+echo "</ul>";
+echo "<div class='clear'></div>";
 
-echo "<li><p>" . $defaults['help_text'] . "</p></li>";
+echo "<p>" . $defaults['help_text'] . "</p>";
 
-echo "</ul>"; ?>
+ ?>
 
 </div><!-- .login-wrap -->
 
