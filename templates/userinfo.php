@@ -65,7 +65,7 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 	
 	
 	echo "<li class='service-section-label'>I'm a member <strong>with</strong> an activation code</li>";
-	echo "<li class='service-login-link activate'><a href='$active_url' class='passport-button'><span class='logo-button'></span>Activate Account</a></li>";
+	echo "<li class='service-login-link activate'><a href='$active_url' class='passport-button'><span class='logo-button'>&nbsp;</span>Activate Account</a></li>";
 	if (!empty($join_url)) { 
 		
 		echo "<li class='service-section-label'>I'm a member <strong>without</strong> an activation code</li>";
