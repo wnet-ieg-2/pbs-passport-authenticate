@@ -83,12 +83,12 @@ class PBS_Passport_Authenticate {
       $args = $allowed_args;
     }
     $render = $args['render'];
-    $args['laas_authenticate_script'] = site_url('pbsoauth/authenticate');
-    $args['loginform'] = site_url('pbsoauth/loginform');
+    $args['laas_authenticate_script'] = site_url('pbsoauth/authenticate/');
+    $args['loginform'] = site_url('pbsoauth/loginform/');
     $defaults = get_option('pbs_passport_authenticate');
     $args['joinurl'] = $defaults['join_url'];
-    $args['activatelink'] =  site_url('pbsoauth/activate');
-    $args['userinfolink'] =  site_url('pbsoauth/userinfo');
+    $args['activatelink'] =  site_url('pbsoauth/activate/');
+    $args['userinfolink'] =  site_url('pbsoauth/userinfo/');
     $json_args = json_encode($args);
     $button = '<div class="pbs_passport_authenticate"><button class="launch">' . $args['login_text'] .  '</button><div class="messages"></div></div>';
     $jsonblock = '<script language="javascript">var pbs_passport_authenticate_args = ' . $json_args . ' </script>';

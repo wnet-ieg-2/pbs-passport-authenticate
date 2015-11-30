@@ -64,6 +64,8 @@ jQuery(document).ready(function($) {
 
   function updateLoginVisuals(user){
     if (user){
+      // if somehow still on loginform after logging in, redirect to userinfo page
+      if (window.location == loginform) { window.location = userinfolink; }
 		if (user.membership_info.offer) {passportIcon = 'passport-link-icon';}
 		else {passportIcon = 'passport-alert-icon';} 
 	
