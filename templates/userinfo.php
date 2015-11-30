@@ -57,7 +57,7 @@ elseif ($userinfo['membership_info']['offer'] == "" && $userinfo['membership_inf
 	
 	
 	
-	echo "<li>You're $station_nice_name Passport account is not setup.<br>
+	echo "<li class='passport-not-setup'>You're $station_nice_name Passport account is not setup.<br>
 $station_nice_name Passport is a benefit for eligible members of $station_nice_name.<br>
 If you are a member. please choose an option below.<br>
 If you are not a member, please <a href='$join_url'>join today</a>. </li>";
