@@ -54,6 +54,16 @@ elseif ($userinfo['membership_info']['offer'] == "" && $userinfo['membership_inf
 	$active_url = site_url('pbsoauth/activate');
 	echo "<div class='login-wrap cf'><ul>";
 	echo "<li><p class='passport-status'>$station_nice_name Passport <i class='fa fa-times-circle passport-red'></i></p></li>";
+	
+	
+	
+	echo "<li>You're $station_nice_name Passport account is not setup.<br>
+$station_nice_name Passport is a benefit for eligible members of $station_nice_name.<br>
+If you are a member. please choose an option below.<br>
+If you are not a member, please <a href='$join_url'>join today</a>. </li>";
+	
+	
+	
 	echo "<li class='service-section-label'>I'm a member <strong>with</strong> an activation code</li>";
 	echo "<li class='service-login-link activate'><a href='$active_url'><img src='$pluginImageDir/button-activate-account.png' alt='Activate Account'/></a></li>";
 	if (!empty($join_url)) { 
