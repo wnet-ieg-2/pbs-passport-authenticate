@@ -72,7 +72,7 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 		echo "<li class='service-login-link accountsetep'><a href='#' class='passport-button'>Request Account Setup</a></li>";
 	 	
 		echo "<li class='service-section-label'>Not a Member?</li>";
-		echo "<li class='service-login-link becomemember'><a href='$join_url' class='passport-button gray'>Become a member</a></li>";
+		echo "<li class='service-login-link becomemember'><a href='$join_url' class='passport-button gray'>Become a Member</a></li>";
 
 	}
 	echo "</ul></div>";
