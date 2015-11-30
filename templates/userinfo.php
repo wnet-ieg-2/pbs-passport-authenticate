@@ -60,17 +60,20 @@ elseif ($userinfo['membership_info']['offer'] == "" && $userinfo['membership_inf
 	echo "<li class='passport-not-setup'><p>You're $station_nice_name Passport account is not setup.
 $station_nice_name Passport is a benefit for eligible members of $station_nice_name.</p>
 
-<p>If you are a member. please choose an option below. If you are not a member, please <a href='$join_url'>join today</a>.</p> </li>";
+<p>If you are a member. please choose an option below. If you are not a member, use the \"Become a Member\" button.</p> </li>";
 	
 	
 	
 	echo "<li class='service-section-label'>I'm a member <strong>with</strong> an activation code</li>";
 	echo "<li class='service-login-link activate'><a href='$active_url'><img src='$pluginImageDir/button-activate-account.png' alt='Activate Account'/></a></li>";
 	if (!empty($join_url)) { 
+		
 		echo "<li class='service-section-label'>I'm a member <strong>without</strong> an activation code</li>";
 		echo "<li class='service-login-link donatenow'><a href='$join_url'><img src='$pluginImageDir/button-donate-now.png' alt='Donate Now'/></a></li>";
-	 	echo "<li class='service-section-label'>Not a Member?</li>";
+	 	
+		echo "<li class='service-section-label'>Not a Member?</li>";
 		echo "<li class='service-login-link becomemember'><a href='$join_url'><img src='$pluginImageDir/button-become-a-member.png' alt='Become a member'/></a></li>";
+
 	}
 	echo "</ul></div>";
 }
