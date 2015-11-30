@@ -65,14 +65,14 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 	
 	
 	echo "<li class='service-section-label'>I'm a member <strong>with</strong> an activation code</li>";
-	echo "<li class='service-login-link activate'><a href='$active_url'><img src='$pluginImageDir/button-activate-account.png' alt='Activate Account'/></a></li>";
+	echo "<li class='service-login-link activate'><a href='$active_url' class='passport-button'>Activate Account</a></li>";
 	if (!empty($join_url)) { 
 		
 		echo "<li class='service-section-label'>I'm a member <strong>without</strong> an activation code</li>";
-		echo "<li class='service-login-link accountsetep'><a href='#'><img src='$pluginImageDir/button-request-account-setup.png' alt='Request Account Setup'/></a></li>";
+		echo "<li class='service-login-link accountsetep'><a href='#' class='passport-button'>Request Account Setup</a></li>";
 	 	
 		echo "<li class='service-section-label'>Not a Member?</li>";
-		echo "<li class='service-login-link becomemember'><a href='$join_url'><img src='$pluginImageDir/button-become-a-member.png' alt='Become a member'/></a></li>";
+		echo "<li class='service-login-link becomemember'><a href='$join_url' class='passport-button gray'>Become a member</a></li>";
 
 	}
 	echo "</ul></div>";
