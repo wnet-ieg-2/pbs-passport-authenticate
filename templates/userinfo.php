@@ -87,7 +87,7 @@ else {
 
 
 
-echo "<p><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>"; ?>
+echo "<p class='passport-help-text'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>"; ?>
 
 
 
