@@ -62,12 +62,12 @@ if ($membership_id){
 <?php }
 if (!$membership_id){ ?>
 <li class='service-section-label'><?php echo $station_nice_name; ?> Members who have not activated their accounts:</li>
-<li class = "service-login-link activate"><a href="<?php echo site_url('pbsoauth/activate'); ?>"><img src="<?php echo $pluginImageDir; ?>/button-activate-account.png" alt="Activate Account"/></a></li>
+<li class = "service-login-link activate"><a href="<?php echo site_url('pbsoauth/activate'); ?>" class='passport-button'><span class='logo-button'>&nbsp;</span>Activate Account</a></li>
 <?php 
 if (!empty($defaults['join_url'])) {
 ?>
 <li class='service-section-label'>Not a Member?</li>
-<li class = "service-login-link becomemember"><a href="<?php echo $defaults['join_url']; ?>"><img src="<?php echo $pluginImageDir; ?>/button-become-a-member.png" alt="Become a member"/></a></li>
+<li class = "service-login-link becomemember"><a href="<?php echo $defaults['join_url']; ?>"  class='passport-button gray'>Become a Member</a></li>
 <?php }
 }
 echo "</ul>";
