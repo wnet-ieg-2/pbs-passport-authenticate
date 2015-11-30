@@ -53,7 +53,7 @@ if ($userinfo['membership_info']['offer'] != "" && $userinfo['membership_info'][
 elseif ($userinfo['membership_info']['offer'] == "" && $userinfo['membership_info']['status'] == "Off") {
 	$active_url = site_url('pbsoauth/activate');
 	echo "<div class='login-wrap cf'><ul>";
-	echo "<li><p class='passport-status'>$station_nice_name Passport <i class='fa fa-times-circle passport-red'></i></p></li>";
+	echo "<li><p class='passport-status'>$station_nice_name Passport <span class='passport-exclamation'><i class='fa fa-exclamation'></i></span></p></li>";
 	
 	
 	
