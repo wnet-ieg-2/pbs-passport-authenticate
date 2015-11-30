@@ -81,7 +81,7 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 /* expired member */
 else {
 	echo "<p class='passport-status'>" . $defaults['station_nice_name'] . " Passport <i class='fa fa-times-circle passport-red'></i></p>";
-	if (!empty($join_url)) {echo "<p><a href='$join_url' class='passport-txt-button'>Renew Membership</a></p>";}
+	if (!empty($join_url)) {echo "<p><a href='$join_url' class='passport-button'>Renew Membership</a></p>";}
 }
 
 
