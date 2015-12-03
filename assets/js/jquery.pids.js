@@ -86,8 +86,8 @@ jQuery(document).ready(function($) {
 					$('.passport-thumb-signin', this).html('ACTIVATE TO WATCH');
 				}
 				else {
+					$('.passport-thumb-signin', this).remove();  	
 					$(this).removeClass('passport-video-thumb');  	
-					$('.passport-thumb-signin', this).html();  	
 				}	
 		  });
 		}	  
