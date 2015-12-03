@@ -81,9 +81,9 @@ jQuery(document).ready(function($) {
       scrolling: true
     }
 
-  $('.pbs_passport_authenticate button.launch').click(function(event) {
-    event.preventDefault();
-    launchPassportOverlay( $(this) );
+	$('body').on('click', '.pbs_passport_authenticate button.launch', function(event) {	
+    	event.preventDefault();
+	    launchPassportOverlay( $(this) );
   });
 
   $(window).resize(function(){
