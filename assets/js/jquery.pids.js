@@ -62,7 +62,8 @@ jQuery(document).ready(function($) {
     });
   }
 
-  function updateLoginVisuals(user){
+  //function updateLoginVisuals(user){
+  var window.updateLoginVisuals = function(user) {
     if (user){
       // if somehow still on loginform after logging in, redirect to userinfo page
       if (window.location == loginform) { window.location = userinfolink; }
