@@ -79,7 +79,7 @@ jQuery(document).ready(function($) {
       $('.pbs_passport_authenticate button.launch').text('Sign out');
       $('.pbs_passport_authenticate button.launch').click(logoutFromPBS);
 	  
-	  
+	  	// update thumb overlays
 		if ($(".passport-video-thumb")[0]){
 			$('.passport-video-thumb').each(function( index ) {
 				if (user && user.membership_info.status == 'Off') {
@@ -91,7 +91,11 @@ jQuery(document).ready(function($) {
 				}	
 		  });
 		}	  
+	  // end update thumb overlays
 	  
+	  // TO DO:
+	  // if user signed in, but not active... in main video overlay, we need to change html to "ACTIVATE ACCOUNT"
+	  // <div class='pp-sign-in pbs_passport_authenticate cf'><button class='launch'>SIGN IN NOW</button></div>
 	  
 	  
       console.log(user);
