@@ -106,7 +106,7 @@ jQuery(document).ready(function($) {
 			var videoID = $('#passportcoveplayer').data('media');
 			if (videoWindow != 'public' && videoWindow != '') {
 				$("#passportcoveplayer").html('<div class="embed-container video-wrap"><iframe id="partnerPlayer" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" src="http://player.pbs.org/widget/partnerplayer/'+videoID+'/?chapterbar=false&uid='+user.pid+'&callsign=wnet"></iframe></div>');
-				$("#passportcoveplayer").data("window", ''); /* so this cant trigger on load mores */
+				$("#passportcoveplayer").data("window", ''); /* clears value so this cant trigger on load mores */
 			}
 		}
 	  	// end passport player.
