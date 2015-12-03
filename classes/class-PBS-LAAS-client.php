@@ -502,6 +502,7 @@ class PBS_LAAS_Client {
     $userinfo_json = json_encode($userinfo);
     if (isset($userinfo['email'])){
       //  store profile info in a cookie
+      //error_log('userinfo is ' . $userinfo_json);
       setcookie($this->userinfo_cookiename, $userinfo_json, strtotime("+1 hour"), "/", $this->domain, false, false);
       // return the profile info if there was any
       return $userinfo;
