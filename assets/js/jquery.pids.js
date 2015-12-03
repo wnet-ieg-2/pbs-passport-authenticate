@@ -63,7 +63,7 @@ jQuery(document).ready(function($) {
   }
 
   //function updateLoginVisuals(user){
-  var updateLoginVisuals = function(user) {
+  updateLoginVisuals = function(user) {
     if (user){
       // if somehow still on loginform after logging in, redirect to userinfo page
       if (window.location == loginform) { window.location = userinfolink; }
