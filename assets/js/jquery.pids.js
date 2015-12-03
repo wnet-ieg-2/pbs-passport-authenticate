@@ -95,8 +95,8 @@ jQuery(document).ready(function($) {
 		}	  
 		// end update thumb overlays
 	  
-		// if user signed in, but no activated overlay link
-		if ($(".passport-gated-video")[0] && user.membership_info.status == 'Off'){
+		// if user signed in, but not activated. change video overlay link.
+		if ($(".pp-sign-in.pbs_passport_authenticate")[0] && user.membership_info.status == 'Off'){
 			$('.pp-sign-in.pbs_passport_authenticate').html('<a href="/pbsoauth/activate" class="passport-activate"><span>ACTIVATE ACCOUNT</span></a>');
 		}
 	  
