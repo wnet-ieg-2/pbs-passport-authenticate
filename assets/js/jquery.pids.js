@@ -57,7 +57,7 @@ jQuery(document).ready(function($) {
       dataType: 'json',
       success: function(response) {
         user = response;
-        updateLoginVisuals(user);
+        window.updateLoginVisuals(user);
       }
     });
   }
