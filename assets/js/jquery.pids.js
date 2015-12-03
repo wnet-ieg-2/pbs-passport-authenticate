@@ -78,6 +78,22 @@ jQuery(document).ready(function($) {
 	  $('.pbs_passport_authenticate button.launch').addClass('logout');
       $('.pbs_passport_authenticate button.launch').text('Sign out');
       $('.pbs_passport_authenticate button.launch').click(logoutFromPBS);
+	  
+	  
+		if ($(".passport-video-thumb")[0]){
+			$('.passport-video-thumb').each(function( index ) {
+				if (user && user.membership_info.status == 'Off') {
+					$('.passport-thumb-signin', this).html('ACTIVATE TO WATCH');
+				}
+				else {
+					$(this).removeClass('passport-video-thumb');  	
+					$('.passport-thumb-signin', this).html();  	
+				}	
+		  });
+		}	  
+	  
+	  
+	  
       console.log(user);
     } else {
       setTimeout(function() {
