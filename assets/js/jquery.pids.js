@@ -57,13 +57,13 @@ jQuery(document).ready(function($) {
       dataType: 'json',
       success: function(response) {
         user = response;
-        window.updateLoginVisuals(user);
+        updateLoginVisuals(user);
       }
     });
   }
 
   //function updateLoginVisuals(user){
-  var window.updateLoginVisuals = function(user) {
+  var updateLoginVisuals = function(user) {
     if (user){
       // if somehow still on loginform after logging in, redirect to userinfo page
       if (window.location == loginform) { window.location = userinfolink; }
