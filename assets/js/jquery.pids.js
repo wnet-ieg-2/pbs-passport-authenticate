@@ -81,10 +81,10 @@ jQuery(document).ready(function($) {
       $('.pbs_passport_authenticate button.launch').text('Sign out');
       $('.pbs_passport_authenticate button.launch').click(logoutFromPBS);
 	  
-	  	// update thumb overlays
+		// update thumb overlays
 		if ($(".passport-video-thumb")[0]){
 			$('.passport-video-thumb').each(function( index ) {
-				if (user && user.membership_info.status == 'Off') {
+				if (user.membership_info.status == 'Off') {
 					$('.passport-thumb-signin', this).html('ACTIVATE TO WATCH');
 				}
 				else {
@@ -93,11 +93,12 @@ jQuery(document).ready(function($) {
 				}	
 		  });
 		}	  
-	  // end update thumb overlays
+		// end update thumb overlays
 	  
-	  // TO DO:
-	  // if user signed in, but not active... in main video overlay, we need to change html to "ACTIVATE ACCOUNT"
-	  // <div class='pp-sign-in pbs_passport_authenticate cf'><button class='launch'>SIGN IN NOW</button></div>
+		// if user signed in, but no activated overlay link
+		if ($(".passport-gated-video")[0] && user.membership_info.status == 'Off'){
+			$('.pp-sign-in.pbs_passport_authenticate').html('<a href="/pbsoauth/activate" class="passport-activate"><span>ACTIVATE ACCOUNT</span></a>');
+		}
 	  
 	  
       console.log(user);
