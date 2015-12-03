@@ -99,7 +99,16 @@ jQuery(document).ready(function($) {
 		if ($(".pp-sign-in.pbs_passport_authenticate")[0] && user.membership_info.status == 'Off'){
 			$('.pp-sign-in.pbs_passport_authenticate').html('<a href="/pbsoauth/activate" class="passport-activate"><span>ACTIVATE ACCOUNT</span></a>');
 		}
-	  
+		
+		//passport player.
+		if ($("#passportcoveplayer[data-window]")[0] && user.membership_info.status == 'On'){
+			var videoWindow = $('#passportcoveplayer').data('window');
+			var videoID = $('#passportcoveplayer').data('media');
+			if (videoWindow != 'public' && videoWindow != '') {
+				$("#passportcoveplayer").html('<div class="embed-container video-wrap"><iframe id="partnerPlayer" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" src="http://player.pbs.org/widget/partnerplayer/'+videoID+'/?chapterbar=false&uid='+user.pid+'&callsign=wnet"></iframe></div>');
+			}
+		}
+	  	// end passport player.
 	  
       console.log(user);
     } else {
