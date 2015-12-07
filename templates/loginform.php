@@ -46,7 +46,7 @@ if ($membership_id){
  ?>
  </div>
  <div class='login-wrap cf'>
-<ul class='float'>
+<ul class='float <?php if ($membership_id){ echo "single-column";} ?>'>
 <?php if (empty($userinfo)) {
   if (!$membership_id){ ?>
 <li class = "service-section-label"><?php echo $station_nice_name; ?> Members who have activated their accounts, please sign in:</li>
