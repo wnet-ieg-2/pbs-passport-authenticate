@@ -18,14 +18,9 @@ jQuery(document).ready(function($) {
   });
 
   
-  if ($(".passport-optin-challenge")[0]){
-  
-  
-  }
-  
-  if($("#pbsoauth_optin").is(":checked")){
-	$('.add-login-fields').removeClass('hide');
-  }
+	$( "#pbsoauth_optin" ).change(function() {
+		$('.add-login-fields').removeClass('hide');
+	});
   
   
 
