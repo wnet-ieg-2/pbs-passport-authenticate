@@ -49,7 +49,7 @@ if ($membership_id){
 <ul class='float <?php if ($membership_id){ echo "single-column";} ?>'>
 <?php if (empty($userinfo)) {
   if (!$membership_id){ ?>
-<li class = "service-section-label"><?php echo $station_nice_name; ?> Members who have activated their accounts, please sign in:</li>
+<li class = "service-section-label">Already Activated? Please sign in below</li>
 <?php } ?>
 <li class = "service-login-link google"><a href="<?php echo($links['google']); ?>"><img src="<?php echo $pluginImageDir; ?>/button-google.png" alt="Login using Google"/></a></li>
 <li class = "service-login-link facebook"><a href="<?php echo($links['facebook']); ?>"><img src="<?php echo $pluginImageDir; ?>/button-facebook.png" alt="Login using Facebook"/></a></li>
@@ -61,8 +61,8 @@ if ($membership_id){
 <!-- add jquery to make this checkbox a cookie -->
 <?php }
 if (!$membership_id){ ?>
-<li class='service-section-label'><?php echo $station_nice_name; ?> Members who have not activated their accounts:</li>
-<li class = "service-login-link activate"><a href="<?php echo site_url('pbsoauth/activate'); ?>" class='passport-button'><span class='logo-button'>&nbsp;</span>Activate Account</a></li>
+<li class='service-section-label'>Not Activated Yet?</li>
+<li class = "service-login-link activate"><a href="<?php echo site_url('pbsoauth/activate'); ?>" class='passport-button'><span class='logo-button'>&nbsp;</span>Activate Now</a></li>
 <?php 
 if (!empty($defaults['join_url'])) {
 ?>
