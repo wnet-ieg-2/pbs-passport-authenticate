@@ -61,7 +61,7 @@ providers, please stop and <a href="#tbd">contact us</a>.</p>
  ?>
  
  </div>
- <div class='login-wrap <?php if ($membership_id){ echo "add-login-fields hide"; } ?>cf'>
+ <div class='login-wrap <?php if ($membership_id){ echo "add-login-fields hide"; } ?> cf'>
 <ul class='float <?php if ($membership_id){ echo "single-column";} ?>'>
 <?php if (empty($userinfo)) {
   if (!$membership_id){ ?>
