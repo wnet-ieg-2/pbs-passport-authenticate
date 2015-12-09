@@ -156,6 +156,8 @@ jQuery(document).ready(function($) {
 				  	var destination = Cookies.getJSON('pbsoauth_login_referrer');
 			        if (window.location.href != destination) {window.location.href = destination; console.log('test1');}
 					else {window.location.href = "/"; console.log('test2');}
+					
+					console.log('test 123');
 			      }
 			    });
 			}
@@ -166,6 +168,7 @@ jQuery(document).ready(function($) {
 			}	
 		}
 		else {
+			// else checkbox not checked
 			$('.passport-optin-button').append('<p class="passport-error">Sorry, you must check the checkbox to continue.</p>');
 		}
 	});
