@@ -72,16 +72,13 @@ if (!empty($return['errors'])){
 <button><i class="fa fa-arrow-circle-right"></i> <span>Enter Code</span></button>
 </form>
 
-<h2>What is an activation code and how do I find mine?</h2>
+<h2>How do I find my activation code?</h2>
 
-<p>If you're an up-to-date member of THIRTEEN at the $60 per year or higher level, and we have your email address on file, we've sent you an email with your activation code in it.</p>  
+<p>If you are am active member of <?php echo $station_nice_name; ?>, at the $60 level or higher, look for an email from "<?php echo $station_nice_name; ?> Passport" which contains your activation code.</p>  
 
-<p>If you already received an email from THIRTEEN about THIRTEEN Passport and setup your account by choosing a login method, <a href="<?php echo site_url('pbsoauth/loginform/'); ?>" >click here to sign in</a> using the method you chose.</p> 
+<p>If you don't have an email from us, <a href="<?php echo site_url('pbsoauth/alreadymember/'); ?>">please click here</a> to complete a form, providing some basic information, and we will email your activation code.</p>
 
-
-<p>If you can't find that email, or if THIRTEEN doesn't have your email address on file, we can send your activation code to you by email. <a href="<?php echo site_url('pbsoauth/alreadymember/'); ?>">Simply click here</a> to fill out a form providing some basic information.
-</p>
-
+<p>If you have already activated your <?php echo $station_nice_name; ?> Passport account, <a href="<?php echo site_url('pbsoauth/loginform/'); ?>" >click here to sign in</a>.</p>
 
 </div>
 </div>
