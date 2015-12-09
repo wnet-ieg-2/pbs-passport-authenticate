@@ -81,7 +81,7 @@ providers, please stop and <a href="/about/contact/?1i=passport">contact us</a>.
 <?php }
 if (!$membership_id){ ?>
 <li class='service-section-label'>Not Activated Yet?</li>
-<li class = "service-login-link activate"><a href="<?php echo site_url('pbsoauth/activate'); ?>" class='passport-button'><span class='logo-button'>&nbsp;</span>Activate Now</a></li>
+<li class = "service-login-link activate"><a href="<?php echo site_url('pbsoauth/activate/'); ?>" class='passport-button'><span class='logo-button'>&nbsp;</span>Activate Now</a></li>
 <?php 
 if (!empty($defaults['join_url'])) {
 ?>
