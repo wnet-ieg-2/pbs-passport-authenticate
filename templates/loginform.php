@@ -40,10 +40,24 @@ if ($membership_id){
   // this is an activation
   echo '<h2>Welcome ' . $mvaultinfo['first_name'] . ' ' . $mvaultinfo['last_name'] . '</h2>'; 
   echo '<p class="activation-text">To complete your activation, please choose a sign-in method below.  You can use this sign-in method whenever you visit <a href="' . get_bloginfo('url') . '">' . get_bloginfo('name') . '</a> in the future to enjoy members-only content.</p>';
+
+	// opt-in challenge
+	$station_nice_name = strtoupper($defaults['station_nice_name']);
+	echo '
+		<p><input type="checkbox" id="pbsoauth_optin" name="pbsoauth_optin" value="true" /> I accept that PBS and my station may share my viewing history with each other and their service providers.</p>
+		<p>If you do not agree to allow PBS and $station_nice_name to share your viewing history with each other and their service
+providers, please stop and <a href="#tbd">contact us</a>.</p>
+		<p>Please see our <a href="/about/privacy-policy/">Privacy Policy</a> and <a href="/about/terms-of-service/">Terms of Use</a> for more information.</p>
+	'
+
 } else {
   echo '<h2>Get access to member-exclusive video on demand and more</h2>';
 }
  ?>
+ 
+ 
+ 
+ 
  </div>
  <div class='login-wrap cf'>
 <ul class='float <?php if ($membership_id){ echo "single-column";} ?>'>

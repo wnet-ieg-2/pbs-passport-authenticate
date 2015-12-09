@@ -64,7 +64,7 @@ if ($activation_token){
 <div class='pbs-passport-authenticate-wrap cf'>
 <div class="pbs-passport-authenticate activate cf">
 <div class='passport-middle'>
-  <img src="http://thirteen-mvod-dev.vc2.wnet.org/files/2015/11/thirteen-passport.png" alt="Thirteen Passport">
+  <img src="http://thirteen-mvod-dev.vc2.wnet.org/files/2015/11/thirteen-passport.png" alt="<?php echo $station_nice_name; ?> Passport">
 <h1>Enter your activation code:</h1>
 <?php 
 if (!empty($return['errors'])){
