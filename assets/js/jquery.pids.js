@@ -145,12 +145,24 @@ jQuery(document).ready(function($) {
 		if ($('input#pbsoauth_optin').prop('checked')) {
 			if (user) {
 				// if user already logged in
-				
 				destination = Cookies.getJSON('pbsoauth_login_referrer');
-				console.log('registered user function here' + destination);
 				
-				if (window.location.href != destination) {window.location.href = destination;}
-				else {window.location.href = "/";}
+				
+				var memberid = getQueryStringParamPBS('membership_id');
+				
+				console.log('registered user function here' + destination + memberid);
+				/*
+				$.ajax({
+			      url: activatelink,
+			      data: 'membership_id=true',
+			      type: 'POST',
+			      dataType: 'json',
+			      success: function(response) {
+			        if (window.location.href != destination) {window.location.href = destination;}
+					else {window.location.href = "/";}
+			      }
+			    });
+				*/
 			}
 			else {
 				// else user not logged in
@@ -163,6 +175,15 @@ jQuery(document).ready(function($) {
 		}
 	});
   	/* end optin challenge */
+  
+  	function getQueryStringParamPBS(sParam) {
+	    var sPageURL = window.location.search.substring(1);
+    	var sURLVariables = sPageURL.split('&');
+	    for (var i = 0; i < sURLVariables.length; i++) {
+        	var sParameterName = sURLVariables[i].split('=');
+	        if (sParameterName[0] == sParam) {return sParameterName[1];}
+    	}
+	}
   
   
 });
