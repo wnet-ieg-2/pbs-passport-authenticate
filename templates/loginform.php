@@ -39,7 +39,7 @@ get_header();
 if ($membership_id){
   // this is an activation
   echo '<h2>Welcome ' . $mvaultinfo['first_name'] . ' ' . $mvaultinfo['last_name'] . '</h2>'; 
-  echo '<p class="activation-text">To complete your activation, please choose a sign-in method below.  You can use this sign-in method whenever you visit <a href="' . get_bloginfo('url') . '">' . get_bloginfo('name') . '</a> in the future to enjoy members-only content.</p>';
+
 
 	// opt-in challenge
 	echo '
@@ -50,17 +50,18 @@ providers, please stop and <a href="#tbd">contact us</a>.</p>
 		<p>Please see our <a href="/about/privacy-policy/">Privacy Policy</a> and <a href="/about/terms-of-service/">Terms of Use</a> for more information.</p>
 </div>
 	';
+	// end opt in challenge
+
+
+  echo '<p class="activation-text add-login-fields hide">To complete your activation, please choose a sign-in method below.  You can use this sign-in method whenever you visit <a href="' . get_bloginfo('url') . '">' . get_bloginfo('name') . '</a> in the future to enjoy members-only content.</p>';
 
 } else {
   echo '<h2>Get access to member-exclusive video on demand and more</h2>';
 }
  ?>
  
- 
- 
- 
  </div>
- <div class='login-wrap cf'>
+ <div class='login-wrap <?php if ($membership_id){ echo "add-login-fields hide"; } ?>cf'>
 <ul class='float <?php if ($membership_id){ echo "single-column";} ?>'>
 <?php if (empty($userinfo)) {
   if (!$membership_id){ ?>

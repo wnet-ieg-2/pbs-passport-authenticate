@@ -17,6 +17,13 @@ jQuery(document).ready(function($) {
     setPBSOAuthRememberMe();
   });
 
+  
+  if ($(".passport-optin-challenge")[0]){
+  
+  
+  }
+  
+  
 
 });
 
