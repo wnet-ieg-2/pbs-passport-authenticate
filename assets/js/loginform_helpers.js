@@ -23,6 +23,10 @@ jQuery(document).ready(function($) {
   
   }
   
+  if($("#pbsoauth_optin").is(":checked")){
+	$('.add-login-fields').removeClass('hide');
+  }
+  
   
 
 });
