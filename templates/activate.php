@@ -12,7 +12,7 @@ $pluginImageDir = $passport->assets_url . 'img';
 
 
 $defaults = get_option('pbs_passport_authenticate');
-$station_nice_name = $defaults['station_nice_name'];
+$station_nice_name = strtoupper($defaults['station_nice_name']);
 
 // this script only takes one possible argument
 
