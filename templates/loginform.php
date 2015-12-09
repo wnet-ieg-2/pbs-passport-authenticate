@@ -44,7 +44,7 @@ if ($membership_id){
 	// opt-in challenge
 	echo '
 		<div class="passport-optin-challenge">
-		<p><input type="checkbox" id="pbsoauth_optin" name="pbsoauth_optin" value="true" /> I accept that PBS and my station may share my viewing history with each other and their service providers.</p>
+		<p class="passport-optin-checkbox"><span><input type="checkbox" id="pbsoauth_optin" name="pbsoauth_optin" value="true" /></span> <span>I accept that PBS and my station may share my viewing history with each other and their service providers.</span></p>
 		
 		<p class="passport-optin-button"><button id="passport-confirm-optin" class="passport-button">Confirm</button></p>
 
