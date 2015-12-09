@@ -150,7 +150,7 @@ jQuery(document).ready(function($) {
 				
 				var memberid = getQueryStringParamPBS('membership_id');
 				
-				console.log('registered user function here' + destination + memberid);
+				console.log(destination + ' | ' +  memberid);
 				/*
 				$.ajax({
 			      url: activatelink,
