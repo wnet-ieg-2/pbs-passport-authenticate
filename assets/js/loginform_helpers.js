@@ -17,23 +17,5 @@ jQuery(document).ready(function($) {
     setPBSOAuthRememberMe();
   });
 
-  
-
-   	/* optin challenge */
-	$( "#passport-confirm-optin" ).click(function() {
-		if ($('input#pbsoauth_optin').prop('checked')) {
-			$('.add-login-fields').removeClass('hide');
-			if ($(".passport-optin-challenge")[0]){$('.passport-optin-challenge').hide();}
-		}
-		else {
-			$('.passport-optin-button').append('<p class="passport-error">Sorry, you must check the checkbox to continue.</p>');
-		}
-	
-	});
-  	/* end optin challenge */
-  
-  
-  
-
 });
 
