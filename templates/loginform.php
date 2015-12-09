@@ -46,7 +46,7 @@ if ($membership_id){
 		<div class="passport-optin-challenge">
 		<p class="passport-optin-checkbox"><span><input type="checkbox" id="pbsoauth_optin" name="pbsoauth_optin" value="true" /></span> <label for="pbsoauth_optin">I accept that PBS and my station may share my viewing history with each other and their service providers.</label></p>
 		
-		<p class="passport-optin-button"><button id="passport-confirm-optin" class="passport-button">Confirm</button></p>
+		<p class="passport-optin-button"><button id="passport-confirm-optin" class="passport-button">Confirm</button><div class="passport-optin-error"></div></p>
 
 		<p class="passport-small">If you do not agree to allow PBS and ' . strtoupper($defaults['station_nice_name']) . ' to share your viewing history with each other and their service
 providers, please stop and <a href="/about/contact/?1i=passport">contact us</a>.</p>

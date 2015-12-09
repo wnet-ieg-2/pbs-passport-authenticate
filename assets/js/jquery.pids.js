@@ -166,7 +166,7 @@ jQuery(document).ready(function($) {
 		}
 		else {
 			// else checkbox not checked
-			$('.passport-optin-button').append('<p class="passport-error">Sorry, you must check the checkbox to continue.</p>');
+			$('.passport-optin-error').html('<p class="passport-error">Sorry, you must check the checkbox to continue.</p>');
 		}
 	});
   	/* end optin challenge */
