@@ -19,19 +19,18 @@ jQuery(document).ready(function($) {
 
   
 
-   
+   	/* optin challenge */
 	$( "#passport-confirm-optin" ).click(function() {
-  	
 		if ($('input#pbsoauth_optin').prop('checked')) {
 			$('.add-login-fields').removeClass('hide');
 			if ($(".passport-optin-challenge")[0]){$('.passport-optin-challenge').hide();}
 		}
 		else {
-			console.log('not checked');
+			$('.passport-optin-button').append('<p class="passport-error">You must click the eheckbox to continue.</p>');
 		}
 	
 	});
-
+  	/* end optin challenge */
   
   
   
