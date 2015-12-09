@@ -142,10 +142,15 @@ jQuery(document).ready(function($) {
   
      /* optin challenge */
 	$( "#passport-confirm-optin" ).click(function() {
-	console.log(user);
 		if ($('input#pbsoauth_optin').prop('checked')) {
-			$('.add-login-fields').removeClass('hide');
-			if ($(".passport-optin-challenge")[0]){$('.passport-optin-challenge').hide();}
+		
+			if (user) {
+				console.log('registered user function here');
+			}
+			else {
+				$('.add-login-fields').removeClass('hide');
+				if ($(".passport-optin-challenge")[0]){$('.passport-optin-challenge').hide();}
+			}	
 		}
 		else {
 			$('.passport-optin-button').append('<p class="passport-error">Sorry, you must check the checkbox to continue.</p>');
