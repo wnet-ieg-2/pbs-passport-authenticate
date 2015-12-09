@@ -48,7 +48,7 @@ if ($membership_id){
 		<p>If you do not agree to allow PBS and $station_nice_name to share your viewing history with each other and their service
 providers, please stop and <a href="#tbd">contact us</a>.</p>
 		<p>Please see our <a href="/about/privacy-policy/">Privacy Policy</a> and <a href="/about/terms-of-service/">Terms of Use</a> for more information.</p>
-	'
+	';
 
 } else {
   echo '<h2>Get access to member-exclusive video on demand and more</h2>';
