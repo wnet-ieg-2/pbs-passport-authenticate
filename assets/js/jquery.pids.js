@@ -148,7 +148,9 @@ jQuery(document).ready(function($) {
 				
 				destination = Cookies.getJSON('pbsoauth_login_referrer');
 				console.log('registered user function here' + destination);
-				window.location.href = destination;
+				
+				if (window.location.href != destination) {window.location.href = destination;}
+				else {window.location.href = "/";}
 			}
 			else {
 				// else user not logged in
