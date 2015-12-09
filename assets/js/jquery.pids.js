@@ -146,14 +146,16 @@ jQuery(document).ready(function($) {
 			if (user) {
 				// if user already logged in
 				var memberid = getQueryStringParamPBS('membership_id');
-				var destination = Cookies.getJSON('pbsoauth_login_referrer');
+				
 				$.ajax({
 			      url: activatelink,
 			      data: 'membership_id=' + memberid + '',
 			      type: 'POST',
 			      dataType: 'json',
 			      success: function(response) {
-			        window.location.href = destination;
+				  	var destination = Cookies.getJSON('pbsoauth_login_referrer');
+			        if (window.location.href != destination) {window.location.href = destination; console.log('test1');}
+					else {window.location.href = "/"; console.log('test2');}
 			      }
 			    });
 			}
