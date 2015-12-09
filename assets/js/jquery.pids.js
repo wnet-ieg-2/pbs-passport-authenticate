@@ -148,7 +148,7 @@ jQuery(document).ready(function($) {
 				var memberid = getQueryStringParamPBS('membership_id');
 				$.ajax({
 			      url: activatelink,
-			      data: 'membership_id=' + memberid,
+			      data: 'membership_id=' + memberid + '',
 			      type: 'POST',
 			      dataType: 'json',
 			      success: function(response) {
