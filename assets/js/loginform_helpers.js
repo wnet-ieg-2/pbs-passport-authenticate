@@ -22,10 +22,10 @@ jQuery(document).ready(function($) {
    
 	$( "#passport-confirm-optin" ).click(function() {
   	
-		if ($('#pbsoauth_optin').is(':checked')) {
+		if ($('pbsoauth_optin').prop('checked')) {
 			$('.add-login-fields').removeClass('hide');
 			if ($(".passport-optin-challenge")[0]){$('.passport-optin-challenge').hide();}
-		});
+		}
 		else {
 			console.log('not checked');
 		}
