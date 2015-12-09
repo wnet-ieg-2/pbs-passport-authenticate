@@ -153,8 +153,6 @@ jQuery(document).ready(function($) {
 					dataType: 'json',
 					success: function(response) {
 						var destination = Cookies.getJSON('pbsoauth_login_referrer');
-						
-			
 						if (destination.indexOf("pbsoauth") > -1) {window.location.href = "/";}
 						else {window.location.href = destination; console.log('test1');}
 				      }
