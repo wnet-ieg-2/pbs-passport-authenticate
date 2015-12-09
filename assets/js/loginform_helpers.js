@@ -18,10 +18,21 @@ jQuery(document).ready(function($) {
   });
 
   
-	$( "#pbsoauth_optin" ).change(function() {
-		$('.add-login-fields').removeClass('hide');
-		if ($(".passport-optin-challenge")[0]){$('.passport-optin-challenge').hide();}
+
+   
+	$( "#passport-confirm-optin" ).click(function() {
+  	
+		if ($('#pbsoauth_optin').is(':checked')) {
+			$('.add-login-fields').removeClass('hide');
+			if ($(".passport-optin-challenge")[0]){$('.passport-optin-challenge').hide();}
+		});
+		else {
+			console.log('not checked');
+		}
+	
 	});
+
+  
   
   
 
