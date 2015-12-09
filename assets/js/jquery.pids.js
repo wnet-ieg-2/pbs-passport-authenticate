@@ -145,8 +145,9 @@ jQuery(document).ready(function($) {
 		if ($('input#pbsoauth_optin').prop('checked')) {
 			if (user) {
 				// if user already logged in
-				console.log('registered user function here');
-				document.cookie='pbsoauth_login_referrer=' + window.location + ';domain=' + window.location.hostname + ';path=/';
+				
+				destination = Cookies.getJSON('pbsoauth_login_referrer');
+				console.log('registered user function here' + destination);
 			}
 			else {
 				// else user not logged in
