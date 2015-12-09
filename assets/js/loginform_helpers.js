@@ -26,7 +26,7 @@ jQuery(document).ready(function($) {
 			if ($(".passport-optin-challenge")[0]){$('.passport-optin-challenge').hide();}
 		}
 		else {
-			$('.passport-optin-button').append('<p class="passport-error">You must click the eheckbox to continue.</p>');
+			$('.passport-optin-button').append('<p class="passport-error">Sorry, you must click the checkbox to continue.</p>');
 		}
 	
 	});
