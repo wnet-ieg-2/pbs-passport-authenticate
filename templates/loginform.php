@@ -29,7 +29,7 @@ if ($membership_id) {
 
 get_header();
 ?>
-<div class='pbs-passport-authenticate-wrap <?php if (empty($userinfo)) {echo "wide"; }?> cf'>
+<div class='pbs-passport-authenticate-wrap <?php if (empty($userinfo) && !$membership_id) {echo "wide"; }?> cf'>
 <div class="pbs-passport-authenticate login-block">
 <div class='passport-middle'>
 <div class='before-login'>
