@@ -153,8 +153,8 @@ jQuery(document).ready(function($) {
 					dataType: 'json',
 					success: function(response) {
 						var destination = Cookies.getJSON('pbsoauth_login_referrer');
-						if (window.location.href != destination) {window.location.href = destination; console.log('test1');}
-						else {window.location.href = "/"; console.log('test2');}
+						if (destination.indexOf("pbsoauth") > -1) {window.location.href = "/";}
+						else {window.location.href = destination; console.log('test1');}
 				      }
 			    });
 			}
