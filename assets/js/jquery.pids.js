@@ -143,11 +143,13 @@ jQuery(document).ready(function($) {
      /* optin challenge */
 	$( "#passport-confirm-optin" ).click(function() {
 		if ($('input#pbsoauth_optin').prop('checked')) {
-		
 			if (user) {
+				// if user already logged in
 				console.log('registered user function here');
+				document.cookie='pbsoauth_login_referrer=' + window.location + ';domain=' + window.location.hostname + ';path=/';
 			}
 			else {
+				// else user not logged in
 				$('.add-login-fields').removeClass('hide');
 				if ($(".passport-optin-challenge")[0]){$('.passport-optin-challenge').hide();}
 			}	
