@@ -48,9 +48,9 @@ if ($membership_id){
 		
 		<p class="passport-optin-button"><button id="passport-confirm-optin" class="passport-button">Confirm</button></p>
 
-		<p>If you do not agree to allow PBS and ' . strtoupper($defaults['station_nice_name']) . ' to share your viewing history with each other and their service
+		<p class="passport-small">If you do not agree to allow PBS and ' . strtoupper($defaults['station_nice_name']) . ' to share your viewing history with each other and their service
 providers, please stop and <a href="#tbd">contact us</a>.</p>
-		<p>Please see our <a href="/about/privacy-policy/">Privacy Policy</a> and <a href="/about/terms-of-service/">Terms of Use</a> for more information.</p>
+		<p class="passport-small">Please see our <a href="/about/privacy-policy/">Privacy Policy</a> and <a href="/about/terms-of-service/">Terms of Use</a> for more information.</p>
 </div>
 	';
 	// end opt in challenge
