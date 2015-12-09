@@ -145,24 +145,18 @@ jQuery(document).ready(function($) {
 		if ($('input#pbsoauth_optin').prop('checked')) {
 			if (user) {
 				// if user already logged in
-				destination = Cookies.getJSON('pbsoauth_login_referrer');
-				
-				
 				var memberid = getQueryStringParamPBS('membership_id');
-				
-				console.log(destination + ' | ' +  memberid);
-				/*
 				$.ajax({
 			      url: activatelink,
-			      data: 'membership_id=true',
+			      data: 'membership_id=' + memberid,
 			      type: 'POST',
 			      dataType: 'json',
 			      success: function(response) {
+				  	destination = Cookies.getJSON('pbsoauth_login_referrer');
 			        if (window.location.href != destination) {window.location.href = destination;}
 					else {window.location.href = "/";}
 			      }
 			    });
-				*/
 			}
 			else {
 				// else user not logged in
