@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
 
-  var authenticate_script = '/authenticate';
-  var loginform = '/loginform';
+  var authenticate_script = '/pbsoauth/authenticate/';
+  var loginform = '/pbsoauth/loginform/';
   var joinlink = "http://support.thirteen.org/passport";
   var userinfolink = '/pbsoauth/userinfo/';
   var activatelink = '/pbsoauth/activate/';
