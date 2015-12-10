@@ -499,10 +499,26 @@ class PBS_LAAS_Client {
   }
 
   private function store_pbs_userinfo($userinfo) {
-    $userinfo_json = json_encode($userinfo);
     if (isset($userinfo['email'])){
       //  store profile info in a cookie
       //error_log('userinfo is ' . $userinfo_json);
+      $userinfo_clean = array(
+        'first_name' => $userinfo['first_name'],
+        'last_name' => $userinfo['last_name'],
+        'pid' => $userinfo['pid'],
+        'thumbnail_URL' => $userinfo['thumbnail_URL']
+      );
+      if (isset($userinfo['membership_info'])) {
+        $userinfo_clean['membership_info'] = array(
+          'offer' => $userinfo['membership_info']['offer'],
+          'status' => $userinfo['membership_info']['status']
+        );
+        if (isset($userinfo['membership_info']['expire_date'])) {
+          $userinfo_clean['membership_info']['expire_date'] = $userinfo['membership_info']['expire_date'];
+          $userinfo_clean['membership_info']['grace_period'] = $userinfo['membership_info']['grace_period'];
+        }
+      }
+      $userinfo_json = json_encode($userinfo_clean);
       setcookie($this->userinfo_cookiename, $userinfo_json, strtotime("+1 hour"), "/", $this->domain, false, false);
       // return the profile info if there was any
       return $userinfo;
