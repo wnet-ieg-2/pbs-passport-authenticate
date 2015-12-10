@@ -521,7 +521,7 @@ class PBS_LAAS_Client {
       $userinfo_json = json_encode($userinfo_clean);
       setcookie($this->userinfo_cookiename, $userinfo_json, strtotime("+1 hour"), "/", $this->domain, false, false);
       // return the profile info if there was any
-      return $userinfo;
+      return $userinfo_clean;
     } else {
       //no email in userinfo means no data from userinfo, so we're not authenticated
       setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, false, false);
