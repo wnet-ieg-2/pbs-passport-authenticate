@@ -112,7 +112,6 @@ jQuery(document).ready(function($) {
 		}
 	  	// end passport player.
 	  
-      console.log(user);
     } else {
       setTimeout(function() {
         $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_login').click(loginToPBS);
@@ -155,7 +154,7 @@ jQuery(document).ready(function($) {
 						var destination = Cookies.getJSON('pbsoauth_login_referrer');
 						if (destination == null) {var destination = '/';}
 						if (destination.indexOf("pbsoauth") > -1) {window.location.href = "/";}
-						else {window.location.href = destination; console.log('test1');}
+						else {window.location.href = destination; }
 				      }
 			    });
 			}
