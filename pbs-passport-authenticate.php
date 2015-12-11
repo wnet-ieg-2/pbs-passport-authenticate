@@ -20,8 +20,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 require_once( 'classes/class-pbs-passport-authenticate.php' );
 require_once( 'classes/class-pbs-passport-authenticate-settings.php' );
 require_once('classes/class-PBS-LAAS-client.php');
-require_once('classes/class-PBS-MVault-client.php');
-
+if (!class_exists('PBS_MVault_Client')) {
+  require_once('classes/class-PBS-MVault-client.php');
+}
 global $plugin_obj;
 $plugin_obj = new PBS_Passport_Authenticate( __FILE__ );
 
@@ -48,11 +49,13 @@ function pbs_passport_authenticate_deactivation() {
 
 //TEMPORARY will find a better way to store this.  
 //it is a server-by-server thing
-function mvault_curl_extras($ch) {
+if (!function_exists('mvault_curl_extras')) {
+  function mvault_curl_extras($ch) {
   curl_setopt($ch, CURLOPT_CAINFO, '/etc/pki/tls/certs/AddTrustExternalCARoot.crt');
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
   curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
   return $ch;
+}
 }
 
 
