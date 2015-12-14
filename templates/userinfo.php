@@ -8,6 +8,8 @@ $station_nice_name = $defaults['station_nice_name'];
 $laas_client = $passport->get_laas_client();
 $userinfo = $laas_client->check_pbs_login();
 if (empty($userinfo['first_name'])) {
+  // just in case, log them out, maybe they've got a bad cookie
+  $laas_client->logout();
   // not logged in, redirect to loginform
   wp_redirect(site_url('pbsoauth/loginform'));
   exit();
