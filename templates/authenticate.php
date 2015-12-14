@@ -32,21 +32,10 @@ foreach ($required as $arg) {
   }
 }
 
+$passport = new PBS_Passport_Authenticate(dirname(__FILE__));
 
+$laas_client = $passport->get_laas_client();
 
-$laas_args = array(
-  'client_id' => $defaults['laas_client_id'],
-  'client_secret' => $defaults['laas_client_secret'],
-  'oauthroot' => $defaults['oauth2_endpoint'],
-  'redirect_uri' => site_url('/pbsoauth/callback/'),
-  'tokeninfo_cookiename' => 'safdsafa',
-  'userinfo_cookiename' => 'pbs_passport_userinfo',
-  'cryptkey' => 'rioueqnfa2e',
-  'encrypt_iv' => 'adsfafdsaafddsaf'
-);
-
-
-$laas_client = new PBS_LAAS_Client($laas_args);
 
 $rememberme = (isset($_POST["rememberme"])) ? $_POST["rememberme"] : false;
 $nonce = (isset($_POST["nonce"])) ? $_POST["nonce"] : false;

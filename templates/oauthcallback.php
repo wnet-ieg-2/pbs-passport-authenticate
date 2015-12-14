@@ -17,26 +17,9 @@ remove_all_actions('wp_header',1);
 
 $defaults = get_option('pbs_passport_authenticate');
 
-$required = array('laas_client_id', 'laas_client_secret', 'oauth2_endpoint', 'mvault_endpoint', 'mvault_client_id', 'mvault_client_secret');
+$passport = new PBS_Passport_Authenticate(dirname(__FILE__));
 
-foreach ($required as $arg) {
-  if (empty($defaults[$arg])){
-    die(json_encode(array('missing_arg'=>$arg)));
-  }
-}
-
-$laas_args = array(
-  'client_id' => $defaults['laas_client_id'],
-  'client_secret' => $defaults['laas_client_secret'],
-  'oauthroot' => $defaults['oauth2_endpoint'],
-  'redirect_uri' => site_url('/pbsoauth/callback/'),
-  'tokeninfo_cookiename' => 'safdsafa',
-  'userinfo_cookiename' => 'pbs_passport_userinfo',
-  'cryptkey' => 'rioueqnfa2e',
-  'encrypt_iv' => 'adsfafdsaafddsaf'
-);
-
-$laas_client = new PBS_LAAS_Client($laas_args);
+$laas_client = $passport->get_laas_client();
 
 
 if (isset($_GET["state"])){
