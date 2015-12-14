@@ -86,7 +86,7 @@ if (!empty($return['errors'])){
 
 <h2>How do I find my activation code?</h2>
 
-<p>If you are am active member of <?php echo $station_nice_name; ?>, at the $60 level or higher, look for an email from "<?php echo $station_nice_name; ?> Passport" which contains your activation code.</p>  
+<p>If you are an active member of <?php echo $station_nice_name; ?>, at the $60 level or higher, look for an email from "<?php echo $station_nice_name; ?> Passport" which contains your activation code.</p>  
 
 <p>If you don't have an email from us, <a href="<?php echo site_url('pbsoauth/alreadymember/'); ?>">please click here</a> to complete a form, providing some basic information, and we will email your activation code.</p>
 
