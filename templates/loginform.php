@@ -38,8 +38,8 @@ get_header();
 }
 if ($membership_id){
   // this is an activation
-  echo '<h2>Welcome ' . $mvaultinfo['first_name'] . ' ' . $mvaultinfo['last_name'] . '</h2>'; 
-
+  //echo '<h2>Welcome ' . $mvaultinfo['first_name'] . ' ' . $mvaultinfo['last_name'] . '</h2>'; 
+  echo '<h2>Welcome!</h2>';
 
 	// opt-in challenge
 	echo '
