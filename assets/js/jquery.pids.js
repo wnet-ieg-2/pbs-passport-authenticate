@@ -42,11 +42,18 @@ jQuery(document).ready(function($) {
  
   function checkPBSLogin() {
     user = Cookies.getJSON('pbs_passport_userinfo');
+    if ( typeof(user) !== "undefined" && typeof(user.authentication_failed) !== "undefined") {
+      $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_login').click(loginToPBS);
+      $('.pbs_passport_authenticate_join').click(joinPBS);
+      $('.pbs_passport_authenticate_activate').click(activatePBS);
+      console.log('not authenticated');
+      return;
+    }
     if ( typeof(user) !== "undefined" && typeof(user.membership_info) !== "undefined") {
-        updateLoginVisuals(user);
-      } else {
-        retrievePBSLoginInfoViaAJAX();
-      }
+      updateLoginVisuals(user);
+    } else {
+      retrievePBSLoginInfoViaAJAX();
+    }
   }
 
   function retrievePBSLoginInfoViaAJAX() {

@@ -205,6 +205,7 @@ class PBS_LAAS_Client {
       $tokeninfo = $this->retrieve_encrypted_tokeninfo();
       if (! $tokeninfo) {
         // they're not logged in
+        setcookie($this->userinfo_cookiename, json_encode(array('authentication_failed' => true)), strtotime("+1 hour"), "/", $this->domain, false, false);
         return false;
       }
       $tokeninfo = $this->update_pbs_tokeninfo($tokeninfo);
@@ -213,6 +214,7 @@ class PBS_LAAS_Client {
 
       if (! $access_token) {
         // they're not logged in
+        setcookie($this->userinfo_cookiename, json_encode(array('authentication_failed' => true)), strtotime("+1 hour"), "/", $this->domain, false, false);
         return false;
       }
       $this->save_encrypted_tokeninfo($tokeninfo);
