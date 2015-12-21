@@ -466,6 +466,9 @@ class PBS_LAAS_Client {
     // check for profile info in session or cookie
     if (isset($_COOKIE[$this->userinfo_cookiename])) {
       $userinfo_json = $_COOKIE[$this->userinfo_cookiename];
+      if (get_magic_quotes_gpc()) {
+        $userinfo_json = stripslashes($userinfo_json);
+      }
     }
     $userinfo = json_decode($userinfo_json);
     if (isset($userinfo->pid)){
