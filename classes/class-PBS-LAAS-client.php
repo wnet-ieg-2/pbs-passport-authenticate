@@ -470,8 +470,8 @@ class PBS_LAAS_Client {
         $userinfo_json = stripslashes($userinfo_json);
       }
     }
-    $userinfo = json_decode($userinfo_json);
-    if (isset($userinfo->pid)){
+    $userinfo = json_decode($userinfo_json, TRUE);
+    if (isset($userinfo['pid'])){
       return $userinfo;
     } else {
       return false;
