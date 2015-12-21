@@ -468,7 +468,7 @@ class PBS_LAAS_Client {
       $userinfo_json = $_COOKIE[$this->userinfo_cookiename];
     }
     $userinfo = json_decode($userinfo_json);
-    if (isset($userinfo->email)){
+    if (isset($userinfo->pid)){
       return $userinfo;
     } else {
       return false;
@@ -499,9 +499,9 @@ class PBS_LAAS_Client {
   }
 
   private function store_pbs_userinfo($userinfo) {
-    if (isset($userinfo['email'])){
+    if (isset($userinfo['pid'])){
       //  store profile info in a cookie
-      //error_log('userinfo is ' . $userinfo_json);
+      //error_log('userinfo is ' . json_encode($userinfo) );
       $userinfo_clean = array(
         'first_name' => $userinfo['first_name'],
         'last_name' => $userinfo['last_name'],
@@ -523,7 +523,7 @@ class PBS_LAAS_Client {
       // return the profile info if there was any
       return $userinfo_clean;
     } else {
-      //no email in userinfo means no data from userinfo, so we're not authenticated
+      //no pid in userinfo means no data from userinfo, so we're not authenticated
       setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, false, false);
       return false;
     }
