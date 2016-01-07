@@ -86,7 +86,7 @@ if (!$membership_id){ ?>
 if (!empty($defaults['join_url'])) {
 ?>
 <li class='service-section-label'>Not a Member?</li>
-<li class = "service-login-link becomemember"><a href="<?php echo $defaults['join_url']; ?>"  class='passport-button gray'>Become a Member</a></li>
+<li class = "service-login-link becomemember"><a href="<?php echo $defaults['join_url']; ?>"  class='passport-button red'>Donate Now</a></li>
 <?php }
 }
 echo "</ul>";
