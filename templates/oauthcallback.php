@@ -61,6 +61,7 @@ if (isset($userinfo["pid"])){
       $mvaultinfo = $mvault_client->activate($membership_id, $pbs_uid);
     }
   }
+  /* these next two pieces are pointless and should be discarded
   
   if (empty($mvaultinfo["membership_id"])){
     // this wasn't an activation
@@ -76,6 +77,7 @@ if (isset($userinfo["pid"])){
       $userinfo = $success;
     }
   }
+  */
   $userinfo['errors'] = $errors;
 }
 
@@ -83,7 +85,8 @@ $login_referrer = site_url();
 
 if (!empty($_COOKIE["pbsoauth_login_referrer"])){
   $login_referrer = $_COOKIE["pbsoauth_login_referrer"];
-  setcookie( 'pbsoauth_login_referrer', '', 1, '/', $_SERVER['HTTP_HOST']);
+  // this also cannot do anything
+  //setcookie( 'pbsoauth_login_referrer', '', 1, '/', $_SERVER['HTTP_HOST']);
 }
 
 
