@@ -40,6 +40,12 @@ $laas_client = $passport->get_laas_client();
 $rememberme = (isset($_POST["rememberme"])) ? $_POST["rememberme"] : false;
 $nonce = (isset($_POST["nonce"])) ? $_POST["nonce"] : false;
 $errors = array();
+/* pointless and to be removed, since its in the oauthcallback
+if (isset($_POST["code"])){
+  $code = $_POST["code"];
+  $userinfo = $laas_client->authenticate($code, $rememberme, $nonce);
+} else 
+*/
 if (isset($_REQUEST["logout"])) {
   $userinfo = $laas_client->logout();
 } else {
