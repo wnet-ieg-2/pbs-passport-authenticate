@@ -12,7 +12,7 @@ $pluginImageDir = $passport->assets_url . 'img';
 
 
 $defaults = get_option('pbs_passport_authenticate');
-$station_nice_name = strtoupper($defaults['station_nice_name']);
+$station_nice_name = $defaults['station_nice_name'];
 
 // this script only takes one possible argument
 
@@ -31,7 +31,7 @@ if ($activation_token){
       $return['errors'] = 'This account has been disabled';
     }
     if (!empty($mvaultinfo['activation_date'])) {
-      $return['errors'] = 'This activation code has already been used';
+      $return['errors'] = 'This activation code has already been used. <br />You only need to activate once for access.';
     }
     if (empty($return['errors'])){ 
       // nothing wrong with this account, so
@@ -74,24 +74,27 @@ if ($activation_token){
   
   
 <h1>Enter your activation code:</h1>
-<?php 
-if (!empty($return['errors'])){
-  echo "<h3 class='error'>" . $return['errors'] . "</h3>";
-} 
-?>
 <form action="" method="POST" class='cf'>
 <input name="activation_token" type="text" value="<?php echo $activation_token; ?>" />
 <button><i class="fa fa-arrow-circle-right"></i> <span>Enter Code</span></button>
 </form>
+<?php
+if (!empty($return['errors'])){
+  echo "<h3 class='error'>" . $return['errors'] . "</h3>";
+}
+?>
 
 <h2>How do I find my activation code?</h2>
 
-<p>If you are an active member of <?php echo $station_nice_name; ?>, at the $60 level or higher, look for an email from "<?php echo $station_nice_name; ?> Passport" which contains your activation code.</p>  
-
-<p>If you don't have an email from us, <a href="<?php echo site_url('pbsoauth/alreadymember/'); ?>">please click here</a> to complete a form, providing some basic information, and we will email your activation code.</p>
-
+<p>If you are an active member of <?php echo $station_nice_name; ?> ($60+ annual, or $5 monthly), look for an email from "<?php echo $station_nice_name; ?> Passport" which contains your activation code.</p>  
+<h3>Don't have an activation code?</h3>
+<p>If you don't have an email from us, <a href="<?php echo site_url('pbsoauth/alreadymember/'); ?>">please click here</a>.</p>
+<h3>I already activated.</h3>
 <p>If you have already activated your <?php echo $station_nice_name; ?> Passport account, <a href="<?php echo site_url('pbsoauth/loginform/'); ?>" >click here to sign in</a>.</p>
-
+<h3>Not a member?</h3>
+<p>If you are not a current member, <a href="<?php echo $defaults['join_url']; ?>">click here to sign in.</a></p>
+<p>&nbsp;</p>
+<p class='passport-help-text'><i class='fa fa-info-circle'></i> <?php echo $defaults['help_text']; ?></p>
 </div>
 </div>
 </div>
