@@ -48,7 +48,7 @@ if ($membership_id){
 		
 		<p class="passport-optin-button"><button id="passport-confirm-optin" class="passport-button">Confirm</button><div class="passport-optin-error"></div></p>
 
-		<p class="passport-small">If you do not agree to allow PBS and ' . strtoupper($defaults['station_nice_name']) . ' to share your viewing history with each other and their service
+		<p class="passport-small">If you do not agree to allow PBS and ' . $defaults['station_nice_name'] . ' to share your viewing history with each other and their service
 providers, please stop and <a href="/about/contact/?1i=passport">contact us</a>.</p>
 		<p class="passport-small">Please see our <a href="/about/privacy-policy/">Privacy Policy</a> and <a href="/about/terms-of-service/">Terms of Use</a> for more information.</p>
 </div>
@@ -60,6 +60,7 @@ providers, please stop and <a href="/about/contact/?1i=passport">contact us</a>.
 
 } else {
   echo '<h2>Get access to member-exclusive video on demand and more</h2>';
+  echo "<p>Activation connects your member info with a sign in method you choose.  You only need to activate ONCE for access on " . $defaults['station_nice_name'] . " or PBS.org from any computer or device.</p>";
 }
  ?>
  
