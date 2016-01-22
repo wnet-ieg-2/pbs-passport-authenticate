@@ -177,7 +177,6 @@ class PBS_LAAS_Client {
       $tokeninfo['userinfodata'] = $userinfo;
       return $tokeninfo;
     } 
-    $this->store_pbs_userinfo($userinfo);
     
     return $userinfo;
 
@@ -228,9 +227,8 @@ class PBS_LAAS_Client {
       }
 
 
-      $this->store_pbs_userinfo($userinfo);
-
     }
+
     // can be false at this point, which is fine
     return $userinfo;
 
