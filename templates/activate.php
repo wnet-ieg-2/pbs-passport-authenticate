@@ -92,7 +92,7 @@ if (!empty($return['errors'])){
 <h3>I already activated.</h3>
 <p>If you have already activated your <?php echo $station_nice_name; ?> Passport account, <a href="<?php echo site_url('pbsoauth/loginform/'); ?>" >click here to sign in</a>.</p>
 <h3>Not a member?</h3>
-<p>If you are not a current member, <a href="<?php echo $defaults['join_url']; ?>">click here to sign in.</a></p>
+<p>If you are not a current member, <a href="<?php echo $defaults['join_url']; ?>">click here to join.</a></p>
 <p>&nbsp;</p>
 <p class='passport-help-text'><i class='fa fa-info-circle'></i> <?php echo $defaults['help_text']; ?></p>
 </div>
