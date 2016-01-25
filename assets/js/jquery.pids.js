@@ -42,11 +42,25 @@ jQuery(document).ready(function($) {
  
   function checkPBSLogin() {
     user = Cookies.getJSON('pbs_passport_userinfo');
-    if ( typeof(user) !== "undefined" && typeof(user.membership_info) !== "undefined") {
-        updateLoginVisuals(user);
-      } else {
-        retrievePBSLoginInfoViaAJAX();
-      }
+    if ( typeof(user) === "undefined" ) {
+      retrievePBSLoginInfoViaAJAX();
+      return;
+    }
+    if ( window.location == loginform ) {
+      // force a refresh of the userinfo cookie
+      // in case not_authenticated was set
+      Cookies.remove('pbs_passport_userinfo');
+    }
+    if ( typeof(user.not_authenticated) !== "undefined") {
+      user = false;
+      updateLoginVisuals(user);
+      return;
+    }
+    if ( typeof(user.membership_info) !== "undefined") {
+      updateLoginVisuals(user);
+    } else {
+      retrievePBSLoginInfoViaAJAX();
+    }
   }
 
   function retrievePBSLoginInfoViaAJAX() {
@@ -57,10 +71,17 @@ jQuery(document).ready(function($) {
       dataType: 'json',
       success: function(response) {
         user = response;
-        updateLoginVisuals(user);
+        if (user === false) {
+          Cookies.set('pbs_passport_userinfo', { not_authenticated: true } );
+          updateLoginVisuals(user);
+        } else {
+          checkPBSLogin();
+        }
       }
     });
   }
+
+
 
   //function updateLoginVisuals(user){
   updateLoginVisuals = function(user) {
