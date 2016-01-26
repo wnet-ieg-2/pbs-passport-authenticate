@@ -514,6 +514,11 @@ class PBS_LAAS_Client {
         );
         if (isset($userinfo['membership_info']['expire_date'])) {
           $userinfo_clean['membership_info']['expire_date'] = $userinfo['membership_info']['expire_date'];
+          // if theres an expire date there will be a grace period. set status = off if past grace period
+          if ( strtotime($userinfo['membership_info']['grace_period']) < time() ) {
+            $userinfo_clean['membership_info']['status'] = 'Off';
+            //$userinfo_clean['membership_info']['offer'] = null;
+          }
           $userinfo_clean['membership_info']['grace_period'] = $userinfo['membership_info']['grace_period'];
         }
       }

@@ -20,9 +20,8 @@ $mvaultinfo = $mvault_client->get_membership_by_uid($userinfo['pid']);
 $userinfo["membership_info"] = array("offer" => null, "status" => "Off");
 if (isset ($mvaultinfo["membership_id"])) {
   $userinfo["membership_info"] = $mvaultinfo;
+  $userinfo = $laas_client->validate_and_append_userinfo($userinfo);
 }
-$success = $laas_client->validate_and_append_userinfo($userinfo);
-
 
 get_header();
 ?>
@@ -46,13 +45,13 @@ echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userin
   
 
 /* active member */
-if ($userinfo['membership_info']['offer'] != "" && $userinfo['membership_info']['status'] == "On") {
+if ( !empty($userinfo['membership_info']['offer']) && $userinfo['membership_info']['status'] == "On") {
 	echo "<p class='passport-status'>$station_nice_name Passport <i class='fa fa-check-circle passport-green'></i></p>";
 	if (!empty($watch_url)) {echo "<p><a href='$watch_url' class='passport-button'>Watch Programs</a></p>";}
 }
 
 /* not an active member */
-elseif ($userinfo['membership_info']['offer'] == "" && $userinfo['membership_info']['status'] == "Off") {
+elseif ( empty($userinfo['membership_info']['offer']) && $userinfo['membership_info']['status'] == "Off") {
 	$active_url = site_url('pbsoauth/activate');
 	echo "<div class='login-wrap cf'><ul>";
 	echo "<li><p class='passport-status'>$station_nice_name Passport <span class='passport-exclamation'><i class='fa fa-exclamation'></i></span></p></li>";
