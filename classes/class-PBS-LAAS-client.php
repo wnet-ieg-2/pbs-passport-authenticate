@@ -177,7 +177,6 @@ class PBS_LAAS_Client {
       $tokeninfo['userinfodata'] = $userinfo;
       return $tokeninfo;
     } 
-    $this->store_pbs_userinfo($userinfo);
     
     return $userinfo;
 
@@ -196,37 +195,34 @@ class PBS_LAAS_Client {
 
   public function check_pbs_login() {
 
-    $userinfo = $this->retrieve_pbs_userinfo();
+    // use access tokens to get the most recent info
 
-    // if the user has logged out, or the cookie has expired
-    if (! $userinfo) {
-      // use access tokens to get the most recent info
-
-      $tokeninfo = $this->retrieve_encrypted_tokeninfo();
-      if (! $tokeninfo) {
-        // they're not logged in
-        return false;
-      }
-      $tokeninfo = $this->update_pbs_tokeninfo($tokeninfo);
-
-      $access_token = $tokeninfo['access_token'];
-
-      if (! $access_token) {
-        // they're not logged in
-        return false;
-      }
-      $this->save_encrypted_tokeninfo($tokeninfo);
-
-      $userinfo = $this->get_latest_pbs_userinfo($access_token);
-      if (! isset($userinfo["pid"])){
-        $tokeninfo['userinfodata'] = $userinfo;
-        return $tokeninfo;
-      }
-
-
-      $this->store_pbs_userinfo($userinfo);
-
+    $current_tokeninfo = $this->retrieve_encrypted_tokeninfo();
+    if (! $current_tokeninfo) {
+      // they're not logged in
+      return false;
     }
+    $updated_tokeninfo = $this->update_pbs_tokeninfo($current_tokeninfo);
+
+    $access_token = $updated_tokeninfo['access_token'];
+
+    if (! $access_token) {
+      // they're not logged in
+      return false;
+    }
+
+    if ($access_token != $current_tokeninfo['access_token']) {
+      // only update the cookie if the value has changed
+      $this->save_encrypted_tokeninfo($updated_tokeninfo);
+    }
+
+    $userinfo = $this->get_latest_pbs_userinfo($access_token);
+    if (! isset($userinfo["pid"])){
+      $tokeninfo['userinfodata'] = $userinfo;
+      // this will be error info
+      return $tokeninfo;
+    }
+
     // can be false at this point, which is fine
     return $userinfo;
 

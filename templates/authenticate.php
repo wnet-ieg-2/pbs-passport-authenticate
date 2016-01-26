@@ -40,10 +40,7 @@ $laas_client = $passport->get_laas_client();
 $rememberme = (isset($_POST["rememberme"])) ? $_POST["rememberme"] : false;
 $nonce = (isset($_POST["nonce"])) ? $_POST["nonce"] : false;
 $errors = array();
-if (isset($_POST["code"])){
-  $code = $_POST["code"];
-  $userinfo = $laas_client->authenticate($code, $rememberme, $nonce);
-} elseif (isset($_REQUEST["logout"])){
+if (isset($_REQUEST["logout"])){
   $userinfo = $laas_client->logout();
 } else {
   $userinfo = $laas_client->check_pbs_login();
