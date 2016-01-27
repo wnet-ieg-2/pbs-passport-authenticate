@@ -81,7 +81,6 @@ class PBS_LAAS_Client {
   private $encrypt_method;
   private $encrypt_iv;
   private $domain;
-  public $nonce;
   
 
   public function __construct($args){
@@ -101,22 +100,10 @@ class PBS_LAAS_Client {
     $this->encrypt_method = (!empty($args['encrypt_method']) ? $args['encrypt_method'] : 'AES-256-CBC');
 
 
-
-
-    if( !isset( $_SESSION ) ) {
-      session_start();
-    }
-    $this->generate_nonce();
     $this->set_rememberme_state();
     date_default_timezone_set('UTC');
   } 
 
-  private function generate_nonce(){
-    if ( isset( $_SESSION ) ) {
-      $this->nonce = $_SESSION;
-      // encryption 
-    }
-  }
 
   private function set_rememberme_state(){
     // this function checks for the previous existence 
@@ -361,7 +348,7 @@ class PBS_LAAS_Client {
 
   private function encrypt($plaintext=''){
     if (! function_exists('openssl_encrypt')){
-      return false;
+      die('the openssl library is required for this client to work');
     }
     $key = hash('sha256', $this->cryptkey);
     $iv = substr(hash('sha256', $this->encrypt_iv), 0, 16);
@@ -372,7 +359,7 @@ class PBS_LAAS_Client {
 
   private function decrypt($cyphertext=''){
     if (! function_exists('openssl_encrypt')){
-      return false;
+      die('the openssl library is required for this client to work');
     }
     $key = hash('sha256', $this->cryptkey);
     $iv = substr(hash('sha256', $this->encrypt_iv), 0, 16);
