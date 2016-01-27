@@ -68,7 +68,16 @@ jQuery(document).ready(function($) {
     if (user){
       // if somehow still on loginform after logging in, redirect to userinfo page
       if (window.location == loginform) { window.location = userinfolink; }
-		if (user.membership_info.offer) {passportIcon = 'passport-link-icon';}
+
+      /*  status = On: member has not been disabled or expired
+       *  offer = not null:  member is in mvault and activated
+       *  status = Off + offer = null: default -- visitor not activated
+       *  status = On + offer = not null: member activated and valid for video
+       *  status = Off + offer = not null: activated member is expired
+       *  status = On + offer = null: should not be possible, but not valid
+      */ 
+
+		if (user.membership_info.status == 'On') {passportIcon = 'passport-link-icon';}
 		else {passportIcon = 'passport-alert-icon';} 
 	
 		welcomestring = 'Welcome <a href="' + userinfolink + '" class="' + passportIcon + '">' + user.first_name + '</a>';
