@@ -300,8 +300,10 @@ class PBS_LAAS_Client {
 
   public function validate_pbs_access_token($access_token = ''){
     // this function hits the tokeninfo endpoint and checks its validity
+
+    /* NOTE:  the token-info endpoint has been disabled.  Instead we will see if we can successfully get userinfo.
+     * old code follows, leaving in because the endpoint may get re-enabled
     $url = $this->oauthroot . 'token-info/?access_token=' . $access_token;
-    //construct the curl request
     $ch = $this->build_curl_handle($url);
     $response_json = curl_exec($ch);
     $info = curl_getinfo($ch);
@@ -315,6 +317,15 @@ class PBS_LAAS_Client {
       $response['curlinfo'] = $info;
       return $response;
     }
+    * old code ends
+    * new lame hack follows
+    */
+    $userinfo = $this->get_latest_pbs_userinfo($access_token);
+    if (! isset($userinfo["pid"])){
+      // this will be error info
+      return $userinfo;
+    }
+    return $access_token;
   }
 
   public function generate_pbs_access_token_from_refresh_token($refresh_token =''){
@@ -440,12 +451,10 @@ class PBS_LAAS_Client {
     }
 
     // validate the access token on general priniciple
-    /*
     $validate = $this->validate_pbs_access_token($tokeninfo['access_token']);
     if (! isset($validate['access_token'])){
       return $validate;
     }
-    */
     // calculate the expiration date and add to tokeninfo array if not previously set
     if (! isset($tokeninfo['expires_timestamp']) ){
       $tokeninfo['expires_timestamp'] = strtotime("+" . $tokeninfo['expires_in'] . " seconds");
