@@ -350,6 +350,10 @@ class PBS_LAAS_Client {
     if (! function_exists('openssl_encrypt')){
       die('the openssl library is required for this client to work');
     }
+    if (! in_array($this->encrypt_method, openssl_get_cipher_methods()) ){
+      die('invalid cipher method ' . $this->encrypt_method);
+    }
+
     $key = hash('sha256', $this->cryptkey);
     $iv_length = openssl_cipher_iv_length($this->encrypt_method);
     $iv = openssl_random_pseudo_bytes($iv_length);
@@ -362,6 +366,9 @@ class PBS_LAAS_Client {
   private function decrypt($cyphertext=''){
     if (! function_exists('openssl_encrypt')){
       die('the openssl library is required for this client to work');
+    }
+    if (! in_array($this->encrypt_method, openssl_get_cipher_methods()) ){
+      die('invalid cipher method ' . $this->encrypt_method);
     }
     $key = hash('sha256', $this->cryptkey);
     // legacy initialization vector, some older cypertext wont have it in the string 
