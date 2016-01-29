@@ -86,6 +86,7 @@ class PBS_Passport_Authenticate {
     $args['joinurl'] = $defaults['join_url'];
     $args['activatelink'] =  site_url('pbsoauth/activate/');
     $args['userinfolink'] =  site_url('pbsoauth/userinfo/');
+    $args['station_call_letters_lc'] = strtolower($defaults['station_call_letters']);
     $json_args = json_encode($args);
     $button = '<div class="pbs_passport_authenticate"><button class="launch">' . $args['login_text'] .  '</button><div class="messages"></div></div>';
     $jsonblock = '<script language="javascript">var pbs_passport_authenticate_args = ' . $json_args . ' </script>';
