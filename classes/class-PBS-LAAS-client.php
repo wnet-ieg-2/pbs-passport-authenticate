@@ -355,9 +355,10 @@ class PBS_LAAS_Client {
     }
 
     $key = hash('sha256', $this->cryptkey);
-    $iv = substr(hash('sha256', $this->encrypt_iv), 0, 16);
+    $iv_length = openssl_cipher_iv_length($this->encrypt_method);
+    $iv = openssl_random_pseudo_bytes($iv_length);
     $output = openssl_encrypt($plaintext, $this->encrypt_method, $key, 0, $iv);
-    $output = base64_encode($output);
+    $output = base64_encode($output) . "." . base64_encode($iv);
     return $output;
   }
 
@@ -370,6 +371,11 @@ class PBS_LAAS_Client {
     }
     $key = hash('sha256', $this->cryptkey);
     $iv = substr(hash('sha256', $this->encrypt_iv), 0, 16);
+    $elements = explode(".", $cyphertext);
+    $cyphertext = $elements[0];
+    if (!empty($elements[1])) {
+      $iv = base64_decode($elements[1]);
+    }
     $output = openssl_decrypt(base64_decode($cyphertext), $this->encrypt_method, $key, 0, $iv);
     return $output;
   }
