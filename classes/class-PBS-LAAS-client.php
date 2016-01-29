@@ -98,7 +98,7 @@ class PBS_LAAS_Client {
     $this->cryptkey = $args['cryptkey'];
     $this->encrypt_iv = $args['encrypt_iv'];
     $this->encrypt_method = (!empty($args['encrypt_method']) ? $args['encrypt_method'] : 'AES-256-CBC');
-    
+
 
     $this->set_rememberme_state();
     date_default_timezone_set('UTC');
@@ -357,9 +357,8 @@ class PBS_LAAS_Client {
     $key = hash('sha256', $this->cryptkey);
     $iv_length = openssl_cipher_iv_length($this->encrypt_method);
     $iv = openssl_random_pseudo_bytes($iv_length);
-
     $output = openssl_encrypt($plaintext, $this->encrypt_method, $key, 0, $iv);
-    $output = base64_encode($output . "." . $iv);
+    $output = base64_encode($output) . "." . base64_encode($iv);
     return $output;
   }
 
@@ -371,14 +370,13 @@ class PBS_LAAS_Client {
       die('invalid cipher method ' . $this->encrypt_method);
     }
     $key = hash('sha256', $this->cryptkey);
-    // legacy initialization vector, some older cypertext wont have it in the string 
     $iv = substr(hash('sha256', $this->encrypt_iv), 0, 16);
-    $decoded = explode(".", base64_decode($cyphertext));
-    $data = $decoded[0];
-    if (!empty($decoded[1])) {
-      $iv = $decoded[1];
+    $elements = explode(".", $cyphertext);
+    $cyphertext = $elements[0];
+    if (!empty($elements[1])) {
+      $iv = base64_decode($elements[1]);
     }
-    $output = openssl_decrypt($data, $this->encrypt_method, $key, 0, $iv);
+    $output = openssl_decrypt(base64_decode($cyphertext), $this->encrypt_method, $key, 0, $iv);
     return $output;
   }
 
@@ -408,10 +406,10 @@ class PBS_LAAS_Client {
 
     // encrypt tokeninfo
     $encrypted = $this->encrypt($tokeninfo);
-    if (! $encrypted){
-      die('encryption failed');
+    if ($encrypted){
+      // THIS IS A BAD INSECURE TEMPORARY HACK.  FIND A BETTER WAY TO FAIL AND NOTIFY THAT WE HAVE NO ENCRYPTION
+      $tokeninfo = $encrypted;
     }
-    $tokeninfo = $encrypted;
 
     if ($this->rememberme) {
       // save encrypted tokeninfo in cookie if it exists or the user checked the remember me box
