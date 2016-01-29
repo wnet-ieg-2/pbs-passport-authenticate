@@ -92,11 +92,13 @@ On activation, the plugin registers two rewrite rules that redirect to some cust
 * `pbsoauth/authenticate`, which is an endpoint for our jQuery files to interact with during the authentication process
 * `pbsoauth/callback`, which will accept any callbacks from the PBS LAAS oAuth2 flow and forward the grant token to the appropriate script.  The callback URI must then be registered with PBS as a valid redirect_uri for your LAAS key -- this is typically done via email.
 
-
+If you need to overwrite or add some built-in functions, you can create a 'pluggable.php' file in the main directory of this plugin.  One particular use for this is if you have problems getting curl() working correctly -- create an 'mvault_curl_extras($ch)' function that adds whatever specific curl options your environment requires.
 
 
 
 ## Changelog
+
+0.2 2016-01-29 made portable
 
 0.1 2015-09-11 Initial base code
 
