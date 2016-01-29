@@ -96,7 +96,7 @@ class PBS_LAAS_Client {
 
     // encryption stuff
     $this->cryptkey = $args['cryptkey'];
-    $this->encrypt_iv = $args['encrypt_iv'];
+    $this->encrypt_iv = (!empty($args['encrypt_iv']) ? $args['encrypt_iv'] : 'adsfafdsaafddsaf'); // LEGACY ONLY
     $this->encrypt_method = (!empty($args['encrypt_method']) ? $args['encrypt_method'] : 'AES-256-CBC');
 
 

@@ -122,6 +122,7 @@ class PBS_Passport_Authenticate {
 
   public function get_laas_client(){
     $defaults = get_option('pbs_passport_authenticate');
+
     $laas_args = array(
       'client_id' => $defaults['laas_client_id'],
       'client_secret' => $defaults['laas_client_secret'],
@@ -129,8 +130,7 @@ class PBS_Passport_Authenticate {
       'redirect_uri' => site_url('/pbsoauth/callback/'),
       'tokeninfo_cookiename' => $defaults['tokeninfo_cookiename'],
       'userinfo_cookiename' => 'pbs_passport_userinfo',
-      'cryptkey' => $defaults['cryptkey'],
-      'encrypt_iv' => 'adsfafdsaafddsaf'
+      'cryptkey' => $defaults['cryptkey']
     );
     $laas_client = new PBS_LAAS_Client($laas_args);
     return $laas_client;
