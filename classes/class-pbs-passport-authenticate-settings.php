@@ -77,7 +77,7 @@ class PBS_Passport_Authenticate_Settings {
 
     add_settings_field( 'tokeninfo_cookiename', 'Token cookie name', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'cookie_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'tokeninfo_cookiename', 'class' => 'regular-text', 'label' => 'Obscure name for the cookie that stores oAuth user tokens.  Changing this will reset all Passport user logins.  Should be something obscure', 'default' => 'passport_tokeninfo' ) );
 
-    add_settings_field( 'cryptkey', 'Encryption key', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'cookie_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'cryptkey', 'class' => 'regular-text', 'type' => 'password',  'label' => 'Encryption key for the token cookie.  Changing this will reset all Passport user logins.  There are length requirements, so test in dev first', 'default' => 'rioueqnfa2e' ) );
+    add_settings_field( 'cryptkey', 'Encryption key', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'cookie_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'cryptkey', 'class' => 'regular-text', 'type' => 'password',  'label' => 'Encryption key for the token cookie.  Changing this will reset all Passport user logins.', 'default' => bin2hex(openssl_random_pseudo_bytes(32)) ) );
 
 
 	}
