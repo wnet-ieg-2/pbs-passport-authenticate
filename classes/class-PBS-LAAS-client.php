@@ -7,7 +7,7 @@ This class provides methods for working with PBS's Login As A Service (LAAS)
 
 Create a new client:
 
-$client = new PBS_LAAS_Client($client_id, $client_secret, $oauthroot, $redirect_uri, $tokeninfo_cookiename, $userinfo_cookiename, $cryptkey, $encrypt_iv, $encrypt_method);
+$client = new PBS_LAAS_Client($args);
 
 arguments:
 $client_id, $client_secret -- access keys from pbs.  The client_secret must be kept private.
@@ -25,8 +25,8 @@ and is encrypted, but it is possible to break any encryption. Giving it some ran
 some additional security through obscurity.  The userinfo cookie contains only the name and email and is not 
 encrypted, but should also be given a random name.
 
-$cryptkey, $encrypt_iv -- unique key and iv(salt) for encrypt/decrypt operations for the token info.  
-They should both be very random, at least 16 chars long, and must be kept private.
+$cryptkey -- unique key for encrypt/decrypt operations for the token info.  
+This should both be very random and must be kept private.
 
 $encrypt_method -- Encryption cypher for the token info.  The available methods are whatever is available to 
 the openssl_encrypt function.  Default is AES-256-CBC, but there are many choices.  This must be kept private.
@@ -59,13 +59,6 @@ example:
 $client->logout();
 
 
-prompt_for_pbs_login()
-NOT YET IMPLEMENTED. Takes no arguments. It looks for the user info, finds the login provider
-(google/facebook/openid), and highlights the corresponding endpoint link for the user.  
-It will probably depend on browser local storage to get that value, or maybe a separate cookie. 
-
-
-
 */
 
 class PBS_LAAS_Client {
@@ -96,7 +89,7 @@ class PBS_LAAS_Client {
 
     // encryption stuff
     $this->cryptkey = $args['cryptkey'];
-    $this->encrypt_iv = (!empty($args['encrypt_iv']) ? $args['encrypt_iv'] : 'adsfafdsaafddsaf'); // LEGACY ONLY
+    $this->encrypt_iv = (!empty($args['encrypt_iv']) ? $args['encrypt_iv'] : 'adsfafdsaafddsaf'); // LEGACY ONLY 
     $this->encrypt_method = (!empty($args['encrypt_method']) ? $args['encrypt_method'] : 'AES-256-CBC');
 
 
@@ -288,7 +281,7 @@ class PBS_LAAS_Client {
   public function validate_pbs_access_token($access_token = ''){
     // this function hits the tokeninfo endpoint and checks its validity
 
-    /* NOTE:  the token-info endpoint has been disabled.  Instead we will see if we can successfully get userinfo.
+    /* NOTE:  the token-info endpoint has been disabled by PBS.  Instead we will see if we can successfully get userinfo.
      * old code follows, leaving in because the endpoint may get re-enabled
     $url = $this->oauthroot . 'token-info/?access_token=' . $access_token;
     $ch = $this->build_curl_handle($url);
@@ -406,10 +399,10 @@ class PBS_LAAS_Client {
 
     // encrypt tokeninfo
     $encrypted = $this->encrypt($tokeninfo);
-    if ($encrypted){
-      // THIS IS A BAD INSECURE TEMPORARY HACK.  FIND A BETTER WAY TO FAIL AND NOTIFY THAT WE HAVE NO ENCRYPTION
-      $tokeninfo = $encrypted;
+    if (!$encrypted){
+      die('tokeninfo cookie encryption failed!');
     }
+    $tokeninfo = $encrypted;
 
     if ($this->rememberme) {
       // save encrypted tokeninfo in cookie if it exists or the user checked the remember me box
