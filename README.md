@@ -53,7 +53,7 @@ The plugin provides two functions:
 1. A [pbs-passport-authenticate] shortcode that provides a login/logout link for the user, including going through the PBS Passport 'activation' process
 2. A simple AJAX function to determine the login status of the user.
 
-Activation enqueues a custom CSS file and a custom javascript file on every user-facing page.  The CSS file can be disabled from the plugin's settings page.
+Activation enqueues a custom CSS file and a custom javascript file on every user-facing page.   
 
 ### Shortcode
 
