@@ -13,6 +13,7 @@ The 'PBS Passport Authenticate' plugin, when installed in a PBS station website 
 * The login system requires no heavy database interaction -- member information and authentication status is stored within cookies, and no member data is stored in your website's database, just the PBS Membership Vault.
 * Enabling the login system requires contacting PBS for MVault access keys and PBS Profile Service access keys.
 
+## Support:
 We welcome bug reports made via our GitHub repository, and while we do not provide any warranty for this plugin, we'll make a good faith effort to address bugs and update the source code in a timely fashion.  We use this plugin in our own website and we want the best and most reliable product possible!
 
 In addition to the code itself, we will also be happy to provide limited support for the plugin:
