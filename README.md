@@ -96,12 +96,6 @@ If you need to overwrite or add some built-in functions, you can create a 'plugg
 
 
 
-## Changelog
-
-0.2 2016-01-29 made portable
-
-0.1 2015-09-11 Initial base code
-
 
 ## License
 
