@@ -69,10 +69,7 @@ if (!empty($_COOKIE["pbsoauth_login_referrer"])){
   $login_referrer = $_COOKIE["pbsoauth_login_referrer"];
 }
 
+
+wp_redirect($login_referrer);
+exit();
 ?>
-<script type="text/javascript">
-window.location.href="<?php echo $login_referrer; ?>";
-</script>
-<noscript>
-<meta http-equiv="refresh" content="0;url=<?php echo $login_referrer; ?>" />';
-</noscript>
