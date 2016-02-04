@@ -8,7 +8,6 @@ get_header();
 
 $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
 $pluginImageDir = $passport->assets_url . 'img';
-// ADD A NONCE
 
 
 $defaults = get_option('pbs_passport_authenticate');

@@ -78,7 +78,6 @@ providers, please stop and <a href="/about/contact/?1i=passport">contact us</a>.
 </ul>
 
 <ul class='float'>
-<!-- add jquery to make this checkbox a cookie -->
 <?php }
 if (!$membership_id){ ?>
 <li class='service-section-label'>Not Activated Yet?</li>

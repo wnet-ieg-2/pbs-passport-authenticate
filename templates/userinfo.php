@@ -4,7 +4,6 @@ $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
 
 $pluginImageDir = $passport->assets_url . 'img';
 $station_nice_name = $defaults['station_nice_name'];
-// ADD A NONCE!!
 $laas_client = $passport->get_laas_client();
 $userinfo = $laas_client->check_pbs_login();
 if (empty($userinfo['first_name'])) {
