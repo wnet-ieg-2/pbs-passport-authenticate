@@ -11,7 +11,7 @@ PBS Passport Authenticate includes the following files:
 * A subdirectory named `classes` containing the core PHP class files that most functions depend on.
 * A subdirectory named `assets` containing JavaScript, CSS, and image files.
 * A subdirectory named `templates` that contains PHP files to respond to some custom endpoints.
-* A subdirectory named `examples` with sample code for custom interactions.
+
 
 ## Installation
 
@@ -95,12 +95,6 @@ On activation, the plugin registers two rewrite rules that redirect to some cust
 If you need to overwrite or add some built-in functions, you can create a 'pluggable.php' file in the main directory of this plugin.  One particular use for this is if you have problems getting curl() working correctly -- create an 'mvault_curl_extras($ch)' function that adds whatever specific curl options your environment requires.
 
 
-
-## Changelog
-
-0.2 2016-01-29 made portable
-
-0.1 2015-09-11 Initial base code
 
 
 ## License
