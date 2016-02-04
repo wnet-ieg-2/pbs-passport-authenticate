@@ -11,7 +11,7 @@ PBS Passport Authenticate includes the following files:
 * A subdirectory named `classes` containing the core PHP class files that most functions depend on.
 * A subdirectory named `assets` containing JavaScript, CSS, and image files.
 * A subdirectory named `templates` that contains PHP files to respond to some custom endpoints.
-* A subdirectory named `examples` with sample code for custom interactions.
+
 
 ## Installation
 
