@@ -7,7 +7,6 @@ wp_enqueue_script( 'pbs_passport_loginform_js' , $passport->assets_url . 'js/log
 $links = $passport->get_oauth_links();
 $pluginImageDir = $passport->assets_url . 'img';
 $station_nice_name = $defaults['station_nice_name'];
-// ADD A NONCE!!
 $laas_client = $passport->get_laas_client();
 $userinfo = $laas_client->check_pbs_login();
 $membership_id = (!empty($_REQUEST['membership_id']) ? $_REQUEST['membership_id'] : false);
