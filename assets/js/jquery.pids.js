@@ -109,7 +109,7 @@ jQuery(document).ready(function($) {
 	  
 		// if user signed in, but not activated. change video overlay link.
 		if ($(".pp-sign-in.pbs_passport_authenticate")[0] && user.membership_info.status == 'Off'){
-			$('.pp-sign-in.pbs_passport_authenticate').html('<a href="/pbsoauth/activate" class="passport-activate"><span>ACTIVATE ACCOUNT</span></a>');
+			$('.pp-sign-in.pbs_passport_authenticate').html('<a href="' + activatelink + '" class="passport-activate"><span>ACTIVATE ACCOUNT</span></a>');
 		}
 		
 		//passport player.
