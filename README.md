@@ -4,7 +4,7 @@ WNET Interactive Engagement Group (IEG) is pleased to share the source code for 
 
 The 'PBS Passport Authenticate' plugin, when installed in a PBS station website running WordPress, creates a turnkey system where a station member who has an account within the PBS Membership Vault can login to the station website using Google, Facebook, or the member's 'PBS Account'.   If the member has 'activated' via PBS.org, or used the included 'activation' form that is part of our plugin, the station website can show or hide content -- including embedded Passport video -- on the station website based on the visitor's status as a Passport-eliglble member of the station.
 
-## Notes: 
+### Notes: 
 * We do not provide membership donation or creation forms, nor any process to send 'activation codes' to members.   If your station uses an 'instant gratification' donation process that generates activation links or activation codes, it is likely possible to adapt that process to use our included activation form.  We've been able to do so for Thirteen.org.  
 * Otherwise, the PBS-provided activation code that your station gets when importing new members into the PBS Membership Vault ('MVault') will also work with our included activation form, and that 'activation' status will carry through to PBS.org as well.    
 * The login system can be added to your theme with a single line of code in your theme header.
@@ -13,7 +13,7 @@ The 'PBS Passport Authenticate' plugin, when installed in a PBS station website 
 * The login system requires no heavy database interaction -- member information and authentication status is stored within cookies, and no member data is stored in your website's database, just the PBS Membership Vault.
 * Enabling the login system requires contacting PBS for MVault access keys and PBS Profile Service access keys.
 
-## Support:
+### Support:
 We welcome bug reports made via our GitHub repository, and while we do not provide any warranty for this plugin, we'll make a good faith effort to address bugs and update the source code in a timely fashion.  We use this plugin in our own website and we want the best and most reliable product possible!
 
 In addition to the code itself, we will also be happy to provide limited support for the plugin:
