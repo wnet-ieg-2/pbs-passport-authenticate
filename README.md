@@ -1,6 +1,29 @@
 # PBS Passport Authenticate
 
-PBS Passport Authenticate is a WordPress plugin to enable user logins with PBS Passport 
+WNET Interactive Engagement Group (IEG) is pleased to share the source code for our 'PBS Passport Authenticate' WordPress plugin with any PBS station, free of charge, under the terms of the GNU General Public License (attached below and included with the plugin source code).    
+
+The 'PBS Passport Authenticate' plugin, when installed in a PBS station website running WordPress, creates a turnkey system where a station member who has an account within the PBS Membership Vault can login to the station website using Google, Facebook, or the member's 'PBS Account'.   If the member has 'activated' via PBS.org, or used the included 'activation' form that is part of our plugin, the station website can show or hide content -- including embedded Passport video -- on the station website based on the visitor's status as a Passport-eliglble member of the station.
+
+Notes: 
+* We do not provide membership donation or creation forms, nor any process to send 'activation codes' to members.   If your station uses an 'instant gratification' donation process that generates activation links or activation codes, it is likely possible to adapt that process to use our included activation form.  We've been able to do so for Thirteen.org.  
+* Otherwise, the PBS-provided activation code that your station gets when importing new members into the PBS Membership Vault ('MVault') will also work with our included activation form, and that 'activation' status will carry through to PBS.org as well.    
+* The login system can be added to your theme with a single line of code in your theme header.
+* We provide basic example code to restrict or allow access to a COVE Passport video based on the visitor's status as a Passport-eliglible member of the station, but it is up to the station to embed COVE Passport video onto their website.
+* We provide example CSS for the station to add to their website, but the station will probably want to alter that CSS to match their own website design.
+* The login system requires no heavy database interaction -- member information and authentication status is stored within cookies, and no member data is stored in your website's database, just the PBS Membership Vault.
+* Enabling the login system requires contacting PBS for MVault access keys and PBS Profile Service access keys.
+
+We welcome bug reports made via our GitHub repository, and while we do not provide any warranty for this plugin, we'll make a good faith effort to address bugs and update the source code in a timely fashion.  We use this plugin in our own website and we want the best and most reliable product possible!
+
+In addition to the code itself, we will also be happy to provide limited support for the plugin:
+
+* Included installation instructions that should allow a person who is familiar with installing and configuring WordPress plugins to get setup;
+* One free phone call, scheduled in advance, with a duration of not longer than an hour, for initial installation and setup help;
+* Further email and phone consultation for installation and setup assistance can be arranged at a rate of $175/hour.   
+
+WNET IEG is also available to contract with stations for website design, visual and technical customizations.  Technical customizations could include such Passport-related features as automated COVE video integration, a Membership Vault Lookup Form or donation 'instant gratification' similar to what we've done on Thirteen.org.    Please visit http://ieg.wnet.org , review our services, and contact us if interested!
+
+
 
 
 ## Contents
