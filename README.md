@@ -62,7 +62,7 @@ Activation enqueues a custom CSS file and a custom javascript file on every user
 
 Drop the shortcode [pbs-passport-authenticate] into place where you would want a login link to appear.  The link can be styled.  
 
-Clicking on the link launches a Colorbox overlay with a Facebook/Google/PBS chooser, options for entering an activation code or becoming a member, and a remember me checkbox.  
+Clicking on the link navigates to a page with a Facebook/Google/PBS chooser, options for entering an activation code or becoming a member, and a remember me checkbox.  
 
 Clicking the activation code selector presents a box to enter the activation code.  Doing so, a validity check will be performed, and if successful the MVault info is returned and the Facebook/Google/PBS chooser is presented again.
 
@@ -87,29 +87,29 @@ The /pbsoauth/authenticate URL can be hit via AJAX, and it takes no arguments.  
 
 It returns JSON with some basic info:  
 
-* `authenticated`: true|false.  If false, no other fields are returned.
 * `first_name` and `last_name`: The 'pbs_profile' first/last names.  These will be from the login provider (Facebook/Google/PBS), not from the MVault profile.
-* `login_provider`: google/facebook/pbs
-* `email`: the email associated with the login provider.
+* `pid`: the 'pbs_profile' pid/uid
 * `thumbnail_URL`: the avatar for the user provided by the login provider.  May be a generic icon if the user never set one up.  The 'pbs' login provider always provides a generic icon.
 
-If the PIDS account is associated with a WNET member in the MVault, further info will appear in a 'membership_info' object:
+If the PIDS account pid/uid is associated with a WNET member in the MVault, further info will appear in a 'membership_info' object:
 
 * `offer`: the offer code, typically 'AVOD'.  This will match up against permissions in the COVE windowing system.
 * `first_name` and `last_name`: these are what his or her membership is listed under, and can be completely different from the google etc provided values.
 * `expire_date`: The expiration date of their membership
 * `grace_period`: Three months after the expiration date, when the user loses access to Passport videos.
 * `membership_id`: The user's membership id in the MVault.
-* `provisional`: true|false .  Provisional records haven't been confirmed to match actual member records, and expire a few days after creation if not matched.
+* `status`: 'On'|'Off' . 'Off' will either be set by the user being manually disabled in the MVault console, past their grace period, or simply not activated.  
 
-This endpoint is hit as part of the login process.  During login and/or reauthentication, the endpoint will also set an unencrypted cookie restricted to the current server but readable by Javascript with the values for `first_name`, `last_name`, `offer`, and `thumbnail_URL`.
+NOTE: to simplify coding we create a membership_info block regardless of whether the logged-in visitor is actually a member.  A non-activated visitor will only have values for status ('Off') and offer (null).  An activated but past grace period member will have an offer (whatever was last set on their account) but status will be 'Off'.
 
-This endpoint reads and (as necessary) sets two encrypted cookies:
+This endpoint is hit as part of the login process.  During login and/or reauthentication, the endpoint will also set an unencrypted cookie restricted to the current server but readable by Javascript with the values for `first_name`, `last_name`, `pid`, `thumbnail_URL`, and the contents of the membership_info block.
 
-* one with the user's oAuth 'access_token', for use to get access to PBS Passport resources such as member-restricted videos
-* one with the user's oAuth 'refresh_token', used to get a new 'access_token' when the current one expires.  
+This endpoint reads and (as necessary) sets an encrypted cookie with:
 
-These two cookies are encrypted with different keys, and both will be restricted from normal Javascript access.  
+* the user's oAuth 'access_token', for use to get access to PBS Passport resources such as member-restricted videos
+* the user's oAuth 'refresh_token', used to get a new 'access_token' when the current one expires.  
+
+The cookie is encrypted with a secret key, a random IV, and set as a 'server-only' cookie.  
 
 ## Further details
 
