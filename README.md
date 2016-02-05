@@ -8,8 +8,8 @@ The 'PBS Passport Authenticate' plugin, when installed in a PBS station website 
 * We do not provide membership donation or creation forms, nor any process to send 'activation codes' to members.   If your station uses an 'instant gratification' donation process that generates activation links or activation codes, it is likely possible to adapt that process to use our included activation form.  We've been able to do so for Thirteen.org.  
 * Otherwise, the PBS-provided activation code that your station gets when importing new members into the PBS Membership Vault ('MVault') will also work with our included activation form, and that 'activation' status will carry through to PBS.org as well.    
 * The login system can be added to your theme with a single line of code in your theme header.
-* We provide basic example code to restrict or allow access to a COVE Passport video based on the visitor's status as a Passport-eliglible member of the station, but it is up to the station to embed COVE Passport video onto their website.
-* We provide example CSS for the station to add to their website, but the station will probably want to alter that CSS to match their own website design.
+* [COMING SOON] We provide basic example code to restrict or allow access to a COVE Passport video based on the visitor's status as a Passport-eliglible member of the station, but it is up to the station to embed COVE Passport video onto their website.
+* [COMING SOON] We provide example CSS for the station to add to their website, but the station will probably want to alter that CSS to match their own website design.
 * The login system requires no heavy database interaction -- member information and authentication status is stored within cookies, and no member data is stored in your website's database, just the PBS Membership Vault.
 * Enabling the login system requires contacting PBS for MVault access keys and PBS Profile Service access keys.
 
