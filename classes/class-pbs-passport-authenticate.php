@@ -108,11 +108,12 @@ class PBS_Passport_Authenticate {
     return $return;
   }
 
-  public function get_oauth_links(){
+  public function get_oauth_links($args = null){
     $defaults = get_option('pbs_passport_authenticate');
-    $oauthroot = $defaults['oauth2_endpoint'];
-    $redirect_uri = site_url('pbsoauth/callback/');
-    $client_id = $defaults['laas_client_id'];
+    
+    $oauthroot = ( !empty($args['oauth2_endpoint']) ? $args['oauth2_endpoint'] : $defaults['oauth2_endpoint'] );
+    $redirect_uri = ( !empty($args['redirect_uri']) ? $args['redirect_uri'] : site_url('pbsoauth/callback/') );
+    $client_id = ( !empty($args['laas_client_id']) ? $args['laas_client_id'] : $defaults['laas_client_id'] );
     
     $return = array();
     $return['pbs'] = $oauthroot . 'authorize/?scope=account&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id; 
