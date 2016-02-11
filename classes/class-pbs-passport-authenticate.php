@@ -122,14 +122,19 @@ class PBS_Passport_Authenticate {
     return $return;
   }
 
-  public function get_laas_client(){
+  public function get_laas_client($args = null){
     $defaults = get_option('pbs_passport_authenticate');
 
+    $oauthroot = ( !empty($args['oauth2_endpoint']) ? $args['oauth2_endpoint'] : $defaults['oauth2_endpoint'] );
+    $redirect_uri = ( !empty($args['redirect_uri']) ? $args['redirect_uri'] : site_url('pbsoauth/callback/') );
+    $client_id = ( !empty($args['laas_client_id']) ? $args['laas_client_id'] : $defaults['laas_client_id'] );
+    $client_secret = ( !empty($args['laas_client_secret']) ? $args['laas_client_secret'] : $defaults['laas_client_secret'] );
+
     $laas_args = array(
-      'client_id' => $defaults['laas_client_id'],
-      'client_secret' => $defaults['laas_client_secret'],
-      'oauthroot' => $defaults['oauth2_endpoint'],
-      'redirect_uri' => site_url('/pbsoauth/callback/'),
+      'client_id' => $client_id,
+      'client_secret' => $client_secret,
+      'oauthroot' => $oauthroot,
+      'redirect_uri' => $redirect_uri,
       'tokeninfo_cookiename' => $defaults['tokeninfo_cookiename'],
       'userinfo_cookiename' => 'pbs_passport_userinfo',
       'cryptkey' => $defaults['cryptkey']
