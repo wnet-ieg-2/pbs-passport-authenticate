@@ -15,7 +15,7 @@ $station_nice_name = $defaults['station_nice_name'];
 
 // this script only takes one possible argument
 
-$activation_token = (!empty($_REQUEST['activation_token']) ? $_REQUEST['activation_token'] : '');
+$activation_token = (!empty($_REQUEST['activation_token']) ? trim($_REQUEST['activation_token']) : '');
 
 
 if ($activation_token){
