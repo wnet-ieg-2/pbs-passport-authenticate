@@ -118,7 +118,7 @@ jQuery(document).ready(function($) {
 			var videoID = $('#passportcoveplayer').data('media');
 			
 			if (videoWindow != 'public' && videoWindow != '' && !$('#passportcoveplayer').hasClass("playing")) {
-				$("#passportcoveplayer").html('<div class="embed-container video-wrap"><iframe id="partnerPlayer" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" src="http://player.pbs.org/widget/partnerplayer/'+videoID+'/?chapterbar=false&uid='+user.pid+'&callsign='+station_call_letters_lc+'"></iframe></div>');
+				$("#passportcoveplayer").html('<div class="embed-container video-wrap"><iframe id="partnerPlayer" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allowfullscreen="allowfullscreen" src="http://player.pbs.org/widget/partnerplayer/'+videoID+'/?chapterbar=false&uid='+user.pid+'&callsign='+station_call_letters_lc+'"></iframe></div>');
 				$("#passportcoveplayer").addClass('playing'); /* adds class to prevent reloading on load more videos */
 			}
 		}
