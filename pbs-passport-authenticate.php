@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: PBS Passport Authenticate
- * Version: 0.1
+ * Version: 0.1.1
  * Plugin URI: http://ieg.wnet.org/
  * Description: PBS Passport Authenticate
  * Author: William Tam
