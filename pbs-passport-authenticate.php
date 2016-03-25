@@ -17,8 +17,9 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 // pre-define pluggable functions if needed
-if (file_exists('pluggable.php')) {
-  require_once('pluggable.php');
+$plugpath = trailingslashit(dirname(__FILE__)) . 'pluggable.php';
+if (file_exists($plugpath)) {
+  require_once($plugpath);
 }
 
 
