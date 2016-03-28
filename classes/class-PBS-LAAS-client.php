@@ -305,7 +305,8 @@ class PBS_LAAS_Client {
       // this will be error info
       return $userinfo;
     }
-    return $access_token;
+    // if no error, return an array with the access_token we fed in.
+    return array('access_token' => $access_token);
   }
 
   public function generate_pbs_access_token_from_refresh_token($refresh_token =''){
