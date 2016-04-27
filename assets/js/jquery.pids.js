@@ -83,7 +83,7 @@ jQuery(document).ready(function($) {
 		if (user.membership_info.status == 'On') {passportIcon = 'passport-link-icon';}
 		else {passportIcon = 'passport-alert-icon';} 
 	
-		welcomestring = '<span class="welcome">Welcome <a href="' + userinfolink + '" class="' + passportIcon + '">' + user.first_name + '</a></span>';
+		welcomestring = '<span class="welcome">Welcome</span> <a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + user.first_name + '</span></a>';
      
       $('.pbs_passport_authenticate div.messages').html(welcomestring);
 	  
