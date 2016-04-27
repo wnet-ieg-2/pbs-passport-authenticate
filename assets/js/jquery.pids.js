@@ -83,11 +83,11 @@ jQuery(document).ready(function($) {
 		if (user.membership_info.status == 'On') {passportIcon = 'passport-link-icon';}
 		else {passportIcon = 'passport-alert-icon';} 
 	
-		welcomestring = 'Welcome <a href="' + userinfolink + '" class="' + passportIcon + '">' + user.first_name + '</a>';
+		welcomestring = '<span class="welcome">Welcome <a href="' + userinfolink + '" class="' + passportIcon + '">' + user.first_name + '</a></span>';
      
       $('.pbs_passport_authenticate div.messages').html(welcomestring);
 	  
-	  if (user.thumbnail_URL) { $('.pbs_passport_authenticate div.messages').append("<img src=" + user.thumbnail_URL + " />");}
+	  if (user.thumbnail_URL) { $('.pbs_passport_authenticate div.messages').append("<a href='" + userinfolink + "'><img src=" + user.thumbnail_URL + " /></a>");}
       
 	  $('.pbs_passport_authenticate button.launch').addClass('logout');
       $('.pbs_passport_authenticate button.launch').text('Sign out');
