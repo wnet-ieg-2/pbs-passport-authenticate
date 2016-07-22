@@ -13,7 +13,7 @@ if (empty($userinfo['first_name'])) {
   wp_redirect(site_url('pbsoauth/loginform'));
   exit();
 }
-$mvault_client = new PBS_MVault_Client($defaults['mvault_client_id'], $defaults['mvault_client_secret'],$defaults['mvault_endpoint'], $defaults['station_call_letters']);
+$mvault_client = $passport->get_mvault_client();
 $mvaultinfo = array();
 $mvaultinfo = $mvault_client->get_membership_by_uid($userinfo['pid']);
 $userinfo["membership_info"] = array("offer" => null, "status" => "Off");

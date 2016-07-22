@@ -60,8 +60,7 @@ if (empty($userinfo["pid"])){
 $pbs_uid = $userinfo["pid"];
 
 // now we work with the mvault
-
-$mvault_client = new PBS_MVault_Client($defaults['mvault_client_id'], $defaults['mvault_client_secret'],$defaults['mvault_endpoint'], $defaults['station_call_letters']);
+$mvault_client = $passport->get_mvault_client();
 $mvaultinfo = array();
 
   // if we are handling an mvault activation, associate the userinfo with the mvault record
