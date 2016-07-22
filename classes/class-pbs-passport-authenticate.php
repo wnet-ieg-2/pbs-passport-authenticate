@@ -145,7 +145,8 @@ class PBS_Passport_Authenticate {
 
   public function get_mvault_client(){
     $defaults = get_option('pbs_passport_authenticate');
-    $mvault_client = new PBS_MVault_Client($defaults['mvault_client_id'], $defaults['mvault_client_secret'],$defaults['mvault_endpoint'], $defaults['station_call_letters']);
+    $station_id = ( !empty($defaults['station_id']) ? $defaults['station_id'] : $defaults['station_call_letters'] );
+    $mvault_client = new PBS_MVault_Client($defaults['mvault_client_id'], $defaults['mvault_client_secret'],$defaults['mvault_endpoint'], $station_id);
     return $mvault_client;
   }
 

@@ -7,10 +7,10 @@ class PBS_MVault_Client {
   private $station_call_letters;
   private $auth_string;
 
-  public function __construct($client_id = '', $client_secret = '', $mvault_url ='', $station_call_letters = ''){
+  public function __construct($client_id = '', $client_secret = '', $mvault_url ='', $station_id = ''){
     $this->client_id = $client_id;
     $this->client_secret = $client_secret;
-    $this->station = $station_call_letters;
+    $this->station = $station_id; // note that call letters are a supported legacy id
     $this->mvault_url = $mvault_url . $this->station;
     $this->auth_string = $this->client_id . ":" . $this->client_secret;
     date_default_timezone_set('UTC');
