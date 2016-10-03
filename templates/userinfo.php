@@ -76,8 +76,10 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 
 
 
-	echo "</div><!-- .pp-narrow -->";
 }
+
+
+	echo "</div><!-- .pp-narrow -->";
 
 /* expired member */
 else {
