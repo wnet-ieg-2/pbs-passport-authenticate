@@ -71,7 +71,7 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 	echo "</div><!-- .pp-narrow -->";
 	
 	
-	echo "<div class='service-options cf'>
+	echo "<div class='service-options activate cf'>
 	<ul>";
 
 	
@@ -80,7 +80,7 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 	echo "<li class='service-login-link accountsetep'><h4>I'm a member <strong>without</strong> an activation code</h4><a href='". site_url('pbsoauth/alreadymember') ."'><button class='pp-button-outline'>Request Account Setup</button></a></li>";
 	echo "</ul></div>";
 	
-	if (!empty($join_url)) { echo "<div class='service-options cf'><ul><li class='service-login-link becomemember'><h4>Not a Member?</h4><a href='$join_url'><button class='pp-button-outline'>Become a Member <i class='fa fa-heart-o'></i></button></a></li></ul></div>";}
+	if (!empty($join_url)) { echo "<div class='service-options cf'><ul><li class='single'><h4>Not a Member?</h4><a href='$join_url'><button class='pp-button-outline'>Become a Member <i class='fa fa-heart-o'></i></button></a></li></ul></div>";}
 	
 	
 }
