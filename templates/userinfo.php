@@ -86,13 +86,13 @@ else {
 	if (!empty($join_url)) {echo "<p><a href='$join_url' class='passport-button'>Renew Membership</a></p>";}
 }
 
-
-
-
-echo "<p class='passport-help-text'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>"; ?>
+ ?>
 
 
 </div><!-- .pp-narrow -->
+
+
+<?php echo "<p class='passport-help-text border'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>"; ?>
 
 
 </div>
