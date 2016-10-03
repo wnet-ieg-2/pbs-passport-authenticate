@@ -31,6 +31,7 @@ get_header();
   echo '<div class="pp-logo-head"><img src="' . $defaults['station_passport_logo'] . '" /></div>'; 
 }
 
+echo "<div class='pp-narrow'>";
 
 echo "<h3>USER STATUS</h3>";
 echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
@@ -67,20 +68,24 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 	echo "</ul></div>";
 	
 	
+
 	
 	
-	echo "<div class='service-options activate cf'>
+	echo "<div class='activate-options cf'>
 	<ul>";
 
 	
 	echo "<li class='service-section-label'></li>";
 	echo "<li class='service-login-link activate'><h4>I'm a member <strong>with</strong> an activation code</h4><a href='$active_url'><button class='pp-button-outline'>Activate Account <img src='$pluginImageDir/passport_compass_gray.svg'/></button></a></li>";
 	echo "<li class='service-login-link accountsetep'><h4>I'm a member <strong>without</strong> an activation code</h4><a href='". site_url('pbsoauth/alreadymember') ."'><button class='pp-button-outline'>Request Account Setup</button></a></li>";
+
+		if (!empty($join_url)) { echo "<li class='single'><h4>Not a Member?</h4><a href='$join_url'><button class='pp-button-outline'>Become a Member <i class='fa fa-heart-o'></i></button></a></li>";}
+
 	echo "</ul></div>";
 	
-	if (!empty($join_url)) { echo "<div class='service-options cf'><ul><li class='single'><h4>Not a Member?</h4><a href='$join_url'><button class='pp-button-outline'>Become a Member <i class='fa fa-heart-o'></i></button></a></li></ul></div>";}
+
 	
-	
+		echo "</div><!-- .pp-narrow -->";
 }
 
 /* expired member */
