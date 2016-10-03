@@ -74,9 +74,6 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 	if (!empty($join_url)) { echo "<li class='single'><h4>Not a Member?</h4><a href='$join_url'><button class='pp-button-outline'>Become a Member <i class='fa fa-heart-o'></i></button></a></li>";}
 	echo "</ul></div><!-- .activate-options -->";
 
-
-	echo "</div><!-- .pp-narrow -->";
-
 }
 
 /* expired member */
@@ -84,6 +81,9 @@ else {
 	echo "<p class='passport-status'>" . $defaults['station_nice_name'] . " Passport <i class='fa fa-times-circle passport-red'></i></p>";
 	if (!empty($join_url)) {echo "<p><a href='$join_url' class='passport-button'>Renew Membership</a></p>";}
 }
+
+
+	echo "</div><!-- .pp-narrow -->";
 
  ?>
 
