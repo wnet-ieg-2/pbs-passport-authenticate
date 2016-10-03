@@ -28,8 +28,10 @@ get_header();
 <div class="pbs-passport-authenticate userinfo-block">
 <div class='passport-middle'>
 <?php if (!empty($defaults['station_passport_logo'])) {
-  echo '<img src="' . $defaults['station_passport_logo'] . '" />'; 
+  echo '<div class="pp-logo-head"><img src="' . $defaults['station_passport_logo'] . '" /></div>'; 
 }
+
+echo "<div class='pp-narrow'>";
 
 echo "<h3>USER STATUS</h3>";
 echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
@@ -90,7 +92,7 @@ else {
 echo "<p class='passport-help-text'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>"; ?>
 
 
-
+</div><!-- .pp-narrow -->
 
 
 </div>
