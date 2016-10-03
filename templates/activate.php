@@ -67,11 +67,11 @@ if ($activation_token){
   
   <?php 
   if (!empty($defaults['station_passport_logo'])) {
-	  echo '<img src="' . $defaults['station_passport_logo'] . '" alt="'.$station_nice_name.' Passport" />'; 
+	  echo '<div class="pp-logo-head"><img src="' . $defaults['station_passport_logo'] . '" alt="'.$station_nice_name.' Passport" /></div>'; 
 	}
   ?>
   
-  
+  <div class='pp-narrow'>
 <h1>Enter your activation code:</h1>
 <form action="" method="POST" class='cf'>
 <input name="activation_token" type="text" value="<?php echo $activation_token; ?>" />
@@ -83,19 +83,39 @@ if (!empty($return['errors'])){
 }
 ?>
 
-<h2>How do I find my activation code?</h2>
+<h3>How do I find my activation code?</h3>
 
 <p>If you are an active member of <?php echo $station_nice_name; ?> ($60+ annual, or $5 monthly), look for an email from "<?php echo $station_nice_name; ?> Passport" which contains your activation code.</p>  
 <?php if (class_exists('WNET_Passport_Already_Member')) { ?>
 <h3>Don't have an activation code?</h3>
 <p>If you don't have an email from us, <a href="<?php echo site_url('pbsoauth/alreadymember/'); ?>">please click here</a>.</p>
 <?php } ?>
-<h3>I already activated.</h3>
-<p>If you have already activated your <?php echo $station_nice_name; ?> Passport account, <a href="<?php echo site_url('pbsoauth/loginform/'); ?>" >click here to sign in</a>.</p>
-<h3>Not a member?</h3>
-<p>If you are not a current member, <a href="<?php echo $defaults['join_url']; ?>">click here to join.</a></p>
-<p>&nbsp;</p>
-<p class='passport-help-text'><i class='fa fa-info-circle'></i> <?php echo $defaults['help_text']; ?></p>
+
+
+<h3>Have questions or technical issues?</h3>
+<p>Check out our <a href="<?php echo site_url('/passport-faqs/'); ?>">Passport FAQs</a>.</p>
+
+
+</div><!-- .pp-narrow -->
+
+<div class='service-options cf'>
+	<ul>
+
+	<li class="activate">
+	<h4>Already activated?</h4>
+	<a href="<?php echo site_url('pbsoauth/loginform/'); ?>" ><button class='pp-button-outline'>MEMBER SIGN IN <img src='<?php echo $pluginImageDir; ?>/passport_compass_gray.svg'/></button></a>
+	</li>
+	
+	<?php if (!empty($defaults['join_url'])) { ?>
+	<li class="becomemember">
+	<h4>Not a <?php echo $station_nice_name; ?> member?</h4>
+	<a href="<?php echo $defaults['join_url']; ?>"><button class='pp-button-outline'>Become a Member <i class="fa fa-heart-o"></i></button></a></li>
+	<?php } ?>
+
+	</ul>
+	</div>
+
+
 </div>
 </div>
 </div>

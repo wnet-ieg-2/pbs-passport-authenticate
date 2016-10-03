@@ -31,13 +31,13 @@ get_header();
 <div class='pbs-passport-authenticate-wrap <?php if (empty($userinfo) && !$membership_id) {echo "wide"; }?> cf'>
 <div class="pbs-passport-authenticate login-block">
 <div class='passport-middle'>
-<div class='before-login'>
+
 <?php if (!empty($defaults['station_passport_logo'])) {
-  echo '<img src="' . $defaults['station_passport_logo'] . '" />'; 
+  echo '<div class="pp-logo-head"><img src="' . $defaults['station_passport_logo'] . '" /></div>'; 
 }
 if ($membership_id){
   // this is an activation
-  //echo '<h2>Welcome ' . $mvaultinfo['first_name'] . ' ' . $mvaultinfo['last_name'] . '</h2>'; 
+  echo "<div class='before-login'>";
   echo '<h2>Welcome!</h2>';
 
 	// opt-in challenge
@@ -54,48 +54,56 @@ providers, please stop and <a href="/about/contact/?1i=passport">contact us</a>.
 	';
 	// end opt in challenge
 
-
   echo '<p class="activation-text add-login-fields hide">To complete your activation, please choose a sign-in method below.  You can use this sign-in method whenever you visit <a href="' . get_bloginfo('url') . '">' . get_bloginfo('name') . '</a> in the future to enjoy members-only content.</p>';
 
-} else {
-  echo '<h2>Get access to member-exclusive video on demand and more</h2>';
-  echo "<p>Activation connects your member info with a sign in method you choose.  You only need to activate ONCE for access on " . $defaults['station_nice_name'] . " or PBS.org from any computer or device.</p>";
-}
- ?>
- 
- </div>
- <div class='login-wrap <?php if ($membership_id){ echo "add-login-fields hide"; } ?> cf'>
-<ul class='float <?php if ($membership_id){ echo "single-column";} ?>'>
-<?php if (empty($userinfo)) {
-  if (!$membership_id){ ?>
-<li class = "service-section-label">Already Activated? Please sign in below</li>
-<?php } ?>
-<li class = "service-login-link google"><a href="<?php echo($links['google']); ?>"><img src="<?php echo $pluginImageDir; ?>/button-google.png" alt="Login using Google"/></a></li>
-<li class = "service-login-link facebook"><a href="<?php echo($links['facebook']); ?>"><img src="<?php echo $pluginImageDir; ?>/button-facebook.png" alt="Login using Facebook"/></a></li>
-<li class = "service-login-link pbs"><a href="<?php echo($links['pbs']); ?>"><img src="<?php echo $pluginImageDir; ?>/button-pbs.png" alt="Login using PBS"></a></li>
-<li class="service-stay-logged-in"><input type="checkbox" id="pbsoauth_rememberme" name="pbsoauth_rememberme" value="true" checked /> Keep me logged in on this device</li>
-</ul>
+echo "</div>";
 
-<ul class='float'>
-<?php }
-if (!$membership_id){ ?>
-<li class='service-section-label'>Not Activated Yet?</li>
-<li class = "service-login-link activate"><a href="<?php echo site_url('pbsoauth/activate/'); ?>" class='passport-button'><span class='logo-button'>&nbsp;</span>Activate Now</a></li>
-<?php 
-if (!empty($defaults['join_url'])) {
+}
 ?>
-<li class='service-section-label'>Not a Member?</li>
-<li class = "service-login-link becomemember"><a href="<?php echo $defaults['join_url']; ?>"  class='passport-button red'>Donate Now</a></li>
-<?php }
-}
-echo "</ul>";
-echo "<div class='clear'></div>";
+ 
 
-echo "<p class='passport-help-text'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>";
 
- ?>
 
-</div><!-- .login-wrap -->
+<div class='passport-login-wrap pp-narrow <?php if ($membership_id){ echo "add-login-fields hide"; } ?> cf'>
+ 
+	<?php if (empty($userinfo)) { ?> 
+	<div class='service-sign-in cf'>
+	<h3>MEMBER SIGN IN</h3>
+	<ul>
+	<li class="google"><a href="<?php echo($links['google']); ?>" title="Sign in with Google"><img src="<?php echo $pluginImageDir; ?>/sign-in-google.png" /></a></li>
+	<li class='or'><span>OR</span></li>
+	<li class="facebook"><a href="<?php echo($links['facebook']); ?>" title="Sign in with Facebook"><img src="<?php echo $pluginImageDir; ?>/sign-in-facebook.png" /></a></li>
+	<li class='or'><span>OR</span></li>
+	<li class="pbs"><a href="<?php echo($links['pbs']); ?>" title="Sign in with PBS Account"><img src="<?php echo $pluginImageDir; ?>/sign-in-pbs.png" /></a>
+		<div class='create-pbs'>[WILL?] Don't have a PBS account? <a href="#">Create one!</a></div>
+	</li>
+	<li class="stay-logged-in"><input type="checkbox" id="pbsoauth_rememberme" name="pbsoauth_rememberme" value="true" checked /> Keep me logged in on this device</li>
+	</ul>
+	</div>
+	<?php } ?> 
+
+	<?php if (!$membership_id){ ?>
+	<div class='service-options cf'>
+	<ul>
+
+	<li class="activate">
+	<h4>First time using <?php echo $station_nice_name; ?> Passport?</h4>
+	<a href="<?php echo site_url('pbsoauth/activate/'); ?>"><button class='pp-button-outline'>Activate Now <img src='<?php echo $pluginImageDir; ?>/passport_compass_gray.svg'/></button></a>
+	<p class='look-for-email'>*If you are an active member of <?php echo $station_nice_name; ?> ($60+ annual, or $5 monthly), look for an email which contains your activation code.</p>
+	</li>
+	
+	<?php if (!empty($defaults['join_url'])) { ?>
+	<li class="becomemember">
+	<h4>Not a <?php echo $station_nice_name; ?> member?</h4>
+	<a href="<?php echo $defaults['join_url']; ?>"><button class='pp-button-outline'>Become a Member <i class="fa fa-heart-o"></i></button></a></li>
+	<?php } ?>
+
+	</ul>
+	</div>
+	<?php } ?>
+	<?php if (!empty($defaults['help_text'])) {echo "<p class='passport-help-text border'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>";} ?>
+
+</div><!-- .passport-login-wrap -->
 
 </div>
 </div>
