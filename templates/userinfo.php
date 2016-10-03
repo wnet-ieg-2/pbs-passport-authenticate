@@ -64,15 +64,27 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 
 	<p>If you are a member. please choose an option below. If you are not a member, use the \"Become a Member\" button.</p> </li>";
 	
+	
+	echo "</ul></div>";
+	
+	
+	
+	
+	
+	echo "<div class='service-options cf'>
+	<ul>";
+	
+	
+	
 	echo "<li class='service-section-label'>I'm a member <strong>with</strong> an activation code</li>";
-	echo "<li class='service-login-link activate'><a href='$active_url' class='passport-button'><span class='logo-button'>&nbsp;</span>Activate Account</a></li>";
+	echo "<li class='service-login-link activate'><a href='$active_url'><button class='pp-button-outline'>Activate Account <img src='<?php echo $pluginImageDir; ?>/passport_compass_gray.svg'/></button></a></li>";
 	if (!empty($join_url)) { 
 		
 		echo "<li class='service-section-label'>I'm a member <strong>without</strong> an activation code</li>";
-		echo "<li class='service-login-link accountsetep'><a href='". site_url('pbsoauth/alreadymember') ."' class='passport-button'>Request Account Setup</a></li>";
+		echo "<li class='service-login-link accountsetep'><a href='". site_url('pbsoauth/alreadymember') ."'><button class='pp-button-outline'>Request Account Setup</button></a></li>";
 	 	
 		echo "<li class='service-section-label'>Not a Member?</li>";
-		echo "<li class='service-login-link becomemember'><a href='$join_url' class='passport-button gray'>Become a Member</a></li>";
+		echo "<li class='service-login-link becomemember'><a href='$join_url'><button class='pp-button-outline'>Become a Member <i class='fa fa-heart-o'></i></button></a></li>";
 
 	}
 	echo "</ul></div>";
