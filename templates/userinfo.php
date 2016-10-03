@@ -48,7 +48,7 @@ echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userin
 /* active member */
 if ( !empty($userinfo['membership_info']['offer']) && $userinfo['membership_info']['status'] == "On") {
 	echo "<p class='passport-status'>$station_nice_name Passport <i class='fa fa-check-circle passport-green'></i></p>";
-	if (!empty($watch_url)) {echo "<p><a href='$watch_url' class='passport-button'>Watch Programs</a></p>";}
+	if (!empty($watch_url)) {echo "<p><a href='$watch_url'><button class='pp-button-outline'>Watch Programs <i class='fa fa-arrow-circle-right'></i></button></a></p>";}
 }
 
 /* not an active member */
