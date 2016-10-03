@@ -31,7 +31,6 @@ get_header();
   echo '<div class="pp-logo-head"><img src="' . $defaults['station_passport_logo'] . '" /></div>'; 
 }
 
-echo "<div class='pp-narrow'>";
 
 echo "<h3>USER STATUS</h3>";
 echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
@@ -68,7 +67,6 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 	echo "</ul></div>";
 	
 	
-	echo "</div><!-- .pp-narrow -->";
 	
 	
 	echo "<div class='service-options activate cf'>
@@ -76,7 +74,7 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 
 	
 	echo "<li class='service-section-label'></li>";
-	echo "<li class='service-login-link activate'><h4>I'm a member <strong>with</strong> an activation code</h4><a href='$active_url'><button class='pp-button-outline'>Activate Account <img src='<?php echo $pluginImageDir; ?>/passport_compass_gray.svg'/></button></a></li>";
+	echo "<li class='service-login-link activate'><h4>I'm a member <strong>with</strong> an activation code</h4><a href='$active_url'><button class='pp-button-outline'>Activate Account <img src='$pluginImageDir/passport_compass_gray.svg'/></button></a></li>";
 	echo "<li class='service-login-link accountsetep'><h4>I'm a member <strong>without</strong> an activation code</h4><a href='". site_url('pbsoauth/alreadymember') ."'><button class='pp-button-outline'>Request Account Setup</button></a></li>";
 	echo "</ul></div>";
 	
