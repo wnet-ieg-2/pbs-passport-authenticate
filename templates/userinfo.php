@@ -62,9 +62,7 @@ elseif ( empty($userinfo['membership_info']['offer']) && $userinfo['membership_i
 	echo "<li class='passport-not-setup'><p>Your $station_nice_name Passport account is not setup.
 $station_nice_name Passport is a benefit for eligible members of $station_nice_name.</p>
 
-<p>If you are a member. please choose an option below. If you are not a member, use the \"Become a Member\" button.</p> </li>";
-	
-	
+	<p>If you are a member. please choose an option below. If you are not a member, use the \"Become a Member\" button.</p> </li>";
 	
 	echo "<li class='service-section-label'>I'm a member <strong>with</strong> an activation code</li>";
 	echo "<li class='service-login-link activate'><a href='$active_url' class='passport-button'><span class='logo-button'>&nbsp;</span>Activate Account</a></li>";
