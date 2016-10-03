@@ -116,10 +116,11 @@ class PBS_Passport_Authenticate {
     $client_id = ( !empty($args['laas_client_id']) ? $args['laas_client_id'] : $defaults['laas_client_id'] );
     
     $return = array();
-    $scopestring = 'scope=' . urlencode('account ' . strtolower($defaults['station_call_letters']));
-    $return['pbs'] = $oauthroot . 'authorize/?' . $scopestring . '&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id; 
-    $return['google'] = $oauthroot . 'social/login/google-oauth2/?' . $scopestring . '&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id;
-    $return['facebook'] = $oauthroot . 'social/login/facebook/?' . $scopestring . '&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id;
+    //$scopestring = '&scope=' . urlencode('account ' . strtolower($defaults['station_call_letters']));
+    $scopestring = '';
+    $return['pbs'] = $oauthroot . 'authorize/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring; 
+    $return['google'] = $oauthroot . 'social/login/google-oauth2/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring;
+    $return['facebook'] = $oauthroot . 'social/login/facebook/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring;
     return $return;
   }
 
