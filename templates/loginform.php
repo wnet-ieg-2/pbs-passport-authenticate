@@ -64,7 +64,8 @@ echo "</div>";
 
 
 
-<div class='passport-login-wrap pp-narrow <?php if ($membership_id){ echo "add-login-fields hide"; } ?> cf'>
+<div class='passport-login-wrap <?php if ($membership_id){ echo "add-login-fields hide"; } ?> cf'>
+<div class='pp-narrow'>
  
 	<?php if (empty($userinfo)) { ?> 
 	<div class='service-sign-in cf'>
@@ -81,7 +82,8 @@ echo "</div>";
 	</ul>
 	</div>
 	<?php } ?> 
-
+</div><!-- .pp-narrow -->
+	
 	<?php if (!$membership_id){ ?>
 	<div class='service-options cf'>
 	<ul>
