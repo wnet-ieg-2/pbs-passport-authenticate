@@ -120,6 +120,7 @@ class PBS_Passport_Authenticate {
     $return['pbs'] = $oauthroot . 'authorize/?' . $scopestring . '&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id; 
     $return['google'] = $oauthroot . 'social/login/google-oauth2/?' . $scopestring . '&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id;
     $return['facebook'] = $oauthroot . 'social/login/facebook/?' . $scopestring . '&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id;
+    $return['create_pbs'] = $oauthroot . 'register/?next=/oauth2/authorize/&' . $scopestring . '&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id;
     return $return;
   }
 
