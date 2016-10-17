@@ -93,7 +93,7 @@ if (!empty($return['errors'])){
 
 
 <h3>Have questions or technical issues?</h3>
-<p>Check out our <a href="<?php echo site_url('/passport-faqs/'); ?>">Passport FAQs</a>.</p>
+<p>Check out our <a href="<?php echo site_url('/passport/faq/'); ?>">Passport FAQs</a>.</p>
 
 
 </div><!-- .pp-narrow -->
