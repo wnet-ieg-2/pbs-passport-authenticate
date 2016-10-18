@@ -70,6 +70,12 @@ echo "</div>";
 	<?php if (empty($userinfo)) { ?> 
 	<div class='service-sign-in cf'>
 	<h3>MEMBER SIGN IN</h3>
+	
+	
+	<p><strong>Get access to member-exclusive video on demand and more</strong></p>
+ 	<p>Activation connects your member information with your preferred sign-in method. You only need to activate ONCE for access to PBS SoCal Passport from any computer or device.</p>
+	<p>Already activated? Please sign in below.</p>
+	
 	<ul>
 	<li class="google"><a href="<?php echo($links['google']); ?>" title="Sign in with Google"><img src="<?php echo $pluginImageDir; ?>/sign-in-google.png" /></a></li>
 	<li class='or'><span>OR</span></li>
@@ -97,7 +103,7 @@ echo "</div>";
 	<?php if (!empty($defaults['join_url'])) { ?>
 	<li class="becomemember">
 	<h4>Not a <?php echo $station_nice_name; ?> member?</h4>
-	<a href="<?php echo $defaults['join_url']; ?>"><button class='pp-button-outline'>Become a Member <i class="fa fa-heart-o"></i></button></a></li>
+	<a href="<?php echo $defaults['join_url']; ?>"><button class='pp-button-outline'>DONATE NOW <i class="fa fa-heart-o"></i></button></a></li>
 	<?php } ?>
 
 	</ul>
