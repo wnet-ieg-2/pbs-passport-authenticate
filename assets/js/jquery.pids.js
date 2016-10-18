@@ -92,15 +92,14 @@ jQuery(document).ready(function($) {
 		if (user.membership_info.status == 'On') {passportIcon = 'passport-link-icon';}
 		else {passportIcon = 'passport-alert-icon';} 
 	
-		welcomestring = '<span class="welcome">Welcome</span> <a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + user.first_name + '</span></a>';
+		welcomestring = '<span class="welcome">Welcome</span> <a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + user.first_name + '</span></a> | <a class="signout">Sign Out</a>';
      
       $('.pbs_passport_authenticate div.messages').html(welcomestring);
 	  
-	  if (user.thumbnail_URL) { $('.pbs_passport_authenticate div.messages').append("<a href='" + userinfolink + "'><img src=" + user.thumbnail_URL + " /></a>");}
+	  if (user.thumbnail_URL) { $('.pbs_passport_authenticate div.messages').append("<a href='" + userinfolink + "' class='userthumb'><img src=" + user.thumbnail_URL + " /></a>");}
       
-	  $('.pbs_passport_authenticate button.launch').addClass('logout');
-      $('.pbs_passport_authenticate button.launch').text('Sign out');
-      $('.pbs_passport_authenticate button.launch').click(logoutFromPBS);
+	  $('.pbs_passport_authenticate button.launch').hide();
+    $('.pbs_passport_authenticate a.signout').click(logoutFromPBS);
 	  
 		// update thumb overlays
 		if ($(".passport-video-thumb")[0]){
