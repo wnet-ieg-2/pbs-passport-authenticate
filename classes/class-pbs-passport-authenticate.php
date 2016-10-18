@@ -39,6 +39,9 @@ class PBS_Passport_Authenticate {
     wp_enqueue_script( 'jquery.pids' );
     //only register this one, we'll enqueue it on just the loginform
     wp_register_script( 'pbs_passport_loginform_js' , $this->assets_url . 'js/loginform_helpers.js', array('jquery'), $this->version, true );
+
+    //required styles
+    wp_enqueue_style( 'pbs_passport_css', $this->assets_url . 'css/passport_styles.css', null, $this->version);
   }
 
   // these next functions setup the custom endpoints
