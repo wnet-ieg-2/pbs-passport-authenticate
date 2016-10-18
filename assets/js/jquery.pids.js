@@ -57,6 +57,7 @@ jQuery(document).ready(function($) {
     if ( typeof(user) !== "undefined" && typeof(user.membership_info) !== "undefined") {
         updateLoginVisuals(user);
       } else {
+        $('.pbs_passport_authenticate button.launch').hide();
         retrievePBSLoginInfoViaAJAX();
       }
   }
@@ -88,19 +89,21 @@ jQuery(document).ready(function($) {
        *  status = Off + offer = not null: activated member is expired
        *  status = On + offer = null: should not be possible, but not valid
       */ 
-
+    
 		if (user.membership_info.status == 'On') {passportIcon = 'passport-link-icon';}
 		else {passportIcon = 'passport-alert-icon';} 
-	
-		welcomestring = '<span class="welcome">Welcome</span> <a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + user.first_name + '</span></a>';
+
+    $('.pbs_passport_authenticate button.launch').hide();
+    thumbimage = '';
+    if (user.thumbnail_URL) {
+      thumbimage = "<a href='" + userinfolink + "' class='userthumb'><img src=" + user.thumbnail_URL + " /></a>"; 
+    }	
+		welcomestring = '<a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + user.first_name + '</span></a>' + thumbimage + ' | <a class="signout">Sign Out</a>';
      
       $('.pbs_passport_authenticate div.messages').html(welcomestring);
 	  
-	  if (user.thumbnail_URL) { $('.pbs_passport_authenticate div.messages').append("<a href='" + userinfolink + "'><img src=" + user.thumbnail_URL + " /></a>");}
       
-	  $('.pbs_passport_authenticate button.launch').addClass('logout');
-      $('.pbs_passport_authenticate button.launch').text('Sign out');
-      $('.pbs_passport_authenticate button.launch').click(logoutFromPBS);
+    $('.pbs_passport_authenticate a.signout').click(logoutFromPBS);
 	  
 		// update thumb overlays
 		if ($(".passport-video-thumb")[0]){
@@ -135,6 +138,7 @@ jQuery(document).ready(function($) {
 	  
     } else {
       setTimeout(function() {
+        $('.pbs_passport_authenticate button.launch').show();
         $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_login').click(loginToPBS);
         $('.pbs_passport_authenticate_join').click(joinPBS);
         $('.pbs_passport_authenticate_activate').click(activatePBS);
