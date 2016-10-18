@@ -85,15 +85,15 @@ if (!empty($return['errors'])){
 
 <h3>How do I find my activation code?</h3>
 
-<p>If you are an active member of <?php echo $station_nice_name; ?> ($60+ annual, or $5 monthly), look for an email which contains your activation code.</p>  
+<p>If you are an active, qualifying member of  <?php echo $station_nice_name; ?>  ($60+ annually or $5+ monthly), look for an email you received containing your activation code.</p>  
 <?php if (class_exists('WNET_Passport_Already_Member')) { ?>
 <h3>Don't have an activation code?</h3>
-<p>If you don't have an email from us,<br/> <a href="<?php echo site_url('pbsoauth/alreadymember/'); ?>">please click here</a>.</p>
+<p><a href="<?php echo site_url('pbsoauth/alreadymember/'); ?>">Look up your activation code.</a></p>
 <?php } ?>
 
 
 <h3>Have questions or technical issues?</h3>
-<p>Check out our <a href="<?php echo site_url('/passport/faq/'); ?>">Passport FAQs</a>.</p>
+<p>Check out our <a href="<?php echo site_url('/passport/faq/'); ?>">FAQ Page</a> to see if your question has already been answered. For technical support, please call 1-844-417-6327 or <a href="http://help.pbs.org/support/tickets/new">submit a support ticket</a>.</p>
 
 
 </div><!-- .pp-narrow -->
