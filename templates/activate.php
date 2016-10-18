@@ -85,7 +85,7 @@ if (!empty($return['errors'])){
 
 <h3>How do I find my activation code?</h3>
 
-<p>If you are an active member of <?php echo $station_nice_name; ?> ($60+ annual, or $5 monthly), look for an email from "<?php echo $station_nice_name; ?> Passport" which contains your activation code.</p>  
+<p>If you are an active member of <?php echo $station_nice_name; ?> ($60+ annual, or $5 monthly), look for an email which contains your activation code.</p>  
 <?php if (class_exists('WNET_Passport_Already_Member')) { ?>
 <h3>Don't have an activation code?</h3>
 <p>If you don't have an email from us,<br/> <a href="<?php echo site_url('pbsoauth/alreadymember/'); ?>">please click here</a>.</p>
@@ -109,7 +109,7 @@ if (!empty($return['errors'])){
 	<?php if (!empty($defaults['join_url'])) { ?>
 	<li class="becomemember">
 	<h4>Not a <?php echo $station_nice_name; ?> member?</h4>
-	<a href="<?php echo $defaults['join_url']; ?>"><button class='pp-button-outline'>Become a Member <i class="fa fa-heart-o"></i></button></a></li>
+	<a href="<?php echo $defaults['join_url']; ?>"><button class='pp-button-outline'>BECOME A MEMBER <i class="fa fa-heart-o"></i></button></a></li>
 	<?php } ?>
 
 	</ul>
