@@ -30,7 +30,7 @@ if ($activation_token){
       $return['errors'] = 'This account has been disabled';
     }
     if (!empty($mvaultinfo['activation_date'])) {
-      $return['errors'] = 'This activation code has already been used. <br />You only need to activate once for access.';
+      $return['errors'] = 'Your account has already been activated.  <a href="' . site_url('pbsoauth/loginform')  . '">Please sign in here</a>.<br /><br />You only need to activate the first time you use ' . $station_nice_name . ' Passport.';
     }
     if (empty($return['errors'])){ 
       // nothing wrong with this account, so
