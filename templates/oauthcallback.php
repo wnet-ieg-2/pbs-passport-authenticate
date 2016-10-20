@@ -26,6 +26,14 @@ if (isset($_GET["state"])){
   $state=($_GET["state"]);
 }
 
+if (empty($state)) {
+  if (!empty($_COOKIE["pbsoauth_membership_id"])) {
+    $state = $_COOKIE["pbsoauth_membership_id"];
+    setcookie( 'pbsoauth_membership_id', '', time() - 3600, '/', $_SERVER['HTTP_HOST']);
+  }
+}
+
+
 // this WILL be JWT, for now its just the membership_id
 // $jwt = $passport->jwt_decode($state);
 $membership_id = (!empty($state) ? $state : false);
