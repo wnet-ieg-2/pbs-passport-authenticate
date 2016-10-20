@@ -51,7 +51,7 @@ if ($membership_id){
 		
 		<p class="passport-optin-button"><button id="passport-confirm-optin" class="passport-button">Confirm</button><div class="passport-optin-error"></div></p>
 
-		<p class="passport-small">If you do not agree to allow PBS and ' . $defaults['station_nice_name'] . ' to share your viewing history with each other and their service
+		<p class="passport-small">If you do not agree to allow PBS and ' . $station_nice_name . ' to share your viewing history with each other and their service
 providers, please stop and <a href="/about/contact/?1i=passport">contact us</a>.</p>
 		<p class="passport-small">Please see our <a href="/about/privacy-policy/">Privacy Policy</a> and <a href="/about/terms-of-service/">Terms of Use</a> for more information.</p>
 </div>
@@ -73,13 +73,17 @@ echo "</div>";
  
 	<?php if (empty($userinfo)) { ?> 
 	<div class='service-sign-in cf'>
+  <?php if (! $membership_id) { 
+    // only show if not an activation 
+    ?>
 	<h3>MEMBER SIGN IN</h3>
 	
 	
 	<p><strong>Get access to member-exclusive video on demand and more</strong></p>
- 	<p>Activation connects your member information with your preferred sign-in method. You only need to activate ONCE for access to PBS SoCal Passport from any computer or device.</p>
+ 	<p>Activation connects your member information with your preferred sign-in method. You only need to activate ONCE for access to <?php echo $station_nice_name; ?> Passport from any computer or device.</p>
 	<p>Already activated? Please sign in below.</p>
-	
+
+  <?php } ?>	
 	<ul>
 	<li class="google"><a href="<?php echo($links['google']); ?>" title="Sign in with Google"><img src="<?php echo $pluginImageDir; ?>/sign-in-google.png" /></a></li>
 	<li class='or'><span>OR</span></li>
@@ -94,7 +98,9 @@ echo "</div>";
 	<?php } ?> 
 </div><!-- .pp-narrow -->
 	
-	<?php if (!$membership_id){ ?>
+	<?php if (!$membership_id){ 
+    // only show if not an activation
+    ?>
 	<div class='service-options cf'>
 	<ul>
 
