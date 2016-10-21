@@ -179,7 +179,7 @@
     padding: 0.5em 0;
 }
 .service-sign-in .create-pbs a {
-    color: #018cb7;
+    color: #008eca;
 }
 .service-options {
     border-top: 1px solid #666;
@@ -247,15 +247,13 @@
     width: 1em;
 }
 .pp-button-outline:hover {
-    border: 1px solid #018cb7;
-    color: #018cb7;
+    border: 1px solid #008eca;
+    color: #008eca;
 }
-.passport-help-text {
-    color: #666;
-    text-align: center;
-}
+.passport-help-text {color: #000; text-align: center; font-size: 1.125em;}
+
 .passport-help-text .fa {
-    color: #5e5098;
+    color: #008eca;
 }
 .passport-help-text a:hover {
     text-decoration: underline;
