@@ -57,7 +57,7 @@ jQuery(document).ready(function($) {
     if ( typeof(user) !== "undefined" && typeof(user.membership_info) !== "undefined") {
         updateLoginVisuals(user);
       } else {
-        $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_login').hide();
+        $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_logged_in_hide').hide();
         retrievePBSLoginInfoViaAJAX();
       }
   }
@@ -93,7 +93,7 @@ jQuery(document).ready(function($) {
 		if (user.membership_info.status == 'On') {passportIcon = 'passport-link-icon';}
 		else {passportIcon = 'passport-alert-icon';} 
 
-    $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_login').hide();
+    $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_logged_in_hide').hide();
     thumbimage = '';
     if (user.thumbnail_URL) {
       thumbimage = "<a href='" + userinfolink + "' class='userthumb'><img src=" + user.thumbnail_URL + " /></a>"; 
@@ -138,7 +138,7 @@ jQuery(document).ready(function($) {
 	  
     } else {
       setTimeout(function() {
-        $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_login').show();
+        $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_logged_in_hide').show();
         $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_login').click(loginToPBS);
         $('.pbs_passport_authenticate_join').click(joinPBS);
         $('.pbs_passport_authenticate_activate').click(activatePBS);
