@@ -151,7 +151,7 @@
 }
 .service-sign-in h3 {
     font-size: 1.75em;
-    font-weight: 600;
+    font-weight: 400;
     margin-bottom: 1em;
 }
 .service-sign-in ul {
@@ -169,29 +169,24 @@
 .service-sign-in img:hover {
     opacity: 0.8;
 }
-.service-sign-in .or {
-    background: rgba(0, 0, 0, 0) url("../images/dash-line.png") repeat-x scroll center center;
-    text-align: center;
-}
-.service-sign-in .or span {
-    background-color: #fff;
-    color: #999;
-    font-weight: 700;
-    padding: 0 0.5em;
-}
+
+.service-sign-in .or { background: url("../img/dash-line.png") center center repeat-x; text-align: center;}
+.service-sign-in .or span {background-color: #fff; color: #999; font-weight: 700;  padding: 0 0.5em;}
+
 .service-sign-in .create-pbs {
     font-weight: 500;
     padding: 0.5em 0;
 }
 .service-sign-in .create-pbs a {
-    color: #f37021;
+    color: #018cb7;
 }
 .service-options {
     border-top: 1px solid #666;
     color: #666;
     margin-bottom: 1.5em;
-    padding: 1.5em 0 0;
+    padding: 1.5em 0;
     text-align: center;
+	
 }
 .service-options ul {
     margin: 0 auto;
@@ -231,9 +226,10 @@
     margin-bottom: 0.8em;
 }
 .activate-options h4 strong {
-    color: #00abb1;
+    color: #018cb7;
 }
 .pp-button-outline {
+	background-color: #fff;
     border: 1px solid #666;
     color: #666;
     font-size: 1em;
@@ -250,8 +246,8 @@
     width: 1em;
 }
 .pp-button-outline:hover {
-    border: 1px solid #00abb1;
-    color: #00abb1;
+    border: 1px solid #018cb7;
+    color: #018cb7;
 }
 .passport-help-text {
     color: #666;
@@ -325,7 +321,7 @@
     color: #f0b51d;
 }
 .pbs-passport-authenticate.alreadymember .passport-middle {
-    max-width: 828px;
+    max-width: 900px;
 }
 .pbs-passport-authenticate.alreadymember .passport-middle h1, .pbs-passport-authenticate.alreadymember .passport-middle h2, .pbs-passport-authenticate.alreadymember .passport-middle h3 {
     line-height: 1em;
@@ -509,8 +505,8 @@
     border: 1px solid #5e5098;
 }
 #passportcoveplayer .passport-gated-video button.learn-more:hover {
-    background-color: #00abb1;
-    border: 1px solid #00abb1;
+    background-color: #018cb7;
+    border: 1px solid #018cb7;
 }
 .passport-open-video {
     cursor: pointer;
