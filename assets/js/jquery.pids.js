@@ -102,7 +102,7 @@ jQuery(document).ready(function($) {
     if (user.thumbnail_URL) {
       thumbimage = "<a href='" + userinfolink + "' class='userthumb'><img src=" + user.thumbnail_URL + " /></a>"; 
     }	
-		welcomestring = '<a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + user.first_name + '</span></a>' + thumbimage + ' <a class="signout">Sign Out</a>';
+		welcomestring = thumbimage + '<a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + user.first_name + '</span></a> <a class="signout">Sign Out</a>';
      
       $('.pbs_passport_authenticate div.messages').html(welcomestring);
 	  
