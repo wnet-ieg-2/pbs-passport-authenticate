@@ -89,9 +89,13 @@ jQuery(document).ready(function($) {
        *  status = Off + offer = not null: activated member is expired
        *  status = On + offer = null: should not be possible, but not valid
       */ 
-    
+   
 		if (user.membership_info.status == 'On') {passportIcon = 'passport-link-icon';}
 		else {passportIcon = 'passport-alert-icon';} 
+
+    if (typeof user.membership_info.offer !== 'undefined' && user.membership_info.offer) {
+      $('.pbs_passport_authenticate_activated_hide').hide();
+    }
 
     $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_logged_in_hide').hide();
     thumbimage = '';
