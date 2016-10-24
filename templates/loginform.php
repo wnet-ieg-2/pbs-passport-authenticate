@@ -20,8 +20,11 @@ if ($membership_id) {
     foreach ($links as $type => $link){
       //$jwt = json_encode(array("membership_id" => $membership_id));
       // for now lets just pass the membership_id
-      $jwt = $membership_id;
-      $links[$type] = $link . "&state=" . $jwt; 
+      $statestring = "&state=" . $membership_id;
+      if ($type == 'create_pbs') {
+        $statestring = urlencode($statestring);
+      }
+      $links[$type] = $link . $statestring; 
     }
   }
 }
