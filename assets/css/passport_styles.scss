@@ -117,10 +117,10 @@ $blue: #008eca;
 .pbs-passport-authenticate.activate {
     color: #666;  text-align: center;
 	form { margin: 1em 0 2em;}
-	form input,  form button {background-color: #eaeaea; border: 0 none; float: left; font-size: 1.3em; font-weight: 700; padding: 0.6em;}
-	form input[type="text"] { width: 80%;}
+	form input,  form button {background-color: #eaeaea; border: 0 none; float: left; font-size: 1.125em; font-weight: 700; padding: 0.6em;}
+	form input[type="text"] { width: 90%;}
 	form button { 
-		color: $blue; text-align: right; width: 20%;
+		color: $blue; text-align: right; width: 10%;
 		span { display: none;}
 	}
 	form button:hover { color: #000;}
@@ -179,6 +179,10 @@ $blue: #008eca;
 			margin: 0;
 			li {width: 100% !important;}
 		}
+	}
+	
+	.pbs-passport-authenticate.activate form {
+		input, button {font-size: 1em;}
 	}
 	
 }
