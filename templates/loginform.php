@@ -17,7 +17,6 @@ if ($membership_id) {
     // then the membership_id is invalid so discard it
     $membership_id = false;  
   } else {
-    setcookie( 'pbsoauth_membership_id', $membership_id, 0, '/', $_SERVER['HTTP_HOST']);
     foreach ($links as $type => $link){
       //$jwt = json_encode(array("membership_id" => $membership_id));
       // for now lets just pass the membership_id
