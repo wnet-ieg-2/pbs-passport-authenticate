@@ -30,6 +30,9 @@ class PBS_Passport_Authenticate {
     add_action( 'init', array($this, 'setup_rewrite_rules') );
     add_filter( 'query_vars', array($this, 'register_query_vars') );
     add_action( 'template_include', array($this, 'rewrite_templates') );
+    add_filter( 'pre_get_document_title', array($this, 'generate_title'), 10 );
+    // Yoast overrides all of the title tags if it exists
+    add_filter( 'wpseo_title', array($this, 'generate_title'), 15 );
 	}
 
   public function enqueue_scripts() {
@@ -70,6 +73,24 @@ class PBS_Passport_Authenticate {
     }
     return $template;
   }
+
+  public function generate_title($title) {
+    $newtitle = $title;
+    $template = get_query_var('pbsoauth');
+    switch($template) {
+      case "loginform":
+        $newtitle = "Please Sign In";
+        break;
+      case "activate":
+        $newtitle = "Please Enter Your Activation Code";
+        break;
+      case "userinfo":
+        $newtitle =  "Your User Information";
+        break;
+    }
+    return $newtitle;
+  }
+
 
   public function do_shortcode( $atts ) {
     $allowed_args = array('login_text' => 'Sign in', 'render' => 'all' );
@@ -117,7 +138,7 @@ class PBS_Passport_Authenticate {
     
     $return = array();
     $scopestring = '';
-    //$scopestring = '&scope=' . urlencode('account ' . strtolower($defaults['station_call_letters']));
+    $scopestring = '&scope=' . urlencode('account ' . $defaults['station_call_letters']);
     $return['pbs'] = $oauthroot . 'authorize/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring; 
     $return['google'] = $oauthroot . 'social/login/google-oauth2/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring;
     $return['facebook'] = $oauthroot . 'social/login/facebook/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring;
