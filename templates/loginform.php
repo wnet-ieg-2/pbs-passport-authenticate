@@ -41,7 +41,7 @@ get_header();
 if ($membership_id){
   // this is an activation
   echo "<div class='before-login'>";
-  echo '<h2>Welcome!</h2>';
+  echo "<h2 class='pp-welcome'>Welcome!</h2>";
 
 	// opt-in challenge
 	echo '
