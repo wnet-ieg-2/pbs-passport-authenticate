@@ -93,7 +93,7 @@ if (!empty($return['errors'])){
 
 
 <h3>Have questions or technical issues?</h3>
-<p>Check out our <a href="<?php echo site_url('/passport/faq/'); ?>">FAQ Page</a> to see if your question has already been answered. For technical support, please call 1-844-417-6327 or <a href="http://help.pbs.org/support/tickets/new">submit a support ticket</a>.</p>
+<p>Check out our <a href="<?php echo site_url('/passport/faq/'); ?>">FAQ Page</a> to see if your question has already been answered. For technical support, please call (844) 417-6327 or <a href="http://help.pbs.org/support/tickets/new">submit a support ticket</a>.</p>
 
 
 </div><!-- .pp-narrow -->

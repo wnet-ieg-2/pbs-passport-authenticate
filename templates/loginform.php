@@ -78,9 +78,8 @@ echo "</div>";
 	<h3>MEMBER SIGN IN</h3>
 	
 	
-	<p><strong>Get access to member-exclusive video on demand and more</strong></p>
- 	<p>Activation connects your member information with your preferred sign-in method. You only need to activate ONCE for access to <?php echo $station_nice_name; ?> Passport from any computer or device.</p>
-	<p>Already activated? Please sign in below.</p>
+	<p><strong>Members get extended access to PBS video on demand and more</strong></p>
+ 	<p>If you have already activated your <?php echo $station_nice_name; ?> Passport benefit, please sign in below.</p>
 
   <?php } ?>	
 	<ul>
