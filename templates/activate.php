@@ -13,10 +13,9 @@ $pluginImageDir = $passport->assets_url . 'img';
 $defaults = get_option('pbs_passport_authenticate');
 $station_nice_name = $defaults['station_nice_name'];
 
-// this script only takes one possible argument
+// this script only takes two possible arguments
 
 $activation_token = (!empty($_REQUEST['activation_token']) ? str_replace(' ', '-', trim($_REQUEST['activation_token'])) : '');
-
 
 if ($activation_token){
   $mvaultinfo = $passport->lookup_activation_token($activation_token);
@@ -32,7 +31,10 @@ if ($activation_token){
     if (!empty($mvaultinfo['activation_date'])) {
       $return['errors'] = 'Your account has already been activated.  <a href="' . site_url('pbsoauth/loginform')  . '">Please sign in here</a>.<br /><br />You only need to activate the first time you use ' . $station_nice_name . ' Passport.';
     }
-    if (empty($return['errors'])){ 
+
+    $return['vppa_approved'] = (!empty($_POST['pbsoauth_optin']) ? $_POST['pbsoauth_optin'] : false);
+
+    if (empty($return['errors']) && ($return['vppa_approved'] == true) ){ 
       // nothing wrong with this account, so
       // see if we're already logged in
       $laas_client = $passport->get_laas_client();
@@ -56,6 +58,7 @@ if ($activation_token){
       $loginuri = site_url('pbsoauth/loginform') . '?membership_id=' . $mvaultinfo['membership_id'];
       wp_redirect($loginuri);
       exit();
+      
     }
   }
 }
@@ -71,7 +74,26 @@ if ($activation_token){
 	}
   ?>
   
-  <div class='pp-narrow'>
+
+  <?php if (empty($return['errors']) && ($return['vppa_approved'] == false) && $activation_token ) {
+  // opt-in challenge
+  ?> <form method="post">
+    <div class="passport-optin-challenge">
+    <p class="passport-optin-checkbox"><span><input type="checkbox" id="pbsoauth_optin" name="pbsoauth_optin" value="true" /></span> <label for="pbsoauth_optin">I accept that PBS and my station may share my viewing history with each other and their service providers.</label></p>
+    <input type="hidden" name="activation_token" value="<?php echo $activation_token; ?>" />
+    <p class="passport-optin-button"><button id="passport-confirm-optin" class="passport-button">Confirm</button><div class="passport-optin-error"></div></p>
+    <p class="passport-small">If you do not agree to allow PBS and <?php echo $defaults['station_nice_name']; ?> to share your viewing history with each other and their service
+providers, please stop and <a href="/about/contact/?1i=passport">contact us</a>.</p>
+    <p class="passport-small">Please see our <a href="/about/privacy-policy/">Privacy Policy</a> and <a href="/about/terms-of-service/">Terms of Use</a> for more information.</p>
+    </div>
+    </form>
+  <?php 
+  // end opt in challenge
+  } else {
+  // opt in challenge else
+  ?>
+
+<div class='pp-narrow'>
 <h1>Enter your activation code:</h1>
 <form action="" method="POST" class='cf'>
 <input name="activation_token" type="text" value="<?php echo $activation_token; ?>" />
@@ -114,7 +136,10 @@ if (!empty($return['errors'])){
 
 	</ul>
 	</div>
-
+  
+<?php 
+  // end opt in challenge else condition
+} ?>
 
 </div>
 </div>

@@ -41,23 +41,8 @@ get_header();
 if ($membership_id){
   // this is an activation
   echo "<div class='before-login'>";
-  echo '<h2>Welcome!</h2>';
 
-	// opt-in challenge
-	echo '
-		<div class="passport-optin-challenge">
-		<p class="passport-optin-checkbox"><span><input type="checkbox" id="pbsoauth_optin" name="pbsoauth_optin" value="true" /></span> <label for="pbsoauth_optin">I accept that PBS and my station may share my viewing history with each other and their service providers.</label></p>
-		
-		<p class="passport-optin-button"><button id="passport-confirm-optin" class="passport-button">Confirm</button><div class="passport-optin-error"></div></p>
-
-		<p class="passport-small">If you do not agree to allow PBS and ' . $defaults['station_nice_name'] . ' to share your viewing history with each other and their service
-providers, please stop and <a href="/about/contact/?1i=passport">contact us</a>.</p>
-		<p class="passport-small">Please see our <a href="/about/privacy-policy/">Privacy Policy</a> and <a href="/about/terms-of-service/">Terms of Use</a> for more information.</p>
-</div>
-	';
-	// end opt in challenge
-
-  echo '<p class="activation-text add-login-fields hide">To complete your activation, please choose a sign-in method below.  You can use this sign-in method whenever you visit <a href="' . get_bloginfo('url') . '">' . get_bloginfo('name') . '</a> in the future to enjoy members-only content.</p>';
+  echo '<p class="activation-text add-login-fields">To complete your activation, please choose a sign-in method below.  You can use this sign-in method whenever you visit <a href="' . get_bloginfo('url') . '">' . get_bloginfo('name') . '</a> in the future to enjoy members-only content.</p>';
 
 echo "</div>";
 
@@ -67,13 +52,15 @@ echo "</div>";
 
 
 
-<div class='passport-login-wrap <?php if ($membership_id){ echo "add-login-fields hide"; } ?> cf'>
+<div class='passport-login-wrap <?php if ($membership_id){ echo "add-login-fields"; } ?> cf'>
 
 
 	<div class='pp-narrow'>
 	<?php if (empty($userinfo)) { ?> 
 	<div class='service-sign-in cf'>
+  <?php if (!$membership_id){ ?>
 	<h3>MEMBER SIGN IN</h3>
+  <?php } ?>
 	<ul>
 	<li class="google"><a href="<?php echo($links['google']); ?>" title="Sign in with Google"><img src="<?php echo $pluginImageDir; ?>/sign-in-google.png" /></a></li>
 	<li class='or'><span>OR</span></li>
