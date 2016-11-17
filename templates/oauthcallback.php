@@ -21,6 +21,11 @@ $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
 
 $laas_client = $passport->get_laas_client();
 
+$login_referrer = site_url();
+if (!empty($_COOKIE["pbsoauth_login_referrer"])){
+  $login_referrer = $_COOKIE["pbsoauth_login_referrer"];
+}
+
 
 if (isset($_GET["state"])){
   $state=($_GET["state"]);
@@ -60,14 +65,15 @@ if (isset($userinfo["pid"])){
       $mvaultinfo = $mvault_client->activate($membership_id, $pbs_uid);
     }
   }
+  // is the person activated now?
+  if (!isset($mvaultinfo["membership_id"])) {
+    $mvaultinfo = $mvault_client->get_membership_by_uid($pbs_uid);
+    if (!isset($mvaultinfo["membership_id"])) {
+      // still not activated, set the redirect for the userinfo page
+      $login_referrer = site_url('pbsoauth/userinfo');
+    }
+  }
 }
-
-$login_referrer = site_url();
-
-if (!empty($_COOKIE["pbsoauth_login_referrer"])){
-  $login_referrer = $_COOKIE["pbsoauth_login_referrer"];
-}
-
 
 wp_redirect($login_referrer);
 exit();
