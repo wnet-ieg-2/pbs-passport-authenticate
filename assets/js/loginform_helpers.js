@@ -16,6 +16,7 @@ jQuery(document).ready(function($) {
     setPBSOAuthRememberMe();
   });
 
+  /* set a loginprovider cookie when the person chooses one */
   $(".passport-login-wrap li a").click(function(event) {
     event.preventDefault();
     var logintype = $(this).closest('li').attr("class");
