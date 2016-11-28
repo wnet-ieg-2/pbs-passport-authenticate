@@ -7,7 +7,6 @@ jQuery(document).ready(function($) {
     } else {
       rememberme = 'false';
     }
-    console.log(rememberme);
     document.cookie='pbsoauth_rememberme=' + rememberme + ';domain=' + window.location.hostname + ';path=/';
   }
 
@@ -16,6 +15,16 @@ jQuery(document).ready(function($) {
   $("input[name='pbsoauth_rememberme']").change(function() {
     setPBSOAuthRememberMe();
   });
+
+  /* set a loginprovider cookie when the person chooses one */
+  $(".passport-login-wrap li a").click(function(event) {
+    event.preventDefault();
+    var logintype = $(this).closest('li').attr("class");
+    if (logintype) {
+      document.cookie='pbsoauth_loginprovider=' + logintype + ';domain=' + window.location.hostname + ';path=/';
+    }
+    window.location.href = $(this).attr('href');
+  }); 
 
 });
 

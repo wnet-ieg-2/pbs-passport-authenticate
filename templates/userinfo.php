@@ -28,8 +28,10 @@ get_header();
 <div class="pbs-passport-authenticate userinfo-block">
 <div class='passport-middle'>
 <?php if (!empty($defaults['station_passport_logo'])) {
-  echo '<img src="' . $defaults['station_passport_logo'] . '" />'; 
+  echo '<div class="pp-logo-head"><img src="' . $defaults['station_passport_logo'] . '" /></div>'; 
 }
+
+echo "<div class='pp-narrow'>";
 
 echo "<h3>USER STATUS</h3>";
 echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
@@ -46,7 +48,7 @@ echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userin
 /* active member */
 if ( !empty($userinfo['membership_info']['offer']) && $userinfo['membership_info']['status'] == "On") {
 	echo "<p class='passport-status'>$station_nice_name Passport <i class='fa fa-check-circle passport-green'></i></p>";
-	if (!empty($watch_url)) {echo "<p><a href='$watch_url' class='passport-button'>Watch Programs</a></p>";}
+	if (!empty($watch_url)) {echo "<p><a href='$watch_url'><button class='pp-button-outline'>Watch Programs <i class='fa fa-arrow-circle-right'></i></button></a></p>";}
 }
 
 /* not an active member */
@@ -60,22 +62,18 @@ elseif ( empty($userinfo['membership_info']['offer']) && $userinfo['membership_i
 	echo "<li class='passport-not-setup'><p>Your $station_nice_name Passport account is not setup.
 $station_nice_name Passport is a benefit for eligible members of $station_nice_name.</p>
 
-<p>If you are a member. please choose an option below. If you are not a member, use the \"Become a Member\" button.</p> </li>";
+	<p>If you are a member. please choose an option below. If you are not a member, use the \"Become a Member\" button.</p> </li>";
 	
 	
-	
-	echo "<li class='service-section-label'>I'm a member <strong>with</strong> an activation code</li>";
-	echo "<li class='service-login-link activate'><a href='$active_url' class='passport-button'><span class='logo-button'>&nbsp;</span>Activate Account</a></li>";
-	if (!empty($join_url)) { 
-		
-		echo "<li class='service-section-label'>I'm a member <strong>without</strong> an activation code</li>";
-		echo "<li class='service-login-link accountsetep'><a href='". site_url('pbsoauth/alreadymember') ."' class='passport-button'>Request Account Setup</a></li>";
-	 	
-		echo "<li class='service-section-label'>Not a Member?</li>";
-		echo "<li class='service-login-link becomemember'><a href='$join_url' class='passport-button gray'>Become a Member</a></li>";
-
-	}
 	echo "</ul></div>";
+	
+	
+	echo "<div class='activate-options cf'><ul>";
+	echo "<li class='service-login-link activate'><h4>I'm a member <strong>with</strong> an activation code</h4><a href='$active_url'><button class='pp-button-outline'>Activate Account <span class='icon-passport'></span></button></a></li>";
+	echo "<li class='service-login-link accountsetep'><h4>I'm a member <strong>without</strong> an activation code</h4><a href='". site_url('pbsoauth/alreadymember') ."'><button class='pp-button-outline'>Request Account Setup</button></a></li>";
+	if (!empty($join_url)) { echo "<li class='single'><h4>Not a Member?</h4><a href='$join_url'><button class='pp-button-outline'>Become a Member <i class='fa fa-heart-o'></i></button></a></li>";}
+	echo "</ul></div><!-- .activate-options -->";
+
 }
 
 /* expired member */
@@ -85,12 +83,15 @@ else {
 }
 
 
+	echo "</div><!-- .pp-narrow -->";
+
+ ?>
 
 
-echo "<p class='passport-help-text'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>"; ?>
 
 
 
+<?php echo "<p class='passport-help-text border'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>"; ?>
 
 
 </div>

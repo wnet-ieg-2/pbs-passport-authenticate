@@ -39,6 +39,9 @@ class PBS_Passport_Authenticate {
     wp_enqueue_script( 'jquery.pids' );
     //only register this one, we'll enqueue it on just the loginform
     wp_register_script( 'pbs_passport_loginform_js' , $this->assets_url . 'js/loginform_helpers.js', array('jquery'), $this->version, true );
+
+    //required styles
+    wp_enqueue_style( 'pbs_passport_css', $this->assets_url . 'css/passport_styles.css', null, $this->version);
   }
 
   // these next functions setup the custom endpoints
@@ -116,11 +119,12 @@ class PBS_Passport_Authenticate {
     $client_id = ( !empty($args['laas_client_id']) ? $args['laas_client_id'] : $defaults['laas_client_id'] );
     
     $return = array();
-    $scopestring = 'scope=' . urlencode('account ' . strtolower($defaults['station_call_letters']));
-    $return['pbs'] = $oauthroot . 'authorize/?' . $scopestring . '&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id; 
-    $return['google'] = $oauthroot . 'social/login/google-oauth2/?' . $scopestring . '&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id;
-    $return['facebook'] = $oauthroot . 'social/login/facebook/?' . $scopestring . '&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id;
-    $return['create_pbs'] = $oauthroot . 'register/?next=' . urlencode('/oauth2/authorize/?' . $scopestring . '&redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id);
+    $scopestring = '';
+    //$scopestring = '&scope=' . urlencode('account ' . strtolower($defaults['station_call_letters']));
+    $return['pbs'] = $oauthroot . 'authorize/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring; 
+    $return['google'] = $oauthroot . 'social/login/google-oauth2/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring;
+    $return['facebook'] = $oauthroot . 'social/login/facebook/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring;
+    $return['create_pbs'] = $oauthroot . 'register/?next=' . urlencode('/oauth2/authorize/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring);
     return $return;
   }
 
