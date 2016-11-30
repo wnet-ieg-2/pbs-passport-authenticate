@@ -3,11 +3,11 @@ $blue: #008CB6;
 
 @font-face {
   font-family: 'passport';
-  src:  url('fonts/passport.eot?z23pnm');
-  src:  url('fonts/passport.eot?z23pnm#iefix') format('embedded-opentype'),
-    url('fonts/passport.ttf?z23pnm') format('truetype'),
-    url('fonts/passport.woff?z23pnm') format('woff'),
-    url('fonts/passport.svg?z23pnm#passport') format('svg');
+  src:  url('fonts/passport.eot');
+  src:  url('fonts/passport.eot#iefix') format('embedded-opentype'),
+    url('fonts/passport.ttf') format('truetype'),
+    url('fonts/passport.woff') format('woff'),
+    url('fonts/passport.svg#passport') format('svg');
   font-weight: normal;
   font-style: normal;
 }
