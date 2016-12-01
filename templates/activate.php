@@ -21,15 +21,15 @@ if ($activation_token){
   $mvaultinfo = $passport->lookup_activation_token($activation_token);
   $return = array();
   if (empty($mvaultinfo['membership_id'])){
-    $return['errors'] = 'This activation code is invalid';
+    $return['errors'] = array('message' => 'This activation code is invalid', 'class' => 'error');
   } else {
     // this is a theoretically valid token.  
 
     if ($mvaultinfo['status']!='On') {
-      $return['errors'] = 'This account has been disabled';
+      $return['errors'] = array('message' => 'This account has been disabled', 'class' => 'error');
     }
     if (!empty($mvaultinfo['activation_date'])) {
-      $return['errors'] = 'Your account has already been activated.  <a href="' . site_url('pbsoauth/loginform')  . '">Please sign in here</a>.<br /><br />You only need to activate the first time you use ' . $station_nice_name . ' Passport.';
+      $return['errors'] = array('message' => 'Your account has already been activated.  <a href="' . site_url('pbsoauth/loginform')  . '">Please sign in here</a>.<br /><br />You only need to activate the first time you use ' . $station_nice_name . ' Passport.', 'class' => 'info');
     }
 
     $return['vppa_approved'] = (!empty($_POST['pbsoauth_optin']) ? $_POST['pbsoauth_optin'] : false);
@@ -105,7 +105,7 @@ providers, please stop and <a href="/about/contact/?1i=passport">contact us</a>.
 </form>
 <?php
 if (!empty($return['errors'])){
-  echo "<h3 class='error'>" . $return['errors'] . "</h3>";
+  echo "<h3 class='" . $return['errors']['class'] . "'>" . $return['errors']['message'] . "</h3>";
 }
 ?>
 

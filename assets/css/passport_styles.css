@@ -1,2 +1,384 @@
-@font-face{font-family:'passport';src:url("//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.eot");src:url("//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.eot#iefix") format("embedded-opentype"),url("//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.ttf") format("truetype"),url("//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.woff") format("woff"),url("//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.svg#passport") format("svg");font-weight:normal;font-style:normal}[class^="icon-"],[class*=" icon-"]{font-family:'passport' !important;speak:none;font-style:normal;font-weight:normal;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.icon-passport-compass:before{content:"\e900"}.icon-passport-compass .path1:before{content:"\e901";color:#008cb6}.icon-passport-rose .path2:before{content:"\e902";margin-left:-1.0068359375em;color:#fff}.pbs-passport-authenticate-wrap{margin:0 auto;padding:1.5em 0;max-width:1200px;background-color:#fff;color:#666;line-height:1em;font:400 1em 'Montserrat'}.pbs-passport-authenticate-wrap img{height:auto;max-width:100%}.pbs-passport-authenticate-wrap a{color:#008CB6}.pbs-passport-authenticate-wrap .pp-logo-head{margin:0 auto 1.5em auto;text-align:center;max-width:400px}.pbs-passport-authenticate-wrap .pp-logo-head img{margin:0 auto !important;display:block}.pbs-passport-authenticate-wrap .passport-middle{margin:0 auto;max-width:900px;padding:0}.pbs-passport-authenticate-wrap .passport-middle p{line-height:1.3em}.pbs-passport-authenticate-wrap .passport-middle button img{width:1em;margin-bottom:0}.pbs-passport-authenticate-wrap .pp-narrow{margin:0 auto;max-width:360px}.pbs-passport-authenticate-wrap .userinfo-block{margin-bottom:1.5em;text-align:center}.pbs-passport-authenticate-wrap .userinfo-block h3{color:#2a2a2a;font-size:1.375em;font-weight:600;margin:0 0 0.3em}.pbs-passport-authenticate-wrap .userinfo-block .passport-username,.pbs-passport-authenticate-wrap .userinfo-block .passport-status{font-size:1.6em}.pbs-passport-authenticate-wrap .userinfo-block .pp-narrow{margin-bottom:2em}.pbs-passport-authenticate-wrap .passport-not-setup{color:#858585;margin-bottom:1.5em}.pbs-passport-authenticate-wrap .passport-exclamation{background-color:#f37021;border-radius:2px;color:#fff;display:inline-block;font-size:0.8em;line-height:1em;padding:0.2em 0.5em}.pbs-passport-authenticate-wrap a.passport-button,.pbs-passport-authenticate-wrap button.passport-button{background-color:#00769b;color:#fff;display:block;font-size:1.7em;padding:0.9em;text-align:center}.pbs-passport-authenticate-wrap a.passport-button:hover,.pbs-passport-authenticate-wrap button.passport-button:hover{opacity:0.9}.pbs-passport-authenticate-wrap .passport-login-wrap{margin:0;width:100%}.pbs-passport-authenticate-wrap .add-login-fields.hide{display:none}.pbs-passport-authenticate-wrap .passport-optin-challenge .passport-button{border:0;padding:0.5em;width:100%;text-align:center;float:none;background-color:#00769b;color:#fff;font-weight:normal;text-transform:uppercase}.pbs-passport-authenticate-wrap .passport-optin-challenge .passport-button:hover{color:#fff}.pbs-passport-authenticate-wrap .passport-optin-challenge .passport-optin-checkbox{text-align:left}.pbs-passport-authenticate-wrap .passport-optin-challenge .passport-optin-checkbox span,.pbs-passport-authenticate-wrap .passport-optin-challenge .passport-optin-checkbox label{display:table-cell}.pbs-passport-authenticate-wrap .passport-optin-challenge .passport-optin-checkbox label{padding-left:0.6em}.pbs-passport-authenticate-wrap .passport-optin-challenge .passport-small{font-size:.9em}.pbs-passport-authenticate-wrap .passport-optin-challenge .passport-error{font-size:1em}.pbs-passport-authenticate-wrap.wide ul{width:100% !important}.passport-green{color:#7ec036}.passport-red{color:#bc262b}.passport-error{color:#ff0000}.passport-small{font-size:0.8em}.service-sign-in{color:#666;margin-bottom:1.5em;text-align:center}.service-sign-in h3{font-size:1.75em;font-weight:400;margin:0 0 1em 0}.service-sign-in ul{margin:0 auto}.service-sign-in li{margin-bottom:0.6em;padding:0}.service-sign-in img{display:block;height:auto;max-width:100%}.service-sign-in img:hover{opacity:0.8}.service-sign-in .or{background:url("../img/dash-line.png") center center repeat-x;text-align:center}.service-sign-in .or span{background-color:#fff;color:#999;font-weight:700;padding:0 0.5em}.service-sign-in .create-pbs{font-weight:500;padding:0.5em 0}.service-sign-in .create-pbs a{color:#008CB6}.service-sign-in .create-pbs a:hover{text-decoration:underline}.service-options{border-top:1px solid #666;color:#666;padding:1.5em 0;text-align:center;width:100%}.service-options h4{font-size:1.275em;font-weight:500;margin-bottom:0.8em}.service-options ul{margin:0 auto}.service-options li{float:left;padding:0 2em;width:50%}.service-options li:first-of-type{border-right:1px solid #666}.service-options .look-for-email{font-size:.875em;margin:1em 0 0}.activate-options{color:#666;text-align:center}.activate-options ul{margin:0 auto}.activate-options li{float:left;margin-bottom:1.5em;width:100%}.activate-options h4{font-size:1.275em;font-weight:500;margin-bottom:0.8em}.activate-options h4 strong{color:#018cb7}.pp-button-outline{background-color:#fff;border:1px solid #666;color:#666;font-size:1em;font-weight:600;padding:.6em 1em;text-align:center;text-transform:uppercase}.pp-button-outline img{display:inline-block;float:right;line-height:1em;margin-left:5px;width:1em}.pp-button-outline:hover{border:1px solid #008CB6;color:#008CB6}.passport-help-text{color:#000;text-align:center;font-size:1.125em}.passport-help-text .fa{color:#008CB6}.passport-help-text a:hover{text-decoration:underline}.passport-help-text.border{border-top:1px solid #666;padding-top:1.5em}.pbs-passport-authenticate.activate{color:#666;text-align:center}.pbs-passport-authenticate.activate form{margin:1em 0 2em}.pbs-passport-authenticate.activate form input,.pbs-passport-authenticate.activate form button{background-color:#eaeaea;border:0 none;float:left;font-size:1.125em;font-weight:700;padding:0.6em}.pbs-passport-authenticate.activate form input[type="text"]{width:90%}.pbs-passport-authenticate.activate form button{color:#008CB6;text-align:right;width:10%}.pbs-passport-authenticate.activate form button span{display:none}.pbs-passport-authenticate.activate form button:hover{color:#000}.pbs-passport-authenticate.activate h1{color:#1b1b1b;font-size:1.3em;font-weight:700;margin:0.5em 0;text-transform:uppercase}.pbs-passport-authenticate.activate h3{color:#2a2a2a;font-size:1.375em;font-weight:600;margin:0 0 0.3em}.pbs-passport-authenticate.activate p{font-size:1.125em;font-weight:400;margin:0 0 1em}.pbs-passport-authenticate.activate p a:hover{color:#f0b51d}.pbs-passport-authenticate.activate .pp-narrow{max-width:400px}.pbs-passport-authenticate.alreadymember img{margin:0 auto}.pbs-passport-authenticate.alreadymember .passport-middle{max-width:900px}.pbs-passport-authenticate.alreadymember .passport-middle h1,.pbs-passport-authenticate.alreadymember .passport-middle h2,.pbs-passport-authenticate.alreadymember .passport-middle h3{line-height:1em}.pbs-passport-authenticate.alreadymember .passport-middle p{line-height:1.3em}.pbs-passport-authenticate.alreadymember .passport-middle img{margin:0 auto 1em;max-width:425px}.pbs-passport-authenticate.alreadymember h2{text-align:center}.pbs-passport-authenticate.alreadymember li{float:left;margin:0 2% 1.5em}.pbs-passport-authenticate.alreadymember .form-part1{margin:1.5em -2% 0}.pbs-passport-authenticate.alreadymember .form-part1 li{width:46%}.pbs-passport-authenticate.alreadymember .form-part2{margin:0 -2% 0.5em}.pbs-passport-authenticate.alreadymember .form-part2 li.city{width:28%}.pbs-passport-authenticate.alreadymember .form-part2 li.state{width:14%}.pbs-passport-authenticate.alreadymember .form-part2 li.zip{width:14%}.pbs-passport-authenticate.alreadymember .form-part2 li.phone{width:28%}.pbs-passport-authenticate.alreadymember label{display:block;font-size:1.2em;margin-bottom:0.4em}.pbs-passport-authenticate.alreadymember label span{color:#ff512c}.pbs-passport-authenticate.alreadymember input,.pbs-passport-authenticate.alreadymember select{border:1px solid #ccc;color:#454545;font-size:1.2em;padding:0.5em;width:100%}.pbs-passport-authenticate.alreadymember button{background-color:#00769b;border:0 none;color:#fff;font-size:1.2em;padding:0.7em;text-align:center;width:100%}.pbs-passport-authenticate.alreadymember button:hover{background-color:#000}@media screen and (max-width: 480px){.pbs-passport-authenticate-wrap{padding:4%}.service-options li{width:100%;padding:0;margin-bottom:1em}.service-options li:first-of-type{border:0;border-bottom:1px solid #333;padding-bottom:1em}.service-options h4{font-size:1.275em;font-weight:500;margin-bottom:.8em}.service-options .look-for-email{font-size:0.875em;margin:1em 0 0 0}.pbs-passport-authenticate.alreadymember li{margin:0 0 1em 0}.pbs-passport-authenticate.alreadymember .form-part1,.pbs-passport-authenticate.alreadymember .form-part2{margin:0}.pbs-passport-authenticate.alreadymember .form-part1 li,.pbs-passport-authenticate.alreadymember .form-part2 li{width:100% !important}.pbs-passport-authenticate.activate form input,.pbs-passport-authenticate.activate form button{font-size:1em}}
+/*
+@font-face {
+  font-family: 'passport';
+  src:  url('fonts/passport.eot');
+  src:  url('fonts/passport.eot#iefix') format('embedded-opentype'),
+    url('fonts/passport.ttf') format('truetype'),
+    url('fonts/passport.woff') format('woff'),
+    url('fonts/passport.svg#passport') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+*/
+@font-face {
+  font-family: 'passport';
+  src: url("//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.eot");
+  src: url("//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.eot#iefix") format("embedded-opentype"), url("//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.ttf") format("truetype"), url("//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.woff") format("woff"), url("//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.svg#passport") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'passport' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-passport-compass:before {
+  content: "\e900"; }
+
+.icon-passport-compass .path1:before {
+  content: "\e901";
+  color: #008cb6; }
+
+.icon-passport-rose .path2:before {
+  content: "\e902";
+  margin-left: -1.0068359375em;
+  color: white; }
+
+.pbs-passport-authenticate-wrap {
+  margin: 0 auto;
+  padding: 1.5em 0;
+  max-width: 1200px;
+  background-color: #fff;
+  color: #666;
+  line-height: 1em;
+  font: 400 1em 'Montserrat'; }
+  .pbs-passport-authenticate-wrap img {
+    height: auto;
+    max-width: 100%; }
+  .pbs-passport-authenticate-wrap a {
+    color: #008CB6; }
+  .pbs-passport-authenticate-wrap .pp-logo-head {
+    margin: 0 auto 1.5em auto;
+    text-align: center;
+    max-width: 400px; }
+    .pbs-passport-authenticate-wrap .pp-logo-head img {
+      margin: 0 auto !important;
+      display: block; }
+  .pbs-passport-authenticate-wrap .passport-middle {
+    margin: 0 auto;
+    max-width: 900px;
+    padding: 0; }
+    .pbs-passport-authenticate-wrap .passport-middle p {
+      line-height: 1.3em; }
+    .pbs-passport-authenticate-wrap .passport-middle button img {
+      width: 1em;
+      margin-bottom: 0; }
+  .pbs-passport-authenticate-wrap .pp-narrow {
+    margin: 0 auto;
+    max-width: 360px; }
+  .pbs-passport-authenticate-wrap .userinfo-block {
+    margin-bottom: 1.5em;
+    text-align: center; }
+    .pbs-passport-authenticate-wrap .userinfo-block h3 {
+      color: #2a2a2a;
+      font-size: 1.375em;
+      font-weight: 600;
+      margin: 0 0 0.3em; }
+    .pbs-passport-authenticate-wrap .userinfo-block .passport-username, .pbs-passport-authenticate-wrap .userinfo-block .passport-status {
+      font-size: 1.6em; }
+    .pbs-passport-authenticate-wrap .userinfo-block .pp-narrow {
+      margin-bottom: 2em; }
+  .pbs-passport-authenticate-wrap .passport-not-setup {
+    color: #858585;
+    margin-bottom: 1.5em; }
+  .pbs-passport-authenticate-wrap .passport-exclamation {
+    background-color: #f37021;
+    border-radius: 2px;
+    color: #fff;
+    display: inline-block;
+    font-size: 0.8em;
+    line-height: 1em;
+    padding: 0.2em 0.5em; }
+  .pbs-passport-authenticate-wrap a.passport-button, .pbs-passport-authenticate-wrap button.passport-button {
+    background-color: #00769b;
+    color: #fff;
+    display: block;
+    font-size: 1.7em;
+    padding: 0.9em;
+    text-align: center; }
+  .pbs-passport-authenticate-wrap a.passport-button:hover, .pbs-passport-authenticate-wrap button.passport-button:hover {
+    opacity: 0.9; }
+  .pbs-passport-authenticate-wrap .passport-login-wrap {
+    margin: 0;
+    width: 100%; }
+  .pbs-passport-authenticate-wrap .add-login-fields.hide {
+    display: none; }
+  .pbs-passport-authenticate-wrap .passport-optin-challenge .passport-button {
+    border: 0;
+    padding: 0.5em;
+    width: 100%;
+    text-align: center;
+    float: none;
+    background-color: #00769b;
+    color: #fff;
+    font-weight: normal;
+    text-transform: uppercase; }
+  .pbs-passport-authenticate-wrap .passport-optin-challenge .passport-button:hover {
+    color: #fff; }
+  .pbs-passport-authenticate-wrap .passport-optin-challenge .passport-optin-checkbox {
+    text-align: left; }
+    .pbs-passport-authenticate-wrap .passport-optin-challenge .passport-optin-checkbox span, .pbs-passport-authenticate-wrap .passport-optin-challenge .passport-optin-checkbox label {
+      display: table-cell; }
+    .pbs-passport-authenticate-wrap .passport-optin-challenge .passport-optin-checkbox label {
+      padding-left: 0.6em; }
+  .pbs-passport-authenticate-wrap .passport-optin-challenge .passport-small {
+    font-size: .9em; }
+  .pbs-passport-authenticate-wrap .passport-optin-challenge .passport-error {
+    font-size: 1em; }
+
+.pbs-passport-authenticate-wrap.wide ul {
+  width: 100% !important; }
+
+.passport-green {
+  color: #7ec036; }
+
+.passport-red {
+  color: #bc262b; }
+
+.passport-error {
+  color: #ff0000; }
+
+.passport-small {
+  font-size: 0.8em; }
+
+.service-sign-in {
+  color: #666;
+  margin-bottom: 1.5em;
+  text-align: center; }
+  .service-sign-in h3 {
+    font-size: 1.75em;
+    font-weight: 400;
+    margin: 0 0 1em 0; }
+  .service-sign-in ul {
+    margin: 0 auto; }
+  .service-sign-in li {
+    margin-bottom: 0.6em;
+    padding: 0; }
+  .service-sign-in img {
+    display: block;
+    height: auto;
+    max-width: 100%; }
+  .service-sign-in img:hover {
+    opacity: 0.8; }
+  .service-sign-in .or {
+    background: url("../img/dash-line.png") center center repeat-x;
+    text-align: center; }
+  .service-sign-in .or span {
+    background-color: #fff;
+    color: #999;
+    font-weight: 700;
+    padding: 0 0.5em; }
+  .service-sign-in .create-pbs {
+    font-weight: 500;
+    padding: 0.5em 0; }
+    .service-sign-in .create-pbs a {
+      color: #008CB6; }
+    .service-sign-in .create-pbs a:hover {
+      text-decoration: underline; }
+
+.service-options {
+  border-top: 1px solid #666;
+  color: #666;
+  padding: 1.5em 0;
+  text-align: center;
+  width: 100%; }
+  .service-options h4 {
+    font-size: 1.275em;
+    font-weight: 500;
+    margin-bottom: 0.8em; }
+  .service-options ul {
+    margin: 0 auto; }
+  .service-options li {
+    float: left;
+    padding: 0 2em;
+    width: 50%; }
+  .service-options li:first-of-type {
+    border-right: 1px solid #666; }
+  .service-options .look-for-email {
+    font-size: .875em;
+    margin: 1em 0 0; }
+
+.activate-options {
+  color: #666;
+  text-align: center; }
+  .activate-options ul {
+    margin: 0 auto; }
+  .activate-options li {
+    float: left;
+    margin-bottom: 1.5em;
+    width: 100%; }
+  .activate-options h4 {
+    font-size: 1.275em;
+    font-weight: 500;
+    margin-bottom: 0.8em; }
+  .activate-options h4 strong {
+    color: #018cb7; }
+
+.pp-button-outline {
+  background-color: #fff;
+  border: 1px solid #666;
+  color: #666;
+  font-size: 1em;
+  font-weight: 600;
+  padding: .6em 1em;
+  text-align: center;
+  text-transform: uppercase; }
+  .pp-button-outline img {
+    display: inline-block;
+    float: right;
+    line-height: 1em;
+    margin-left: 5px;
+    width: 1em; }
+
+.pp-button-outline:hover {
+  border: 1px solid #008CB6;
+  color: #008CB6; }
+
+.passport-help-text {
+  color: #000;
+  text-align: center;
+  font-size: 1.125em; }
+  .passport-help-text .fa {
+    color: #008CB6; }
+  .passport-help-text a:hover {
+    text-decoration: underline; }
+
+.passport-help-text.border {
+  border-top: 1px solid #666;
+  padding-top: 1.5em; }
+
+.pbs-passport-authenticate.activate {
+  color: #666;
+  text-align: center; }
+  .pbs-passport-authenticate.activate form {
+    margin: 1em 0 2em; }
+  .pbs-passport-authenticate.activate form input, .pbs-passport-authenticate.activate form button {
+    background-color: #eaeaea;
+    border: 0 none;
+    float: left;
+    font-size: 1.125em;
+    font-weight: 700;
+    padding: 0.6em; }
+  .pbs-passport-authenticate.activate form input[type="text"] {
+    width: 90%; }
+  .pbs-passport-authenticate.activate form button {
+    color: #008CB6;
+    text-align: right;
+    width: 10%; }
+    .pbs-passport-authenticate.activate form button span {
+      display: none; }
+  .pbs-passport-authenticate.activate form button:hover {
+    color: #000; }
+  .pbs-passport-authenticate.activate h1 {
+    color: #1b1b1b;
+    font-size: 1.3em;
+    font-weight: 700;
+    margin: 0.5em 0;
+    text-transform: uppercase; }
+  .pbs-passport-authenticate.activate h3 {
+    color: #2a2a2a;
+    font-size: 1.375em;
+    font-weight: 600;
+    margin: 0 0 0.3em; }
+  .pbs-passport-authenticate.activate h3.error {
+    color: #ff512c; }
+  .pbs-passport-authenticate.activate p {
+    font-size: 1.125em;
+    font-weight: 400;
+    margin: 0 0 1em; }
+    .pbs-passport-authenticate.activate p a:hover {
+      color: black; }
+  .pbs-passport-authenticate.activate .pp-narrow {
+    max-width: 400px; }
+
+.pbs-passport-authenticate.alreadymember img {
+  margin: 0 auto; }
+.pbs-passport-authenticate.alreadymember .passport-middle {
+  max-width: 900px; }
+  .pbs-passport-authenticate.alreadymember .passport-middle h1, .pbs-passport-authenticate.alreadymember .passport-middle h2, .pbs-passport-authenticate.alreadymember .passport-middle h3 {
+    line-height: 1em; }
+  .pbs-passport-authenticate.alreadymember .passport-middle p {
+    line-height: 1.3em; }
+  .pbs-passport-authenticate.alreadymember .passport-middle img {
+    margin: 0 auto 1em;
+    max-width: 425px; }
+.pbs-passport-authenticate.alreadymember h2 {
+  text-align: center; }
+.pbs-passport-authenticate.alreadymember li {
+  float: left;
+  margin: 0 2% 1.5em; }
+.pbs-passport-authenticate.alreadymember .form-part1 {
+  margin: 1.5em -2% 0; }
+.pbs-passport-authenticate.alreadymember .form-part1 li {
+  width: 46%; }
+.pbs-passport-authenticate.alreadymember .form-part2 {
+  margin: 0 -2% 0.5em; }
+.pbs-passport-authenticate.alreadymember .form-part2 li.city {
+  width: 28%; }
+.pbs-passport-authenticate.alreadymember .form-part2 li.state {
+  width: 14%; }
+.pbs-passport-authenticate.alreadymember .form-part2 li.zip {
+  width: 14%; }
+.pbs-passport-authenticate.alreadymember .form-part2 li.phone {
+  width: 28%; }
+.pbs-passport-authenticate.alreadymember label {
+  display: block;
+  font-size: 1.2em;
+  margin-bottom: 0.4em; }
+.pbs-passport-authenticate.alreadymember label span {
+  color: #ff512c; }
+.pbs-passport-authenticate.alreadymember input, .pbs-passport-authenticate.alreadymember select {
+  border: 1px solid #ccc;
+  color: #454545;
+  font-size: 1.2em;
+  padding: 0.5em;
+  width: 100%; }
+.pbs-passport-authenticate.alreadymember button {
+  background-color: #00769b;
+  border: 0 none;
+  color: #fff;
+  font-size: 1.2em;
+  padding: 0.7em;
+  text-align: center;
+  width: 100%; }
+.pbs-passport-authenticate.alreadymember button:hover {
+  background-color: #000; }
+
+@media screen and (max-width: 480px) {
+  .pbs-passport-authenticate-wrap {
+    padding: 4%; }
+
+  .service-options li {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 1em; }
+  .service-options li:first-of-type {
+    border: 0;
+    border-bottom: 1px solid #333;
+    padding-bottom: 1em; }
+  .service-options h4 {
+    font-size: 1.275em;
+    font-weight: 500;
+    margin-bottom: .8em; }
+  .service-options .look-for-email {
+    font-size: 0.875em;
+    margin: 1em 0 0 0; }
+
+  .pbs-passport-authenticate.alreadymember li {
+    margin: 0 0 1em 0; }
+  .pbs-passport-authenticate.alreadymember .form-part1, .pbs-passport-authenticate.alreadymember .form-part2 {
+    margin: 0; }
+    .pbs-passport-authenticate.alreadymember .form-part1 li, .pbs-passport-authenticate.alreadymember .form-part2 li {
+      width: 100% !important; }
+
+  .pbs-passport-authenticate.activate form input, .pbs-passport-authenticate.activate form button {
+    font-size: 1em; } }
+
 /*# sourceMappingURL=passport_styles.css.map */

@@ -190,10 +190,13 @@ $blue: #008CB6;
 	}
 	form button:hover { color: #000;}
 	h1 {  color: #1b1b1b;  font-size: 1.3em;  font-weight: 700;  margin: 0.5em 0;  text-transform: uppercase;}
-	h3 {  color: #2a2a2a;  font-size: 1.375em;  font-weight: 600;  margin: 0 0 0.3em;}
+	h3 {  
+    color: #2a2a2a;  font-size: 1.375em;  font-weight: 600;  margin: 0 0 0.3em; 
+  }
+  h3.error { color: #ff512c; }
 	p {    
 		font-size: 1.125em;    font-weight: 400;    margin: 0 0 1em;
-		a:hover {    color: #f0b51d;}
+		a:hover {    color: black;}
 	}
 	.pp-narrow {max-width: 400px;}
 }
