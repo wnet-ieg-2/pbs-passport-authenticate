@@ -1,16 +1,30 @@
 $blue: #008CB6;
 
-
+/*
 @font-face {
   font-family: 'passport';
-  src:  url('fonts/passport.eot?ntlhdc');
-  src:  url('fonts/passport.eot?ntlhdc#iefix') format('embedded-opentype'),
-    url('fonts/passport.ttf?ntlhdc') format('truetype'),
-    url('fonts/passport.woff?ntlhdc') format('woff'),
-    url('fonts/passport.svg?ntlhdc#passport') format('svg');
+  src:  url('fonts/passport.eot');
+  src:  url('fonts/passport.eot#iefix') format('embedded-opentype'),
+    url('fonts/passport.ttf') format('truetype'),
+    url('fonts/passport.woff') format('woff'),
+    url('fonts/passport.svg#passport') format('svg');
   font-weight: normal;
   font-style: normal;
 }
+*/
+
+@font-face {
+  font-family: 'passport';
+  src:  url('//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.eot');
+  src:  url('//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.eot#iefix') format('embedded-opentype'),
+    url('//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.ttf') format('truetype'),
+    url('//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.woff') format('woff'),
+    url('//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.svg#passport') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
@@ -27,9 +41,19 @@ $blue: #008CB6;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-passport:before {
+.icon-passport-compass:before {
   content: "\e900";
 }
+.icon-passport-compass .path1:before {
+  content: "\e901";
+  color: rgb(0, 140, 182);
+}
+.icon-passport-rose .path2:before {
+  content: "\e902";
+  margin-left: -1.0068359375em;
+  color: rgb(255, 255, 255);
+}
+
 
 
 
@@ -166,10 +190,13 @@ $blue: #008CB6;
 	}
 	form button:hover { color: #000;}
 	h1 {  color: #1b1b1b;  font-size: 1.3em;  font-weight: 700;  margin: 0.5em 0;  text-transform: uppercase;}
-	h3 {  color: #2a2a2a;  font-size: 1.375em;  font-weight: 600;  margin: 0 0 0.3em;}
+	h3 {  
+    color: #2a2a2a;  font-size: 1.375em;  font-weight: 600;  margin: 0 0 0.3em; 
+  }
+  h3.error { color: #ff512c; }
 	p {    
 		font-size: 1.125em;    font-weight: 400;    margin: 0 0 1em;
-		a:hover {    color: #f0b51d;}
+		a:hover {    color: black;}
 	}
 	.pp-narrow {max-width: 400px;}
 }
