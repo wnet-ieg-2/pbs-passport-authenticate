@@ -22,7 +22,7 @@ jQuery(document).ready(function($) {
   function loginToPBS(event) {
     event.preventDefault();
     if (window.location != loginform) {
-      document.cookie='pbsoauth_login_referrer=' + window.location + ';domain=' + window.location.hostname + ';path=/';
+      document.cookie='pbsoauth_login_referrer=' + window.location + '?dontcachme=' + Math.random() + ';domain=' + window.location.hostname + ';path=/';
     }
     window.location = loginform;
   }
@@ -30,7 +30,7 @@ jQuery(document).ready(function($) {
   function joinPBS(event) {
     event.preventDefault();
     if (window.location != loginform) {
-      document.cookie='pbsoauth_login_referrer=' + window.location + ';domain=' + window.location.hostname + ';path=/';
+      document.cookie='pbsoauth_login_referrer=' + window.location + '?dontcachme=' + Math.random() + ';domain=' + window.location.hostname + ';path=/';
     }
     window.location = joinlink;
   }
@@ -38,7 +38,7 @@ jQuery(document).ready(function($) {
   function activatePBS(event) {
     event.preventDefault();
     if (window.location != loginform) {
-      document.cookie='pbsoauth_login_referrer=' + window.location + ';domain=' + window.location.hostname + ';path=/';
+      document.cookie='pbsoauth_login_referrer=' + window.location + '?dontcachme=' + Math.random() + ';domain=' + window.location.hostname + ';path=/';
     }
     window.location = activatelink;
   }
@@ -46,7 +46,7 @@ jQuery(document).ready(function($) {
   function learnMorePassport(event) {
     event.preventDefault();
     if (window.location != loginform) {
-      document.cookie='pbsoauth_login_referrer=' + window.location + ';domain=' + window.location.hostname + ';path=/';
+      document.cookie='pbsoauth_login_referrer=' + window.location + '?dontcachme=' + Math.random() + ';domain=' + window.location.hostname + ';path=/';
     }
     window.location = learnmorelink;
   }
