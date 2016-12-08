@@ -107,37 +107,40 @@ jQuery(document).ready(function($) {
       $('.pbs_passport_authenticate div.messages').html(welcomestring);
 	  
       
-    $('.pbs_passport_authenticate a.signout').click(logoutFromPBS);
+      $('.pbs_passport_authenticate a.signout').click(logoutFromPBS);
 	  
-		// update thumb overlays
-		if ($(".passport-video-thumb")[0]){
-			$('.passport-video-thumb').each(function( index ) {
-				if (user.membership_info.status == 'Off') {
-					$('.passport-thumb-signin', this).html('ACTIVATE TO WATCH');
-				}
-				else {
-					$('.passport-thumb-signin', this).remove();  	
-					$(this).removeClass('passport-video-thumb');  	
-				}	
-		  });
-		}	  
-		// end update thumb overlays
+		  // update thumb overlays
+		  if ($(".passport-video-thumb")[0]){
+			  $('.passport-video-thumb').each(function( index ) {
+				  if (user.membership_info.status == 'Off') {
+					  $('.passport-thumb-signin', this).html('ACTIVATE TO WATCH');
+  				}
+	  			else {
+		  			$('.passport-thumb-signin', this).remove();  	
+			  		$(this).removeClass('passport-video-thumb');  	
+				  }	
+  		  });
+	  	}	  
+		  // end update thumb overlays
 	  
-		// if user signed in, but not activated. change video overlay link.
-		if ($(".pp-sign-in.pbs_passport_authenticate")[0] && user.membership_info.status == 'Off'){
-			$('.pp-sign-in.pbs_passport_authenticate').html('<a href="' + activatelink + '" class="passport-activate"><span>ACTIVATE ACCOUNT</span></a>');
-		}
+  		// if user signed in, but not activated. change video overlay link.
+	  	if ($(".pp-sign-in.pbs_passport_authenticate")[0] && user.membership_info.status == 'Off'){
+		  	$('.pp-sign-in.pbs_passport_authenticate').html('<a href="' + activatelink + '" class="passport-activate"><span>ACTIVATE ACCOUNT</span></a>');
+  		}
 		
-		//passport player.
-		if ($("#passportcoveplayer[data-window]")[0] && user.membership_info.status == 'On'){
-			var videoWindow = $('#passportcoveplayer').data('window');
-			var videoID = $('#passportcoveplayer').data('media');
-			
-			if (videoWindow != 'public' && videoWindow != '' && !$('#passportcoveplayer').hasClass("playing")) {
-				$("#passportcoveplayer").html('<div class="embed-container video-wrap"><iframe id="partnerPlayer" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allowfullscreen="allowfullscreen" src="http://player.pbs.org/widget/partnerplayer/'+videoID+'/?chapterbar=false&uid='+user.pid+'&callsign='+station_call_letters_lc+'"></iframe></div>');
-				$("#passportcoveplayer").addClass('playing'); /* adds class to prevent reloading on load more videos */
-			}
-		}
+	  	//passport player.
+      if (user.membership_info.status == 'On'){
+        $(".passportcoveplayer").each(function (i) {
+          if (typeof($(this).data('window')) !== 'undefined') {
+            var videoWindow = $(this).data('window');
+            var videoID = $(this).data('media'); 
+            if (videoWindow != 'public' && videoWindow != '' && !$(this).hasClass("playing")) {
+              $(this).html('<div class="embed-container video-wrap"><iframe id="partnerPlayer_'+ i +'" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allowfullscreen="allowfullscreen" src="http://player.pbs.org/widget/partnerplayer/'+videoID+'/?chapterbar=false&uid='+user.pid+'&callsign='+station_call_letters_lc+'"></iframe></div>');
+              $(this).addClass('playing');
+            }
+          }
+        });
+      }
 	  	// end passport player.
 	  
     } else {
