@@ -118,9 +118,6 @@ if (!empty($return['errors'])){
 <?php } ?>
 
 
-<h3>Have questions or technical issues?</h3>
-<p>Check out our <a href="<?php echo site_url('/passport-faqs/'); ?>">Passport FAQs</a>.</p>
-
 
 </div><!-- .pp-narrow -->
 
@@ -140,7 +137,7 @@ if (!empty($return['errors'])){
 
 	</ul>
 	</div>
-  
+<?php if (!empty($defaults['help_text'])) {echo "<p class='passport-help-text border'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>";} ?>  
 <?php 
   // end opt in challenge else condition
 } ?>
