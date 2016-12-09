@@ -222,8 +222,13 @@ $blue: #008CB6;
 	label {   display: block;   font-size: 1.2em;   margin-bottom: 0.4em;}
 	label span {   color: #ff512c;}
 	input, select {  border: 1px solid #ccc;  color: #454545;  font-size: 1.2em;  padding: 0.5em;   width: 100%;}
-	button {  background-color: #00769b; border: 0 none; color: #fff; font-size: 1.2em; padding: 0.7em; text-align: center;  width: 100%;}
+	button {  background-color: $blue; border: 0 none; color: #fff; font-size: 1.2em; padding: 0.7em; text-align: center;  width: 100%;}
 	button:hover {  background-color: #000;}
+  .description {
+    font-style: italic;
+    font-size: .95em;
+    padding-top: 20%;
+  }
 }
 
 
