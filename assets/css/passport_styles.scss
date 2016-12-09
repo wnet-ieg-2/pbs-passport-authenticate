@@ -61,25 +61,8 @@ $graydark2: #242424;
 
 
 
-
-
 .pbs-passport-authenticate-wrap {max-width: $max-width; margin: 0 auto;}
 
-/* --- [sign in header] ------------------------------------------------------------------------------------------------- */
-.head-passport .pbs_passport_authenticate {
-	button.launch {background: url('../img/passport_compass_black.svg') right .5em center no-repeat; background-size: 11%; padding-right: 2.2em !important; }
-	
-	/* logged in */
-	.messages {
-		float: left; line-height: 1.2em; font-weight: 400; color: $graydark; padding-top: .6em;
-		img {display: none;}
-		a {color: $purplelinklight !important; cursor: pointer;}
-		a:hover {color: #000 !important;}
-		a.passport-link-icon {background: url('../img/passport_compass_gray.svg') left center no-repeat; background-size: contain; padding-left: 1.4em;}
-		a.passport-alert-icon {background: url('../img/passport-alert-icon.png') left center no-repeat; background-size: contain; padding-left: 1.4em;}
-	}
-}
-/* --- [end sign in header] ------------------------------------------------------------------------------------------------- */
 
 
 .passport-error {
