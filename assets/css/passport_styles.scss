@@ -131,16 +131,23 @@ $graydark2: #242424;
 	.add-login-fields.hide {display: none;}
 	
 
-	.passport-optin-button {
-		button {border: 0; padding: .5em; width: 100%;}
-	}	
-	.passport-optin-challenge {text-align: left;}
+	.passport-optin-challenge { 
+		.passport-button { border: 0;  padding: 0.5em;   width: 100%; text-align: center;  float: none; background-color: #00769b; color: #fff; font-weight: normal; text-transform: uppercase;}	 
+		.passport-button:hover {color: #fff;}	 
+		.passport-optin-checkbox {
+			text-align: left;
+			span, label {display: table-cell;}
+			label {padding-left: 0.6em;}
+		}
+		.passport-small {font-size: .9em;}
+		.passport-error {font-size: 1em;}
+	}
+	
+	
+	
 	.passport-error {color: #ff0000;}
 	.passport-small {font-size: .8em;}
-	.passport-optin-checkbox {
-		span, label {display: table-cell;}
-		label {padding-left: .6em;}
-	}
+
 }
 /* --- [ END PASSPORT OAUTH PAGE WRAPPERS ] ------------------------------------------------------------------------------------------------------------------ */
 
