@@ -24,6 +24,7 @@ if (file_exists($plugpath)) {
 
 
 // Include plugin class files
+require_once( 'build-passport-player.php' );
 require_once( 'classes/class-pbs-passport-authenticate.php' );
 require_once( 'classes/class-pbs-passport-authenticate-settings.php' );
 require_once('classes/class-PBS-LAAS-client.php');
