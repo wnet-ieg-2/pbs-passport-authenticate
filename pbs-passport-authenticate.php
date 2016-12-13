@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: PBS Passport Authenticate
- * Version: 0.1.3.3
+ * Version: 0.1.3.5
  * Plugin URI: https://github.com/tamw-wnet/pbs-passport-authenticate
  * Description: PBS Passport Authenticate
  * Author: William Tam
