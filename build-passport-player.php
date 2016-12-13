@@ -17,16 +17,17 @@ function build_passport_player($video) {
 	if (PASSPORT_ENABLED && (($video->window == 'all_members') ||( $video->window == 'station_members')) && $coveWindow == 'all') {
 		
 		$passport_defaults = get_option('pbs_passport_authenticate');
-		$join_url = '#';
-		if (!empty($passport_defaults['join_url'])) {$join_url = $passport_defaults['join_url'];}
-			$passportOverlay = "
+		$join_url = !empty($passport_defaults['join_url']) ? $passport_defaults['join_url'] : '#';
+    $station_passport_logo_reverse = !empty($passport_defaults['station_passport_logo_reverse']) ? $passport_defaults['station_passport_logo_reverse'] : $passport_defaults['station_passport_logo'];
+    $station_nice_name = !empty($passport_defaults['station_nice_name']) ? $passport_defaults['station_nice_name'] : "Your PBS Station";
+		$passportOverlay = "
 			<div class='signup'><div class='signup-inner'>
 				<div class='pp-intro'>
 					<p>Access to this video is a<br/> benefit for members through</p>
-					<img src='$imgDir/libs/images/socal-passport-white.png' alt='PBS SoCal Passport'/>
+					<img src='$station_passport_logo_reverse' alt='$station_nice_name'/>
 				</div>
 				<div class='pp-button pbs_passport_authenticate cf'><button class='launch'>
-					MEMBER SIGN IN <img src='$imgDir/libs/images/passport_compass_white.svg'>
+					MEMBER SIGN IN <span class='icon-passport-compass'><i></i></span>
 				</button></div>
 				<div class='pp-button pbs_passport_authenticate'>
 					<a href='/passport/' class='learn-more'><button class='learn-more'>LEARN MORE <i class='fa fa-arrow-circle-o-right'></i></button></a>
