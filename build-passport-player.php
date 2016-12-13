@@ -19,12 +19,12 @@ function build_passport_player($video) {
 		$passport_defaults = get_option('pbs_passport_authenticate');
 		$join_url = !empty($passport_defaults['join_url']) ? $passport_defaults['join_url'] : '#';
     $station_passport_logo_reverse = !empty($passport_defaults['station_passport_logo_reverse']) ? $passport_defaults['station_passport_logo_reverse'] : $passport_defaults['station_passport_logo'];
-    $station_nice_name = !empty($passport_defaults['station_nice_name']) ? $passport_defaults['station_nice_name'] : "Your PBS Station";
+    $station_nice_name = !empty($passport_defaults['station_nice_name']) ? $passport_defaults['station_nice_name'] : "";
 		$passportOverlay = "
 			<div class='signup'><div class='signup-inner'>
 				<div class='pp-intro'>
 					<p>Access to this video is a<br/> benefit for members through</p>
-					<img src='$station_passport_logo_reverse' alt='$station_nice_name'/>
+					<img src='$station_passport_logo_reverse' alt='$station_nice_name Passport'/>
 				</div>
 				<div class='pp-button pbs_passport_authenticate cf'><button class='launch'>
 					MEMBER SIGN IN <span class='icon-passport-compass'><i></i></span>
