@@ -47,4 +47,27 @@ function build_passport_player($video) {
     }
 }
 
+function cove_passport_shortcode($atts, $content = null) {
+  
+  extract(shortcode_atts(array("id" => ''), $atts));
+
+  $player = "<!-- video no longer available -->";
+  
+  $video = pbs_video_utils_get_video($id);
+ 
+  if (!empty($video)) {
+    $video = json_decode(json_encode($video));
+    $player = "<div class='shortcode-video cf'>". build_passport_player($video[0]) . "</div>";
+    
+  }
+  elseif (!empty($video)) {
+    $video = json_decode(json_encode($video));
+    $player = "<div class='shortcode-video cf'>". build_cove_player($video[0]) . "</div>";
+  }
+  
+  return $player;
+
+}
+add_shortcode("cove-passport", "cove_passport_shortcode");  
+
 /* end of file */
