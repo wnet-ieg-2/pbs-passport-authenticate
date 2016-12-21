@@ -504,6 +504,15 @@ class PBS_LAAS_Client {
     if (isset($userinfo['pid'])){
       //  store profile info in a cookie
       //error_log('userinfo is ' . json_encode($userinfo) );
+      
+      // remove hardcoded protocol from the thumbnail URL
+      if (!empty($userinfo['thumbnail_URL'])) {
+        preg_match("/^(?:http:|https:)?(\/\/.*)/", $userinfo['thumbnail_URL'], $ary);
+        if (!empty($ary[1])) {
+          $userinfo['thumbnail_URL'] = $ary[1];
+        }
+      }
+
       $userinfo_clean = array(
         'first_name' => $userinfo['first_name'],
         'last_name' => $userinfo['last_name'],
