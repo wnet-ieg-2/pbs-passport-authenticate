@@ -9,6 +9,13 @@ $pluginImageDir = $passport->assets_url . 'img';
 $station_nice_name = $defaults['station_nice_name'];
 $laas_client = $passport->get_laas_client();
 $userinfo = $laas_client->check_pbs_login();
+if (!empty($userinfo['curlerrors'])){
+  /* this will only happen if there was a glitch connecting server-to-server with PBS.
+   * Log the error and assume the user is not logged in
+   */
+  error_log('PBS LAAS client failure: ' . json_encode($userinfo));
+  $userinfo = false;
+}
 $membership_id = (!empty($_REQUEST['membership_id']) ? $_REQUEST['membership_id'] : false);
 if ($membership_id) {
   $mvault_client = $passport->get_mvault_client();
