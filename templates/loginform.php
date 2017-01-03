@@ -56,7 +56,15 @@ echo "</div>";
 
 
 	<div class='pp-narrow'>
-	<?php if (empty($userinfo)) { ?> 
+	<?php if (!empty($userinfo['curlerrors'])) { 
+    /* this only happens if there's a problem with connectivity to PBS.  
+     * log an error and display a human readable message to the user 
+     */
+    error_log('PBS LAAS connection failure: ' . json_encode($userinfo));
+  ?>
+  <h3>We're sorry!</h3>
+  <p>We have encountered an unexpected error.  Please try to reload or revisit this page.  If the error persists for more than a few minutes please let us know.</p>
+  <?php } else if (empty($userinfo['pid'])) { ?> 
 	<div class='service-sign-in cf'>
   <?php if (!$membership_id){ ?>
 	<h3>MEMBER SIGN IN</h3>
