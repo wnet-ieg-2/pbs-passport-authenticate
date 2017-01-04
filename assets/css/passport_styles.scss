@@ -226,7 +226,7 @@ $graydark2: #242424;
 	.passport-middle {max-width: 828px;
 		h1,h2,h3 {line-height:1em;}	
 		p {line-height:1.3em;}
-		img {margin:0 auto 1em auto; max-width:425px;}
+		img {margin:0 auto 1em auto; max-width:425px; width: 100%; }
 	}
 	img {margin: 0 auto;}
 	h2 {text-align: center;}
@@ -249,6 +249,11 @@ $graydark2: #242424;
 	input, select {border: 1px solid #ccc; width: 100%; padding: .5em; font-size: 1.2em; color: #454545;}
 	button {width: 100%; background-color: $blue; color: #fff; text-align: center; padding: .7em; border: 0; font-size: 1.2em;}
 	button:hover {background-color: #000;}
+  span.description {
+    font-style: italic;
+    font-size: .95em;
+    padding-top: .5em;
+  }
 }
 /* --- [END PASSPORT ALREADY MEMBER] ------------------------------------------------------------------------------------------------- */
 
