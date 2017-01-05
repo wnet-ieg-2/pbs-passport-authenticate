@@ -8,8 +8,8 @@ The 'PBS Passport Authenticate' plugin, when installed in a PBS station website 
 * We do not provide membership donation or creation forms, nor any process to send 'activation codes' to members.   If your station uses an 'instant gratification' donation process that generates activation links or activation codes, it is likely possible to adapt that process to use our included activation form.  We've been able to do so for Thirteen.org.  
 * Otherwise, the PBS-provided activation code that your station gets when importing new members into the PBS Membership Vault ('MVault') will also work with our included activation form, and that 'activation' status will carry through to PBS.org as well.    
 * The login system can be added to your theme with a single line of code in your theme header.
-* [COMING SOON] We provide basic example code to restrict or allow access to a COVE Passport video based on the visitor's status as a Passport-eliglible member of the station, but it is up to the station to embed COVE Passport video onto their website.
-* [COMING SOON] We provide example CSS for the station to add to their website, but the station will probably want to alter that CSS to match their own website design.
+* We provide basic example code to restrict or allow access to a COVE Passport video based on the visitor's status as a Passport-eliglible member of the station, but it is up to the station to embed COVE Passport video onto their website.  
+* We include CSS with the plugin, but the station will probably want to override some of that CSS to match their own website design.
 * The login system requires no heavy database interaction -- member information and authentication status is stored within cookies, and no member data is stored in your website's database, just the PBS Membership Vault.
 * Enabling the login system requires contacting PBS for MVault access keys and PBS Profile Service access keys.
 
@@ -58,7 +58,7 @@ The plugin provides two functions:
 
 Activation enqueues a custom CSS file and a custom javascript file on every user-facing page.   
 
-### Shortcode
+### Login Form Shortcode
 
 Drop the shortcode [pbs-passport-authenticate] into place where you would want a login link to appear.  The link can be styled.  
 
@@ -76,9 +76,41 @@ The login link will then be replaced with basic Welcome (name) text and a logout
 
 #### Shortcode Arguments
 
-The shortcode takes the following arguments
+The shortcode takes the following arguments:
 
 * `login_text` -- replaces the default login link text
+
+#### Customizing the CSS
+
+The plugin automatically 'enqueues' CSS on your site to make the login form and activation form look nice.  For a good starting point on making the fonts and colors of those forms match your site's look and feel, you may want to add some CSS to your website's theme CSS;
+
+```
+.pbs-passport-authenticate-wrap { color: "yourcolor"; font-family: "yourfont"; }
+
+.passport-help-text { color: "yourcolor"; font-size: 1em; }
+.passport-help-text .fa {  color: "yourcolor";}
+.passport-help-text a {color: "yourcolor";}
+
+.service-sign-in  h3 {font-weight: 600;}
+.service-sign-in .create-pbs a { color: "yourcolor";}
+
+.pbs-passport-authenticate.activate { color: "yourcolor"; }
+.pbs-passport-authenticate.activate  form button {color: "yourcolor";}
+.pbs-passport-authenticate.activate  h3.error { color: "yourcolor";}
+.pbs-passport-authenticate.activate  p a {color: "yourcolor";}
+```
+
+### Embeding a Passport Video
+
+The plugin includes a 'cove-passport' shortcode that will render a Passport video player.  If the visitor has activated their Passport benefit, logged into your site, and is eligible to watch Passport videos, when the video is rendered with the shortcode it will show the visitor the video.  It the visitor is NOT logged in he or she will see an overlay that directs them to log in to view the video.
+
+#### Shortcode Arguments
+
+The shortcode takes the following arguments:
+
+* `id` -- the COVE 'tp_media_object_id'.  This is found in Merlin or the COVE API.
+* `window` -- 'all_members', 'station_members', and 'public' are the options.  'all_members' is the default and should be used if the video is available to members of any PBS station.
+* `image` -- the 'mezzanine image' that should appear in place of the video, behind the 'login' overlay, when a visitor isn't logged in; This should be a high-res, 16x9 still from the video.  The COVE API provides a 'mezzanine' image that can be used here.
 
 
 ### 'authenticate' AJAX endpoint
