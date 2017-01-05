@@ -84,7 +84,7 @@ The shortcode takes the following arguments:
 
 The plugin automatically 'enqueues' CSS on your site to make the login form and activation form look nice.  For a good starting point on making the fonts and colors of those forms match your site's look and feel, you may want to add some CSS to your website's theme CSS;
 
-```
+```css
 .pbs-passport-authenticate-wrap { color: "yourcolor"; font-family: "yourfont"; }
 
 .passport-help-text { color: "yourcolor"; font-size: 1em; }
