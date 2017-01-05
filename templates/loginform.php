@@ -68,6 +68,8 @@ echo "</div>";
 	<div class='service-sign-in cf'>
   <?php if (!$membership_id){ ?>
 	<h3>MEMBER SIGN IN</h3>
+	<p><strong>Members get extended access to PBS video on demand and more</strong></p>
+ 	<p>If you have already activated your <?php echo $station_nice_name; ?> Passport benefit, please sign in below.</p>
   <?php } ?>
 	<ul>
 	<li class="google"><a href="<?php echo($links['google']); ?>" title="Sign in with Google"><img src="<?php echo $pluginImageDir; ?>/sign-in-google.png" /></a></li>
