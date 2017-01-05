@@ -18,7 +18,7 @@ class PBS_Passport_Authenticate {
 		$this->assets_dir = trailingslashit( $this->dir ) . 'assets';
 		$this->assets_url = esc_url( trailingslashit( plugins_url( '/assets/', $file ) ) );
     $this->token = 'pbs_passport_authenticate';
-    $this->version = '0.1.4.1';
+    $this->version = '0.1.3.6';
 
 		// Load public-facing style sheet and JavaScript.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -30,9 +30,6 @@ class PBS_Passport_Authenticate {
     add_action( 'init', array($this, 'setup_rewrite_rules') );
     add_filter( 'query_vars', array($this, 'register_query_vars') );
     add_action( 'template_include', array($this, 'rewrite_templates') );
-    add_filter( 'pre_get_document_title', array($this, 'generate_title'), 10 );
-    // Yoast overrides all of the title tags if it exists
-    add_filter( 'wpseo_title', array($this, 'generate_title'), 15 );
 	}
 
   public function enqueue_scripts() {
@@ -42,8 +39,8 @@ class PBS_Passport_Authenticate {
     wp_enqueue_script( 'jquery.pids' );
     //only register this one, we'll enqueue it on just the loginform
     wp_register_script( 'pbs_passport_loginform_js' , $this->assets_url . 'js/loginform_helpers.js', array('jquery'), $this->version, true );
-	
-	 //required styles
+
+    //required styles
     wp_enqueue_style( 'pbs_passport_css', $this->assets_url . 'css/passport_styles.css', null, $this->version);
   }
 
@@ -76,24 +73,6 @@ class PBS_Passport_Authenticate {
     }
     return $template;
   }
-
-  public function generate_title($title) {
-    $newtitle = $title;
-    $template = get_query_var('pbsoauth');
-    switch($template) {
-      case "loginform":
-        $newtitle = "Please Sign In";
-        break;
-      case "activate":
-        $newtitle = "Please Enter Your Activation Code";
-        break;
-      case "userinfo":
-        $newtitle =  "Your User Information";
-        break;
-    }
-    return $newtitle;
-  }
-
 
   public function do_shortcode( $atts ) {
     $allowed_args = array('login_text' => 'Sign in', 'render' => 'all' );
@@ -138,10 +117,13 @@ class PBS_Passport_Authenticate {
     $oauthroot = ( !empty($args['oauth2_endpoint']) ? $args['oauth2_endpoint'] : $defaults['oauth2_endpoint'] );
     $redirect_uri = ( !empty($args['redirect_uri']) ? $args['redirect_uri'] : site_url('pbsoauth/callback/') );
     $client_id = ( !empty($args['laas_client_id']) ? $args['laas_client_id'] : $defaults['laas_client_id'] );
-    
+
     $return = array();
-    $scopestring = '';
-    $scopestring = '&scope=' . urlencode('account ' . $defaults['station_call_letters']);
+
+    /* complex possibilities for scope */
+    $scope =  ( !empty($args['scope']) ? $args['scope'] : ( !empty($defaults['scope']) ? $defaults['scope'] : '' ) );
+    $scopestring = ( $scope ? '&scope=' . urlencode($scope) : '' );
+
     $return['pbs'] = $oauthroot . 'authorize/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring; 
     $return['google'] = $oauthroot . 'social/login/google-oauth2/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring;
     $return['facebook'] = $oauthroot . 'social/login/facebook/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring;

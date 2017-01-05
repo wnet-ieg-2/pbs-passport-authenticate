@@ -22,7 +22,7 @@ jQuery(document).ready(function($) {
   function loginToPBS(event) {
     event.preventDefault();
     if (window.location != loginform) {
-      document.cookie='pbsoauth_login_referrer=' + window.location + ';domain=' + window.location.hostname + ';path=/';
+      document.cookie='pbsoauth_login_referrer=' + window.location + '?dontcachme=' + Math.random() + ';domain=' + window.location.hostname + ';path=/';
     }
     window.location = loginform;
   }
@@ -30,7 +30,7 @@ jQuery(document).ready(function($) {
   function joinPBS(event) {
     event.preventDefault();
     if (window.location != loginform) {
-      document.cookie='pbsoauth_login_referrer=' + window.location + ';domain=' + window.location.hostname + ';path=/';
+      document.cookie='pbsoauth_login_referrer=' + window.location + '?dontcachme=' + Math.random() + ';domain=' + window.location.hostname + ';path=/';
     }
     window.location = joinlink;
   }
@@ -38,7 +38,7 @@ jQuery(document).ready(function($) {
   function activatePBS(event) {
     event.preventDefault();
     if (window.location != loginform) {
-      document.cookie='pbsoauth_login_referrer=' + window.location + ';domain=' + window.location.hostname + ';path=/';
+      document.cookie='pbsoauth_login_referrer=' + window.location + '?dontcachme=' + Math.random() + ';domain=' + window.location.hostname + ';path=/';
     }
     window.location = activatelink;
   }
@@ -46,7 +46,7 @@ jQuery(document).ready(function($) {
   function learnMorePassport(event) {
     event.preventDefault();
     if (window.location != loginform) {
-      document.cookie='pbsoauth_login_referrer=' + window.location + ';domain=' + window.location.hostname + ';path=/';
+      document.cookie='pbsoauth_login_referrer=' + window.location + '?dontcachme=' + Math.random() + ';domain=' + window.location.hostname + ';path=/';
     }
     window.location = learnmorelink;
   }
@@ -102,7 +102,7 @@ jQuery(document).ready(function($) {
     if (user.thumbnail_URL) {
       thumbimage = "<a href='" + userinfolink + "' class='userthumb'><img src=" + user.thumbnail_URL + " /></a>"; 
     }	
-		welcomestring = '<a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + user.first_name + '</span></a>' + thumbimage + ' | <a class="signout">Sign Out</a>';
+		welcomestring = thumbimage + '<a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + user.first_name + '</span></a> <a class="signout">Sign Out</a>';
      
       $('.pbs_passport_authenticate div.messages').html(welcomestring);
 	  
@@ -135,7 +135,7 @@ jQuery(document).ready(function($) {
             var videoWindow = $(this).data('window');
             var videoID = $(this).data('media'); 
             if (videoWindow != 'public' && videoWindow != '' && !$(this).hasClass("playing")) {
-              $(this).html('<div class="embed-container video-wrap"><iframe id="partnerPlayer_'+ i +'" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allowfullscreen="allowfullscreen" src="http://player.pbs.org/widget/partnerplayer/'+videoID+'/?chapterbar=false&uid='+user.pid+'&callsign='+station_call_letters_lc+'"></iframe></div>');
+              $(this).html('<div class="embed-container video-wrap"><iframe id="partnerPlayer_'+ i +'" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allowfullscreen="allowfullscreen" src="//player.pbs.org/widget/partnerplayer/'+videoID+'/?chapterbar=false&uid='+user.pid+'&callsign='+station_call_letters_lc+'"></iframe></div>');
               $(this).addClass('playing');
             }
           }

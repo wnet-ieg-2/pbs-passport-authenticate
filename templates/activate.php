@@ -21,15 +21,15 @@ if ($activation_token){
   $mvaultinfo = $passport->lookup_activation_token($activation_token);
   $return = array();
   if (empty($mvaultinfo['membership_id'])){
-    $return['errors'] = 'This activation code is invalid';
+    $return['errors'] = array('message' => 'This activation code is invalid', 'class' => 'error');
   } else {
     // this is a theoretically valid token.  
 
     if ($mvaultinfo['status']!='On') {
-      $return['errors'] = 'This account has been disabled';
+      $return['errors'] = array('message' => 'This account has been disabled', 'class' => 'error');
     }
     if (!empty($mvaultinfo['activation_date'])) {
-      $return['errors'] = 'Your account has already been activated.  <a href="' . site_url('pbsoauth/loginform')  . '">Please sign in here</a>.<br /><br />You only need to activate the first time you use ' . $station_nice_name . ' Passport.';
+      $return['errors'] = array('message' => 'Your account has already been activated.  <a href="' . site_url('pbsoauth/loginform')  . '">Please sign in here</a>.<br /><br />You only need to activate the first time you use ' . $station_nice_name . ' Passport.', 'class' => 'info');
     }
 
     $return['vppa_approved'] = (!empty($_POST['pbsoauth_optin']) ? $_POST['pbsoauth_optin'] : false);
@@ -105,21 +105,18 @@ providers, please stop and <a href="/about/contact/?1i=passport">contact us</a>.
 </form>
 <?php
 if (!empty($return['errors'])){
-  echo "<h3 class='error'>" . $return['errors'] . "</h3>";
+  echo "<h3 class='" . $return['errors']['class'] . "'>" . $return['errors']['message'] . "</h3>";
 }
 ?>
 
 <h3>How do I find my activation code?</h3>
 
-<p>If you are an active, qualifying member of  <?php echo $station_nice_name; ?>  ($60+ annually or $5+ monthly), look for an email you received containing your activation code.</p>  
+<p>If you are an active member of <?php echo $station_nice_name; ?> ($60+ annual, or $5 monthly), look for an email from "<?php echo $station_nice_name; ?> Passport" which contains your activation code.</p>  
 <?php if (class_exists('WNET_Passport_Already_Member')) { ?>
 <h3>Don't have an activation code?</h3>
-<p><a href="<?php echo site_url('pbsoauth/alreadymember/'); ?>">Look up your activation code.</a></p>
+<p>If you don't have an email from us,<br/> <a href="<?php echo site_url('pbsoauth/alreadymember/'); ?>">please click here</a>.</p>
 <?php } ?>
 
-
-<h3>Have questions or technical issues?</h3>
-<p>Check out our <a href="<?php echo site_url('/passport/faq/'); ?>">FAQ Page</a> to see if your question has already been answered. For technical support, please call (844) 417-6327 or <a href="http://help.pbs.org/support/tickets/new">submit a support ticket</a>.</p>
 
 
 </div><!-- .pp-narrow -->
@@ -135,12 +132,12 @@ if (!empty($return['errors'])){
 	<?php if (!empty($defaults['join_url'])) { ?>
 	<li class="becomemember">
 	<h4>Not a <?php echo $station_nice_name; ?> member?</h4>
-	<a href="<?php echo $defaults['join_url']; ?>"><button class='pp-button-outline'>BECOME A MEMBER <i class="fa fa-heart-o"></i></button></a></li>
+	<a href="<?php echo $defaults['join_url']; ?>"><button class='pp-button-outline'>Become a Member <i class="fa fa-heart-o"></i></button></a></li>
 	<?php } ?>
 
 	</ul>
 	</div>
-  
+<?php if (!empty($defaults['help_text'])) {echo "<p class='passport-help-text border'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>";} ?>  
 <?php 
   // end opt in challenge else condition
 } ?>

@@ -1,23 +1,29 @@
-$desk-min: 1025px;
-$mob-max: 480px;
-$tab-min: 481px;
-$tab-max: 1024px;
-$max-width: 1200px;
+$blue: #008CB6;
 
-$orange: #f37021;
-$orange2: #f0b51d;
-$purple: #5e5098;
-$purplelinklight: #5D5098;
-$purplelinkdark: #6f61ae;
-$sand: #fff0a0;
-$teal: #00abb1;
-$navy: #002B39;
-$blue: #2981b1;
-$silver: #e7e8e8;
-$gray: #a8aaac;
-$graydark: #666;
-$graydark2: #242424;
-
+/*
+@font-face {
+  font-family: 'passport';
+  src:  url('fonts/passport.eot');
+  src:  url('fonts/passport.eot#iefix') format('embedded-opentype'),
+    url('fonts/passport.ttf') format('truetype'),
+    url('fonts/passport.woff') format('woff'),
+    url('fonts/passport.svg#passport') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+*/
+/*
+@font-face {
+  font-family: 'passport';
+  src:  url('//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.eot');
+  src:  url('//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.eot#iefix') format('embedded-opentype'),
+    url('//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.ttf') format('truetype'),
+    url('//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.woff') format('woff'),
+    url('//www.thirteen.org/wp-content/plugins/pbs-passport-authenticate/assets/css/fonts/passport.svg#passport') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+*/
 
 
 @font-face {
@@ -61,59 +67,46 @@ $graydark2: #242424;
 
 
 
-.pbs-passport-authenticate-wrap {max-width: $max-width; margin: 0 auto;}
 
 
-
-.passport-error {
-	text-align: center; font-size: 1.2em;
-	span { background: rgba(0, 0, 0, 0.6); display: inline-block; padding: 1em;}
-}
-
-
-
-/* --- [ PASSPORT OAUTH PAGE WRAPPERS ] ------------------------------------------------------------------------------------------------------------------ */
 .pbs-passport-authenticate-wrap {
-	background-color: #fff; color: $graydark;  line-height: 1em; margin: 1.5em auto; 
-	a {color: $purple;}
-	a:hover {color: #000;}
-	.passport-green {color: #7EC036;}
-	.passport-red {color: #BC262B;}
-	
-	.passport-middle {
-		max-width: 830px; margin: 0 auto; padding: 0; 
-		img {max-width:100%; height:auto; }
-		p {line-height: 1.3em;}
-	}	
+    margin: 0 auto; padding: 1.5em 0; max-width: 1200px; background-color: #fff; color: #666; line-height: 1em; font: 400 1em 'Montserrat';
+
+	img { height: auto; max-width: 100%;}
+	a {color: $blue;}
 	
 	.pp-logo-head {
-		text-align: center; margin-bottom: 1.5em;
-		img {margin: 0 auto;}
+    	margin: 0 auto 1.5em auto; text-align: center; max-width: 400px;
+		img { margin: 0 auto !important; display: block;}
 	}
+	
+	.passport-middle {
+		margin: 0 auto; max-width: 900px; padding: 0;
+		p {line-height: 1.3em;}
+		button img { width: 1em;  margin-bottom:0;}
+	}
+	
+	.pp-narrow {   margin: 0 auto;   max-width: 360px;}
 	
 	.userinfo-block {
-		text-align: center; margin-bottom: 1.5em;
-		h3 {color: $purple; font-size: 1.375em; font-weight: 600; margin: 0 0 .3em 0;}
-		.passport-username, .passport-status {font-size: 1.6em;}
-		.pp-narrow {margin-bottom: 2em;}
+ 	   margin-bottom: 1.5em; text-align: center;
+	   h3 {   color: #2a2a2a;   font-size: 1.375em;   font-weight: 600;   margin: 0 0 0.3em;}
+	   .passport-username, .passport-status {   font-size: 1.6em;}
+	   .pp-narrow {    margin-bottom: 2em;}
 	}
-
 	
-	.passport-not-setup {color: #858585; margin-bottom: 1.5em;}
-	.passport-exclamation {display: inline-block; background-color: $orange; color: #fff; -webkit-border-radius: 2px;
--moz-border-radius: 2px; border-radius: 2px; font-size: .8em; padding: .2em .5em; line-height: 1em;}
-
-
-	a.passport-button, button.passport-button {
-		background-color: $blue; color: #fff; display: block; padding: .9em; font-size: 1.7em; text-align: center;
-	}
-	a.passport-button:hover, button.passport-button:hover {opacity:0.9; filter:alpha(opacity=90);}
+	.passport-not-setup {  color: #858585;   margin-bottom: 1.5em;}
+	.passport-exclamation {  background-color: #f37021;   border-radius: 2px;   color: #fff;   display: inline-block;   font-size: 0.8em;
+    line-height: 1em;   padding: 0.2em 0.5em;}
+	
+	a.passport-button, button.passport-button { background-color: #00769b; color: #fff; display: block; font-size: 1.7em; padding: 0.9em; text-align: center;}
+	a.passport-button:hover, button.passport-button:hover { opacity: 0.9;}
+	
+	.passport-login-wrap {  margin: 0; width: 100%;}
+	
+	.add-login-fields.hide { display: none;}
 	
 	
-	
-	.add-login-fields.hide {display: none;}
-	
-
 	.passport-optin-challenge { 
 		.passport-button { border: 0;  padding: 0.5em;   width: 100%; text-align: center;  float: none; background-color: #00769b; color: #fff; font-weight: normal; text-transform: uppercase;}	 
 		.passport-button:hover {color: #fff;}	 
@@ -125,170 +118,144 @@ $graydark2: #242424;
 		.passport-small {font-size: .9em;}
 		.passport-error {font-size: 1em;}
 	}
-	
-	
-	
-	.passport-error {color: #ff0000;}
-	.passport-small {font-size: .8em;}
 
+	
 }
-/* --- [ END PASSPORT OAUTH PAGE WRAPPERS ] ------------------------------------------------------------------------------------------------------------------ */
 
 
-/* --- [ PASSPORT LOGIN FORM ] ------------------------------------------------------------------------------------------------------------------ */
-.passport-login-wrap {margin: 0;}
+.pbs-passport-authenticate-wrap.wide {
+	ul {width: 100% !important;}
+}
+
+.passport-green {color: #7ec036;}
+.passport-red {color: #bc262b;}
+.passport-error { color: #ff0000;}
+.passport-small { font-size: 0.8em;}
+
+
+
+
+
+
 .service-sign-in {
-	margin-bottom: 1.5em; color: $graydark; text-align: center;
-	h3 {font-size: 1.750em; font-weight: 600; margin-bottom: 1em;}
-	ul {margin: 0 auto;}
-	li {margin-bottom: .6em; padding: 0;}
-	img {max-width: 100%; height: auto; display: block;}
-	img:hover {opacity:0.8; filter:alpha(opacity=80);}	
-	.or {
-		text-align: center; background: url('../img/dash-line.png') center center repeat-x; 
-		span {background-color: #fff; color: #999; padding: 0 .5em; font-weight: 700;}
-	}  
-	.create-pbs {
-		padding: .5em 0; font-weight: 500;
-		a {color: $purple;}
-		a:hover {color: #000;}
+    color: #666; margin-bottom: 1.5em; text-align: center;
+	h3 {font-size: 1.75em; font-weight: 400; margin: 0 0 1em 0;}
+	ul {  margin: 0 auto;}
+	li {  margin-bottom: 0.6em;   padding: 0;}
+	img {display: block;  height: auto;  max-width: 100%;}
+	img:hover {  opacity: 0.8;}
+	.or { background: url("../img/dash-line.png") center center repeat-x; text-align: center;}
+	.or span {background-color: #fff; color: #999; font-weight: 700;  padding: 0 0.5em;}
+	.create-pbs { 
+		font-weight: 500; padding: 0.5em 0;
+		a { color: $blue;}
+		a:hover {text-decoration: underline;}
 	}
 }
+
+
 .service-options {
-	border-top: 1px solid $graydark; color: $graydark; padding: 1.5em 0 0 0; margin-bottom: 1.5em; text-align: center; 
-	ul {margin: 0 auto;}
-	li {float: left; width: 50%; padding: 0 2em;}
-	li:first-of-type {border-right: 1px solid $graydark;}
-	h4 {font-size: 1.275em; font-weight: 500; margin-bottom: .8em;}
-	.look-for-email {font-size: 0.875em; margin: 1em 0 0 0;}
+    border-top: 1px solid #666; color: #666;  padding: 1.5em 0; text-align: center; width: 100%;
+	h4 {  font-size: 1.275em;  font-weight: 500;  margin-bottom: 0.8em;}
+	ul {  margin: 0 auto;}
+	li {  float: left;  padding: 0 2em;  width: 50%;}
+	li:first-of-type {  border-right: 1px solid #666;}
+	.look-for-email {  font-size: .875em;  margin: 1em 0 0;}
 }
 
 .activate-options {
-	color: $graydark; text-align: center; 
-	ul {margin: 0 auto;}
-	li {float: left; width: 100%; margin-bottom: 1.5em;}
-	h4 {font-size: 1.275em; font-weight: 500; margin-bottom: .8em;}
-	h4 strong {color: $teal;}
+    color: #666; text-align: center;
+	ul {   margin: 0 auto;}
+	li {   float: left;   margin-bottom: 1.5em;   width: 100%;}
+	h4 {   font-size: 1.275em;   font-weight: 500;   margin-bottom: 0.8em;}
+	h4 strong {   color: #018cb7;}
 }
 
-/* --- [ END PASSPORT LOGIN FORM ] ------------------------------------------------------------------------------------------------------------------ */
-
-/* --- [ PASSPORT COMMON ] ------------------------------------------------------------------------------------------------------------------ */
 .pp-button-outline {
-	border: 1px solid $graydark; color: $graydark; padding: .6em 1em; text-align: center; font-size: 1em; font-weight: 600; text-transform: uppercase;
-	img {width: 1em; display: inline-block; margin-left: 5px; line-height: 1em; float: right;}
+	background-color: #fff; border: 1px solid #666; color: #666; font-size: 1em; font-weight: 600;  padding: .6em 1em;  text-align: center;
+    text-transform: uppercase;
+	img {  display: inline-block;  float: right;  line-height: 1em;  margin-left: 5px;   width: 1em;}
 }
-.pp-button-outline:hover {color: $teal; border: 1px solid $teal;}
+.pp-button-outline:hover {  border: 1px solid $blue;   color: $blue;}
+
 
 
 .passport-help-text {
-	text-align: center; color: $graydark;
-	a {color: $purple;}
-	a:hover {color: #000;}
+	color: #000; text-align: center; font-size: 1.125em;
+	.fa {  color: $blue;}
+	a:hover {   text-decoration: underline;}
 }
-.passport-help-text.border {border-top: 1px solid $graydark; padding-top: 1.5em;}
-
-.pp-narrow {max-width: 360px; margin: 0 auto;}
-
-/* --- [ END PASSPORT COMMON ] ------------------------------------------------------------------------------------------------------------------ */
+.passport-help-text.border {  border-top: 1px solid #666;  padding-top: 1.5em;}
 
 
-/* --- [PASSPORT ACTIVATE FORM] ------------------------------------------------------------------------------------------------- */
+
+
 .pbs-passport-authenticate.activate {
-	text-align: center; color: $graydark;
-	form {
-		margin: 1em 0 2em 0;
-		input, button {background-color: #eaeaea; border: 0; padding: .6em; float: left; font-size: 1.125em; font-weight: 700;}
-		input[type="text"] {width: 90%;}
-		button {
-			width: 10%; color: $orange; text-align: right;
-			span {display: none;}
-		}
-		button:hover {color: #000;}
+    color: #666;  text-align: center;
+	form { margin: 1em 0 2em;}
+	form input,  form button {background-color: #eaeaea; border: 0 none; float: left; font-size: 1.125em; font-weight: 700; padding: 0.6em;}
+	form input[type="text"] { width: 90%;}
+	form button { 
+		color: $blue; text-align: right; width: 10%;
+		span { display: none;}
 	}
-	h1 {margin: .5em 0; font-size: 1.3em; font-weight: 700; text-transform: uppercase; color: #1b1b1b;}
-	h3 {color: #1b1b1b; font-size: 1.375em; font-weight: 600; margin: 0 0 .3em 0;}
-	h3.error {text-transform: uppercase; margin-bottom: 1.5em; color: $orange; font-weight: 700; line-height: 1.3em;}
-	p {
-		font-size: 1.125em; margin: 0 0 1em 0; font-weight: 400; 
-		a {color: $purplelinklight;}
-		a:hover {color: #000;}
+	form button:hover { color: #000;}
+	h1 {  color: #1b1b1b;  font-size: 1.3em;  font-weight: 700;  margin: 0.5em 0;  text-transform: uppercase;}
+	h3 {  
+    color: #2a2a2a;  font-size: 1.375em;  font-weight: 600;  margin: 0 0 0.3em; 
+  }
+  h3.error { color: #ff512c; }
+	p {    
+		font-size: 1.125em;    font-weight: 400;    margin: 0 0 1em;
+		a:hover {    color: black;}
 	}
+	.pp-narrow {max-width: 400px;}
 }
 
-
-
-/* --- [END PASSPORT ACTIVATE FORM] ------------------------------------------------------------------------------------------------- */
-
-/* --- [PASSPORT ALREADY MEMBER] ------------------------------------------------------------------------------------------------- */
 
 .pbs-passport-authenticate.alreadymember {
-	.passport-middle {max-width: 828px;
-		h1,h2,h3 {line-height:1em;}	
-		p {line-height:1.3em;}
-		img {margin:0 auto 1em auto; max-width:425px; width: 100%; }
+	img {  margin: 0 auto;}
+	.passport-middle {   
+		max-width: 900px;
+		h1, h2, h3 {    line-height: 1em;}
+		p {    line-height: 1.3em;}
+		img {    margin: 0 auto 1em;    max-width: 425px; width: 100%; }
 	}
-	img {margin: 0 auto;}
 	h2 {text-align: center;}
-	li {float: left; margin: 0 2% 1.5em 2%;}
-	.form-part1 {
-		margin: 1.5em -2% 0 -2%;
-		li {width: 46%;}
-	}
-	.form-part2 {
-		margin: 0 -2% .5em -2%;
-		li.city {width: 28%;}
-		li.state {width: 14%;}
-		li.zip {width: 14%;}
-		li.phone {width: 28%;}
-	}
-	label {
-		display: block; margin-bottom: .4em; font-size: 1.2em;
-		span {color: #ff512c;}
-	}
-	input, select {border: 1px solid #ccc; width: 100%; padding: .5em; font-size: 1.2em; color: #454545;}
-	button {width: 100%; background-color: $blue; color: #fff; text-align: center; padding: .7em; border: 0; font-size: 1.2em;}
-	button:hover {background-color: #000;}
+	li {float: left;  margin: 0 2% 1.5em;}
+	.form-part1 { margin: 1.5em -2% 0;}
+	.form-part1 li {  width: 46%;}
+	.form-part2 {  margin: 0 -2% 0.5em;}
+	.form-part2 li.city {  width: 28%;}
+	.form-part2 li.state {   width: 14%;}
+	.form-part2 li.zip {  width: 14%;}
+	.form-part2 li.phone {   width: 28%;}
+	label {   display: block;   font-size: 1.2em;   margin-bottom: 0.4em;}
+	label span {   color: #ff512c;}
+	input, select {  border: 1px solid #ccc;  color: #454545;  font-size: 1.2em;  padding: 0.5em;   width: 100%;}
+	button {  background-color: $blue; border: 0 none; color: #fff; font-size: 1.2em; padding: 0.7em; text-align: center;  width: 100%;}
+	button:hover {  background-color: #000;}
   span.description {
     font-style: italic;
     font-size: .95em;
     padding-top: .5em;
   }
 }
-/* --- [END PASSPORT ALREADY MEMBER] ------------------------------------------------------------------------------------------------- */
-
-.pp-welcome {color: $orange; font-size: 1.750em; font-weight: 600; margin: 0 0 .3em 0; text-align: center;}
 
 
-@media screen and ( min-width: $tab-min ) and ( max-width: $tab-max ) {
 
-	/* --- [sign in header] ------------------------------------------------------------------------------------------------- */
-	.head-passport .pbs_passport_authenticate {
-		.messages {padding-top: .4em; font-size: 1em;}
-	}
-	/* --- [end sign in header] ------------------------------------------------------------------------------------------------- */
 
-}
 
-@media screen and ( max-width: $mob-max ) {
 
-	.pbs-passport-authenticate-wrap {
-		padding: 0 3%;
-	}
+@media screen and (max-width: 480px) {
 
-	.head-passport .pbs_passport_authenticate {
-		button.launch span {display: none;}
-	}
-	
-	
-
+	.pbs-passport-authenticate-wrap {   padding: 4%;}
 	.service-options {
 		li {width: 100%; padding: 0; margin-bottom: 1em;}
-		li:first-of-type {border: 0; border-bottom: 1px solid $graydark; padding-bottom: 1em;}
+		li:first-of-type {border: 0; border-bottom: 1px solid #333; padding-bottom: 1em;}
 		h4 {font-size: 1.275em; font-weight: 500; margin-bottom: .8em;}
 		.look-for-email {font-size: 0.875em; margin: 1em 0 0 0;}
 	}
-
 	
 	.pbs-passport-authenticate.alreadymember {
 		li {margin: 0 0 1em 0;}
@@ -301,7 +268,5 @@ $graydark2: #242424;
 	.pbs-passport-authenticate.activate form {
 		input, button {font-size: 1em;}
 	}
-	
-
 	
 }

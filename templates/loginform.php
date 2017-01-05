@@ -41,6 +41,7 @@ get_header();
 if ($membership_id){
   // this is an activation
   echo "<div class='before-login'>";
+
   echo '<p class="activation-text add-login-fields">To complete your activation, please choose a sign-in method below.  You can use this sign-in method whenever you visit <a href="' . get_bloginfo('url') . '">' . get_bloginfo('name') . '</a> in the future to enjoy members-only content.</p>';
 
 echo "</div>";
@@ -55,15 +56,18 @@ echo "</div>";
 
 
 	<div class='pp-narrow'>
-	<?php if (empty($userinfo)) { ?> 
+	<?php if (!empty($userinfo['curlerrors'])) { 
+    /* this only happens if there's a problem with connectivity to PBS.  
+     * log an error and display a human readable message to the user 
+     */
+    error_log('PBS LAAS connection failure: ' . json_encode($userinfo));
+  ?>
+  <h3>We're sorry!</h3>
+  <p>We have encountered an unexpected error.  Please try to reload or revisit this page.  If the error persists for more than a few minutes please let us know.</p>
+  <?php } else if (empty($userinfo['pid'])) { ?> 
 	<div class='service-sign-in cf'>
   <?php if (!$membership_id){ ?>
 	<h3>MEMBER SIGN IN</h3>
-	
-	
-	<p><strong>Members get extended access to PBS video on demand and more</strong></p>
- 	<p>If you have already activated your <?php echo $station_nice_name; ?> Passport benefit, please sign in below.</p>
-
   <?php } ?>
 	<ul>
 	<li class="google"><a href="<?php echo($links['google']); ?>" title="Sign in with Google"><img src="<?php echo $pluginImageDir; ?>/sign-in-google.png" /></a></li>
@@ -77,11 +81,9 @@ echo "</div>";
 	</ul>
 	</div>
 	<?php } ?> 
-</div><!-- .pp-narrow -->
+	</div><!-- .pp-narrow -->
 	
-	<?php if (!$membership_id){ 
-    // only show if not an activation
-    ?>
+	<?php if (!$membership_id){ ?>
 	<div class='service-options cf'>
 	<ul>
 
@@ -94,7 +96,7 @@ echo "</div>";
 	<?php if (!empty($defaults['join_url'])) { ?>
 	<li class="becomemember">
 	<h4>Not a <?php echo $station_nice_name; ?> member?</h4>
-	<a href="<?php echo $defaults['join_url']; ?>"><button class='pp-button-outline'>DONATE NOW <i class="fa fa-heart-o"></i></button></a></li>
+	<a href="<?php echo $defaults['join_url']; ?>"><button class='pp-button-outline'>Become a Member <i class="fa fa-heart-o"></i></button></a></li>
 	<?php } ?>
 
 	</ul>
