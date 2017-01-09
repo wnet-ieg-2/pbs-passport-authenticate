@@ -109,7 +109,7 @@ The plugin includes a 'cove-passport' shortcode that will render a Passport vide
 The shortcode takes the following arguments:
 
 * `id` -- the COVE 'tp_media_object_id'.  This is found in Merlin or the COVE API.
-* `window` -- 'all_members', 'station_members', and 'public' are the options.  'all_members' is the default and should be used if the video is available to members of any PBS station.
+* `window` -- 'all_members', 'station_members', and 'public' are the options.  'all_members' should be used if the video is available to members of any PBS station.
 * `image` -- the 'mezzanine image' that should appear in place of the video, behind the 'login' overlay, when a visitor isn't logged in; This should be a high-res, 16x9 still from the video.  The COVE API provides a 'mezzanine' image that can be used here.
 
 
@@ -152,7 +152,8 @@ On activation, the plugin registers two rewrite rules that redirect to some cust
 
 If you need to overwrite or add some built-in functions, you can create a 'pluggable.php' file in the main directory of this plugin.  One particular use for this is if you have problems getting curl() working correctly -- create an 'mvault_curl_extras($ch)' function that adds whatever specific curl options your environment requires.
 
-
+## Authors
+William Tam and Brian Santalone
 
 
 ## License

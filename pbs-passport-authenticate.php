@@ -1,10 +1,10 @@
 <?php
 /*
  * Plugin Name: PBS Passport Authenticate
- * Version: 0.2.0.0
+ * Version: 0.2.0.1
  * Plugin URI: https://github.com/tamw-wnet/pbs-passport-authenticate
  * Description: PBS Passport Authenticate
- * Author: William Tam
+ * Author: William Tam, Brian Santalone
  * Author URI: http://ieg.wnet.org/
  * Requires at least: 4.0 
  * Tested up to: 4.2.2
