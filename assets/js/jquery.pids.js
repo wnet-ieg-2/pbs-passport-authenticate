@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
 
   var authenticate_script = '/pbsoauth/authenticate/';
-  var loginform = '/pbsoauth/loginform/';
+  var loginform = window.location.protocol + '//' + window.location.hostname + '/pbsoauth/loginform/';
   var joinlink = "/donate/";
   var userinfolink = '/pbsoauth/userinfo/';
   var activatelink = '/pbsoauth/activate/';
@@ -18,7 +18,15 @@ jQuery(document).ready(function($) {
        station_call_letters_lc = pbs_passport_authenticate_args.station_call_letters_lc;
     }
   }
-   
+
+  /* in case the loginform url has no protocol */
+  if (!/^https?:\/\//i.test(loginform)) {
+    /* in case the loginform url starts with '//' */
+    loginform = loginform.replace(/^(\/\/)/, '');
+    loginform = window.location.protocol + '//' + loginform;
+  }
+
+ 
   function loginToPBS(event) {
     event.preventDefault();
     if (window.location != loginform) {
@@ -77,7 +85,6 @@ jQuery(document).ready(function($) {
 
   //function updateLoginVisuals(user){
   updateLoginVisuals = function(user) {
-  
     if (user){
       // if somehow still on loginform after logging in, redirect to userinfo page
       if (window.location == loginform) { window.location = userinfolink; }
