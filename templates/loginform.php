@@ -84,7 +84,9 @@ echo "</div>";
 	<li class="stay-logged-in"><input type="checkbox" id="pbsoauth_rememberme" name="pbsoauth_rememberme" value="true" checked /> Keep me logged in on this device</li>
 	</ul>
 	</div>
-	<?php } ?> 
+	<?php } else { ?> 
+  <p>You're seem to already be signed in.  Wait one moment to be redirected to <a href="<?php echo site_url('pbsoauth/userinfo/'); ?>">your user profile page, or click here</a>.</p>
+  <?php } ?>
 	</div><!-- .pp-narrow -->
 	
 	<?php if (!$membership_id){ ?>
