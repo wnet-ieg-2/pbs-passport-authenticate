@@ -85,7 +85,7 @@ echo "</div>";
 	</ul>
 	</div>
 	<?php } else { ?> 
-  <p>You're seem to already be signed in.  Wait one moment to be redirected to <a href="<?php echo site_url('pbsoauth/userinfo/'); ?>">your user profile page, or click here</a>.</p>
+  <p>You seem to already be signed in.  Wait one moment to be redirected to <a href="<?php echo site_url('pbsoauth/userinfo/'); ?>">your user profile page, or click here</a>.</p>
   <?php } ?>
 	</div><!-- .pp-narrow -->
 	
