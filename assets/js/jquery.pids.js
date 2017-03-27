@@ -68,6 +68,8 @@ jQuery(document).ready(function($) {
         $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_logged_in_hide').hide();
         retrievePBSLoginInfoViaAJAX();
       }
+	if (user.pid) {dataLayer = [{'userID': user.pid }];}
+	console.log(dataLayer);
   }
 
   function retrievePBSLoginInfoViaAJAX() {
