@@ -69,7 +69,6 @@ jQuery(document).ready(function($) {
         retrievePBSLoginInfoViaAJAX();
       }
 	if (user.pid) {dataLayer = [{'userID': user.pid }];}
-	console.log(dataLayer);
   }
 
   function retrievePBSLoginInfoViaAJAX() {
