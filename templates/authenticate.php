@@ -89,6 +89,6 @@ $userinfo['errors'] = $errors;
 // store it in its own cookie/session
 
 
-echo json_encode($userinfo);
+echo json_encode($userinfo, JSON_UNESCAPED_UNICODE);
 exit()
 ?>

@@ -169,11 +169,11 @@ class PBS_MVault_Client {
 
     // additional_metadata can have any array in it or be a string.
     if (! empty($additional_metadata) ) {
-      $memberinfo['additional_metadata'] = json_encode($additional_metadata);
+      $memberinfo['additional_metadata'] = json_encode($additional_metadata, JSON_UNESCAPED_UNICODE);
     }
 
 
-    $memberinfo_json = json_encode($memberinfo);
+    $memberinfo_json = json_encode($memberinfo, JSON_UNESCAPED_UNICODE);
 
     $return = array();
     $MVAULT_URL = $this->mvault_url . '/memberships/' . $membership_id . '/';
@@ -244,7 +244,7 @@ class PBS_MVault_Client {
       $memberinfo["uid"] = $pbs_uid;
     }
 
-    $memberinfo_json = json_encode($memberinfo);
+    $memberinfo_json = json_encode($memberinfo, JSON_UNESCAPED_UNICODE);
 
     $ch = $this->build_curl_handle($MVAULT_URL);
 

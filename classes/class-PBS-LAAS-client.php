@@ -396,7 +396,7 @@ class PBS_LAAS_Client {
 
   private function save_encrypted_tokeninfo($tokeninfo) {
 
-    $tokeninfo = json_encode($tokeninfo);
+    $tokeninfo = json_encode($tokeninfo, JSON_UNESCAPED_UNICODE);
 
     // encrypt tokeninfo
     $encrypted = $this->encrypt($tokeninfo);
@@ -534,7 +534,7 @@ class PBS_LAAS_Client {
           $userinfo_clean['membership_info']['grace_period'] = $userinfo['membership_info']['grace_period'];
         }
       }
-      $userinfo_json = json_encode($userinfo_clean);
+      $userinfo_json = json_encode($userinfo_clean, JSON_UNESCAPED_UNICODE);
       setcookie($this->userinfo_cookiename, $userinfo_json, strtotime("+1 hour"), "/", $this->domain, false, false);
       // return the profile info if there was any
       return $userinfo_clean;

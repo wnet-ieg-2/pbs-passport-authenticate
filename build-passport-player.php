@@ -78,7 +78,7 @@ function cove_passport_shortcode($atts, $content = null) {
     );
   }
   if (!empty($video)) {
-    $video = json_decode(json_encode($video));
+    $video = json_decode(json_encode($video, JSON_UNESCAPED_UNICODE));
     $player = "<div class='shortcode-video cf'>". build_passport_player($video[0]) . "</div>";
   }
   return $player;
