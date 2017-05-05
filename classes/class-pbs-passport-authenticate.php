@@ -171,4 +171,12 @@ class PBS_Passport_Authenticate {
 
   }
 
+  public function obscured_login_account($mvaultinfo) {
+    $profile_email = !empty($mvaultinfo['pbs_profile']['email']) ? $mvaultinfo['pbs_profile']['email'] : false;
+    if ($profile_email) {
+       return preg_replace("/(.)(.*@)(.)(.*)\.(\w)\w+$/", "$1****@$3****.$5**", $profile_email);
+    } 
+    return false;
+  } 
+
 }
