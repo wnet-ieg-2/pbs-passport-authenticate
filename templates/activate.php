@@ -29,7 +29,12 @@ if ($activation_token){
       $return['errors'] = array('message' => 'This account has been disabled', 'class' => 'error');
     }
     if (!empty($mvaultinfo['activation_date'])) {
-      $return['errors'] = array('message' => 'Your account has already been activated.  <a href="' . site_url('pbsoauth/loginform')  . '">Please sign in here</a>.<br /><br />You only need to activate the first time you use ' . $station_nice_name . ' Passport.', 'class' => 'info');
+      $obscured = $passport->obscured_login_account($mvaultinfo);
+      $obs_msg = '';
+      if ($obscured) {
+        $obs_msg = "</h3><p>This is the email that was used to activate your account:<br /><b>$obscured</b><br />We've obscured all but the first characters and changed the lengths of each part of the email address to protect your privacy.<br />If you recognize this account, please use it to <a href='" . site_url('pbsoauth/loginform') . "'>sign in</a>.</p><h3>";
+      }
+      $return['errors'] = array('message' => 'Your account has already been activated.  <a href="' . site_url('pbsoauth/loginform')  . '">Please sign in here</a>.' . $obs_msg . 'You only need to activate the first time you use ' . $station_nice_name . ' Passport.<br /><br />', 'class' => 'info');
     }
 
     $return['vppa_approved'] = (!empty($_POST['pbsoauth_optin']) ? $_POST['pbsoauth_optin'] : false);
