@@ -106,7 +106,7 @@ providers, please stop and <a href="/about/contact/?1i=passport">contact us</a>.
 <h1>Enter your activation code:</h1>
 <form action="" method="POST" class='cf'>
 <input name="activation_token" type="text" value="<?php echo $activation_token; ?>" />
-<button><i class="fa fa-arrow-circle-right"></i> <span>Enter Code</span></button>
+<button class="gtm-submit-activation-code"><i class="fa fa-arrow-circle-right"></i> <span>Enter Code</span></button>
 </form>
 <?php
 if (!empty($return['errors'])){
