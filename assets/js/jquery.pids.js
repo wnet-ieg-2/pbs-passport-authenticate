@@ -157,8 +157,10 @@ jQuery(document).ready(function($) {
         $('.pbs_passport_authenticate_join').click(joinPBS);
         $('.pbs_passport_authenticate_activate').click(activatePBS);
         $('.pbs_passport_authenticate .learn-more').click(learnMorePassport);
-          //bs, calling this in the 13 theme.
+          
+            //bs, calling this in the 13 theme.
           if (typeof(popTargeting) == 'function') {popTargeting();}  
+          
       }, 500);
 
     }
