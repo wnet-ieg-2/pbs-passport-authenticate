@@ -505,8 +505,21 @@ class PBS_LAAS_Client {
         'first_name' => $userinfo['first_name'],
         'last_name' => $userinfo['last_name'],
         'pid' => $userinfo['pid'],
-        'thumbnail_URL' => $userinfo['thumbnail_URL']
+        'thumbnail_URL' => $userinfo['thumbnail_URL'],
       );
+      // vppa stuff
+      $vppa_status = false;
+      if (!empty($userinfo['vppa']['vppa_last_updated'])) {
+        $vppa_status = 'valid';
+        if (strtotime($userinfo['vppa']['vppa_last_updated']) < strtotime('-2 years') ){
+          $vppa_status = 'expired';
+        }
+        if ($userinfo['vppa']['vppa_accepted'] !== true) {
+          $vppa_status = 'rejected';
+        }
+      }
+      $userinfo_clean['vppa_status'] = $vppa_status;
+      $userinfo_clean['vppa'] = $userinfo['vppa'];
       if (isset($userinfo['membership_info'])) {
         $userinfo_clean['membership_info'] = array(
           'offer' => $userinfo['membership_info']['offer'],
