@@ -37,9 +37,7 @@ if ($activation_token){
       $return['errors'] = array('message' => 'Your account has already been activated.  <a href="' . site_url('pbsoauth/loginform')  . '">Please sign in here</a>.' . $obs_msg . 'You only need to activate the first time you use ' . $station_nice_name . ' Passport.<br /><br />', 'class' => 'info');
     }
 
-    $return['vppa_approved'] = (!empty($_POST['pbsoauth_optin']) ? $_POST['pbsoauth_optin'] : false);
-
-    if (empty($return['errors']) && ($return['vppa_approved'] == true) ){ 
+    if (empty($return['errors']) ){ 
       // nothing wrong with this account, so
       // see if we're already logged in
       $laas_client = $passport->get_laas_client();
@@ -77,29 +75,6 @@ if ($activation_token){
   if (!empty($defaults['station_passport_logo'])) {
 	  echo '<div class="pp-logo-head"><img src="' . $defaults['station_passport_logo'] . '" alt="'.$station_nice_name.' Passport" /></div>'; 
 	}
-  ?>
-  
-
-  <?php if (empty($return['errors']) && ($return['vppa_approved'] == false) && $activation_token) {
-  // opt-in challenge
-  ?> <form method="post">
-  	<div class='pp-narrow'>
-    <div class="passport-optin-challenge">
-	
-    <p class="passport-optin-checkbox"><span><input type="checkbox" id="pbsoauth_optin" name="pbsoauth_optin" value="true" required/></span> <label for="pbsoauth_optin">I accept that PBS and my station may share my viewing history with each other and their service providers.</label></p>
-    <input type="hidden" name="activation_token" value="<?php echo $activation_token; ?>" />
-    <p class="passport-optin-button"><button id="passport-confirm-optin" class="passport-button">Confirm</button></p>
-	<div class="passport-optin-error"></div>
-    <p class="passport-small">If you do not agree to allow PBS and <?php echo $defaults['station_nice_name']; ?> to share your viewing history with each other and their service
-providers, please stop and <a href="/about/contact/?1i=passport">contact us</a>.</p>
-    <p class="passport-small">Please see our <a href="/about/privacy-policy/">Privacy Policy</a> and <a href="/about/terms-of-service/">Terms of Use</a> for more information.</p>
-    </div>
-	</div>
-    </form>
-  <?php 
-  // end opt in challenge
-  } else {
-  // opt in challenge else
   ?>
 
 <div class='pp-narrow'>
@@ -145,8 +120,7 @@ if (!empty($return['errors'])){
 <?php if (!empty($defaults['help_text'])) {echo "<p class='passport-help-text border'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>";} ?>  
 <?php 
   // end opt in challenge else condition
-} ?>
-
+?>
 </div>
 </div>
 </div>
