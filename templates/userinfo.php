@@ -36,9 +36,6 @@ echo "<div class='pp-narrow'>";
 echo "<h3>USER STATUS</h3>";
 echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
 
-  //echo print_r($userinfo['membership_info']);    
-
-
   
   $station_nice_name = $defaults['station_nice_name'];
   $join_url = $defaults['join_url'];
@@ -46,7 +43,7 @@ echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userin
   
 
 /* active member */
-if ( !empty($userinfo['membership_info']['offer']) && $userinfo['membership_info']['status'] == "On") {
+if ( !empty($userinfo['membership_info']['offer']) && $userinfo['membership_info']['status'] == "On" && $userinfo['vppa_status'] == 'valid') {
 	echo "<p class='passport-status'>$station_nice_name Passport <i class='fa fa-check-circle passport-green'></i></p>";
 	if (!empty($watch_url)) {echo "<p><a href='$watch_url'><button class='pp-button-outline'>Watch Programs <i class='fa fa-arrow-circle-right'></i></button></a></p>";}
 }
@@ -73,6 +70,30 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 	echo "<li class='service-login-link accountsetep'><h4>I'm a member <strong>without</strong> an activation code</h4><a href='". site_url('pbsoauth/alreadymember') ."'><button class='pp-button-outline'>Request Account Setup</button></a></li>";
 	if (!empty($join_url)) { echo "<li class='single'><h4>Not a Member?</h4><a href='$join_url'><button class='pp-button-outline'>Become a Member <i class='fa fa-heart-o'></i></button></a></li>";}
 	echo "</ul></div><!-- .activate-options -->";
+
+}
+
+/* needs VPPA */
+elseif ( $userinfo['vppa_status'] != 'valid') {
+  echo "<div class='login-wrap cf'><ul>";
+  echo "<li><p class='passport-status'>$station_nice_name Passport <span class='passport-exclamation'><i class='fa fa-exclamation'></i></span></p></li>";
+
+  echo "<li class='passport-not-setup'><p>We're unable to display $station_nice_name Passport videos unless you accept our terms of service.</p>";
+  if ($userinfo['vppa_status'] == 'expired') {
+    echo "<p>You accepted those terms previously, but we are required to renew your acceptance every two years.</p>";
+  }
+  $links = $passport->get_oauth_links();
+  // We will now attempt to determine what the users current login_provider is
+  $login_provider = false;
+  $login_provider = !empty($_COOKIE['pbsoauth_loginprovider']) ? $_COOKIE['pbsoauth_loginprovider'] : false;
+
+  if ($login_provider) {
+    echo "<a href='" . $links[strtolower($login_provider)] . "'><button class='pp-button-outline'>Accept Terms of Service</button></a>";
+  } else {
+    echo "<p>Please log out and log back in and accept the terms of service</p>";
+  }
+  echo "</li></ul></div>";
+
 
 }
 
