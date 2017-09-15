@@ -36,6 +36,7 @@ echo "<div class='pp-narrow'>";
 echo "<h3>USER STATUS</h3>";
 echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
 
+//echo print_r($userinfo);
   
   $station_nice_name = $defaults['station_nice_name'];
   $join_url = $defaults['join_url'];
@@ -89,6 +90,7 @@ elseif ( $userinfo['vppa_status'] != 'valid') {
 
   if ($login_provider) {
     echo "<a href='" . $links[strtolower($login_provider)] . "'><button class='pp-button-outline'>Accept Terms of Service</button></a>";
+    echo "<p>Or, <a href='/'>continue without access to THIRTEEN Passport video</a>.  You can accept the terms at any time to get access.</p>";
   } else {
     echo "<p>Please log out and log back in and accept the terms of service</p>";
   }

@@ -508,7 +508,7 @@ class PBS_LAAS_Client {
         'thumbnail_URL' => $userinfo['thumbnail_URL'],
       );
       // vppa stuff
-      $vppa_status = false;
+      $vppa_status = 'false';
       if (!empty($userinfo['vppa']['vppa_last_updated'])) {
         $vppa_status = 'valid';
         if (strtotime($userinfo['vppa']['vppa_last_updated']) < strtotime('-2 years') ){

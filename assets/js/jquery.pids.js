@@ -95,6 +95,7 @@ jQuery(document).ready(function($) {
        *  status = On + offer = not null: member activated and valid for video
        *  status = Off + offer = not null: activated member is expired
        *  status = On + offer = null: should not be possible, but not valid
+       *  vppa_status = (false,expired,rejected,valid) : only 'valid' can watch passport video
       */ 
    
 		if (user.membership_info.status == 'On') {passportIcon = 'passport-link-icon';}
