@@ -292,7 +292,6 @@ class PBS_LAAS_Client {
       $response['rawjson'] = $response_json;
       $response['curlerrors'] = $errors;
       $response['curlinfo'] = $info;
-      error_log($response);
       return $response;
     }
   }
