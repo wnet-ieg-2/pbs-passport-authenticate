@@ -127,19 +127,19 @@ jQuery(document).ready(function($) {
       if (window.location == loginform) { window.location = userinfolink; }
 
    
-		if (userPBSLoginStatus.memberStatus == 'valid') {passportIcon = 'passport-link-icon';}
-		else {passportIcon = 'passport-alert-icon';} 
+      if (userPBSLoginStatus.memberStatus == 'valid') {passportIcon = 'passport-link-icon';}
+      else {passportIcon = 'passport-alert-icon';} 
 
-    if (userPBSLoginStatus.memberStatus == 'valid' || userPBSLoginStatus.memberStatus == 'expired') {
-      $('.pbs_passport_authenticate_activated_hide').hide();
-    }
+      if (userPBSLoginStatus.memberStatus == 'valid' || userPBSLoginStatus.memberStatus == 'expired') {
+        $('.pbs_passport_authenticate_activated_hide').hide();
+      }
 
-    $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_logged_in_hide').hide();
-    thumbimage = '';
-    if (user.thumbnail_URL) {
-      thumbimage = "<a href='" + userinfolink + "' class='userthumb'><img src=" + user.thumbnail_URL + " /></a>"; 
-    }	
-		welcomestring = thumbimage + '<a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + user.first_name + '</span></a> <a class="signout">Sign Out</a>';
+      $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_logged_in_hide').hide();
+      thumbimage = '';
+      if (user.thumbnail_URL) {
+        thumbimage = "<a href='" + userinfolink + "' class='userthumb'><img src=" + user.thumbnail_URL + " /></a>"; 
+      }	
+		  welcomestring = thumbimage + '<a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + user.first_name + '</span></a> <a class="signout">Sign Out</a>';
      
       $('.pbs_passport_authenticate div.messages').html(welcomestring);
 	  
@@ -187,10 +187,6 @@ jQuery(document).ready(function($) {
         $('.pbs_passport_authenticate_join').click(joinPBS);
         $('.pbs_passport_authenticate_activate').click(activatePBS);
         $('.pbs_passport_authenticate .learn-more').click(learnMorePassport);
-          
-            //bs, calling this in the 13 theme.
-          if (typeof(popTargeting) == 'function') {popTargeting();}  
-          
       }, 500);
 
     }
