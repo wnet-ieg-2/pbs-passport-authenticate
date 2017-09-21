@@ -264,9 +264,8 @@ var userPBSLoginStatus = {memberStatus: 'pending'};
 function checkPBSLoginStatus() {
   console.log(userPBSLoginStatus.memberStatus);
   if (userPBSLoginStatus.memberStatus == 'pending') {
-    setTimeout(checkPBSLoginStatus, 500);
+    setTimeout(checkPBSLoginStatus, 100);
   } else {
     return userPBSLoginStatus.memberStatus;
   }
 }
-checkPBSLoginStatus();
