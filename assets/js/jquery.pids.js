@@ -63,6 +63,7 @@ jQuery(document).ready(function($) {
   function checkPBSLogin() {
     user = Cookies.getJSON('pbs_passport_userinfo');
     if ( typeof(user) !== "undefined" && typeof(user.membership_info) !== "undefined") {
+        updateUserLoginStatusArray(user);
         updateLoginVisuals(user);
       } else {
         $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_logged_in_hide').hide();
@@ -78,10 +79,46 @@ jQuery(document).ready(function($) {
       dataType: 'json',
       success: function(response) {
         user = response;
+        updateUserLoginStatusArray(user);
         updateLoginVisuals(user);
       }
     });
   }
+
+  function updateUserLoginStatusArray(obj) {
+    /* this function updates a globally scoped variable 
+     * that derives the current user login status from the
+     * object that our cookie or endpoint returns, and then
+     * stores that in a javascript object. 
+     * These combos from the cookie/endpoint: 
+     *  status = On: member has not been disabled or expired
+     *  offer = not null:  member is in mvault and activated
+     *  status = Off + offer = null: default -- visitor not activated
+     *  status = On + offer = not null: member activated and valid for video
+     *  status = Off + offer = not null: activated member is expired
+     *  status = On + offer = null: should not be possible, but not valid
+     */
+
+    // init the variable
+    var currentarray = {memberStatus: 'not_logged_in'};
+    if (typeof(obj) !== 'undefined' && obj) {
+      // logged in.  Dunno if activated tho
+      currentarray.memberStatus = 'not_activated';
+      if (obj.membership_info.status == 'On') {
+        currentarray.memberStatus = 'valid';
+      } else {
+        // not activated, expired, or manually disabled which we treat as expired
+        // offer will be null if not activated, otherwise status is expired
+        if (typeof user.membership_info.offer !== 'undefined' && user.membership_info.offer) {
+          currentarray.memberStatus = 'expired';
+        }
+      }
+    }
+    // set the global object value 
+    userPBSLoginStatus = currentarray;
+    return currentarray;
+  }
+
 
   //function updateLoginVisuals(user){
   updateLoginVisuals = function(user) {
@@ -89,18 +126,11 @@ jQuery(document).ready(function($) {
       // if somehow still on loginform after logging in, redirect to userinfo page
       if (window.location == loginform) { window.location = userinfolink; }
 
-      /*  status = On: member has not been disabled or expired
-       *  offer = not null:  member is in mvault and activated
-       *  status = Off + offer = null: default -- visitor not activated
-       *  status = On + offer = not null: member activated and valid for video
-       *  status = Off + offer = not null: activated member is expired
-       *  status = On + offer = null: should not be possible, but not valid
-      */ 
    
-		if (user.membership_info.status == 'On') {passportIcon = 'passport-link-icon';}
+		if (userPBSLoginStatus.memberStatus == 'valid') {passportIcon = 'passport-link-icon';}
 		else {passportIcon = 'passport-alert-icon';} 
 
-    if (typeof user.membership_info.offer !== 'undefined' && user.membership_info.offer) {
+    if (userPBSLoginStatus.memberStatus == 'valid' || userPBSLoginStatus.memberStatus == 'expired') {
       $('.pbs_passport_authenticate_activated_hide').hide();
     }
 
@@ -119,7 +149,7 @@ jQuery(document).ready(function($) {
 		  // update thumb overlays
 		  if ($(".passport-video-thumb")[0]){
 			  $('.passport-video-thumb').each(function( index ) {
-				  if (user.membership_info.status == 'Off') {
+				  if (userPBSLoginStatus.memberStatus == 'not_activated') {
 					  $('.passport-thumb-signin', this).html('ACTIVATE TO WATCH');
   				}
 	  			else {
@@ -131,12 +161,12 @@ jQuery(document).ready(function($) {
 		  // end update thumb overlays
 	  
   		// if user signed in, but not activated. change video overlay link.
-	  	if ($(".pp-sign-in.pbs_passport_authenticate")[0] && user.membership_info.status == 'Off'){
+	  	if ($(".pp-sign-in.pbs_passport_authenticate")[0] && userPBSLoginStatus.memberStatus == 'not_activated'){
 		  	$('.pp-sign-in.pbs_passport_authenticate').html('<a href="' + activatelink + '" class="passport-activate"><span>ACTIVATE ACCOUNT</span></a>');
   		}
 		
 	  	//passport player.
-      if (user.membership_info.status == 'On'){
+      if (userPBSLoginStatus.memberStatus == 'valid'){
         $(".passportcoveplayer").each(function (i) {
           if (typeof($(this).data('window')) !== 'undefined') {
             var videoWindow = $(this).data('window');
@@ -228,3 +258,15 @@ jQuery(document).ready(function($) {
   
 });
 
+// globally scoped array we'll use elsewhere
+var userPBSLoginStatus = {memberStatus: 'pending'};
+
+function checkPBSLoginStatus() {
+  console.log(userPBSLoginStatus.memberStatus);
+  if (userPBSLoginStatus.memberStatus == 'pending') {
+    setTimeout(checkPBSLoginStatus, 500);
+  } else {
+    return userPBSLoginStatus.memberStatus;
+  }
+}
+checkPBSLoginStatus();
