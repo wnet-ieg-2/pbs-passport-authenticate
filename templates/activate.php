@@ -79,7 +79,7 @@ if ($activation_token){
 
 <div class='pp-narrow'>
 <h1>Enter your activation code:</h1>
-<form action="" method="POST" class='cf'>
+<form action="" method="POST" class='gtm-activate-form cf'>
 <input name="activation_token" type="text" value="<?php echo $activation_token; ?>" />
 <button class="gtm-submit-activation-code"><i class="fa fa-arrow-circle-right"></i> <span>Enter Code</span></button>
 </form>

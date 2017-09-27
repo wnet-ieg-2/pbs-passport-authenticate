@@ -279,7 +279,10 @@ class PBS_LAAS_Client {
 
 
   public function validate_pbs_access_token($access_token = ''){
-    // this function hits the tokeninfo endpoint and checks the validity of the token
+    // this function hits the tokeninfo endpoint and checks its validity
+
+    /* NOTE:  the token-info endpoint has been disabled by PBS.  Instead we will see if we can successfully get userinfo.
+     * old code follows, leaving in because the endpoint may get re-enabled
     $url = $this->oauthroot . 'token-info/?access_token=' . $access_token;
     $ch = $this->build_curl_handle($url);
     $response_json = curl_exec($ch);
@@ -292,9 +295,18 @@ class PBS_LAAS_Client {
       $response['rawjson'] = $response_json;
       $response['curlerrors'] = $errors;
       $response['curlinfo'] = $info;
-      error_log($response);
       return $response;
     }
+    * old code ends
+    * new lame hack follows
+    */
+    $userinfo = $this->get_latest_pbs_userinfo($access_token);
+    if (! isset($userinfo["pid"])){
+      // this will be error info
+      return $userinfo;
+    }
+    // if no error, return an array with the access_token we fed in.
+    return array('access_token' => $access_token);
   }
 
   public function generate_pbs_access_token_from_refresh_token($refresh_token =''){
