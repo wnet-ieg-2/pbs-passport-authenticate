@@ -106,6 +106,11 @@ jQuery(document).ready(function($) {
       currentarray.memberStatus = 'not_activated';
       if (obj.membership_info.status == 'On') {
         currentarray.memberStatus = 'valid';
+        // but what about VPPA?
+        currentarray.VPPAStatus = 'false';
+        if (typeof(obj.vppa_status) !== 'undefined') {
+          currentarray.VPPAStatus = obj.vppa_status;
+        } 
       } else {
         // not activated, expired, or manually disabled which we treat as expired
         // offer will be null if not activated, otherwise status is expired
@@ -127,7 +132,7 @@ jQuery(document).ready(function($) {
       if (window.location == loginform) { window.location = userinfolink; }
 
    
-      if (userPBSLoginStatus.memberStatus == 'valid') {passportIcon = 'passport-link-icon';}
+      if (userPBSLoginStatus.memberStatus == 'valid' && userPBSLoginStatus.VPPAStatus == 'valid') {passportIcon = 'passport-link-icon';}
       else {passportIcon = 'passport-alert-icon';} 
 
       if (userPBSLoginStatus.memberStatus == 'valid' || userPBSLoginStatus.memberStatus == 'expired') {
@@ -151,7 +156,9 @@ jQuery(document).ready(function($) {
 			  $('.passport-video-thumb').each(function( index ) {
 				  if (userPBSLoginStatus.memberStatus == 'not_activated') {
 					  $('.passport-thumb-signin', this).html('ACTIVATE TO WATCH');
-  				}
+  				} else if (userPBSLoginStatus.VPPAStatus != 'valid') {
+            $('.passport-thumb-signin', this).html('ACCEPT TERMS TO WATCH');
+          }
 	  			else {
 		  			$('.passport-thumb-signin', this).remove();  	
 			  		$(this).removeClass('passport-video-thumb');  	
@@ -161,12 +168,19 @@ jQuery(document).ready(function($) {
 		  // end update thumb overlays
 	  
   		// if user signed in, but not activated. change video overlay link.
-	  	if ($(".pp-sign-in.pbs_passport_authenticate")[0] && userPBSLoginStatus.memberStatus == 'not_activated'){
-		  	$('.pp-sign-in.pbs_passport_authenticate').html('<a href="' + activatelink + '" class="passport-activate"><span>ACTIVATE ACCOUNT</span></a>');
+	  	if ($(".pp-sign-in.pbs_passport_authenticate")[0]) {
+        if (userPBSLoginStatus.memberStatus == 'not_activated'){
+		  	  $('.pp-sign-in.pbs_passport_authenticate').html('<a href="' + activatelink + '" class="passport-activate"><span>ACTIVATE ACCOUNT</span></a>');
+        }
   		}
+      if ($(".pp-button.pbs_passport_authenticate")[0]) {
+        if (userPBSLoginStatus.VPPAStatus != 'valid'){
+          $(".pp-button.pbs_passport_authenticate a.learn-more").html('<a href="' + userinfolink + '" class="learn-more"><button class="learn-more">ACCEPT TERMS OF SERVICE TO WATCH</button></a>'); 
+        }
+      }
 		
 	  	//passport player.
-      if (userPBSLoginStatus.memberStatus == 'valid'){
+      if (userPBSLoginStatus.memberStatus == 'valid' && userPBSLoginStatus.VPPAStatus == 'valid'){
         $(".passportcoveplayer").each(function (i) {
           if (typeof($(this).data('window')) !== 'undefined') {
             var videoWindow = $(this).data('window');
