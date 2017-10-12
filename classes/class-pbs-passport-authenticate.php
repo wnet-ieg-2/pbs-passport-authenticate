@@ -124,9 +124,6 @@ class PBS_Passport_Authenticate {
     $scope =  ( !empty($args['scope']) ? $args['scope'] : ( !empty($defaults['scope']) ? $defaults['scope'] : '' ) );
 
     // if using defaults, instead of args, auto-append vppa scope
-    if (empty($args['scope'])) {
-      $scope .= ' vppa';
-    }
     $scopestring = ( $scope ? '&scope=' . urlencode($scope) : '' );
 
     $return['pbs'] = $oauthroot . 'authorize/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring; 
