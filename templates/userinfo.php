@@ -83,13 +83,13 @@ elseif ( $userinfo['vppa_status'] != 'valid') {
   if ($userinfo['vppa_status'] == 'expired') {
     echo "<p>You accepted those terms previously, but we are required to renew your acceptance every two years.</p>";
   }
-  $links = $passport->get_oauth_links();
+  $links = $passport->get_oauth_links(array('scope' => 'account vppa'));
   // We will now attempt to determine what the users current login_provider is
   $login_provider = false;
   $login_provider = !empty($_COOKIE['pbsoauth_loginprovider']) ? $_COOKIE['pbsoauth_loginprovider'] : false;
 
   if ($login_provider) {
-    echo "<a href='" . $links[strtolower($login_provider)] . "'><button class='pp-button-outline'>Accept Terms of Service</button></a>";
+    echo "<a href='" . $links[strtolower($login_provider)] . '&activation=true' . "'><button class='pp-button-outline'>Accept Terms of Service</button></a>";
     echo "<p>Or, <a href='/'>continue without access to THIRTEEN Passport video</a>.  You can accept the terms at any time to get access.</p>";
   } else {
     echo "<p>Please log out and log back in and accept the terms of service</p>";
