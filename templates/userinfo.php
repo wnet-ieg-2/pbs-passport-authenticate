@@ -83,13 +83,23 @@ elseif ( $userinfo['vppa_status'] != 'valid') {
   if ($userinfo['vppa_status'] == 'expired') {
     echo "<p>You accepted those terms previously, but we are required to renew your acceptance every two years.</p>";
   }
-  $links = $passport->get_oauth_links(array('scope' => 'account vppa'));
-  // We will now attempt to determine what the users current login_provider is
-  $login_provider = false;
-  $login_provider = !empty($_COOKIE['pbsoauth_loginprovider']) ? $_COOKIE['pbsoauth_loginprovider'] : false;
 
-  if ($login_provider) {
-    echo "<a href='" . $links[strtolower($login_provider)] . '&activation=true' . "'><button class='pp-button-outline'>Accept Terms of Service</button></a>";
+
+  // we may as well setup a VPPA link
+  $vppa_links = $passport->get_oauth_links(array('scope' => 'account vppa'));
+  // We will now attempt to determine what the users current login_provider is
+  // mvault is fallback
+  $login_provider = !empty($mvaultinfo["pbs_profile"]["login_provider"]) ? strtolower($mvaultinfo["profile"]["pbs_login_provider"]) : false;
+  if ( !in_array($login_provider, array("pbs", "google", "facebook") ) ) {
+    $login_provider = "pbs";
+  }
+  // what they last used on the website is better option
+  $login_provider = !empty($_COOKIE['pbsoauth_loginprovider']) ? $_COOKIE['pbsoauth_loginprovider'] : $login_provider;
+  $vppa_link = $login_provider ? $vppa_links[$login_provider] : false;
+  $userinfo["vppa_link"] = $vppa_link;
+  
+  if ($vppa_link) {
+    echo "<a href='" . $vppa_link . '&activation=true' . "'><button class='pp-button-outline'>Accept Terms of Service</button></a>";
     echo "<p>Or, <a href='/'>continue without access to THIRTEEN Passport video</a>.  You can accept the terms at any time to get access.</p>";
   } else {
     echo "<p>Please log out and log back in and accept the terms of service</p>";

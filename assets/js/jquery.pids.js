@@ -108,8 +108,10 @@ jQuery(document).ready(function($) {
         currentarray.memberStatus = 'valid';
         // but what about VPPA?
         currentarray.VPPAStatus = 'false';
+        currentarray.VPPALink = 'false';
         if (typeof(obj.vppa_status) !== 'undefined') {
           currentarray.VPPAStatus = obj.vppa_status;
+          currentarray.VPPALink = obj.vppa_link;
         } 
       } else {
         // not activated, expired, or manually disabled which we treat as expired
@@ -175,7 +177,11 @@ jQuery(document).ready(function($) {
   		}
       if ($(".pp-button.pbs_passport_authenticate")[0]) {
         if (userPBSLoginStatus.VPPAStatus != 'valid'){
-          $(".pp-button.pbs_passport_authenticate a.learn-more").html('<a href="' + userinfolink + '" class="learn-more"><button class="learn-more">ACCEPT TERMS OF SERVICE TO WATCH</button></a>'); 
+          var vppalink = userinfolink;
+          if (userPBSLoginStatus.VPPALink) {
+            vppalink = userPBSLoginStatus.VPPALink;
+          }
+          $(".pp-button.pbs_passport_authenticate a.learn-more").html('<a href="' + vppalink + '" class="learn-more"><button class="learn-more">ACCEPT TERMS OF SERVICE TO WATCH</button></a>'); 
         }
       }
 		

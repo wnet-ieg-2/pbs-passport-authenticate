@@ -78,6 +78,18 @@ if (! isset($mvaultinfo["membership_id"])) {
 $userinfo["membership_info"] = array("offer" => null, "status" => "Off");
 if (isset ($mvaultinfo["membership_id"])) {
   $userinfo["membership_info"] = $mvaultinfo;
+  // we may as well setup a VPPA link
+  $vppa_links = $passport->get_oauth_links(array('scope' => 'account vppa'));
+  // We will now attempt to determine what the users current login_provider is
+  // mvault is fallback
+  $login_provider = !empty($mvaultinfo["pbs_profile"]["login_provider"]) ? strtolower($mvaultinfo["profile"]["pbs_login_provider"]) : false; 
+  if ( !in_array($login_provider, array("pbs", "google", "facebook") ) ) {
+    $login_provider = "pbs";
+  }
+  // what they last used on the website is better option
+  $login_provider = !empty($_COOKIE['pbsoauth_loginprovider']) ? $_COOKIE['pbsoauth_loginprovider'] : $login_provider;
+  $vppa_link = $login_provider ? $vppa_links[$login_provider] : false;
+  $userinfo["vppa_link"] = $vppa_link; 
 }
 $success = $laas_client->validate_and_append_userinfo($userinfo);
 if ($success) {
