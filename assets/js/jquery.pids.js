@@ -130,9 +130,13 @@ jQuery(document).ready(function($) {
       if (userPBSLoginStatus.memberStatus == 'valid') {passportIcon = 'passport-link-icon';}
       else {passportIcon = 'passport-alert-icon';} 
 
-      if (userPBSLoginStatus.memberStatus == 'valid' || userPBSLoginStatus.memberStatus == 'expired') {
+      if (userPBSLoginStatus.memberStatus == 'valid') {
         $('.pbs_passport_authenticate_activated_hide').hide();
+      } else if (userPBSLoginStatus.memberStatus == 'expired') {
+        $('.pbs_passport_authenticate_activated_hide .already-a-member, .passport-first-time').hide();
       }
+
+
 
       $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_logged_in_hide').hide();
       thumbimage = '';
@@ -151,8 +155,9 @@ jQuery(document).ready(function($) {
 			  $('.passport-video-thumb').each(function( index ) {
 				  if (userPBSLoginStatus.memberStatus == 'not_activated') {
 					  $('.passport-thumb-signin', this).html('ACTIVATE TO WATCH');
-  				}
-	  			else {
+          } else if (userPBSLoginStatus.memberStatus == 'expired') {
+            $('.passport-thumb-signin', this).html('BECOME A MEMBER TO WATCH');
+	  			} else {
 		  			$('.passport-thumb-signin', this).remove();  	
 			  		$(this).removeClass('passport-video-thumb');  	
 				  }	
@@ -161,9 +166,13 @@ jQuery(document).ready(function($) {
 		  // end update thumb overlays
 	  
   		// if user signed in, but not activated. change video overlay link.
-	  	if ($(".pp-sign-in.pbs_passport_authenticate")[0] && userPBSLoginStatus.memberStatus == 'not_activated'){
-		  	$('.pp-sign-in.pbs_passport_authenticate').html('<a href="' + activatelink + '" class="passport-activate"><span>ACTIVATE ACCOUNT</span></a>');
-  		}
+      if ($(".pp-button.pbs_passport_authenticate a.learn-more")) {
+        if (userPBSLoginStatus.memberStatus == 'not_activated') {
+          $(".pp-button.pbs_passport_authenticate a.learn-more").html('<a href="' + activatelink + '" class="learn-more"><button class="learn-more">ACTIVATE ACCOUNT</button></a>');
+        } else if (userPBSLoginStatus.memberStatus != 'valid') {
+          $(".pp-button.pbs_passport_authenticate a.learn-more").html('<a href="' + joinlink + '" class="learn-more"><button class="learn-more">BECOME A MEMBER TO WATCH</button></a>');
+        }
+      }
 		
 	  	//passport player.
       if (userPBSLoginStatus.memberStatus == 'valid'){
