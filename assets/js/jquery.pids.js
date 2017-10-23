@@ -137,9 +137,13 @@ jQuery(document).ready(function($) {
       if (userPBSLoginStatus.memberStatus == 'valid' && userPBSLoginStatus.VPPAStatus == 'valid') {passportIcon = 'passport-link-icon';}
       else {passportIcon = 'passport-alert-icon';} 
 
-      if (userPBSLoginStatus.memberStatus == 'valid' || userPBSLoginStatus.memberStatus == 'expired') {
+      if (userPBSLoginStatus.memberStatus == 'valid') {
         $('.pbs_passport_authenticate_activated_hide').hide();
+      } else if (userPBSLoginStatus.memberStatus == 'expired') {
+        $('.pbs_passport_authenticate_activated_hide .already-a-member, .passport-first-time').hide();
       }
+
+
 
       $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_logged_in_hide').hide();
       thumbimage = '';
@@ -158,6 +162,8 @@ jQuery(document).ready(function($) {
 			  $('.passport-video-thumb').each(function( index ) {
 				  if (userPBSLoginStatus.memberStatus == 'not_activated') {
 					  $('.passport-thumb-signin', this).html('ACTIVATE TO WATCH');
+          } else if (userPBSLoginStatus.memberStatus == 'expired') {
+            $('.passport-thumb-signin', this).html('BECOME A MEMBER TO WATCH');
   				} else if (userPBSLoginStatus.VPPAStatus != 'valid') {
             $('.passport-thumb-signin', this).html('ACCEPT TERMS TO WATCH');
           }
@@ -176,7 +182,9 @@ jQuery(document).ready(function($) {
         }
   		}
       if ($(".pp-button.pbs_passport_authenticate")[0]) {
-        if (userPBSLoginStatus.VPPAStatus != 'valid'){
+        if (userPBSLoginStatus.memberStatus != 'valid') {
+          $(".pp-button.pbs_passport_authenticate a.learn-more").html('<a href="' + joinlink + '" class="learn-more"><button class="learn-more">BECOME A MEMBER TO WATCH</button></a>');
+        } else if (userPBSLoginStatus.VPPAStatus != 'valid'){
           var vppalink = userinfolink;
           if (userPBSLoginStatus.VPPALink) {
             vppalink = userPBSLoginStatus.VPPALink;
