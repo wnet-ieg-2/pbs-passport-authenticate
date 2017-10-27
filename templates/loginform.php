@@ -4,7 +4,7 @@ $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
 
 wp_enqueue_script( 'pbs_passport_loginform_js' , $passport->assets_url . 'js/loginform_helpers.js', array('jquery'), $passport->version, true );
 
-$links = $passport->get_oauth_links(array('scope' => 'account vppa'));
+$links = $passport->get_oauth_links(array('scope' => 'account'));
 $pluginImageDir = $passport->assets_url . 'img';
 $station_nice_name = $defaults['station_nice_name'];
 $laas_client = $passport->get_laas_client();
@@ -17,6 +17,7 @@ if ($membership_id) {
     // then the membership_id is invalid so discard it
     $membership_id = false;  
   } else {
+    $links = $passport->get_oauth_links(array('scope' => 'account vppa'));
     foreach ($links as $type => $link){
       //$jwt = json_encode(array("membership_id" => $membership_id));
       // for now lets just pass the membership_id
