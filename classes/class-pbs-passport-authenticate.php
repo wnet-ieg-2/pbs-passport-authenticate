@@ -47,7 +47,7 @@ class PBS_Passport_Authenticate {
   // these next functions setup the custom endpoints
 
   public function setup_rewrite_rules() {
-    add_rewrite_rule( 'pbsoauth/(authenticate|callback|loginform|activate|userinfo)/?.*$', 'index.php?pbsoauth=$matches[1]', 'top');
+    add_rewrite_rule( 'pbsoauth/(authenticate|callback|loginform|activate|userinfo|vppa)/?.*$', 'index.php?pbsoauth=$matches[1]', 'top');
   }
 
   public function register_query_vars( $vars ) {
@@ -71,6 +71,9 @@ class PBS_Passport_Authenticate {
     if ( get_query_var('pbsoauth')=='userinfo' )  {
       $template = trailingslashit($this->dir) . 'templates/userinfo.php';
     }
+    if ( get_query_var('pbsoauth')=='vppa' )  {
+      $template = trailingslashit($this->dir) . 'templates/vppa.php';
+    }
     return $template;
   }
 
@@ -89,6 +92,7 @@ class PBS_Passport_Authenticate {
     $args['joinurl'] = $defaults['join_url'];
     $args['activatelink'] =  site_url('pbsoauth/activate/');
     $args['userinfolink'] =  site_url('pbsoauth/userinfo/');
+    $args['vppalink'] =  site_url('pbsoauth/vppa/');
     $args['station_call_letters_lc'] = strtolower($defaults['station_call_letters']);
     $json_args = json_encode($args);
     $button = '<div class="pbs_passport_authenticate"><button class="launch">' . $args['login_text'] .  '</button><div class="messages"></div></div>';
@@ -123,7 +127,6 @@ class PBS_Passport_Authenticate {
     /* complex possibilities for scope */
     $scope =  ( !empty($args['scope']) ? $args['scope'] : ( !empty($defaults['scope']) ? $defaults['scope'] : '' ) );
 
-    // if using defaults, instead of args, auto-append vppa scope
     $scopestring = ( $scope ? '&scope=' . urlencode($scope) : '' );
 
     $return['pbs'] = $oauthroot . 'authorize/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring; 
