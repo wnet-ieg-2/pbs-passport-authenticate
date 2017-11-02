@@ -7,6 +7,7 @@ jQuery(document).ready(function($) {
   var activatelink = '/pbsoauth/activate/';
   var station_call_letters_lc = 'wnet';
   var learnmorelink = '/passport/';
+  var vppalink = '/pbsoauth/vppa/';
 
   if (typeof pbs_passport_authenticate_args !== "undefined"){
     authenticate_script = pbs_passport_authenticate_args.laas_authenticate_script;
@@ -16,6 +17,9 @@ jQuery(document).ready(function($) {
     activatelink = pbs_passport_authenticate_args.activatelink;
     if (typeof pbs_passport_authenticate_args.station_call_letters_lc !== "undefined"){
        station_call_letters_lc = pbs_passport_authenticate_args.station_call_letters_lc;
+    }
+    if (typeof pbs_passport_authenticate_args.vppalink !== "undefined"){
+      vppalink = pbs_passport_authenticate_args.vppalink;
     }
   }
 
@@ -108,10 +112,8 @@ jQuery(document).ready(function($) {
         currentarray.memberStatus = 'valid';
         // but what about VPPA?
         currentarray.VPPAStatus = 'false';
-        currentarray.VPPALink = 'false';
         if (typeof(obj.vppa_status) !== 'undefined') {
           currentarray.VPPAStatus = obj.vppa_status;
-          currentarray.VPPALink = obj.vppa_link;
         } 
       } else {
         // not activated, expired, or manually disabled which we treat as expired
@@ -139,10 +141,12 @@ jQuery(document).ready(function($) {
 
       if (userPBSLoginStatus.memberStatus == 'valid') {
         $('.pbs_passport_authenticate_activated_hide').hide();
+        if (userPBSLoginStatus.VPPAStatus !== 'valid') {
+          userinfolink = vppalink;
+        }
       } else if (userPBSLoginStatus.memberStatus == 'expired') {
         $('.pbs_passport_authenticate_activated_hide .already-a-member, .passport-first-time').hide();
       }
-
 
 
       $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_logged_in_hide').hide();
@@ -185,10 +189,6 @@ jQuery(document).ready(function($) {
         if (userPBSLoginStatus.memberStatus != 'valid') {
           $(".pp-button.pbs_passport_authenticate a.learn-more").html('<a href="' + joinlink + '" class="learn-more"><button class="learn-more">BECOME A MEMBER TO WATCH</button></a>');
         } else if (userPBSLoginStatus.VPPAStatus != 'valid'){
-          var vppalink = userinfolink;
-          if (userPBSLoginStatus.VPPALink) {
-            vppalink = userPBSLoginStatus.VPPALink;
-          }
           $(".pp-button.pbs_passport_authenticate a.learn-more").html('<a href="' + vppalink + '" class="learn-more"><button class="learn-more">ACCEPT TERMS OF SERVICE TO WATCH</button></a>'); 
         }
       }
