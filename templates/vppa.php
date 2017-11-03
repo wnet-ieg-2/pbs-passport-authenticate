@@ -56,12 +56,17 @@ echo "<h1>Welcome back, " . $userinfo['first_name'] . "!</h1>";
 
 /* needs VPPA */
 if ( $userinfo['vppa_status'] != 'valid') {
-  echo "$station_nice_name Passport";
+  
 
-  echo "<p>We're unable to display $station_nice_name Passport videos unless you accept our terms of service.</p>";
-  if ($userinfo['vppa_status'] == 'expired') {
-    echo "<p>You accepted those terms previously, but we are required to renew your acceptance every two years.</p>";
-  }
+  //echo "<p>We're unable to display $station_nice_name Passport videos unless you accept our terms of service.</p>";
+    
+    echo "<p>In order to enjoy $station_nice_name Passport, we are required to ask our members to <strong>review and accept</strong> our terms of service.</p>";
+    
+    if ($userinfo['vppa_status'] == 'expired') {
+        echo "<p>You accepted those terms previously, but we are required to renew your acceptance every two years.</p>";
+    }
+    
+    echo "<p>Please click the link below to confirm and start watching video!</p>    ";
 
   $vppa_links = $passport->get_oauth_links(array('scope' => 'account vppa'));
   // We will now attempt to determine what the users current login_provider is
