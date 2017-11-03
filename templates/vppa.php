@@ -50,9 +50,9 @@ echo "<style>@import url('".$passport->assets_url."css/vppa.css');</style>";
 echo "<h1>Welcome back, " . $userinfo['first_name'] . "!</h1>"; 
             
 
-echo '<pre>';
-echo print_r($userinfo);
- echo '</pre>'; 
+//echo '<pre>';
+//echo print_r($userinfo);
+// echo '</pre>'; 
 
 /* needs VPPA */
 if ( $userinfo['vppa_status'] != 'valid') {
@@ -76,8 +76,14 @@ if ( $userinfo['vppa_status'] != 'valid') {
   $userinfo["vppa_link"] = $vppa_link;
   
   if ($vppa_link) {
-    echo "<a href='" . $vppa_link . '&activation=true' . "'><button class='pp-button-outline'>Accept Terms of Service</button></a>";
-    echo "<p>Or, <a href='/'>continue without access to THIRTEEN Passport video</a>.  You can accept the terms at any time to get access.</p>";
+    echo "<div class='link'><a href='" . $vppa_link . '&activation=true' . "' class='button'>Accept Terms of Service</a></div>";
+   //echo "<div class='link'>Or, <a href='/' class=''>continue without access to THIRTEEN Passport video</a>.  You can accept the terms at any time to get access.</div>";
+      
+    echo "<div class='link'><a href='/' class='txt-link'>BACK TO $station_nice_name <i class='fa fa-long-arrow-right'></i></a></div>";
+      
+    
+      
+      
   } else {
     echo "<p>Please log out and log back in and accept the terms of service</p>";
   }
@@ -87,7 +93,7 @@ if ( $userinfo['vppa_status'] != 'valid') {
   <?php
 }
 
-echo "<p class='passport-help-text border'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>"; ?>
+//echo "<p class='passport-help-text border'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>"; ?>
 
 </article>
     </main>            
