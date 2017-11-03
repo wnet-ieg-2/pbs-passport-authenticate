@@ -23,11 +23,33 @@ if (isset ($mvaultinfo["membership_id"])) {
   $userinfo["membership_info"] = $mvaultinfo;
   $userinfo = $laas_client->validate_and_append_userinfo($userinfo);
 }
+    
+echo "<style>@import url('".$passport->assets_url."css/vppa.css');</style>";    
+    
 ?>
 </head>
 <body>
-<h1>UNSTYLED VPPA Landing page</h1>
-<?php echo  $userinfo['first_name'];
+    
+  <main>
+        <article>    
+    
+<?php
+    // logo
+    if (!empty($defaults['station_passport_logo_reverse'])) {$logo = $defaults['station_passport_logo_reverse'];}
+    elseif (!empty($defaults['station_passport_logo'])) {$logo = $defaults['station_passport_logo'];} 
+
+    if (!empty($logo)) {$logo = '<img src="'.$logo.'" alt="'. $defaults['station_nice_name'].' Passport"></a>';}
+    else {$logo = "<h1>" . $defaults['station_nice_name']. ' Passport' . "</h1>";}  
+    echo $logo;
+?>            
+            
+      
+
+<?php 
+
+echo "<h1>Welcome back, " $userinfo['first_name'] . "!</h1>"; 
+            
+
 echo '<pre>';
 echo print_r($userinfo);
  echo '</pre>'; 
@@ -67,5 +89,8 @@ if ( $userinfo['vppa_status'] != 'valid') {
 
 echo "<p class='passport-help-text border'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>"; ?>
 
+</article>
+    </main>            
+            
 </body>
 </html>
