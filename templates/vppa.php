@@ -94,7 +94,7 @@ if ( $userinfo['vppa_status'] != 'valid') {
   }
 } else {
   ?>
-    Your VPPA assent is current.
+    <p>Your VPPA assent is current.</p>
   <?php
 }
 
