@@ -47,7 +47,7 @@ echo "<style>@import url('".$passport->assets_url."css/vppa.css');</style>";
 
 <?php 
 
-echo "<h1>Welcome back, " $userinfo['first_name'] . "!</h1>"; 
+echo "<h1>Welcome back, " . $userinfo['first_name'] . "!</h1>"; 
             
 
 echo '<pre>';
