@@ -491,7 +491,8 @@ class PBS_LAAS_Client {
     curl_close($ch);
     $userinfo = json_decode($userinfo_json, true);
     if (isset($userinfo['email'])){
-      //for debugging ONLY
+      // append the VPPA status
+      $userinfo = $this->derive_and_append_vppa_status($userinfo);
       return $userinfo;
     } else {
       $userinfo['curlinfo'] = $info;
@@ -499,6 +500,7 @@ class PBS_LAAS_Client {
       return $userinfo;
     }
   }
+
 
   private function store_pbs_userinfo($userinfo) {
     if (isset($userinfo['pid'])){
@@ -518,20 +520,9 @@ class PBS_LAAS_Client {
         'last_name' => $userinfo['last_name'],
         'pid' => $userinfo['pid'],
         'thumbnail_URL' => $userinfo['thumbnail_URL'],
+        'vppa_status' => $userinfo['vppa_status'],
+        'vppa' => $userinfo['vppa']
       );
-      // vppa stuff
-      $vppa_status = 'false';
-      if (!empty($userinfo['vppa']['vppa_last_updated'])) {
-        $vppa_status = 'valid';
-        if (strtotime($userinfo['vppa']['vppa_last_updated']) < strtotime('-2 years') ){
-          $vppa_status = 'expired';
-        }
-        if ($userinfo['vppa']['vppa_accepted'] !== true) {
-          $vppa_status = 'rejected';
-        }
-      }
-      $userinfo_clean['vppa_status'] = $vppa_status;
-      $userinfo_clean['vppa'] = $userinfo['vppa'];
       if (isset($userinfo['membership_info'])) {
         $userinfo_clean['membership_info'] = array(
           'offer' => $userinfo['membership_info']['offer'],
@@ -558,4 +549,18 @@ class PBS_LAAS_Client {
     }
   }
 
+  public function derive_and_append_vppa_status($userinfo) {
+    $vppa_status = 'false';
+    if (!empty($userinfo['vppa']['vppa_last_updated'])) {
+      $vppa_status = 'valid';
+      if (strtotime($userinfo['vppa']['vppa_last_updated']) < strtotime('-2 years') ){
+        $vppa_status = 'expired';
+      }
+      if ($userinfo['vppa']['vppa_accepted'] !== true) {
+        $vppa_status = 'rejected';
+      }
+    }
+    $userinfo['vppa_status'] = $vppa_status;
+    return $userinfo;
+  }
 }
