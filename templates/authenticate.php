@@ -89,7 +89,6 @@ if (isset ($mvaultinfo["membership_id"])) {
   // what they last used on the website is better option
   $login_provider = !empty($_COOKIE['pbsoauth_loginprovider']) ? $_COOKIE['pbsoauth_loginprovider'] : $login_provider;
   $vppa_link = $login_provider ? $vppa_links[$login_provider] : false;
-  $userinfo["vppa_link"] = $vppa_link; 
 }
 $success = $laas_client->validate_and_append_userinfo($userinfo);
 if ($success) {

@@ -78,7 +78,6 @@ if ( $userinfo['vppa_status'] != 'valid') {
   // what they last used on the website is better option
   $login_provider = !empty($_COOKIE['pbsoauth_loginprovider']) ? $_COOKIE['pbsoauth_loginprovider'] : $login_provider;
   $vppa_link = $login_provider ? $vppa_links[$login_provider] : false;
-  $userinfo["vppa_link"] = $vppa_link;
   
   if ($vppa_link) {
     echo "<div class='link'><a href='" . $vppa_link . '&activation=true' . "' class='button'>Accept Terms of Service</a></div>";

@@ -532,9 +532,6 @@ class PBS_LAAS_Client {
       }
       $userinfo_clean['vppa_status'] = $vppa_status;
       $userinfo_clean['vppa'] = $userinfo['vppa'];
-      if (!empty($userinfo['vppa_link'])) {
-        $userinfo_clean['vppa_link'] = $userinfo['vppa_link'];
-      }
       if (isset($userinfo['membership_info'])) {
         $userinfo_clean['membership_info'] = array(
           'offer' => $userinfo['membership_info']['offer'],
