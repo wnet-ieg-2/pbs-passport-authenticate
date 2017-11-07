@@ -71,7 +71,10 @@ class PBS_MVault_Client {
     }
     $json = $result;
     $return = json_decode($json, true);
-    return $return[0]; // note: this PBS endpoint returns an array of arrays, unlike non-filtered endpoints
+    if (isset($return[0])) {
+      return $return[0]; // note: this PBS endpoint on success returns an array of arrays, unlike non-filtered endpoints
+    }
+    return $return;
   }
 
   public function get_membership_by_email($email) {
@@ -269,6 +272,44 @@ class PBS_MVault_Client {
         $info['errors'] = $errors;
       } elseif (isset($resultobj->errors)) {
         $info['errors'] = $resultobj->errors; 
+      } else {
+        $info['errors'] = $info['http_code'];
+      }
+      return $info;
+    }
+  }
+
+  public function delete_membership($membership_id) {
+  /*
+  * This function is used to delete an MVault membership_id
+  */
+    $return = array();
+
+    $MVAULT_URL = $this->mvault_url . '/memberships/' . $membership_id . '/';
+    $ch = curl_init();
+    if (!$ch) {
+      $return['errors'] = "Couldn't initialize a cURL handle";
+      return $return;
+    }
+
+    $ch = $this->build_curl_handle($MVAULT_URL);
+
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+    $result=curl_exec($ch);
+    $errors=curl_error($ch);
+    $info = curl_getinfo($ch);
+    curl_close ($ch);
+    if ($info['http_code'] == 204){
+      $return['url'] = $info['url'];
+      $return['success'] = true;
+      return $return;
+    } else {
+      $resultobj = json_decode($result);
+      $info['membership_id'] = $membership_id;
+      if ($errors) {
+        $info['errors'] = $errors;
+      } elseif (isset($resultobj->errors)) {
+        $info['errors'] = $resultobj->errors;
       } else {
         $info['errors'] = $info['http_code'];
       }
