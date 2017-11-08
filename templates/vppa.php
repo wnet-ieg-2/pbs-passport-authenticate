@@ -71,22 +71,13 @@ if ( $userinfo['vppa_status'] != 'valid') {
   $vppa_links = $passport->get_oauth_links(array('scope' => 'account vppa'));
   // We will now attempt to determine what the users current login_provider is
   // mvault is fallback
-  $login_provider = $mvault_client->normalize_login_provider($mvaultinfo['pbs_profile']['login_provider']);
-  if ( !in_array($login_provider, array("pbs", "google", "facebook") ) ) {
-    $login_provider = "pbs";
-  }
-  // what they last used on the website is better option
-  $login_provider = !empty($_COOKIE['pbsoauth_loginprovider']) ? $_COOKIE['pbsoauth_loginprovider'] : $login_provider;
+  $login_provider = $passport->get_login_provider($mvaultinfo);
   $vppa_link = $login_provider ? $vppa_links[$login_provider] : false;
   
   if ($vppa_link) {
     echo "<div class='link'><a href='" . $vppa_link . '&activation=true' . "' class='button'>Accept Terms of Service</a></div>";
-   //echo "<div class='link'>Or, <a href='/' class=''>continue without access to THIRTEEN Passport video</a>.  You can accept the terms at any time to get access.</div>";
       
     echo "<div class='link'><a href='/' class='txt-link'>BACK TO $station_nice_name <i class='fa fa-long-arrow-right'></i></a></div>";
-      
-    
-      
       
   } else {
     echo "<p>Please log out and log back in and accept the terms of service</p>";
