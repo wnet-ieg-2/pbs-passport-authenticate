@@ -183,5 +183,21 @@ class PBS_Passport_Authenticate {
     } 
     return false;
   } 
+  
+  public function get_login_provider($mvaultinfo) {
+    /* this function looks at the mvaultinfo either returns 'pbs', 'google', 'facebook', or if unknown, FALSE 
+     * it prioritizes the local cookie over what is in the mvault */
+    $login_provider = FALSE;
+    if (!empty($mvaultinfo['pbs_profile']['login_provider'])) {
+      $mvault_client = $this->get_mvault_client();
+      $login_provider = $mvault_client->normalize_login_provider($mvaultinfo['pbs_profile']['login_provider']);
+      if ( !in_array($login_provider, array("pbs", "google", "facebook") ) ) {
+        $login_provider = FALSE;
+      }
+    }
+    // what they last used on the website is better option anyway
+    $login_provider = !empty($_COOKIE['pbsoauth_loginprovider']) ? $_COOKIE['pbsoauth_loginprovider'] : $login_provider;
+    return $login_provider;
+  }
 
 }
