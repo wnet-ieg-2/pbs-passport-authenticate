@@ -37,7 +37,6 @@ echo "<h3>USER STATUS</h3>";
 echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
 
 //echo print_r($userinfo);
-  
   $station_nice_name = $defaults['station_nice_name'];
   $join_url = $defaults['join_url'];
   $watch_url = $defaults['watch_url'];
@@ -76,36 +75,8 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 
 /* needs VPPA */
 elseif ( $userinfo['vppa_status'] != 'valid') {
-  echo "<div class='login-wrap cf'><ul>";
-  echo "<li><p class='passport-status'>$station_nice_name Passport <span class='passport-exclamation'><i class='fa fa-exclamation'></i></span></p></li>";
-
-  echo "<li class='passport-not-setup'><p>We're unable to display $station_nice_name Passport videos unless you accept our terms of service.</p>";
-  if ($userinfo['vppa_status'] == 'expired') {
-    echo "<p>You accepted those terms previously, but we are required to renew your acceptance every two years.</p>";
-  }
-
-
-  // we may as well setup a VPPA link
-  $vppa_links = $passport->get_oauth_links(array('scope' => 'account vppa'));
-  // We will now attempt to determine what the users current login_provider is
-  // mvault is fallback
-  $login_provider = !empty($mvaultinfo["pbs_profile"]["login_provider"]) ? strtolower($mvaultinfo["profile"]["pbs_login_provider"]) : false;
-  if ( !in_array($login_provider, array("pbs", "google", "facebook") ) ) {
-    $login_provider = "pbs";
-  }
-  // what they last used on the website is better option
-  $login_provider = !empty($_COOKIE['pbsoauth_loginprovider']) ? $_COOKIE['pbsoauth_loginprovider'] : $login_provider;
-  $vppa_link = $login_provider ? $vppa_links[$login_provider] : false;
-  
-  if ($vppa_link) {
-    echo "<a href='" . $vppa_link . '&activation=true' . "'><button class='pp-button-outline'>Accept Terms of Service</button></a>";
-    echo "<p>Or, <a href='/'>continue without access to THIRTEEN Passport video</a>.  You can accept the terms at any time to get access.</p>";
-  } else {
-    echo "<p>Please log out and log back in and accept the terms of service</p>";
-  }
-  echo "</li></ul></div>";
-
-
+  wp_redirect(site_url('pbsoauth/vppa'));
+  exit;
 }
 
 /* expired member */
