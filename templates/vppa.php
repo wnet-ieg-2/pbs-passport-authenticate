@@ -71,7 +71,7 @@ if ( $userinfo['vppa_status'] != 'valid') {
   $vppa_links = $passport->get_oauth_links(array('scope' => 'account vppa'));
   // We will now attempt to determine what the users current login_provider is
   // mvault is fallback
-  $login_provider = !empty($mvaultinfo["pbs_profile"]["login_provider"]) ? strtolower($mvaultinfo["profile"]["pbs_login_provider"]) : false;
+  $login_provider = $mvault_client->normalize_login_provider($mvaultinfo['pbs_profile']['login_provider']);
   if ( !in_array($login_provider, array("pbs", "google", "facebook") ) ) {
     $login_provider = "pbs";
   }
