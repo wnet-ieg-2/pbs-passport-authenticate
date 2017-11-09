@@ -55,6 +55,15 @@ jQuery(document).ready(function($) {
     window.location = activatelink;
   }
 
+  function acceptVPPAPBS(event) {
+    event.preventDefault();
+    if (window.location != loginform) {
+      document.cookie='pbsoauth_login_referrer=' + window.location + '?dontcachme=' + Math.random() + ';domain=' + window.location.hostname + ';path=/';
+    }
+    window.location = vppalink;
+  }
+
+
   function learnMorePassport(event) {
     event.preventDefault();
     if (window.location != loginform) {
@@ -215,6 +224,7 @@ jQuery(document).ready(function($) {
         $('.pbs_passport_authenticate_join').click(joinPBS);
         $('.pbs_passport_authenticate_activate').click(activatePBS);
         $('.pbs_passport_authenticate .learn-more').click(learnMorePassport);
+        $('.pbs_passport_authenticate_vppa').click(acceptVPPAPBS);
       }, 500);
 
     }
