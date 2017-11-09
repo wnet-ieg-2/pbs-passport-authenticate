@@ -21,6 +21,10 @@ $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
 
 $laas_client = $passport->get_laas_client();
 
+// log any current session out
+$laas_client->logout();
+
+
 $login_referrer = site_url();
 if (!empty($_COOKIE["pbsoauth_login_referrer"])){
   $login_referrer = $_COOKIE["pbsoauth_login_referrer"];
