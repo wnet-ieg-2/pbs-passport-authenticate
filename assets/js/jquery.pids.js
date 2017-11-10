@@ -244,37 +244,6 @@ jQuery(document).ready(function($) {
   });
   
   
-     /* optin challenge */
-	$( "#passport-confirm-optin" ).click(function() {
-		if ($('input#pbsoauth_optin').prop('checked')) {
-			if (user) {
-				// if user already logged in
-				var memberid = getQueryStringParamPBS('membership_id');
-				$.ajax({
-					url: activatelink,
-					data: 'membership_id=' + memberid + '',
-					type: 'POST',
-					dataType: 'json',
-					success: function(response) {
-						var destination = Cookies.getJSON('pbsoauth_login_referrer');
-						if (destination == null) {var destination = '/';}
-						if (destination.indexOf("pbsoauth") > -1) {window.location.href = "/";}
-						else {window.location.href = destination; }
-				      }
-			    });
-			}
-			else {
-				// else user not logged in
-				$('.add-login-fields').removeClass('hide');
-				if ($(".passport-optin-challenge")[0]){$('.passport-optin-challenge').hide();}
-			}	
-		}
-		else {
-			// else checkbox not checked
-			$('.passport-optin-error').html('<p class="passport-error">Sorry, you must check the checkbox to continue.</p>');
-		}
-	});
-  	/* end optin challenge */
   
   	function getQueryStringParamPBS(sParam) {
 	    var sPageURL = window.location.search.substring(1);
