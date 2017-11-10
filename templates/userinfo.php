@@ -36,7 +36,7 @@ echo "<div class='pp-narrow'>";
 echo "<h3>USER STATUS</h3>";
 echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
 
-//echo print_r($userinfo);
+//echo print_r($mvaultinfo);
   $station_nice_name = $defaults['station_nice_name'];
   $join_url = $defaults['join_url'];
   $watch_url = $defaults['watch_url'];

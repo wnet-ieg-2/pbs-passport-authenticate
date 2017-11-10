@@ -75,7 +75,7 @@ if ( $userinfo['vppa_status'] != 'valid') {
   $vppa_link = $login_provider ? $vppa_links[$login_provider] : false;
   
   if ($vppa_link) {
-    echo "<div class='link'><a href='" . $vppa_link . '&activation=true' . "' class='button'>Accept Terms of Service</a></div>";
+    echo "<div class='link'><a href='" . $vppa_link . '&activation=true' . "' class='button'>Review and Accept Terms of Service</a></div>";
       
     echo "<div class='link'><a href='/' class='txt-link'>BACK TO $station_nice_name <i class='fa fa-long-arrow-right'></i></a></div>";
       

@@ -194,7 +194,7 @@ jQuery(document).ready(function($) {
         } else if (userPBSLoginStatus.memberStatus != 'valid') {
           $(".pbs_passport_authenticate a.learn-more").html('<a href="' + joinlink + '" class="learn-more"><button class="learn-more">BECOME A MEMBER TO WATCH</button></a>').off("click", learnMorePassport).on("click", joinPBS);
         } else if (userPBSLoginStatus.VPPAStatus != 'valid'){
-          $("..pbs_passport_authenticate a.learn-more").html('<a href="' + vppalink + '" class="learn-more"><button class="learn-more">ACCEPT TERMS OF SERVICE TO WATCH</button></a>').off("click", learnMorePassport).on("click", acceptVPPAPBS);
+          $(".pbs_passport_authenticate a.learn-more").html('<a href="' + vppalink + '" class="learn-more"><button class="learn-more">REVIEW AND ACCEPT TERMS OF SERVICE TO WATCH</button></a>').off("click", learnMorePassport).on("click", acceptVPPAPBS);
         }
       }
 		
