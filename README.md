@@ -4,7 +4,7 @@ WNET Interactive Engagement Group (IEG) is pleased to share the source code for 
 
 The 'PBS Passport Authenticate' plugin, when installed in a PBS station website running WordPress, creates a turnkey system where a station member who has an account within the PBS Membership Vault can login to the station website using Google, Facebook, or the member's 'PBS Account'.   If the member has 'activated' via PBS.org, or used the included 'activation' form that is part of our plugin, the station website can show or hide content -- including embedded Passport video -- on the station website based on the visitor's status as a Passport-eliglble member of the station.
 
-##NOTICE:  PBS is updating their login system considerably on December 4th, 2017. The versioni 0.2.5.0 or higher of this plugin is required if you want to display Passport video on your website after that date!
+## NOTICE:  PBS is updating their login system considerably on December 4th, 2017. Version 0.2.5.0 or higher of this plugin is required if you want to display Passport video on your website after that date!
 
 ### Notes: 
 * We do not provide membership donation or creation forms, nor any process to send 'activation codes' to members.   If your station uses an 'instant gratification' donation process that generates activation links or activation codes, it is likely possible to adapt that process to use our included activation form.  We've been able to do so for Thirteen.org.  
