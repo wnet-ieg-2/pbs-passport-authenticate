@@ -23,8 +23,13 @@ if (isset ($mvaultinfo["membership_id"])) {
   $userinfo["membership_info"] = $mvaultinfo;
   $userinfo = $laas_client->validate_and_append_userinfo($userinfo);
 }
+if ($overriden_stylesheet = locate_template('passport-vppa.css')) {
+  $vppastylesheet = trailingslashit(get_stylesheet_directory_uri()) . 'passport-vppa.css';
+} else {
+  $vppastylesheet = $passport->assets_url . "css/vppa.css";
+}
     
-echo "<style>@import url('".$passport->assets_url."css/vppa.css');</style>";    
+echo "<style>@import url('" . $vppastylesheet . "');</style>";    
     
 ?>
 </head>
