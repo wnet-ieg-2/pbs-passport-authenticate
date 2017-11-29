@@ -4,6 +4,8 @@ WNET Interactive Engagement Group (IEG) is pleased to share the source code for 
 
 The 'PBS Passport Authenticate' plugin, when installed in a PBS station website running WordPress, creates a turnkey system where a station member who has an account within the PBS Membership Vault can login to the station website using Google, Facebook, or the member's 'PBS Account'.   If the member has 'activated' via PBS.org, or used the included 'activation' form that is part of our plugin, the station website can show or hide content -- including embedded Passport video -- on the station website based on the visitor's status as a Passport-eliglble member of the station.
 
+##NOTICE:  PBS is updating their login system considerably on December 4th, 2017. The versioni 0.2.5.0 or higher of this plugin is required if you want to display Passport video on your website after that date!
+
 ### Notes: 
 * We do not provide membership donation or creation forms, nor any process to send 'activation codes' to members.   If your station uses an 'instant gratification' donation process that generates activation links or activation codes, it is likely possible to adapt that process to use our included activation form.  We've been able to do so for Thirteen.org.  
 * Otherwise, the PBS-provided activation code that your station gets when importing new members into the PBS Membership Vault ('MVault') will also work with our included activation form, and that 'activation' status will carry through to PBS.org as well.    
@@ -11,7 +13,7 @@ The 'PBS Passport Authenticate' plugin, when installed in a PBS station website 
 * We provide basic example code to restrict or allow access to a COVE Passport video based on the visitor's status as a Passport-eliglible member of the station, but it is up to the station to embed COVE Passport video onto their website.  
 * We include CSS with the plugin, but the station will probably want to override some of that CSS to match their own website design.
 * The login system requires no heavy database interaction -- member information and authentication status is stored within cookies, and no member data is stored in your website's database, just the PBS Membership Vault.
-* Enabling the login system requires contacting PBS for MVault access keys and PBS Profile Service access keys.
+* Enabling the login system requires contacting PBS for MVault access keys and PBS Profile Service access keys.  Make sure when you request the PBS Profile Service access key to request that they include the 'vppa' scope.
 
 ### Support:
 We welcome bug reports made via our GitHub repository, and while we do not provide any warranty for this plugin, we'll make a good faith effort to address bugs and update the source code in a timely fashion.  We use this plugin in our own website and we want the best and most reliable product possible!
@@ -100,6 +102,8 @@ The plugin automatically 'enqueues' CSS on your site to make the login form and 
 .pbs-passport-authenticate.activate  p a {color: "yourcolor";}
 ```
 
+There's also a custom screen for handling "VPPA" (Video Privacy and Protection Act) assent.  That page is very simplified, and has a single stylesheet.  If you place a CSS file named 'passport-vppa.css' in your theme's main directory, that stylesheet will also be included, allowing you to override styles set on that page.
+
 ### Embeding a Passport Video
 
 The plugin includes a 'cove-passport' shortcode that will render a Passport video player.  If the visitor has activated their Passport benefit, logged into your site, and is eligible to watch Passport videos, when the video is rendered with the shortcode it will show the visitor the video.  It the visitor is NOT logged in he or she will see an overlay that directs them to log in to view the video.
@@ -149,6 +153,10 @@ On activation, the plugin registers two rewrite rules that redirect to some cust
 
 * `pbsoauth/authenticate`, which is an endpoint for our jQuery files to interact with during the authentication process
 * `pbsoauth/callback`, which will accept any callbacks from the PBS LAAS oAuth2 flow and forward the grant token to the appropriate script.  The callback URI must then be registered with PBS as a valid redirect_uri for your LAAS key -- this is typically done via email.
+* `pbsoauth/loginform`, which generates a page that displays login options.
+* `pbsoauth/activate`, which generates a page that allows a member to enter an activation code.
+* `pbsoauth/userinfo`, which generates a page that displays the current member status of the logged-in visitor, for instance if they're expired or not activated.
+* `pbsoauth/vppa`, which generates a page that explains and directs the user to review terms around data sharing required by "VPPA" (Video Privacy and Protection Act).
 
 If you need to overwrite or add some built-in functions, you can create a 'pluggable.php' file in the main directory of this plugin.  One particular use for this is if you have problems getting curl() working correctly -- create an 'mvault_curl_extras($ch)' function that adds whatever specific curl options your environment requires.
 
