@@ -64,12 +64,12 @@ echo "<h1>Welcome back, " . $userinfo['first_name'] . "!</h1>";
 if ( $userinfo['vppa_status'] != 'valid') {
   
 
-  //echo "<p>We're unable to display $station_nice_name Passport videos unless you accept our terms of service.</p>";
+  //echo "<p>We're unable to display $station_nice_name Passport videos unless you accept our terms.</p>";
     
-    echo "<p>In order to enjoy $station_nice_name Passport, we are required to ask our members to <strong>review and accept</strong> our terms of service.</p>";
+    echo "<p>Accessing $station_nice_name Passport requires your consent for PBS to share your viewing history directly with $station_nice_name and our respective service providers in accordance with our <a href='https://www.pbs.org/about/pbs-privacy-policy/' target=_new>Privacy Policy</a>.</p>";
     
     if ($userinfo['vppa_status'] == 'expired') {
-        echo "<p>You accepted those terms previously, but we are required to renew your acceptance every two years.</p>";
+        echo "<p>You gave your consent previously, but we are required to renew your consent every two years.</p>";
     }
     
     echo "<p>Please click the link below to confirm and start watching video!</p>    ";
@@ -81,16 +81,16 @@ if ( $userinfo['vppa_status'] != 'valid') {
   $vppa_link = $login_provider ? $vppa_links[$login_provider] : false;
   
   if ($vppa_link) {
-    echo "<div class='link'><a href='" . $vppa_link . '&activation=true' . "' class='button'>Review and Accept Terms of Service</a></div>";
+    echo "<div class='link'><a href='" . $vppa_link . '&activation=true' . "' class='button'>Review and Accept Terms</a></div>";
       
     echo "<div class='link'><a href='/' class='txt-link'>BACK TO $station_nice_name <i class='fa fa-long-arrow-right'></i></a></div>";
       
   } else {
-    echo "<p>Please log out and log back in and accept the terms of service</p>";
+    echo "<p>Please log out and log back in and accept the terms</p>";
   }
 } else {
   ?>
-    <p>Your VPPA assent is current.</p>
+    <p>Your assent to sharing viewing history is current.</p>
   <?php
 }
 
