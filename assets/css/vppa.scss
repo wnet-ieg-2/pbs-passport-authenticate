@@ -29,9 +29,9 @@ main {width: 100%; @include centerer(false, true); padding: 1.5em;}
 article {max-width: 530px; margin: 0 auto; text-align: center;}
 
 img {max-width: 100%; height: auto;}
-a {text-decoration: none; font-weight: 600;}
+a {text-decoration: none; font-weight: 600; color: #008db5;}
 
-a.txt-link {color: #008db5; text-transform: uppercase; font-size: .9em;}
+a.txt-link {text-transform: uppercase; font-size: .9em;}
 a.txt-link:hover {color: #fff;}
 a.button {display: block;  text-transform: uppercase; padding: .8em; background-color: #008db5; color: #fff;}
 a.button:hover {background-color: #000;}
