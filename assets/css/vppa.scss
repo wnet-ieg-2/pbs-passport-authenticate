@@ -18,7 +18,7 @@
 
 
 
-body {background: url('../img/skyline-bg.jpg') top center no-repeat; position: relative; color: #fff; margin: 0; padding: 0; font: 300 1em 'Montserrat'; height: 100%;}
+body {background: url('../img/skyline-bg.jpg') top center no-repeat;  background-size: cover; position: relative; color: #fff; margin: 0; padding: 0; font: 300 1em 'Montserrat'; height: 100%;}
 
 * {-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; outline: none;}
 .cf:before, .cf:after {content:""; display:table;}
