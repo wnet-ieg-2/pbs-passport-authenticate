@@ -69,7 +69,7 @@ if ( $userinfo['vppa_status'] != 'valid') {
     echo "<p>Accessing $station_nice_name Passport requires your consent for PBS to share your viewing history directly with $station_nice_name and our respective service providers in accordance with our <a href='https://www.pbs.org/about/pbs-privacy-policy/' target=_new>Privacy Policy</a>.</p>";
     
     if ($userinfo['vppa_status'] == 'expired') {
-        echo "<p>You gave your consent previously, but we are required to renew your consent every two years.</p>";
+        echo "<p>You accepted those terms previously, but we are required to renew your acceptance every two years.</p>";
     }
     
     echo "<p>Please click the link below to confirm and start watching video!</p>    ";
