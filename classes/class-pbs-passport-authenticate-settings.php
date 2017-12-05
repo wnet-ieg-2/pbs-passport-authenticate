@@ -67,7 +67,7 @@ class PBS_Passport_Authenticate_Settings {
 
     add_settings_field( 'oauth2_endpoint', 'oAuth2 Endpoint', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pbslaas_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'oauth2_endpoint', 'class' => 'regular-text', 'label' => 'Root path for PBS-provided oAuth endpoints to PBS etc. This should only change if authenticating against a dev endpoint.', 'default' => 'https://account.pbs.org/oauth2/' ) );
     add_settings_field( 'laas_client_id', 'LAAS Client ID', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pbslaas_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'laas_client_id', 'class' => 'regular-text', 'label' => 'Client ID for PIDS/LAAS.  Provided by PBS.') );
-    add_settings_field( 'laas_client_secret', 'LAAS Client secret', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pbslaas_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'laas_client_secret', 'type' => 'password', 'class' => 'large-text', 'label' => 'Client Secret for PIDS/LAAS.  Provided by PBS.') );
+    add_settings_field( 'laas_client_secret', 'LAAS Client secret', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pbslaas_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'laas_client_secret', 'type' => 'text', 'class' => 'large-text', 'label' => 'Client Secret for PIDS/LAAS.  Provided by PBS.') );
     add_settings_field( 'scope', 'OAuth Scope', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pbslaas_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'scope', 'class' => 'regular-text', 'label' => 'Scope for your OAuth grant.  Provided by PBS, will typically look like "account wxyz". Case-sensitive.  Leave blank if you don\'t know it for certain.') );
 
 
@@ -75,13 +75,13 @@ class PBS_Passport_Authenticate_Settings {
 
     add_settings_field( 'mvault_endpoint', 'MVault API Endpoint', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'mvault_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'mvault_endpoint', 'class' => 'regular-text', 'label' => 'Membership Vault API URL. This should only change if authenticating against a dev endpoint.', 'default' => 'https://mvault.services.pbs.org/api/' ) );
     add_settings_field( 'mvault_client_id', 'MVault API Client ID', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'mvault_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'mvault_client_id', 'class' => 'regular-text', 'label' => 'MVault API Client ID. Provided by PBS.') );
-    add_settings_field( 'mvault_client_secret', 'MVault API Client Secret', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'mvault_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'mvault_client_secret', 'type' => 'password', 'class' => 'regular-text', 'label' => 'MVault API Client Secret. Provided by PBS.') );
+    add_settings_field( 'mvault_client_secret', 'MVault API Client Secret', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'mvault_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'mvault_client_secret', 'type' => 'text', 'class' => 'regular-text', 'label' => 'MVault API Client Secret. Provided by PBS.') );
 
     add_settings_section('cookie_settings', 'Cookie settings', array( $this, 'settings_section_callback'), 'pbs_passport_authenticate');
 
     add_settings_field( 'tokeninfo_cookiename', 'Token cookie name', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'cookie_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'tokeninfo_cookiename', 'class' => 'regular-text', 'label' => 'Obscure name for the cookie that stores oAuth user tokens.  Changing this will reset all Passport user logins.  Should be something obscure', 'default' => 'passport_tokeninfo' ) );
 
-    add_settings_field( 'cryptkey', 'Encryption key', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'cookie_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'cryptkey', 'class' => 'regular-text', 'type' => 'password',  'label' => 'Encryption key for the token cookie.  Changing this will reset all Passport user logins.', 'default' => bin2hex(openssl_random_pseudo_bytes(32)) ) );
+    add_settings_field( 'cryptkey', 'Encryption key', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'cookie_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'cryptkey', 'class' => 'regular-text', 'type' => 'text',  'label' => 'Encryption key for the token cookie.  Changing this will reset all Passport user logins.', 'default' => bin2hex(openssl_random_pseudo_bytes(32)) ) );
 
 
 	}
