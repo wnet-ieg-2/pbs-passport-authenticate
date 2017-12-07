@@ -156,9 +156,9 @@ $blue: #008CB6;
 
 .service-options {
     border-top: 1px solid #666; color: #666;  padding: 1.5em 0; text-align: center; width: 100%;
-	h4 {  font-size: 1.275em;  font-weight: 500;  margin-bottom: 0.8em;}
+	h4 {  font-size: 1.275em;  font-weight: 500;  margin: 0 0 .8em 0;}
 	ul {  margin: 0 auto;}
-	li {  float: left;  padding: 0 2em;  width: 50%;}
+	li {  float: left;  padding: 0 2em;  width: 50%; margin: 0;}
 	li:first-of-type {  border-right: 1px solid #666;}
 	.look-for-email {  font-size: .875em;  margin: 1em 0 0;}
 }
@@ -252,9 +252,9 @@ $blue: #008CB6;
 	.pbs-passport-authenticate-wrap {   padding: 4%;}
 	.service-options {
         padding: 0;
-		li {width: 100%; padding: 2em 0; margin: 0 !important;}
+		li {width: 100%; padding: 2em 0;}
 		li:first-of-type {border: 0; border-bottom: 1px solid #333; }
-		h4 {font-size: 1.275em; font-weight: 500; margin: 0 0 .8em 0;}
+		h4 {font-size: 1.275em; font-weight: 500;}
 		.look-for-email {font-size: 0.875em; margin: 1em 0 0 0;}
 	}
 	
