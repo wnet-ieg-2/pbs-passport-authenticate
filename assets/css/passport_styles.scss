@@ -251,9 +251,10 @@ $blue: #008CB6;
 
 	.pbs-passport-authenticate-wrap {   padding: 4%;}
 	.service-options {
-		li {width: 100%; padding: 0; margin-bottom: 1em;}
-		li:first-of-type {border: 0; border-bottom: 1px solid #333; padding-bottom: 1em;}
-		h4 {font-size: 1.275em; font-weight: 500; margin-bottom: .8em;}
+        padding: 0;
+		li {width: 100%; padding: 2em 0; margin: 0 !important;}
+		li:first-of-type {border: 0; border-bottom: 1px solid #333; }
+		h4 {font-size: 1.275em; font-weight: 500; margin: 0 0 .8em 0;}
 		.look-for-email {font-size: 0.875em; margin: 1em 0 0 0;}
 	}
 	
