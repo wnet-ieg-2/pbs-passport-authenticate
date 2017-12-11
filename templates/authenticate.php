@@ -21,7 +21,7 @@ This script also exposes the 'logout' method, which clears the tokens and cookie
 show_admin_bar(false);
 remove_all_actions('wp_footer',1);
 remove_all_actions('wp_header',1);
-
+header('cache-control: no-cache');
 $defaults = get_option('pbs_passport_authenticate');
 
 $required = array('laas_client_id', 'laas_client_secret', 'oauth2_endpoint', 'mvault_endpoint', 'mvault_client_id', 'mvault_client_secret');
