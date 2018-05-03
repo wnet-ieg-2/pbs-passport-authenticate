@@ -214,15 +214,15 @@ jQuery(document).ready(function($) {
 	  	// end passport player.
 	  
     } else {
+      $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_logged_in_hide').show();
+      // putting a short delay on the following since it takes a little bit of time for the elements to render
       setTimeout(function() {
-        $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_logged_in_hide').show();
         $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_login').on("click",loginToPBS);
         $('.pbs_passport_authenticate_join').on("click", joinPBS);
         $('.pbs_passport_authenticate_activate').on("click", activatePBS);
         $('.pbs_passport_authenticate .learn-more').on("click", learnMorePassport);
         $('.pbs_passport_authenticate_vppa').on("click", acceptVPPAPBS);
       }, 500);
-
     }
   }
 
