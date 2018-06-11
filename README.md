@@ -41,14 +41,25 @@ PBS Passport Authenticate includes the following files:
 * A copy of the GNU Public License
 
 
-## Installation
 
+
+## Setup and Installation
+
+Before you install, you will need to file some support tickets with PBS to get credentials for two APIs that they provide.
+
+### PBS Account
+This is PBS's 'Login as a service' (LAAS) API that the plugin uses to provide member logins on a local station website.   Visit https://docs.pbs.org/display/uua and review the documentation there, particularly "Integrating PBS Account with your website or app".   You will need to go to the PBS Digital Support site and request a PBS Account API keypair for your station, and that request will need to include the 'vppa' scope and a redirect URI for each website that will use that keypair; that URI will be in the form 'https://yourstation.org/pbsoauth/callback' (replacing 'yourstation.org' with the actual exact hostname).  The URI must be exact; 'Wildcard' domains aren't allowed, so if you have a redirect to send somebody from yourstation.org to www.yourstation.org , then use www.yourstation.org; and if your station can only be accessed via http (not https), then the protocol in the redirect URI must match.   If you have a dev server and a production server, include the matching redirect URIs for both -- there's no real limit to how many redirect URIs you can have, but each must be added.   
+
+### Membership Vault API
+If your station is a Passport station, you should already have a Membership Vault (MVault) API keypair.   If your station is not a Passport station this plugin is not for you.   You will need to enter the MVault API keypair for your station in the plugin settings.
+
+### Installation
 1. Copy the `pbs-passport-authenticate` directory into your `wp-content/plugins` directory
 2. Navigate to the *Plugins* dashboard page
 3. Locate the menu item that reads *PBS Passport Authenticate*
 4. Click on *Activate*
 5. Navigate to *Settings* and select *PBS Passport Authenticate Settings* 
-6. Enter values for all fields
+6. Enter values for all fields, particularly the LAAS and MVault sections (see above).
 7. It may be necessary to visit the 'Permalinks' settings page to make sure that the endpoints provided by the plugin resolve correctly.
 
 ## Usage
@@ -106,7 +117,7 @@ There's also a custom screen for handling "VPPA" (Video Privacy and Protection A
 
 ### Embeding a Passport Video
 
-The plugin includes a 'cove-passport' shortcode that will render a Passport video player.  If the visitor has activated their Passport benefit, logged into your site, and is eligible to watch Passport videos, when the video is rendered with the shortcode it will show the visitor the video.  It the visitor is NOT logged in he or she will see an overlay that directs them to log in to view the video.
+The plugin includes a 'cove-passport' shortcode that will render a Passport video player.  If the visitor is a member of your station, has activated their Passport benefit, logged into your site, and is eligible to watch Passport videos, when the video is rendered with the shortcode it will show the visitor the video.  It the visitor is NOT logged in he or she will see an overlay that directs them to log in to view the video.
 
 #### Shortcode Arguments
 
@@ -127,9 +138,9 @@ It returns JSON with some basic info:
 * `pid`: the 'pbs_profile' pid/uid
 * `thumbnail_URL`: the avatar for the user provided by the login provider.  May be a generic icon if the user never set one up.  The 'pbs' login provider always provides a generic icon.
 
-If the PIDS account pid/uid is associated with a WNET member in the MVault, further info will appear in a 'membership_info' object:
+If the PIDS account pid/uid is associated with a member in your station's MVault, further info will appear in a 'membership_info' object:
 
-* `offer`: the offer code, typically 'AVOD'.  This will match up against permissions in the COVE windowing system.
+* `offer`: the offer code, typically 'MVOD'.  This will match up against permissions in the COVE windowing system.
 * `first_name` and `last_name`: these are what his or her membership is listed under, and can be completely different from the google etc provided values.
 * `expire_date`: The expiration date of their membership
 * `grace_period`: Three months after the expiration date, when the user loses access to Passport videos.
@@ -152,7 +163,7 @@ The cookie is encrypted with a secret key, a random IV, and set as a 'server-onl
 On activation, the plugin registers two rewrite rules that redirect to some custom template files:
 
 * `pbsoauth/authenticate`, which is an endpoint for our jQuery files to interact with during the authentication process
-* `pbsoauth/callback`, which will accept any callbacks from the PBS LAAS oAuth2 flow and forward the grant token to the appropriate script.  The callback URI must then be registered with PBS as a valid redirect_uri for your LAAS key -- this is typically done via email.
+* `pbsoauth/callback`, which will accept any callbacks from the PBS LAAS oAuth2 flow and forward the grant token to the appropriate script.  The callback URI must then be registered with PBS as a valid redirect_uri for your LAAS key -- this is typically done via a ticket on the PBS Digital Support portal.
 * `pbsoauth/loginform`, which generates a page that displays login options.
 * `pbsoauth/activate`, which generates a page that allows a member to enter an activation code.
 * `pbsoauth/userinfo`, which generates a page that displays the current member status of the logged-in visitor, for instance if they're expired or not activated.
