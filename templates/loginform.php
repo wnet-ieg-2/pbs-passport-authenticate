@@ -4,7 +4,7 @@ $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
 
 wp_enqueue_script( 'pbs_passport_loginform_js' , $passport->assets_url . 'js/loginform_helpers.js', array('jquery'), $passport->version, true );
 
-$links = $passport->get_oauth_links(array('scope' => 'account'));
+$links = $passport->get_oauth_links(array('scope' => 'account vppa'));
 $pluginImageDir = $passport->assets_url . 'img';
 $station_nice_name = $defaults['station_nice_name'];
 $laas_client = $passport->get_laas_client();
