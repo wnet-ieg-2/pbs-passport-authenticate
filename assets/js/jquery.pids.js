@@ -173,7 +173,6 @@ jQuery(document).ready(function($) {
 	  
         $('body').on('click', '.pbs_passport_authenticate a.signout', function(e) {
             logoutFromPBS();
-            e.preventDefault();
         });    
         
         
