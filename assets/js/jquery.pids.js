@@ -172,7 +172,7 @@ jQuery(document).ready(function($) {
         //$('.pbs_passport_authenticate a.signout').click(logoutFromPBS);
 	  
         $('body').on('click', '.pbs_passport_authenticate a.signout', function(e) {
-            logoutFromPBS();
+            logoutFromPBS(e);
         });    
         
         
