@@ -170,7 +170,7 @@ jQuery(document).ready(function($) {
         if ($(".pbs_passport_authenticate div.messages-new")[0]){
             // new version
              welcomestring = thumbimage + '<div class="user-name"><span class="welcome">' + user.first_name + '</span><ul><li><a href="' + userinfolink + '">USER STATUS</a></li><li><a  class="signout">SIGN OUT</a></li></ul></div>';
-            ('.pbs_passport_authenticate div.messages-new').html(welcomestring);
+            $('.pbs_passport_authenticate div.messages-new').html(welcomestring);
         }
         else {
             // old version
