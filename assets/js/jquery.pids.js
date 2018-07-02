@@ -165,12 +165,22 @@ jQuery(document).ready(function($) {
       }	
 		  welcomestring = thumbimage + '<a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + user.first_name + '</span></a> <a class="signout">Sign Out</a>';
      
-      $('.pbs_passport_authenticate div.messages').html(welcomestring);
-	  
+      
+        
+        if ($(".pbs_passport_authenticate div.messages-new")[0]){
+            // new version
+             welcomestring = thumbimage + '<div class="user-name"><span class="welcome">' + user.first_name + '</span><ul><li><a href="' + userinfolink + '">USER STATUS</a></li><li><a  class="signout">SIGN OUT</a></li></ul></div>';
+        }
+        else {
+            // old version
+             welcomestring = thumbimage + '<a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + user.first_name + '</span></a> <a class="signout">Sign Out</a>';
+            $('.pbs_passport_authenticate div.messages').html(welcomestring);
+        }
+        
+        
       
         //bs: i need to be able to use this on js changed div....
         //$('.pbs_passport_authenticate a.signout').click(logoutFromPBS);
-	  
         $('body').on('click', '.pbs_passport_authenticate a.signout', function(e) {
             logoutFromPBS(e);
         });    
