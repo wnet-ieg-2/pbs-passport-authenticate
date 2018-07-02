@@ -168,8 +168,15 @@ jQuery(document).ready(function($) {
       $('.pbs_passport_authenticate div.messages').html(welcomestring);
 	  
       
-      $('.pbs_passport_authenticate a.signout').click(logoutFromPBS);
+        //bs: i need to be able to use this on js changed div....
+        //$('.pbs_passport_authenticate a.signout').click(logoutFromPBS);
 	  
+        $('body').on('click', '.pbs_passport_authenticate a.signout', function(e) {
+            logoutFromPBS();
+            e.preventDefault();
+        });    
+        
+        
 		  // update thumb overlays
 		  if ($(".passport-video-thumb")[0]){
 			  $('.passport-video-thumb').each(function( index ) {
