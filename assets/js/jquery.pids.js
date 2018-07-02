@@ -163,17 +163,18 @@ jQuery(document).ready(function($) {
       if (user.thumbnail_URL) {
         thumbimage = "<a href='" + userinfolink + "' class='userthumb'><img src=" + user.thumbnail_URL + " /></a>"; 
       }	
-		  welcomestring = thumbimage + '<a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + user.first_name + '</span></a> <a class="signout">Sign Out</a>';
+	
      
       
-        
+    
         if ($(".pbs_passport_authenticate div.messages-new")[0]){
-            // new version
-             welcomestring = thumbimage + '<span class="welcome">' + user.first_name + '<ul><li><a href="' + userinfolink + '">USER STATUS</a></li><li><a  class="signout">SIGN OUT</a></li></ul></span>';
+            // new version of messages with drop down menu...
+            if (user.thumbnail_URL) {thumbimage = "<span><img src=" + user.thumbnail_URL + " /></span>";}	
+             welcomestring = '<a class="welcome" href="' + userinfolink + '">' + thumbimage + '<span class="name"><span class="nm">' + user.first_name + '</span></span> <ul class="user-drop"><li><a href="' + userinfolink + '">USER STATUS</a></li><li><a  class="signout">SIGN OUT</a></li></ul>';
             $('.pbs_passport_authenticate div.messages-new').html(welcomestring);
         }
         else {
-            // old version
+            // old version of messages
              welcomestring = thumbimage + '<a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + user.first_name + '</span></a> <a class="signout">Sign Out</a>';
             $('.pbs_passport_authenticate div.messages').html(welcomestring);
         }
