@@ -41,7 +41,7 @@ function build_passport_player($video) {
 				<div class='pp-button pbs_passport_authenticate'>
 					<a href='/passport/' class='learn-more'><button class='learn-more'>LEARN MORE <i class='fa fa-arrow-circle-o-right'></i></button></a>
 				</div>
-			</div></div>";
+			</div></div><div class='pp-overlay-gradient'></div>";
 			$passportGated = "gated";
 		} else {
       $passportOverlay = ""; 
