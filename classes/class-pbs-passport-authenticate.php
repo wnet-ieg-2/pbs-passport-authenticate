@@ -18,7 +18,7 @@ class PBS_Passport_Authenticate {
 		$this->assets_dir = trailingslashit( $this->dir ) . 'assets';
 		$this->assets_url = esc_url( trailingslashit( plugins_url( '/assets/', $file ) ) );
     $this->token = 'pbs_passport_authenticate';
-    $this->version = '0.2.5.2';
+    $this->version = '0.2.5.3';
 
 		// Load public-facing style sheet and JavaScript.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -200,4 +200,27 @@ class PBS_Passport_Authenticate {
     return $login_provider;
   }
 
+  public function get_membership_from_access_token($access_token = '', $client_args = array()){
+    /* this function consolidates mvault and laas lookups to return a membership object 
+     * should have been built years ago! */
+    if (!$access_token) {
+      return array('errors' => 'no access token provided');
+    }
+    $laas_client = $this->get_laas_client($client_args);
+    $userinfo = $laas_client->get_latest_pbs_userinfo($access_token);
+    $pid = !empty($userinfo["pid"]) ? $userinfo["pid"] : false;
+    if (!$pid) {
+      return array('errors' => 'bad login');
+    }
+    // presetting this for later
+    $userinfo["membership_info"] = array("offer" => null, "status" => "Off");
+
+    // get the full membership info if available
+    $mvault_client = $this->get_mvault_client();
+    $mvaultinfo = $mvault_client->get_membership_by_uid($pid);
+    if (isset ($mvaultinfo["membership_id"])) {
+      $userinfo["membership_info"] = $mvaultinfo;
+    }  
+    return $userinfo; 
+  }
 }
