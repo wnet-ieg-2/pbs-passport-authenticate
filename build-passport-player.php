@@ -39,7 +39,7 @@ function build_passport_player($video) {
 					MEMBER SIGN IN <span class='icon-passport-compass'><i></i></span>
 				</button></div>
 				<div class='pp-button pbs_passport_authenticate'>
-					<a href='/passport/' class='learn-more'><button class='learn-more'>LEARN MORE <i class='fa fa-arrow-circle-right'></i></button></a>
+					<a href='/passport/' class='learn-more'><button class='learn-more'>LEARN MORE <i class='fa fa-arrow-circle-o-right'></i></button></a>
 				</div>
 			</div></div>";
 			$passportGated = "gated";
