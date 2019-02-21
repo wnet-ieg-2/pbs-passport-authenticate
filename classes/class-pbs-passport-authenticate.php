@@ -213,20 +213,16 @@ class PBS_Passport_Authenticate {
       return array('errors' => 'bad login');
     }
 
+    // preset these for later cleanup
+    $userinfo["membership_info"] = array("offer" => null, "status" => "Off");
+
     // get the full membership info if available
     $mvault_client = $this->get_mvault_client();
     $mvaultinfo = $mvault_client->get_membership_by_uid($pid);
     if (isset ($mvaultinfo["pbs_profile"]["email"])) {
-      $userinfo["membership_id"] = $mvaultinfo["membership_id"];
-      $userinfo["first_name"] = $mvaultinfo["pbs_profile"]["first_name"];
-      $userinfo["last_name"] = $mvaultinfo["pbs_profile"]["last_name"];
-      $userinfo["email"] = $mvaultinfo["pbs_profile"]["email"];
-      $userinfo["login_provider"] = $mvault_client->normalize_login_provider($mvaultinfo["pbs_profile"]["login_provider"]);
-      $userinfo["offer"] = $mvaultinfo["offer"];
-      $userinfo["expire_date"] = $mvaultinfo["expire_date"];
-      $userinfo["grace_period"] = $mvaultinfo["grace_period"];
-      $userinfo["current_state"] = $mvaultinfo["current_state"]; // this will be an array
-    }  
+      $mvaultinfo["pbs_profile"]["login_provider"] = $mvault_client->normalize_login_provider($mvaultinfo["pbs_profile"]["login_provider"]);
+      $userinfo["membership_info"] = $mvaultinfo;
+    }
     return $userinfo; 
   }
 }
