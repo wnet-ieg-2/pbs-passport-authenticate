@@ -20,7 +20,7 @@ function build_passport_player($video) {
 	}
   if ( ($video->window != 'all_members') && ( $video->window != 'station_members') ) {
     // this video is public, just show it
-    return '<div class="passportcoveplayer" data-window="public" data-media="' . $video->tp_media_object_id . '"><div class="embed-container video-wrap"><iframe id="partnerPlayer" marginwidth="0" marginheight="0" scrolling="no" src="//player.pbs.org/widget/partnerplayer/' . $video->tp_media_object_id . '/?chapterbar=false" allowfullscreen="" frameborder="0"></iframe></div></div>';
+    return '<div class="passportcoveplayer" data-window="public" data-media="' . $video->tp_media_object_id . '"><div class="embed-container video-wrap"><iframe id="partnerPlayer" marginwidth="0" marginheight="0" scrolling="no" src="//player.pbs.org/widget/partnerplayer/' . $video->tp_media_object_id . '/?chapterbar=false&endscreen=false" allowfullscreen="" frameborder="0"></iframe></div></div>';
   }
 	// passport video overlay for gated videos.
 	if (PASSPORT_ENABLED && (($video->window == 'all_members') ||( $video->window == 'station_members')) && $coveWindow == 'all') {
