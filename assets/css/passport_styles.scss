@@ -246,6 +246,10 @@ $blue: #008CB6;
 
 
 
+@media screen and ( min-width: 481px ) and ( max-width: 768px ) {
+    .pbs-passport-authenticate-wrap {   padding-left: 2%; padding-right: 2%;}
+}
+
 
 @media screen and (max-width: 480px) {
 
