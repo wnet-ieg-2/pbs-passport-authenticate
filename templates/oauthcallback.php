@@ -25,7 +25,7 @@ $laas_client = $passport->get_laas_client();
 $laas_client->logout();
 
 
-$login_referrer = site_url();
+$login_referrer = !empty($defaults['landing_page_url']) ? $defaults['landing_page_url'] : site_url();
 if (!empty($_COOKIE["pbsoauth_login_referrer"])){
   $login_referrer = $_COOKIE["pbsoauth_login_referrer"];
   setcookie( 'pbsoauth_login_referrer', '', 1, '/', $_SERVER['HTTP_HOST']);
