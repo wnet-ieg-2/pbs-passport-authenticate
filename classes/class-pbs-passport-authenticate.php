@@ -209,15 +209,6 @@ class PBS_Passport_Authenticate {
       error_log("error decoding token: " . json_encode($e));
       return false;
     }
-    $now = time();
-    if ($result->iat > $now || $result->nbf > $now) {
-      // invalid because issued in the future
-      return false;
-    } 
-    if ($result->exp < $now) {
-      // invalid because expired
-      return false;
-    }
     // convert the returned object to an array since thats what was submitted
     return (array)$result;
   }
