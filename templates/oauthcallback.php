@@ -31,14 +31,19 @@ if (!empty($_COOKIE["pbsoauth_login_referrer"])){
   setcookie( 'pbsoauth_login_referrer', '', 1, '/', $_SERVER['HTTP_HOST']);
 }
 
-
+$membership_id = false;
 if (isset($_GET["state"])){
   $state=($_GET["state"]);
+  $jwt = $passport->read_jwt($state);
+  if ($jwt) {
+    $membership_id = (!empty($jwt['sub']) ? $jwt['sub'] : false);
+  } else {
+    // fallback case for older clients when membership_id was passed as a plaintext string
+    $membership_id = (!empty($state) ? $state : false);
+  }
 }
 
-// this WILL be JWT, for now its just the membership_id
-// $jwt = $passport->jwt_decode($state);
-$membership_id = (!empty($state) ? $state : false);
+
 
 $rememberme = false;
 if (!empty($_COOKIE["pbsoauth_rememberme"])) {
