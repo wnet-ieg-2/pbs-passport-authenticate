@@ -3,6 +3,10 @@
 */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+// needed for addition of JWT functionality
+use \Firebase\JWT\JWT;
+require_once(__DIR__ . '/../libs/php-jwt/autoload.php');
+
 class PBS_Passport_Authenticate {
 	private $dir;
 	private $file;
@@ -171,11 +175,40 @@ class PBS_Passport_Authenticate {
     return $mvaultinfo;
   }
 
-  public function create_authentication_jwt($nonce = null, $membership_id = null) {
-
-
-
+  public function create_jwt($payload = array()) {
+    $defaults = $this->defaults;
+    $allowed_algo = 'HS256'; // in the future allow for RS256 etc
+    if (empty($defaults['jwt_secret'])) {
+      error_log("jwt_secret not set -- go to PBS Passport Authenticate settings and save!");
+      return false;
+    }
+    if (empty($payload)) {
+      // got to have something in there
+      return;
+    }
+    // issuer could theoretically be passed in some cases but will normally be this site
+    $payload['iss'] = !empty($payload['iss']) ? $payload['iss'] : get_site_url(null, null, 'https');
+    $payload['aud'] = $payload['iss']; // audience will always be the same as issuer in this application
+    $payload['iat'] = time();
+    $payload['nbf'] = $payload['iat'];
+    $payload['exp'] = $payload['iat'] + 600; // it is possible for a person to take 10 minutes to create a new account with an OAuth2 provider
+    return JWT::encode($payload, $defaults['jwt_secret'], $allowed_algo);
   }
+
+  public function read_jwt($token) {
+    $defaults = $this->defaults;
+    $allowed_algo = 'HS256';
+    if (empty($defaults['jwt_secret'])) {
+      error_log("jwt_secret not set -- go to PBS Passport Authenticate settings and save!");
+      return false;
+    }
+    $result = JWT::decode($token, $defaults['jwt_secret'], array($allowed_algo));
+    // TK - validate claims
+    // convert the returned object to an array since thats what was submitted
+    return (array)$result;
+  }
+
+
 
   public function obscured_login_account($mvaultinfo) {
     $profile_email = !empty($mvaultinfo['pbs_profile']['email']) ? $mvaultinfo['pbs_profile']['email'] : false;
