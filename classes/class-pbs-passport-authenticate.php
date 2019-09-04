@@ -8,7 +8,7 @@ class PBS_Passport_Authenticate {
 	private $file;
 	private $assets_dir;
   private $token;
-
+  private $defaults;
 	public $assets_url;
   public $version;
 
@@ -18,7 +18,8 @@ class PBS_Passport_Authenticate {
 		$this->assets_dir = trailingslashit( $this->dir ) . 'assets';
 		$this->assets_url = esc_url( trailingslashit( plugins_url( '/assets/', $file ) ) );
     $this->token = 'pbs_passport_authenticate';
-    $this->version = '0.2.6.0';
+    $this->defaults = get_option($this->token);
+    $this->version = '0.2.7.0';
 
 		// Load public-facing style sheet and JavaScript.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -88,7 +89,7 @@ class PBS_Passport_Authenticate {
     $render = $args['render'];
     $args['laas_authenticate_script'] = site_url('pbsoauth/authenticate/');
     $args['loginform'] = site_url('pbsoauth/loginform/');
-    $defaults = get_option('pbs_passport_authenticate');
+    $defaults = $this->defaults;
     $args['joinurl'] = $defaults['join_url'];
     $args['activatelink'] =  site_url('pbsoauth/activate/');
     $args['userinfolink'] =  site_url('pbsoauth/userinfo/');
@@ -116,7 +117,7 @@ class PBS_Passport_Authenticate {
   }
 
   public function get_oauth_links($args = null){
-    $defaults = get_option('pbs_passport_authenticate');
+    $defaults = $this->defaults;
     
     $oauthroot = ( !empty($args['oauth2_endpoint']) ? $args['oauth2_endpoint'] : $defaults['oauth2_endpoint'] );
     $redirect_uri = ( !empty($args['redirect_uri']) ? $args['redirect_uri'] : site_url('pbsoauth/callback/') );
@@ -137,7 +138,7 @@ class PBS_Passport_Authenticate {
   }
 
   public function get_laas_client($args = null){
-    $defaults = get_option('pbs_passport_authenticate');
+    $defaults = $this->defaults;
 
     $oauthroot = ( !empty($args['oauth2_endpoint']) ? $args['oauth2_endpoint'] : $defaults['oauth2_endpoint'] );
     $redirect_uri = ( !empty($args['redirect_uri']) ? $args['redirect_uri'] : site_url('pbsoauth/callback/') );
@@ -158,7 +159,7 @@ class PBS_Passport_Authenticate {
   }
 
   public function get_mvault_client(){
-    $defaults = get_option('pbs_passport_authenticate');
+    $defaults = $this->defaults;
     $station_id = ( !empty($defaults['station_id']) ? $defaults['station_id'] : $defaults['station_call_letters'] );
     $mvault_client = new PBS_MVault_Client($defaults['mvault_client_id'], $defaults['mvault_client_secret'],$defaults['mvault_endpoint'], $station_id);
     return $mvault_client;
