@@ -179,8 +179,9 @@ class PBS_Passport_Authenticate {
     $defaults = $this->defaults;
     $allowed_algo = 'HS256'; // in the future allow for RS256 etc
     if (empty($defaults['jwt_secret'])) {
-      error_log("jwt_secret not set -- go to PBS Passport Authenticate settings and save!");
-      return false;
+      $defaults['jwt_secret'] = bin2hex(openssl_random_pseudo_bytes(32));
+      update_option($this->token, $defaults);
+      error_log("jwt_secret not set so generating one and updating in options table");
     }
     if (empty($payload)) {
       // got to have something in there

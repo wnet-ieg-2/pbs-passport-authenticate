@@ -85,6 +85,8 @@ class PBS_Passport_Authenticate_Settings {
 
     add_settings_field( 'cryptkey', 'Encryption key', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'cookie_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'cryptkey', 'class' => 'regular-text', 'type' => 'text',  'label' => 'Encryption key for the token cookie.  Changing this will reset all Passport user logins.', 'default' => bin2hex(openssl_random_pseudo_bytes(32)) ) );
 
+    add_settings_field( 'jwt_secret', 'JWT Secret', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'cookie_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'jwt_secret', 'class' => 'regular-text', 'type' => 'text',  'label' => 'Secret signing key for JWT (Json Web Tokens). This can and should be changed regularly.  Unlike the Encryption key above, changing this will only affect people who are in the middle of the actual signup process.', 'default' => bin2hex(openssl_random_pseudo_bytes(32)) ) );
+
 
 	}
 
