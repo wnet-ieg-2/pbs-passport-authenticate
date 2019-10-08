@@ -18,7 +18,7 @@ if ($membership_id) {
     $membership_id = false;  
   } else {
     $links = $passport->get_oauth_links(array('scope' => 'account vppa'));
-    $jwt = $passport->create_jwt(array("sub" => $membership_id, "not_member_behavior" => "userinfo"));
+    $jwt = $passport->create_jwt(array("sub" => $membership_id, "not_member_path" => "pbsoauth/userinfo"));
     foreach ($links as $type => $link){
       $statestring = "&activation=true&state=";
       if ($type == 'create_pbs') {

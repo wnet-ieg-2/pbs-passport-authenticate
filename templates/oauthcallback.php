@@ -32,11 +32,19 @@ if (!empty($_COOKIE["pbsoauth_login_referrer"])){
 }
 
 $membership_id = false;
+
+// where to direct a logged in visitor who isn't a member
+$not_member_path = 'pbsoauth/userinfo';
+
 if (isset($_GET["state"])){
   $state=($_GET["state"]);
   $jwt = $passport->read_jwt($state);
   if ($jwt) {
-    $membership_id = (!empty($jwt['sub']) ? $jwt['sub'] : false);
+    $membership_id = !empty($jwt['sub']) ? $jwt['sub'] : false;
+    // allow the jwt to override the current value with a return_path
+    $login_referrer = !empty($jwt['return_path']) ? site_url($jwt['return_path']) : $login_referrer;
+    // allow the jwt to set where the authenticated visitor who is not a member is sent
+    $not_member_path = !empty($jwt['not_member_path']) ? $jwt['not_member_path'] : $not_member_path;
   } else {
     // fallback case for older clients when membership_id was passed as a plaintext string
     $membership_id = (!empty($state) ? $state : false);
@@ -79,8 +87,8 @@ if (isset($userinfo["pid"])){
   if (!isset($mvaultinfo["membership_id"])) {
     $mvaultinfo = $mvault_client->get_membership_by_uid($pbs_uid);
     if (!isset($mvaultinfo["membership_id"])) {
-      // still not activated, set the redirect for the userinfo page
-      $login_referrer = site_url('pbsoauth/userinfo');
+      // still not activated, redirect the member as needed
+      $login_referrer = site_url($not_member_path);
     }
   }
 }
