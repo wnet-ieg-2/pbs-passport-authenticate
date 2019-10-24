@@ -275,7 +275,7 @@ $blue: #008CB6;
 @media screen and (max-width: 480px) {
 
 	.pbs-passport-authenticate-wrap {   padding: 4%;}
-	.ppa-wrap {padding: 0;}
+	
 	.service-options {
         padding: 0;
 		li {width: 100%; padding: 2em 0;}
@@ -295,11 +295,19 @@ $blue: #008CB6;
 	.pbs-passport-authenticate.activate form {
 		input, button {font-size: 1em;}
 	}
-	
-	
+
+}
+
+
+
+@media screen and ( max-width: 767px ) {
+	.ppa-wrap {padding: 0;}
 	.ppa-primary {width: 100%; margin: 0 0 1.5em 0;}
 	.ppa-secondary {width: 100%;}
-	
-	
-	
 }
+
+@media screen and ( min-width: 768px ) and ( max-width: 900px ) {
+	.ppa-primary { width: 65%;}
+	.ppa-secondary {width: 32%;}
+}
+
