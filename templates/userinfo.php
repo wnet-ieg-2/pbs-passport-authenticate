@@ -41,8 +41,8 @@ echo "<div class='ppa-wrap cf'>";
 echo "<div class='ppa-primary userinfo-block'>";
 	
 	
-echo "<h3>USER STATUS</h3>";
-echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
+//echo "<h3>USER STATUS</h3>";
+echo "<div class='passport-username'><strong>MEMBER:</strong> " . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
 
 //echo print_r($mvaultinfo);
   $station_nice_name = $defaults['station_nice_name'];
