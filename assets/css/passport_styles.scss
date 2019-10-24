@@ -67,8 +67,8 @@ $blue: #008CB6;
 
 
 body.pbsoauth #pagewrapper {
-	background-color: #fff; width: 100% !important;
-	#page {border: 1px solid red;}
+	background-color: #fff; max-width: 100% !important;
+	#page {border: 1px solid red; max-width: 1200px; margin: 0 auto;}
 }
 
 
