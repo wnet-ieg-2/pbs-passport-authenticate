@@ -187,6 +187,15 @@ $blue: #008CB6;
 .pp-button-outline:hover {  border: 1px solid $blue;   color: $blue;}
 
 
+.pp-button-blue {
+	background-color: $blue; border:0; color: #fff; font-size: 1em; font-weight: 600;  padding: .6em 1em;  text-align: center;
+    text-transform: uppercase;
+	img {  display: inline-block;  float: right;  line-height: 1em;  margin-left: 5px;   width: 1em;}
+}
+.pp-button-blue:hover {background-color: #000;}
+
+
+
 
 .passport-help-text {
 	color: #000; text-align: center; font-size: 1.125em;
