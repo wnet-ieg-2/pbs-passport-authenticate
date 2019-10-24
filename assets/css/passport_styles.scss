@@ -262,17 +262,20 @@ $blue: #008CB6;
 
 
 @media screen and ( min-width: 769px ) and ( max-width: 1000px ) {
-       .pbs-passport-authenticate-wrap {   padding-left: 1em; padding-right: 1em;}
+    .pbs-passport-authenticate-wrap {   padding-left: 1em; padding-right: 1em;}
+	.ppa-wrap {padding: 0;}
 }
 
 @media screen and ( min-width: 481px ) and ( max-width: 768px ) {
     .pbs-passport-authenticate-wrap {   padding-left: 2%; padding-right: 2%;}
+	.ppa-wrap {padding: 0;}
 }
 
 
 @media screen and (max-width: 480px) {
 
 	.pbs-passport-authenticate-wrap {   padding: 4%;}
+	.ppa-wrap {padding: 0;}
 	.service-options {
         padding: 0;
 		li {width: 100%; padding: 2em 0;}
