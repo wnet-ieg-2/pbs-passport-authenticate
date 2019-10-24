@@ -111,7 +111,17 @@ else {
 
 	
 	<div class="ppa-secondary">
-		<?php echo "<p class='passport-help-text border'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>"; ?>
+		
+		<div class="ppa-box">
+			<h3>NEED HELP?</h3>
+			<?php echo "<i class='fa fa-info-circle'></i> " . $defaults['help_text']; ?>
+		</div>
+		
+		<div class="ppa-box">
+			<h3>About <?php echo $defaults['station_nice_name']; ?> Passport</h3>
+			<?php echo "<i class='fa fa-info-circle'></i> " . $defaults['help_text']; ?>
+		</div>
+		
 	</div>
 
 	
