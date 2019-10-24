@@ -114,7 +114,9 @@ else {
 		
 		<div class="ppa-box">
 			<h3 class="boxhead">NEED HELP?</h3>
-			<?php echo "<i class='fa fa-info-circle'></i> " . $defaults['help_text']; ?>
+			<p>Have more questions or technical problems?</p>
+			<p><a href="#"><i class='fa fa-info-circle'></i> VISIT OF FAQS</a></p>
+			<p><a href="tel:###-###-####">CONTACT ########</a></p>
 		</div>
 		
 		<div class="ppa-box">
