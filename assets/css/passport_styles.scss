@@ -272,7 +272,6 @@ body.pbsoauth #pagewrapper {
 
 @media screen and ( min-width: 481px ) and ( max-width: 768px ) {
     .pbs-passport-authenticate-wrap {   padding-left: 2%; padding-right: 2%;}
-	.ppa-wrap {padding: 0;}
 }
 
 
@@ -305,7 +304,6 @@ body.pbsoauth #pagewrapper {
 
 
 @media screen and ( max-width: 767px ) {
-	.ppa-wrap {padding: 0;}
 	.ppa-primary {width: 100%; margin: 0 0 1.5em 0;}
 	.ppa-secondary {width: 100%;}
 }
