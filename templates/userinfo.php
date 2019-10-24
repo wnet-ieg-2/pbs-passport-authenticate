@@ -113,12 +113,12 @@ else {
 	<div class="ppa-secondary">
 		
 		<div class="ppa-box">
-			<h3>NEED HELP?</h3>
+			<h3 class="boxhead">NEED HELP?</h3>
 			<?php echo "<i class='fa fa-info-circle'></i> " . $defaults['help_text']; ?>
 		</div>
 		
 		<div class="ppa-box">
-			<h3>About <?php echo $defaults['station_nice_name']; ?> Passport</h3>
+			<h3 class="boxhead">About <?php echo $defaults['station_nice_name']; ?> Passport</h3>
 			<?php echo "<i class='fa fa-info-circle'></i> " . $defaults['help_text']; ?>
 		</div>
 		
