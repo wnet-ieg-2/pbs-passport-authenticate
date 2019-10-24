@@ -37,7 +37,9 @@ get_header();
 }
 
 
-
+echo "<div class='ppa-primary'>";
+	
+	
 echo "<h3>USER STATUS</h3>";
 echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
 
@@ -104,12 +106,14 @@ else {
  ?>
 
 
+	</div> <!-- .ppa-primary -->
 
+	
+	<div class="ppa-secondary">
+		<?php echo "<p class='passport-help-text border'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>"; ?>
+	</div>
 
-
-<?php echo "<p class='passport-help-text border'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>"; ?>
-
-
+	
 <!--</div>-->
 </div>
 </div>
