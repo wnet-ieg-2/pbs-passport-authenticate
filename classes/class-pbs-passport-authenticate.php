@@ -86,10 +86,12 @@ class PBS_Passport_Authenticate {
 
 	
 	
-
+	// add pbsoauth to body classes.
 	public function ppa_body_classes( $classes ) {
 		if (!empty(get_query_var('pbsoauth'))) {
-			$classes[] = 'pbsoauth';	
+			if (in_array(get_query_var('pbsoauth'), array('authenticate','callback','loginform','activate','userinfo','vppa' ))) {
+				$classes[] = 'pbsoauth';	
+			}
 		}
     	return $classes;
 	}
