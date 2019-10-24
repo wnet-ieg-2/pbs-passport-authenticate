@@ -64,3 +64,12 @@ function pbs_passport_authenticate_render_video($vidid) {
 }
 
 
+
+add_filter( 'body_class', 'ppa_body_classes' );
+function ppa_body_classes( $classes ) {
+        $classes[] = 'pbsoauth';
+    return $classes;
+}
+
+
+
