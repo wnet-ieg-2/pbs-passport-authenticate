@@ -121,7 +121,7 @@ else {
 		
 		<div class="ppa-box">
 			<h3 class="boxhead">About <?php echo $defaults['station_nice_name']; ?> Passport</h3>
-			<?php echo wpautop('@will call something from the admin here') ?>
+			<?php echo wpautop('@will call a text field from the admin here') ?>
 		</div>
 		
 	</div>
