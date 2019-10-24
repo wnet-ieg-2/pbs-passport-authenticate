@@ -112,11 +112,11 @@ else {
 	
 	<div class="ppa-secondary">
 		
-		<div class="ppa-box">
+		<div class="ppa-box help">
 			<h3 class="boxhead">NEED HELP?</h3>
 			<p>Have more questions or technical problems?</p>
-			<p><a href="#"><i class='fa fa-info-circle'></i> VISIT OF FAQS</a></p>
-			<p><a href="tel:###-###-####">CONTACT ########</a></p>
+			<p><a href="#"><i class='fa fa-info-circle'></i> VISIT OUR FAQS</a></p>
+			<p><a href="tel:###-###-####"><i class="fa fa-phone-square"></i> CONTACT ########</a></p>
 		</div>
 		
 		<div class="ppa-box">
