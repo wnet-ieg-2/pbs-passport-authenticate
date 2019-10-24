@@ -37,6 +37,7 @@ get_header();
 }
 
 
+echo "<div class='ppa-wrap cf'>";
 echo "<div class='ppa-primary'>";
 	
 	
@@ -113,6 +114,9 @@ else {
 		<?php echo "<p class='passport-help-text border'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>"; ?>
 	</div>
 
+	
+	</div> <!-- .ppa-wrap -->
+	
 	
 <!--</div>-->
 </div>
