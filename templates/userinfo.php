@@ -31,7 +31,7 @@ get_header();
   echo '<div class="pp-logo-head"><img src="' . $defaults['station_passport_logo'] . '" /></div>'; 
 }
 
-echo "<div class='pp-narrow'>";
+
 
 echo "<h3>USER STATUS</h3>";
 echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
@@ -94,7 +94,7 @@ else {
 }
 
 
-	echo "</div><!-- .pp-narrow -->";
+	
 
  ?>
 
