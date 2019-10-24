@@ -89,7 +89,7 @@ $blue: #008CB6;
 	.pp-narrow {   margin: 0 auto;   max-width: 360px;}
 	
 	.userinfo-block {
- 	   margin-bottom: 1.5em; text-align: center;
+ 	   margin-bottom: 1.5em; text-align: center; border: 1px solid red;
 	   h3 {   color: #2a2a2a;   font-size: 1.375em;   font-weight: 600;   margin: 0 0 0.3em;}
 	   .passport-username, .passport-status {   font-size: 1.6em;}
 	   .pp-narrow {    margin-bottom: 2em;}
@@ -140,8 +140,8 @@ $blue: #008CB6;
 
 .ppa-box {padding: 1em; background-color: #f1f1f1; margin-bottom: 1.5em;}
 .ppa-box h3.boxhead {font-weight: bold; font-size: 1em; margin: 0; color: #000; text-transform: uppercase;}
-
 .ppa-box.help a {font-weight: bold;}
+.ppa-box a:hover {color: #000;}
 
 
 
