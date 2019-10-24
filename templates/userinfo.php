@@ -115,8 +115,8 @@ else {
 		<div class="ppa-box help">
 			<h3 class="boxhead">NEED HELP?</h3>
 			<p>Have more questions or technical problems?</p>
-			<p><a href="#"><i class='fa fa-info-circle'></i> VISIT OUR FAQS</a></p>
-			<p><a href="tel:###-###-####"><i class="fa fa-phone-square"></i> CONTACT ########</a></p>
+			<p><a href="<?php echo $defaults['help_url']; ?>"><i class='fa fa-info-circle'></i> VISIT OUR FAQS</a></p>
+			<p><a href="tel:<?php echo $defaults['help_phone']; ?>"><i class="fa fa-phone-square"></i> CONTACT <?php echo $defaults['help_phone']; ?></a></p>
 		</div>
 		
 		<div class="ppa-box">

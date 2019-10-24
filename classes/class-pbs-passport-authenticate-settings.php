@@ -60,6 +60,15 @@ class PBS_Passport_Authenticate_Settings {
     add_settings_field( 'station_passport_logo', 'Station Passport Logo', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'station_passport_logo', 'class' => 'regular-text', 'label' => 'URL to your logo file that has your station name "locked up" with the Passport logo.  The image will scale as necessary, and should be set for use your default page background (usually white).'  ) );
     add_settings_field( 'station_passport_logo_reverse', 'Station Passport Logo reversed', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'station_passport_logo_reverse', 'class' => 'regular-text', 'label' => 'URL to the reverse color version of your station+Passport logo.  The image will scale as necessary, and should be set for use on the reverse of your background (usually black).'  ) );
     add_settings_field( 'help_text', 'Visitor Help Text', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'help_text', 'class' => 'large-text', 'label' => 'Help text to display to users below login forms.  Can include HTML for links.'  ) );
+		
+	add_settings_field( 'help_url', 'Visitor Help Faq page url', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'help_url', 'class' => 'large-text', 'label' => ''  ) );	
+		
+	add_settings_field( 'help_phone', 'Visitor Help Phone Number', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'help_phone', 'class' => 'large-text', 'label' => ''  ) );
+		
+		
+		
+		
+		
     add_settings_field( 'join_url', 'Join/Donate URL', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'join_url', 'class' => 'regular-text', 'label' => 'Link to the specific donate form people should be directed to from the login screen.'  ) );
     add_settings_field( 'watch_url', 'Watch Programs URL', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'watch_url', 'class' => 'regular-text', 'label' => 'Link to your watch programs landing page.'  ) );
     add_settings_field( 'landing_page_url', 'Post-Login Landing Page URL', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'landing_page_url', 'class' => 'regular-text', 'label' => 'URL a member is sent to after successfully logging in if not clicking in from a video page (or some other page that sets the "login_referrer" cookie).  Defaults to your site home page.'  ) );
