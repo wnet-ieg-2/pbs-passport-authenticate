@@ -26,7 +26,12 @@ get_header();
 ?>
 <div class='pbs-passport-authenticate-wrap cf'>
 <div class="pbs-passport-authenticate userinfo-block">
-<div class='passport-middle'>
+	
+	
+<!--<div class='passport-middle'>-->
+	
+	
+	
 <?php if (!empty($defaults['station_passport_logo'])) {
   echo '<div class="pp-logo-head"><img src="' . $defaults['station_passport_logo'] . '" /></div>'; 
 }
@@ -105,7 +110,7 @@ else {
 <?php echo "<p class='passport-help-text border'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>"; ?>
 
 
-</div>
+<!--</div>-->
 </div>
 </div>
 <?php get_footer();
