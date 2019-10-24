@@ -25,7 +25,7 @@ if (isset ($mvaultinfo["membership_id"])) {
 get_header();
 ?>
 <div class='pbs-passport-authenticate-wrap cf'>
-<div class="pbs-passport-authenticate userinfo-block">
+<div class="pbs-passport-authenticate">
 	
 	
 <!--<div class='passport-middle'>-->
@@ -38,7 +38,7 @@ get_header();
 
 
 echo "<div class='ppa-wrap cf'>";
-echo "<div class='ppa-primary'>";
+echo "<div class='ppa-primary userinfo-block'>";
 	
 	
 echo "<h3>USER STATUS</h3>";
