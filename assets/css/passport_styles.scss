@@ -138,28 +138,28 @@ $blue: #008CB6;
 
 
 .service-sign-in {
-    color: #666; margin-bottom: 1.5em; text-align: center;
-	h3 {font-size: 1.75em; font-weight: 400; margin: 0 0 1em 0;}
+    color: #000; margin-bottom: 1.5em; text-align: center;
+	h3 {font-size: 1.75em; font-weight: bold; margin: 0 0 1em 0;}
 	ul {  margin: 0 auto;}
-	li {  margin-bottom: 0.6em;   padding: 0;}
+	li {  margin-bottom: 1em;   padding: 0;}
 	img {display: block;  height: auto;  max-width: 100%;}
 	img:hover {  opacity: 0.8;}
-	.or { background: url("../img/dash-line.png") center center repeat-x; text-align: center;}
-	.or span {background-color: #fff; color: #999; font-weight: 700;  padding: 0 0.5em;}
+	//.or { background: url("../img/dash-line.png") center center repeat-x; text-align: center;}
+	//.or span {background-color: #fff; color: #999; font-weight: 700;  padding: 0 0.5em;}
 	.create-pbs { 
 		font-weight: 500; padding: 0.5em 0;
 		a { color: $blue;}
 		a:hover {text-decoration: underline;}
 	}
+	.stay-logged-in {margin-top: 1.5em;}
 }
 
 
 .service-options {
-    border-top: 1px solid #666; color: #666;  padding: 1.5em 0; text-align: center; width: 100%;
+     color: #666;   text-align: center; width: 100%; margin-bottom: 2em;
 	h4 {  font-size: 1.275em;  font-weight: 500;  margin: 0 0 .8em 0;}
-	ul {  margin: 0 auto;}
-	li {  float: left;  padding: 0 2em;  width: 50%; margin: 0;}
-	li:first-of-type {  border-right: 1px solid #666;}
+	ul {  margin: 0 -1%; display: flex; flex-wrap: wrap; flex-flow: row wrap;}
+	li {  float: left;  padding: 2em;  width: 48%; margin: 0 1%; border: 1px solid #b7b7b7;}
 	.look-for-email {  font-size: .875em;  margin: 1em 0 0;}
 }
 
@@ -181,7 +181,7 @@ $blue: #008CB6;
 
 
 .passport-help-text {
-	color: #000; text-align: center; font-size: 1.125em;
+	color: #000; text-align: center; font-size: 1.125em; font-weight: bold;
 	.fa {  color: $blue;}
 	a:hover {   text-decoration: underline;}
 }
@@ -250,6 +250,13 @@ $blue: #008CB6;
 
 @media screen and ( min-width: 481px ) and ( max-width: 768px ) {
     .pbs-passport-authenticate-wrap {   padding-left: 2%; padding-right: 2%;}
+	
+	
+	.service-options {
+		ul {  margin: 0;}
+	}
+
+	
 }
 
 
@@ -258,8 +265,8 @@ $blue: #008CB6;
 	.pbs-passport-authenticate-wrap {   padding: 4%;}
 	.service-options {
         padding: 0;
-		li {width: 100%; padding: 2em 0;}
-		li:first-of-type {border: 0; border-bottom: 1px solid #333; }
+		li {width: 100%; padding: 1em;}
+		li:first-of-type {margin-bottom: 1.5em;}
 		h4 {font-size: 1.275em; font-weight: 500;}
 		.look-for-email {font-size: 0.875em; margin: 1em 0 0 0;}
 	}

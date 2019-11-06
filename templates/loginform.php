@@ -74,9 +74,9 @@ echo "</div>";
   <?php } ?>
 	<ul>
 	<li class="google"><a href="<?php echo($links['google']); ?>" title="Sign in with Google"><img src="<?php echo $pluginImageDir; ?>/sign-in-google.png" /></a></li>
-	<li class='or'><span>OR</span></li>
+	
 	<li class="facebook"><a href="<?php echo($links['facebook']); ?>" title="Sign in with Facebook"><img src="<?php echo $pluginImageDir; ?>/sign-in-facebook.png" /></a></li>
-	<li class='or'><span>OR</span></li>
+
 	<li class="pbs"><a href="<?php echo($links['pbs']); ?>" title="Sign in with PBS Account"><img src="<?php echo $pluginImageDir; ?>/sign-in-pbs.png" /></a>
   <?php if ($membership_id){ ?>
 		<div class='create-pbs'>Don't have a PBS account? <a href="<?php echo($links['create_pbs']); ?>">Create one!</a></div>
@@ -109,7 +109,7 @@ echo "</div>";
 	</ul>
 	</div>
 	<?php } ?>
-	<?php if (!empty($defaults['help_text'])) {echo "<p class='passport-help-text border'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>";} ?>
+	<?php if (!empty($defaults['help_text'])) {echo "<p class='passport-help-text'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>";} ?>
 
 </div><!-- .passport-login-wrap -->
 
