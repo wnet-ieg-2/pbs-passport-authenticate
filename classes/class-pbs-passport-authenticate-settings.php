@@ -61,10 +61,6 @@ class PBS_Passport_Authenticate_Settings {
     add_settings_field( 'station_passport_logo_reverse', 'Station Passport Logo reversed', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'station_passport_logo_reverse', 'class' => 'regular-text', 'label' => 'URL to the reverse color version of your station+Passport logo.  The image will scale as necessary, and should be set for use on the reverse of your background (usually black).'  ) );
     add_settings_field( 'help_text', 'Visitor Help Text', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'help_text', 'class' => 'large-text', 'label' => 'Help text to display to users below login forms.  Can include HTML for links.'  ) );
 		
-	add_settings_field( 'help_url', 'Visitor Help Faq page url', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'help_url', 'class' => 'regular-text', 'label' => ''  ) );	
-		
-	add_settings_field( 'help_phone', 'Visitor Help Phone Number', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'help_phone', 'class' => 'regular-text', 'label' => ''  ) );
-		
 		
 		
 		
