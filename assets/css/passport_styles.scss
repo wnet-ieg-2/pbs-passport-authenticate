@@ -145,7 +145,7 @@ body.pbsoauth #pagewrapper {
 .ppa-box h3.boxhead {font-weight: bold; font-size: 1em; margin: 0; color: #000; text-transform: uppercase;}
 .ppa-box.help a {font-weight: bold;}
 .ppa-box a:hover {color: #000;}
-
+.ppa-box span {padding: .75em 0; display: block;}
 
 
 
@@ -176,11 +176,12 @@ body.pbsoauth #pagewrapper {
 }
 
 .activate-options {
-    color: #666; text-align: center;
+    color: #666; 
 	ul {   margin: 0 auto;}
-	li {   float: left;   margin-bottom: 1.5em;   width: 100%;}
+	li {   float: left;   margin-bottom: 1.5em; margin-right: 5%;   width: 45%;}
 	h4 {   font-size: 1.275em;   font-weight: 500;   margin-bottom: 0.8em;}
 	h4 strong {   color: #018cb7;}
+  button { width: 100%; }
 }
 
 .pp-button-outline {
@@ -313,6 +314,7 @@ body.pbsoauth #pagewrapper {
 @media screen and ( max-width: 767px ) {
 	.ppa-primary {width: 100%; margin: 0 0 1.5em 0;}
 	.ppa-secondary {width: 100%;}
+  .activate-options li {width: 100%; float: none; margin-right: 0;}
 }
 
 @media screen and ( min-width: 768px ) and ( max-width: 900px ) {
