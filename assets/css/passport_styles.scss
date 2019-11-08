@@ -67,6 +67,10 @@ $blue: #008CB6;
 
 
 
+body.pbsoauth #pagewrapper {
+	background-color: #fff; max-width: 100% !important;
+	#page {max-width: 1200px; margin: 0 auto;}
+}
 
 
 .pbs-passport-authenticate-wrap {
@@ -89,10 +93,9 @@ $blue: #008CB6;
 	.pp-narrow {   margin: 0 auto;   max-width: 360px;}
 	
 	.userinfo-block {
- 	   margin-bottom: 1.5em; text-align: center;
-	   h3 {   color: #2a2a2a;   font-size: 1.375em;   font-weight: 600;   margin: 0 0 0.3em;}
+	   //h3 {   color: #2a2a2a;   font-size: 1.375em;   font-weight: 600;   margin: 0 0 0.3em;}
 	   .passport-username, .passport-status {   font-size: 1.6em;}
-	   .pp-narrow {    margin-bottom: 2em;}
+	   
 	}
 	
 	.passport-not-setup {  color: #858585;   margin-bottom: 1.5em;}
@@ -133,6 +136,15 @@ $blue: #008CB6;
 .passport-small { font-size: 0.8em;}
 
 
+
+.ppa-wrap {padding-top: 1em; text-align: left;}
+.ppa-primary {float: left; width: 70%; margin-right: 3%; color: #000;}
+.ppa-secondary {float: left; width: 27%; }
+
+.ppa-box {padding: 1em; background-color: #f1f1f1; margin-bottom: 1.5em;}
+.ppa-box h3.boxhead {font-weight: bold; font-size: 1em; margin: 0; color: #000; text-transform: uppercase;}
+.ppa-box.help a {font-weight: bold;}
+.ppa-box a:hover {color: #000;}
 
 
 
@@ -177,6 +189,15 @@ $blue: #008CB6;
 	img {  display: inline-block;  float: right;  line-height: 1em;  margin-left: 5px;   width: 1em;}
 }
 .pp-button-outline:hover {  border: 1px solid $blue;   color: $blue;}
+
+
+.pp-button-blue {
+	background-color: $blue; border:0; color: #fff; font-size: 1em; font-weight: 600;  padding: .6em 1em;  text-align: center;
+    text-transform: uppercase;
+	img {  display: inline-block;  float: right;  line-height: 1em;  margin-left: 5px;   width: 1em;}
+}
+.pp-button-blue:hover {background-color: #000;}
+
 
 
 
@@ -244,8 +265,9 @@ $blue: #008CB6;
 
 
 
-@media screen and ( min-width: 769px ) and ( max-width: 1000px ) {
-       .pbs-passport-authenticate-wrap {   padding-left: 1em; padding-right: 1em;}
+@media screen and ( min-width: 769px ) and ( max-width: 1200px ) {
+    .pbs-passport-authenticate-wrap {   padding-left: 1em; padding-right: 1em;}
+	
 }
 
 @media screen and ( min-width: 481px ) and ( max-width: 768px ) {
@@ -263,6 +285,7 @@ $blue: #008CB6;
 @media screen and (max-width: 480px) {
 
 	.pbs-passport-authenticate-wrap {   padding: 4%;}
+	
 	.service-options {
         padding: 0;
 		li {width: 100%; padding: 1em;}
@@ -282,5 +305,18 @@ $blue: #008CB6;
 	.pbs-passport-authenticate.activate form {
 		input, button {font-size: 1em;}
 	}
-	
+
 }
+
+
+
+@media screen and ( max-width: 767px ) {
+	.ppa-primary {width: 100%; margin: 0 0 1.5em 0;}
+	.ppa-secondary {width: 100%;}
+}
+
+@media screen and ( min-width: 768px ) and ( max-width: 900px ) {
+	.ppa-primary { width: 65%;}
+	.ppa-secondary {width: 32%;}
+}
+

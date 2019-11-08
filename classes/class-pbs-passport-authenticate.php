@@ -35,6 +35,8 @@ class PBS_Passport_Authenticate {
     add_action( 'init', array($this, 'setup_rewrite_rules') );
     add_filter( 'query_vars', array($this, 'register_query_vars') );
     add_action( 'template_include', array($this, 'rewrite_templates') );
+		
+	add_filter( 'body_class', array($this, 'ppa_body_classes') );	
 	}
 
   public function enqueue_scripts() {
@@ -82,6 +84,21 @@ class PBS_Passport_Authenticate {
     return $template;
   }
 
+	
+	
+	// add pbsoauth to body classes.
+	public function ppa_body_classes( $classes ) {
+		if (!empty(get_query_var('pbsoauth'))) {
+			if (in_array(get_query_var('pbsoauth'), array('authenticate','callback','loginform','activate','userinfo','vppa' ))) {
+				$classes[] = 'pbsoauth';	
+			}
+		}
+    	return $classes;
+	}
+	
+	
+	
+	
   public function do_shortcode( $atts ) {
     $allowed_args = array('login_text' => 'Sign in', 'render' => 'all' );
     $args = array();

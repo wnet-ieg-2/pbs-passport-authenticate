@@ -62,5 +62,3 @@ function pbs_passport_authenticate_render_video($vidid) {
 
 
 }
-
-

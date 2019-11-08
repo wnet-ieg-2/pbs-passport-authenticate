@@ -25,16 +25,24 @@ if (isset ($mvaultinfo["membership_id"])) {
 get_header();
 ?>
 <div class='pbs-passport-authenticate-wrap cf'>
-<div class="pbs-passport-authenticate userinfo-block">
-<div class='passport-middle'>
+<div class="pbs-passport-authenticate">
+	
+	
+<!--<div class='passport-middle'>-->
+	
+	
+	
 <?php if (!empty($defaults['station_passport_logo'])) {
   echo '<div class="pp-logo-head"><img src="' . $defaults['station_passport_logo'] . '" /></div>'; 
 }
 
-echo "<div class='pp-narrow'>";
 
-echo "<h3>USER STATUS</h3>";
-echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
+echo "<div class='ppa-wrap cf'>";
+echo "<div class='ppa-primary userinfo-block'>";
+	
+	
+//echo "<h3>USER STATUS</h3>";
+echo "<div class='passport-username'><strong>MEMBER:</strong> " . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
 
 //echo print_r($mvaultinfo);
   $station_nice_name = $defaults['station_nice_name'];
@@ -45,7 +53,7 @@ echo "<div class='passport-username'>" . $userinfo['first_name'] . " " . $userin
 /* active member */
 if ( !empty($userinfo['membership_info']['offer']) && $userinfo['membership_info']['status'] == "On" && $userinfo['vppa_status'] == 'valid') {
 	echo "<p class='passport-status'>$station_nice_name Passport <i class='fa fa-check-circle passport-green'></i></p>";
-	if (!empty($watch_url)) {echo "<p><a href='$watch_url'><button class='pp-button-outline'>Watch Programs <i class='fa fa-arrow-circle-right'></i></button></a></p>";}
+	if (!empty($watch_url)) {echo "<p><a href='$watch_url'><button class='pp-button-blue'>Watch Programs <i class='fa fa-arrow-circle-right'></i></button></a></p>";}
 }
 
 /* not an active member */
@@ -94,18 +102,35 @@ else {
 }
 
 
-	echo "</div><!-- .pp-narrow -->";
+	
 
  ?>
 
 
+	</div> <!-- .ppa-primary -->
 
+	
+	<div class="ppa-secondary">
+		
+		<div class="ppa-box help">
+			<h3 class="boxhead">NEED HELP?</h3>
+			<p>Have more questions or technical problems?</p>
+			<p><a href="<?php echo $defaults['help_url']; ?>"><i class='fa fa-info-circle'></i> VISIT OUR FAQS</a></p>
+			<p><a href="tel:<?php echo $defaults['help_phone']; ?>"><i class="fa fa-phone-square"></i> CONTACT <?php echo $defaults['help_phone']; ?></a></p>
+		</div>
+		
+		<div class="ppa-box">
+			<h3 class="boxhead">About <?php echo $defaults['station_nice_name']; ?> Passport</h3>
+			<?php echo wpautop('@will call a text field from the admin here') ?>
+		</div>
+		
+	</div>
 
-
-<?php echo "<p class='passport-help-text border'><i class='fa fa-info-circle'></i> " . $defaults['help_text'] . "</p>"; ?>
-
-
-</div>
+	
+	</div> <!-- .ppa-wrap -->
+	
+	
+<!--</div>-->
 </div>
 </div>
 <?php get_footer();
