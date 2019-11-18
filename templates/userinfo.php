@@ -64,7 +64,7 @@ elseif ( empty($userinfo['membership_info']['offer']) && $userinfo['membership_i
 	
 	
 	
-	echo "<li class='passport-not-setup'><p>Your $station_nice_name Passport account is not setup with the account you've logged in with.
+	echo "<li class='passport-not-setup alt-font'><p>Your $station_nice_name Passport account is not setup with the account you've logged in with.
 $station_nice_name Passport is a benefit for eligible members of $station_nice_name.</p>
 
 	<p>If you are a member, please choose an option below. If you are not a member, use the \"Become a Member\" button.</p> </li>";
@@ -88,7 +88,13 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 
   //echo "<li class='service-login-link loginproblem'><p>I have <strong>already activated</strong></p><div class='pbs_passport_authenticate'><a class='signout'><button class='pp-button-blue'>Try a different login</button></a></div></li>";
 
-	echo "</ul></div><!-- .activate-options --><p>Do you have an activated $station_nice_name Passport membership that you've used before?</p><p>The account you are logged in with may not be the one you signed up for Passport with. Please try <span class='pbs_passport_authenticate'><a class='signout'>signing out</a></span> and clicking 'Member Sign In' to sign in with a Passport activated account.</p>";
+	echo "</ul></div><!-- .activate-options -->
+	
+	<div class='alt-font'>
+	<p>Do you have an activated $station_nice_name Passport membership that you've used before?</p><p>The account you are logged in with may not be the one you signed up for Passport with. Please try <span class='pbs_passport_authenticate'><a class='signout'>signing out</a></span> and clicking 'Member Sign In' to sign in with a Passport activated account.</p>
+	</div>
+	
+	";
 
 }
 
