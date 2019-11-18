@@ -88,7 +88,7 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 
   //echo "<li class='service-login-link loginproblem'><p>I have <strong>already activated</strong></p><div class='pbs_passport_authenticate'><a class='signout'><button class='pp-button-blue'>Try a different login</button></a></div></li>";
 
-	echo "</ul></div><!-- .activate-options --><p>If you have an activated $station_nice_name Passport membership that you have previously used, you may currently be signed in with a different login than when you activated $station_nice_name Passport. If you think this is the case, <span class='pbs_passport_authenticate'><a class='signout'>sign out</a></span> and try 'Member Sign In' again with a different account.</p>";
+	echo "</ul></div><!-- .activate-options --><p>Do you have an activated $station_nice_name Passport membership that you've used before?</p><p>The account you are logged in with may not be the one you signed up for Passport with. Please try <span class='pbs_passport_authenticate'><a class='signout'>signing out</a></span> and clicking 'Member Sign In' to sign in with a Passport activated account.</p>";
 
 }
 
