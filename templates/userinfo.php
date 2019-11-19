@@ -91,7 +91,7 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 	echo "</ul></div><!-- .activate-options -->
 	
 	<div class='alt-font'>
-	<p>Do you have an activated $station_nice_name Passport membership that you've used before?</p><p>The account you are logged in with may not be the one you signed up for Passport with. Please try <span class='pbs_passport_authenticate'><a class='signout'>signing out</a></span> and clicking 'Member Sign In' to sign in with a Passport activated account.</p>
+	<p>Do you have an activated $station_nice_name Passport membership that you've used before?</p><p>The account you are logged in with may not be the one you signed up for $station_nice_name Passport with. Please try <span class='pbs_passport_authenticate'><a class='signout'>signing out</a></span> and clicking 'Member Sign In' to sign in with a $station_nice_name Passport activated account.</p>
 	</div>
 	
 	";
