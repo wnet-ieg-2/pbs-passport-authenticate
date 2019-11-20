@@ -64,7 +64,7 @@ elseif ( empty($userinfo['membership_info']['offer']) && $userinfo['membership_i
 	
 	
 	
-	echo "<li class='passport-not-setup alt-font'><p>Your $station_nice_name Passport account is not setup with the account you've logged in with.
+	echo "<li class='passport-not-setup alt-font'><p>Your $station_nice_name Passport membership is not setup with the account you've logged in with.
 $station_nice_name Passport is a benefit for eligible members of $station_nice_name.</p>
 
 	<p>If you are a member, please choose an option below. If you are not a member, use the \"Become a Member\" button.</p> </li>";
