@@ -98,8 +98,8 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 
 }
 
-/* needs VPPA */
-elseif ( $userinfo['vppa_status'] != 'valid') {
+/* Valid member needs VPPA */
+elseif ( $userinfo['vppa_status'] != 'valid' && $userinfo['membership_info']['status'] == "On") {
   wp_redirect(site_url('pbsoauth/vppa'));
   exit;
 }
