@@ -98,6 +98,10 @@ body.pbsoauth #pagewrapper {
 	   
 	}
 	
+	
+	.passport-status {text-transform: uppercase;}
+	
+	
 	.alt-font {font-family: "Halant";}
 	
 	.passport-not-setup {  color: #000;   margin-bottom: 1.5em; }
@@ -267,7 +271,8 @@ body.pbsoauth #pagewrapper {
 }
 
 
-.ppa-user-wrap {border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc; padding: 1.5em 0; margin-bottom: 1.5em 0;}
+.ppa-page-header {color: #000; text-align: center;}
+.ppa-user-wrap {border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc; padding: 1.5em 0; margin: 1.5em 0; line-height: 1.5em;}
 .pp-logo-inline {max-width: 50%;}
 
 

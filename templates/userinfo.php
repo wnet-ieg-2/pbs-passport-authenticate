@@ -30,7 +30,7 @@ get_header();
 	
 <!--<div class='passport-middle'>-->
 	
-	<h1>USER PROFILE</h1>
+	<h1 class='ppa-page-header'>USER PROFILE</h1>
 	
 <?php 
 
