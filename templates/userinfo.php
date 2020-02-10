@@ -116,6 +116,9 @@ else {
 
  ?>
 
+	
+	<div class='ppa recent-videos-list cf'> <!-- populated with js --></div>
+	
 
 	</div> <!-- .ppa-primary -->
 
