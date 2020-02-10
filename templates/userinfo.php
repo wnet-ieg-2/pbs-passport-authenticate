@@ -30,16 +30,18 @@ get_header();
 	
 <!--<div class='passport-middle'>-->
 	
+	<h1>USER PROFILE</h1>
 	
-	
-<?php if (!empty($defaults['station_passport_logo'])) {
-  echo '<div class="pp-logo-head"><img src="' . $defaults['station_passport_logo'] . '" /></div>'; 
-}
-
+<?php 
 
 echo "<div class='ppa-wrap cf'>";
 echo "<div class='ppa-primary userinfo-block'>";
 	
+	
+	if (!empty($defaults['station_passport_logo'])) {
+  echo '<div class="pp-logo-head"><img src="' . $defaults['station_passport_logo'] . '" /></div>'; 
+}
+
 	
 
 //echo print_r($mvaultinfo);
