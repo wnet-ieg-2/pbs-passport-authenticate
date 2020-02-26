@@ -91,6 +91,7 @@ class PBS_Passport_Authenticate {
 		if (!empty(get_query_var('pbsoauth'))) {
 			if (in_array(get_query_var('pbsoauth'), array('authenticate','callback','loginform','activate','userinfo','vppa' ))) {
 				$classes[] = 'pbsoauth';	
+				if ($classes[0] == 'home') { unset($classes[0]); }
 			}
 		}
     	return $classes;

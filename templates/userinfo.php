@@ -30,16 +30,16 @@ get_header();
 	
 <!--<div class='passport-middle'>-->
 	
+	<h1 class='ppa-page-header'>USER PROFILE</h1>
 	
-	
-<?php if (!empty($defaults['station_passport_logo'])) {
-  echo '<div class="pp-logo-head"><img src="' . $defaults['station_passport_logo'] . '" /></div>'; 
-}
-
+<?php 
 
 echo "<div class='ppa-wrap cf'>";
 echo "<div class='ppa-primary userinfo-block'>";
 	
+	
+	
+
 	
 
 //echo print_r($mvaultinfo);
@@ -47,17 +47,26 @@ echo "<div class='ppa-primary userinfo-block'>";
   $join_url = $defaults['join_url'];
   $watch_url = $defaults['watch_url'];
   
+	
+	
+	echo "<div class='passport-username'><strong>MEMBER:</strong> " . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
+	
+	echo "<div class='ppa-user-wrap cf'>";
 
+	if (!empty($defaults['station_passport_logo'])) {echo '<div class="pp-logo-inline"><img src="' . $defaults['station_passport_logo'] . '" /></div>';}
+	
+	
 /* active member */
 if ( !empty($userinfo['membership_info']['offer']) && $userinfo['membership_info']['status'] == "On" && $userinfo['vppa_status'] == 'valid') {
-  echo "<div class='passport-username'><strong>MEMBER:</strong> " . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
+
 	echo "<p class='passport-status'>$station_nice_name Passport <i class='fa fa-check-circle passport-green'></i></p>";
 	if (!empty($watch_url)) {echo "<div class='activate-options cf'><ul><li class='service-login-link watch'><p><a href='$watch_url'><button class='pp-button-blue'>Watch Programs</button></a></p></li></ul></div>";}
+
 }
 
 /* not an active member */
 elseif ( empty($userinfo['membership_info']['offer']) && $userinfo['membership_info']['status'] == "Off") {
-  echo "<div class='passport-username'><strong>NAME:</strong> " . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
+
 	$active_url = site_url('pbsoauth/activate');
 	echo "<div class='login-wrap cf'><ul>";
 	echo "<li><p class='passport-status'><strong>STATUS:</strong> Not activated <span class='passport-exclamation'><i class='fa fa-exclamation'></i></span></p></li>";
@@ -112,10 +121,12 @@ else {
 }
 
 
-	
 
  ?>
 
+	
+	</div> <!-- .ppa-user-wrap -->
+	
 	
 	<div class='ppa recent-videos-list cf'> <!-- populated with js --></div>
 	
