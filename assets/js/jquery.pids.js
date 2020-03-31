@@ -171,14 +171,9 @@ jQuery(document).ready(function($) {
              welcomestring = '<a href="#" class="toggle-user-drop userlink">' + thumbimage + '<span class="name">' + user.first_name + '</span></a> <ul class="user-drop"><li><a href="' + userinfolink + '">USER STATUS</a></li><li><a  class="signout">SIGN OUT</a></li></ul>';
             $('.pbs_passport_authenticate div.messages-new').html(welcomestring);
 			
-			if (typeof makeNavObserver == 'function') { 	
-				// this is defined in station-wrapper-js.
-				console.log('addNavObserver');
-		 		if (window["MutationObserver"]) { makeNavObserver('.toggle-user-drop', '.user-drop'); }
+			if (typeof makeNavObserverPids == 'function') { 	
+		 		if (window["MutationObserver"]) { makeNavObserverPids('.toggle-user-drop', '.user-drop'); }
 	 		}
-			else {
-				console.log('not defined');
-			}
 			
         }
         else {
@@ -279,6 +274,19 @@ jQuery(document).ready(function($) {
 	        if (sParameterName[0] == sParam) {return sParameterName[1];}
     	}
 	}
+	
+	
+	function makeNavObserverPids(buttonClass, dropClass) {
+		var watchobserver = new MutationObserver(function() {
+			setTimeout(function(){
+            visible = $(dropClass).is(":visible");
+                if (visible == false) {$(buttonClass).removeClass('open');}
+                else {$(buttonClass).addClass('open');}
+            }, 100);
+    		});
+    	watchobserver.observe(document.querySelector(dropClass), {attributes: true});
+	}
+	
   
   
 });
