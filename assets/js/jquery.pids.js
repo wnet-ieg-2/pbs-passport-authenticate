@@ -168,7 +168,7 @@ jQuery(document).ready(function($) {
         if ($(".pbs_passport_authenticate div.messages-new")[0]){
             // new version of messages with drop down menu...
             if (user.thumbnail_URL) {thumbimage = "<span><img src=" + user.thumbnail_URL + " /></span>";}	
-             welcomestring = '<a href="#" class="userlink">' + thumbimage + '<span class="name">' + user.first_name + '</span></a> <ul class="user-drop"><li><a href="' + userinfolink + '">USER STATUS</a></li><li><a  class="signout">SIGN OUT</a></li></ul>';
+             welcomestring = '<a href="#" class="toggle-user-drop userlink">' + thumbimage + '<span class="name">' + user.first_name + '</span></a> <ul class="user-drop"><li><a href="' + userinfolink + '">USER STATUS</a></li><li><a  class="signout">SIGN OUT</a></li></ul>';
             $('.pbs_passport_authenticate div.messages-new').html(welcomestring);
         }
         else {
