@@ -173,6 +173,7 @@ jQuery(document).ready(function($) {
 			
 			if (typeof makeNavObserver !== "undefined") {
 				// this is defined in station-wrapper-js.
+				console.log('addNavObserver');
 		 		if (window["MutationObserver"]) { makeNavObserver('.toggle-user-drop', '.user-drop'); }
 	 		}
 			
