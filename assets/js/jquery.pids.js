@@ -170,6 +170,12 @@ jQuery(document).ready(function($) {
             if (user.thumbnail_URL) {thumbimage = "<span><img src=" + user.thumbnail_URL + " /></span>";}	
              welcomestring = '<a href="#" class="toggle-user-drop userlink">' + thumbimage + '<span class="name">' + user.first_name + '</span></a> <ul class="user-drop"><li><a href="' + userinfolink + '">USER STATUS</a></li><li><a  class="signout">SIGN OUT</a></li></ul>';
             $('.pbs_passport_authenticate div.messages-new').html(welcomestring);
+			
+			if (typeof makeNavObserver !== "undefined") {
+				// this is defined in station-wrapper-js.
+		 		if (window["MutationObserver"]) { makeNavObserver('.toggle-user-drop', '.user-drop'); }
+	 		}
+			
         }
         else {
             // old version of messages
