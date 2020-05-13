@@ -155,6 +155,7 @@ class PBS_Passport_Authenticate {
     $return['pbs'] = $oauthroot . 'authorize/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring; 
     $return['google'] = $oauthroot . 'social/login/google-oauth2/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring;
     $return['facebook'] = $oauthroot . 'social/login/facebook/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring;
+    $return['apple'] = $oauthroot . 'social/login/apple/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring;
     $return['create_pbs'] = $oauthroot . 'register/?next=' . urlencode('/oauth2/authorize/?redirect_uri=' . $redirect_uri . '&response_type=code&client_id=' . $client_id . $scopestring);
     return $return;
   }
@@ -242,13 +243,13 @@ class PBS_Passport_Authenticate {
   } 
   
   public function get_login_provider($mvaultinfo) {
-    /* this function looks at the mvaultinfo either returns 'pbs', 'google', 'facebook', or if unknown, FALSE 
+    /* this function looks at the mvaultinfo either returns 'pbs', 'google', 'facebook', 'apple' or if unknown, FALSE 
      * it prioritizes the local cookie over what is in the mvault */
     $login_provider = FALSE;
     if (!empty($mvaultinfo['pbs_profile']['login_provider'])) {
       $mvault_client = $this->get_mvault_client();
       $login_provider = $mvault_client->normalize_login_provider($mvaultinfo['pbs_profile']['login_provider']);
-      if ( !in_array($login_provider, array("pbs", "google", "facebook") ) ) {
+      if ( !in_array($login_provider, array("pbs", "google", "facebook", "apple") ) ) {
         $login_provider = FALSE;
       }
     }
