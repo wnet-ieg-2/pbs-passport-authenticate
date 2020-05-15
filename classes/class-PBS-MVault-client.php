@@ -352,15 +352,18 @@ class PBS_MVault_Client {
   public function normalize_login_provider($providerstring) {
     /* PBS has used many different strings for the "login_provider"
      * returned in the pbs_profile block.   This matches those variants
-     * and returns either "google", "facebook", or "pbs" */
+     * and returns either "google", "facebook", "apple", or "pbs" */
     $providerstring = strtolower(trim($providerstring));
     $google = array('google', 'googleplus', 'google-oauth2');
     $facebook = array('facebook');
+    $apple = array('apple');
     $pbs = array('pbs', 'openid');
     if (in_array($providerstring, $google)) {
       $providerstring = 'google';
     } else if (in_array($providerstring, $facebook)) {
       $providerstring = 'facebook';
+    } else if (in_array($providerstring, $apple)) {
+      $providerstring = 'apple';
     } else if (in_array($providerstring, $pbs)) {
       $providerstring = 'pbs';
     } else {

@@ -83,7 +83,7 @@ if (isset ($mvaultinfo["membership_id"])) {
   // We will now attempt to determine what the users current login_provider is
   // mvault is fallback
   $login_provider = !empty($mvaultinfo["pbs_profile"]["login_provider"]) ? strtolower($mvaultinfo["profile"]["pbs_login_provider"]) : false; 
-  if ( !in_array($login_provider, array("pbs", "google", "facebook") ) ) {
+  if ( !in_array($login_provider, array("pbs", "google", "facebook", "apple") ) ) {
     $login_provider = "pbs";
   }
   // what they last used on the website is better option
