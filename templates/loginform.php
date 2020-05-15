@@ -73,17 +73,13 @@ echo "</div>";
  	<p>If you have already activated your <?php echo $station_nice_name; ?> Passport benefit, please sign in below.</p>
   <?php } ?>
 	<ul>
-	<li class="google"><a href="<?php echo($links['google']); ?>" title="Sign in with Google"><img src="<?php echo $pluginImageDir; ?>/sign-in-google.png" /></a></li>
-	
-	<li class="facebook"><a href="<?php echo($links['facebook']); ?>" title="Sign in with Facebook"><img src="<?php echo $pluginImageDir; ?>/sign-in-facebook.png" /></a></li>
-
-	<li class="pbs"><a href="<?php echo($links['pbs']); ?>" title="Sign in with PBS Account"><img src="<?php echo $pluginImageDir; ?>/sign-in-pbs.png" /></a>
-
-  <li class="apple"><a href="<?php echo($links['apple']); ?>" title="Sign in with Apple"><img src="<?php echo $pluginImageDir; ?>/sign-in-apple.png" /></a></li>
-
+  <li class="pbs"><a href="<?php echo($links['pbs']); ?>" title="Sign in with PBS Account"><img src="<?php echo $pluginImageDir; ?>/sign-in-pbs.png" /></a>
   <?php if ($membership_id){ ?>
-		<div class='create-pbs'>Don't have a PBS account? <a href="<?php echo($links['create_pbs']); ?>">Create one!</a></div>
+    <div class='create-pbs'>Don't have a PBS account? <a href="<?php echo($links['create_pbs']); ?>">Create one!</a></div>
   <?php } ?>
+	<li class="google"><a href="<?php echo($links['google']); ?>" title="Sign in with Google"><img src="<?php echo $pluginImageDir; ?>/sign-in-google.png" /></a></li>
+	<li class="facebook"><a href="<?php echo($links['facebook']); ?>" title="Sign in with Facebook"><img src="<?php echo $pluginImageDir; ?>/sign-in-facebook.png" /></a></li>
+  <li class="apple"><a href="<?php echo($links['apple']); ?>" title="Sign in with Apple"><img src="<?php echo $pluginImageDir; ?>/sign-in-apple.png" /></a></li>
 	</li>
 	<li class="stay-logged-in"><input type="checkbox" id="pbsoauth_rememberme" name="pbsoauth_rememberme" value="true" checked /> Keep me logged in on this device</li>
 	</ul>
