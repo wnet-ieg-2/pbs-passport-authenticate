@@ -2,9 +2,8 @@
 
 WNET Interactive Engagement Group (IEG) is pleased to share the source code for our 'PBS Passport Authenticate' WordPress plugin with any PBS station, free of charge, under the terms of the GNU General Public License (attached below and included with the plugin source code).    
 
-The 'PBS Passport Authenticate' plugin, when installed in a PBS station website running WordPress, creates a turnkey system where a station member who has an account within the PBS Membership Vault can login to the station website using Google, Facebook, or the member's 'PBS Account'.   If the member has 'activated' via PBS.org, or used the included 'activation' form that is part of our plugin, the station website can show or hide content -- including embedded Passport video -- on the station website based on the visitor's status as a Passport-eliglble member of the station.
+The 'PBS Passport Authenticate' plugin, when installed in a PBS station website running WordPress, creates a turnkey system where a station member who has an account within the PBS Membership Vault can login to the station website using Google, Facebook, Apple, or the member's 'PBS Account'.   If the member has 'activated' via PBS.org, or used the included 'activation' form that is part of our plugin, the station website can show or hide content -- including embedded Passport video -- on the station website based on the visitor's status as a Passport-eliglble member of the station.
 
-## NOTICE:  PBS is updating their login system considerably on December 4th, 2017. Version 0.2.5.0 or higher of this plugin is required if you want to display Passport video on your website after that date!
 
 ### Notes: 
 * We do not provide membership donation or creation forms, nor any process to send 'activation codes' to members.   If your station uses an 'instant gratification' donation process that generates activation links or activation codes, it is likely possible to adapt that process to use our included activation form.  We've been able to do so for Thirteen.org.  
@@ -75,9 +74,9 @@ Activation enqueues a custom CSS file and a custom javascript file on every user
 
 Drop the shortcode [pbs-passport-authenticate] into place where you would want a login link to appear.  The link can be styled.  
 
-Clicking on the link navigates to a page with a Facebook/Google/PBS chooser, options for entering an activation code or becoming a member, and a remember me checkbox.  
+Clicking on the link navigates to a page with a Facebook/Google/Apple/PBS chooser, options for entering an activation code or becoming a member, and a remember me checkbox.  
 
-Clicking the activation code selector presents a box to enter the activation code.  Doing so, a validity check will be performed, and if successful the MVault info is returned and the Facebook/Google/PBS chooser is presented again.
+Clicking the activation code selector presents a box to enter the activation code.  Doing so, a validity check will be performed, and if successful the MVault info is returned and the Facebook/Google/Apple/PBS chooser is presented again.
 
 The chooser links open in the same window (not an overlay), send the user through the authentication process, redirect the user to /pbsoauth/callback/, which then completes the oAuth2 authentication process.
 
@@ -134,7 +133,7 @@ The /pbsoauth/authenticate URL can be hit via AJAX, and it takes no arguments.  
 
 It returns JSON with some basic info:  
 
-* `first_name` and `last_name`: The 'pbs_profile' first/last names.  These will be from the login provider (Facebook/Google/PBS), not from the MVault profile.
+* `first_name` and `last_name`: The 'pbs_profile' first/last names.  These will be from the login provider (Facebook/Google/Apple/PBS), not from the MVault profile.
 * `pid`: the 'pbs_profile' pid/uid
 * `thumbnail_URL`: the avatar for the user provided by the login provider.  May be a generic icon if the user never set one up.  The 'pbs' login provider always provides a generic icon.
 
