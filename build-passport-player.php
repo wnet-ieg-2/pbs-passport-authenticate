@@ -63,7 +63,8 @@ function cove_passport_shortcode($atts, $content = null) {
   extract(shortcode_atts(array(
                             "id" => '',
                             "window" => '',
-                            "image" => ''
+                            "image" => '',
+	  						"placeholder" => ''
                         ), $atts));
 
   $player = "<!-- video no longer available -->";
@@ -77,11 +78,31 @@ function cove_passport_shortcode($atts, $content = null) {
         )
     );
   }
-  if (!empty($video)) {
-    $video = json_decode(json_encode($video, JSON_UNESCAPED_UNICODE));
-    $player = "<div class='shortcode-video cf'>". build_passport_player($video[0]) . "</div>";
-  }
-  return $player;
+	
+	
+	if (!empty($video) && !empty($placeholder)) {
+		// placeholder version of player, requires a click to load the actual player.
+		$video = json_decode(json_encode($video, JSON_UNESCAPED_UNICODE));
+		if (!empty($video[0]->metadata)) {$m = json_decode($video[0]->metadata, true);}
+		$hidden_player = build_passport_player($video[0]);
+		$player = "
+			
+			<figure class='video-placeholder'>
+			<a href='" . get_permalink($video[0]->post_id) . $video[0]->legacy_key . "/' data-media-player='PLAYER_" . $id . "'>
+				<img src='". $m['mezzanine'] ."?crop=768x432&format=jpg'>
+				<div class='overlay'><i class='fa fa-play'></i></div>
+			</a>
+			</figure>
+			<script>var PLAYER_" .$id . " = " . json_encode($hidden_player) . ";</script>
+		";
+	
+	}
+	else if (!empty($video)) {
+    	$video = json_decode(json_encode($video, JSON_UNESCAPED_UNICODE));
+    	$player = "<div class='shortcode-video cf'>". build_passport_player($video[0]) . "</div>";
+	}
+	
+	return $player;
 
 }
 if (!shortcode_exists("cove-passport")) {

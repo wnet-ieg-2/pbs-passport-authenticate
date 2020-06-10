@@ -288,7 +288,16 @@ jQuery(document).ready(function($) {
 	}
 	
   
-  
+  	/* [ video placeholder to video swap ] ---------------------------------------------------------------- */
+    $('body').on('click', '.video-placeholder a', function(e) {
+	   var media_player = $(this).data('media-player');
+		$(this).parent().html(window[media_player]);
+        e.preventDefault();
+    });
+    /* [ END video placeholder to video swap ] ---------------------------------------------------------------- */
+	
+	
+	
 });
 
 // globally scoped array we'll use elsewhere
