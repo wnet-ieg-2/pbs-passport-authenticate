@@ -292,6 +292,7 @@ jQuery(document).ready(function($) {
     $('body').on('click', '.video-placeholder a', function(e) {
 	   var media_player = $(this).data('media-player');
 		$(this).parent().html(window[media_player]);
+		if (typeof(updateLoginVisuals) == 'function') {	updateLoginVisuals(user); }
         e.preventDefault();
     });
     /* [ END video placeholder to video swap ] ---------------------------------------------------------------- */
