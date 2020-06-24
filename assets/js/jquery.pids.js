@@ -161,7 +161,7 @@ jQuery(document).ready(function($) {
       $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_logged_in_hide').hide();
       thumbimage = '';
       if (user.thumbnail_URL) {
-        thumbimage = "<a href='" + userinfolink + "' class='userthumb'><img src=" + user.thumbnail_URL + " alt="" /></a>"; 
+        thumbimage = "<a href='" + userinfolink + "' class='userthumb'><img src=" + user.thumbnail_URL + " alt='' /></a>"; 
       }	
 	
 
