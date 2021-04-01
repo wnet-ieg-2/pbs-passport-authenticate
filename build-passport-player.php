@@ -54,7 +54,7 @@ function build_passport_player($video) {
 		} else {
       $passportError = "";
     }
-    return '<div class="passportcoveplayer" data-window="'.$video->window.'" data-media="'.$video->tp_media_object_id.'"><div class="passport-'.$passportGated.'-video"><img src="'.$large_thumb.'" width="1200" height="675">'.$passportOverlay . $passportError.'</div></div>';
+    return '<div class="passportcoveplayer" data-window="'.$video->window.'" data-media="'.$video->tp_media_object_id.'"><div class="passport-'.$passportGated.'-video"><img src="'.$large_thumb.'" width="1200" height="675" loading="lazy" alt="">'.$passportOverlay . $passportError.'</div></div>';
    }
 }
 
