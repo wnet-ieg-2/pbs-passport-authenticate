@@ -79,7 +79,6 @@ function cove_passport_shortcode($atts, $content = null) {
     );
   }
 	
-	
 	if (!empty($video) && !empty($placeholder)) {
 		// placeholder version of player, requires a click to load the actual player.
 		$video = json_decode(json_encode($video, JSON_UNESCAPED_UNICODE));
