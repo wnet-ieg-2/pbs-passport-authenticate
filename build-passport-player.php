@@ -36,7 +36,7 @@ function build_passport_player($video) {
 					<img src='$station_passport_logo_reverse' alt='$station_nice_name Passport'/>
 				</div>
 				<div class='pp-button pbs_passport_authenticate cf'><button class='launch'>
-					MEMBER SIGN IN <span class='icon-passport-compass'><i></i></span>
+					<span>MEMBER SIGN IN</span> " . pbs_passport_authenticate_icon_svg('compass') . "
 				</button></div>
 				<div class='pp-button pbs_passport_authenticate'>
 					<a href='/passport/' class='learn-more'><button class='learn-more'>LEARN MORE <i class='fa fa-arrow-circle-o-right'></i></button></a>
