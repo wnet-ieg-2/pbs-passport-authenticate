@@ -248,7 +248,9 @@ jQuery(document).ready(function($) {
   }
 
   function logoutFromPBS(event) {
+	  console.log('signout');
     event.preventDefault();
+	   console.log('signout2');
     $.ajax({
       url: authenticate_script,
       data: 'logout=true',
