@@ -240,8 +240,8 @@ class PBS_LAAS_Client {
   }
 
   public function logout() {
-     setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, false, true);
-     setcookie($this->tokeninfo_cookiename, NULL, -1, "/", $this->domain, false, true);
+     setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, true, true);
+     setcookie($this->tokeninfo_cookiename, NULL, -1, "/", $this->domain, true, true);
   }
 
 
@@ -407,11 +407,11 @@ class PBS_LAAS_Client {
 
     if ($this->rememberme) {
       // save encrypted tokeninfo in cookie if it exists or the user checked the remember me box
-      return setcookie($this->tokeninfo_cookiename, $tokeninfo, strtotime("+1 year"), "/", $this->domain, false, true);
+      return setcookie($this->tokeninfo_cookiename, $tokeninfo, strtotime("+1 year"), "/", $this->domain, true, true);
     } else {
       // remember me is only false at this point if the checkbox is user-cleared, so clear out that cookie if it was previously set
       if (isset($_COOKIE[$this->tokeninfo_cookiename])) { 
-        setcookie($this->tokeninfo_cookiename, NULL, -1, "/", $this->domain, false, true); 
+        setcookie($this->tokeninfo_cookiename, NULL, -1, "/", $this->domain, true, true); 
       }
       return false;
     }
@@ -539,12 +539,12 @@ class PBS_LAAS_Client {
         }
       }
       $userinfo_json = json_encode($userinfo_clean, JSON_UNESCAPED_UNICODE);
-      setcookie($this->userinfo_cookiename, $userinfo_json, strtotime("+1 hour"), "/", $this->domain, false, false);
+      setcookie($this->userinfo_cookiename, $userinfo_json, strtotime("+1 hour"), "/", $this->domain, true, true);
       // return the profile info if there was any
       return $userinfo_clean;
     } else {
       //no pid in userinfo means no data from userinfo, so we're not authenticated
-      setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, false, false);
+      setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, true, true);
       return false;
     }
   }
