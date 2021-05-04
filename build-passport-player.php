@@ -88,7 +88,7 @@ function cove_passport_shortcode($atts, $content = null) {
 			
 			<figure class='video-placeholder'>
 			<a href='" . get_permalink($video[0]->post_id) . $video[0]->legacy_key . "/' data-media-player='PLAYER_" . $id . "'>
-				<img src='". $m['mezzanine'] ."?crop=768x432&format=jpg'>
+				<img src='". $m['mezzanine'] ."?crop=768x432&format=jpg' loading='lazy' width='768' height='432'>
 				<div class='overlay'><i class='fa fa-play'></i></div>
 			</a>
 			</figure>
