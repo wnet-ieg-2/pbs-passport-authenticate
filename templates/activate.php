@@ -106,7 +106,7 @@ if (!empty($return['errors'])){
 
 	<li class="activate">
 	<h4>Already activated?</h4>
-	<a href="<?php echo site_url('pbsoauth/loginform/'); ?>" ><button class='pp-button-outline'><span>MEMBER SIGN IN</span> <?php echo pbs_passport_authenticate_icon_svg('compass'); ?></button></a>
+	<a href="<?php echo site_url('pbsoauth/loginform/'); ?>" ><button class='pp-button-outline'><span>MEMBER SIGN IN</span></button></a>
 	</li>
 	
 	<?php if (!empty($defaults['join_url'])) { ?>
