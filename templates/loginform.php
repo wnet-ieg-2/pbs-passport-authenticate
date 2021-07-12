@@ -95,7 +95,7 @@ echo "</div>";
 
 	<li class="activate">
 	<h4>First time using <?php echo $station_nice_name; ?> Passport?</h4>
-	<a href="<?php echo site_url('pbsoauth/activate/'); ?>"><button class='pp-button-outline'><span>Activate Now</span> <?php echo pbs_passport_authenticate_icon_svg('compass'); ?></button></a>
+	<a href="<?php echo site_url('pbsoauth/activate/'); ?>"><button class='pp-button-outline'><span>Activate Now</span></button></a>
 	<p class='look-for-email'>*If you are an active member of <?php echo $station_nice_name; ?> ($60+ annual, or $5 monthly), look for an email which contains your activation code.</p>
 	</li>
 	

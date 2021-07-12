@@ -44,8 +44,8 @@ class PBS_Passport_Authenticate_Settings {
   public function setup_admin_scripts() {
     wp_enqueue_script('jquery');
     wp_enqueue_script('suggest');
-    wp_register_script('pbs-passport-authenticate-settings-admin', $this->assets_url . 'js/settings_admin_functions.js', array('jquery','jquery-ui-autocomplete'));
-    wp_enqueue_script('pbs-passport-authenticate-settings-admin');
+    //wp_register_script('pbs-passport-authenticate-settings-admin', $this->assets_url . 'js/settings_admin_functions.js', array('jquery','jquery-ui-autocomplete'));
+    //wp_enqueue_script('pbs-passport-authenticate-settings-admin');
   }
 
 

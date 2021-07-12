@@ -33,14 +33,10 @@ function build_passport_player($video) {
 			<div class='signup'><div class='signup-inner'>
 				<div class='pp-intro'>
 					<p>Access to this video is a<br/> benefit for members through</p>
-					<img src='$station_passport_logo_reverse' alt='$station_nice_name Passport'/>
+					<img src='" . $station_passport_logo_reverse . "' alt='" . esc_attr($station_nice_name) . " Passport'/>
 				</div>
-				<div class='pp-button pbs_passport_authenticate cf'><button class='launch'>
-					<span>MEMBER SIGN IN</span> " . pbs_passport_authenticate_icon_svg('compass') . "
-				</button></div>
-				<div class='pp-button pbs_passport_authenticate'>
-					<a href='/passport/' class='learn-more'><button class='learn-more'>LEARN MORE <i class='fa fa-arrow-circle-o-right'></i></button></a>
-				</div>
+				<div class='pp-button pbs_passport_authenticate cf'><button class='launch'><span>MEMBER SIGN IN</span></button></div>
+				<div class='pp-button pbs_passport_authenticate'><a href='/passport/' class='learn-more'><button class='learn-more'>LEARN MORE <i class='fa fa-arrow-circle-o-right'></i></button></a></div>
 			</div></div>";
 			$passportGated = "gated";
 		} else {
