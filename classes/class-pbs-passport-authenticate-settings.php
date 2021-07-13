@@ -31,8 +31,6 @@ class PBS_Passport_Authenticate_Settings {
 	
 	public function add_menu_item() {
 		$hook_suffix = add_options_page( 'PBS Passport Authenticate Settings' , 'PBS Passport Authenticate Settings' , 'manage_options' , 'pbs_passport_authenticate_settings' ,  array( $this , 'settings_page' ) );
-    // adds the scripts to only the options page
-    add_action('admin_print_scripts-' . $hook_suffix, array( $this, 'setup_admin_scripts'));
 	}
 
 	public function add_settings_link( $links ) {
@@ -40,13 +38,6 @@ class PBS_Passport_Authenticate_Settings {
   		array_push( $links, $settings_link );
   		return $links;
 	}
-
-  public function setup_admin_scripts() {
-    wp_enqueue_script('jquery');
-    wp_enqueue_script('suggest');
-    //wp_register_script('pbs-passport-authenticate-settings-admin', $this->assets_url . 'js/settings_admin_functions.js', array('jquery','jquery-ui-autocomplete'));
-    //wp_enqueue_script('pbs-passport-authenticate-settings-admin');
-  }
 
 
 	public function register_settings() {
