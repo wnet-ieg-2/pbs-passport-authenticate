@@ -1,6 +1,8 @@
 <?php 
 if (!function_exists('build_passport_player')) {
 function build_passport_player($video) {
+  $passport_defaults = get_option('pbs_passport_authenticate');
+  $call_letters = $passport_defaults['station_call_letters'];
   if (empty($video->tp_media_object_id)) {
     return;
   }
@@ -20,12 +22,11 @@ function build_passport_player($video) {
 	}
   if ( ($video->window != 'all_members') && ( $video->window != 'station_members') ) {
     // this video is public, just show it
-    return '<div class="passportcoveplayer" data-window="public" data-media="' . $video->tp_media_object_id . '"><div class="embed-container video-wrap no-content nocontent"><iframe id="partnerPlayer" marginwidth="0" marginheight="0" scrolling="no" src="//player.pbs.org/widget/partnerplayer/' . $video->tp_media_object_id . '/?chapterbar=false&endscreen=false" allowfullscreen="" frameborder="0" loading="lazy"></iframe></div></div>';
+    return '<div class="passportcoveplayer" data-window="public" data-media="' . $video->tp_media_object_id . '" data-callsign="' . $call_letters . '"><div class="embed-container video-wrap no-content nocontent"><iframe id="partnerPlayer" marginwidth="0" marginheight="0" scrolling="no" src="//player.pbs.org/widget/partnerplayer/' . $video->tp_media_object_id . '/?chapterbar=false&endscreen=false&callsign=' . $call_letters . '" allowfullscreen="" frameborder="0" loading="lazy"></iframe></div></div>';
   }
 	// passport video overlay for gated videos.
 	if (PASSPORT_ENABLED && (($video->window == 'all_members') ||( $video->window == 'station_members')) && $coveWindow == 'all') {
 		
-		$passport_defaults = get_option('pbs_passport_authenticate');
 		$join_url = !empty($passport_defaults['join_url']) ? $passport_defaults['join_url'] : '#';
     $station_passport_logo_reverse = !empty($passport_defaults['station_passport_logo_reverse']) ? $passport_defaults['station_passport_logo_reverse'] : $passport_defaults['station_passport_logo'];
     $station_nice_name = !empty($passport_defaults['station_nice_name']) ? $passport_defaults['station_nice_name'] : "";
@@ -50,7 +51,7 @@ function build_passport_player($video) {
 		} else {
       $passportError = "";
     }
-    return '<div class="passportcoveplayer" data-window="'.$video->window.'" data-media="'.$video->tp_media_object_id.'"><div class="passport-'.$passportGated.'-video"><img src="'.$large_thumb.'" width="1200" height="675" loading="lazy" alt="">'.$passportOverlay . $passportError.'</div></div>';
+    return '<div class="passportcoveplayer" data-window="'.$video->window.'" data-media="'.$video->tp_media_object_id.'" data-callsign="' . $call_letters . '"><div class="passport-'.$passportGated.'-video"><img src="'.$large_thumb.'" width="1200" height="675" loading="lazy" alt="">'.$passportOverlay . $passportError.'</div></div>';
    }
 }
 
