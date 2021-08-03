@@ -2,7 +2,7 @@
 if (!function_exists('build_passport_player')) {
 function build_passport_player($video) {
   $passport_defaults = get_option('pbs_passport_authenticate');
-  $call_letters = $passport_defaults['station_call_letters'];
+  $call_letters = strtolower($passport_defaults['station_call_letters']);
   if (empty($video->tp_media_object_id)) {
     return;
   }
