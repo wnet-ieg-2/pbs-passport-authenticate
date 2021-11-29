@@ -226,7 +226,7 @@ jQuery(document).ready(function($) {
             var videoWindow = $(this).data('window');
             var videoID = $(this).data('media'); 
             if (videoWindow != 'public' && videoWindow != '' && !$(this).hasClass("playing")) {
-              $(this).html('<div class="embed-container video-wrap no-content nocontent"><iframe id="partnerPlayer_'+ i +'" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allowfullscreen="allowfullscreen" src="//player.pbs.org/widget/partnerplayer/'+videoID+'/?chapterbar=false&endscreen=false&uid='+user.pid+'&callsign='+station_call_letters_lc+'"></iframe></div>');
+              $(this).html('<div class="embed-container video-wrap no-content nocontent"><iframe id="partnerPlayer_'+ i +'" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allow="encrypted-media" allowfullscreen="allowfullscreen" src="//player.pbs.org/widget/partnerplayer/'+videoID+'/?chapterbar=false&endscreen=false&uid='+user.pid+'&callsign='+station_call_letters_lc+'"></iframe></div>');
               $(this).addClass('playing');
             }
           }
