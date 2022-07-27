@@ -140,6 +140,28 @@ jQuery(document).ready(function($) {
 
   //function updateLoginVisuals(user){
   updateLoginVisuals = function(user) {
+    //first, the passport player.
+
+    var vppa_string = '';
+    if (userPBSLoginStatus.memberStatus == 'valid' && userPBSLoginStatus.VPPAStatus == 'valid'){
+      vppa_string = '&uid='+user.pid+'&callsign='+station_call_letters_lc;
+      // value above is a signifier that the person is logged in and we can collect their data
+    }
+    $(".passportcoveplayer").each(function (i) {
+      if (typeof($(this).data('window')) !== 'undefined') {
+        var videoWindow = $(this).data('window');
+        var videoID = $(this).data('media');
+        if (!$(this).hasClass("playing")) {
+          if ((videoWindow != 'public' && videoWindow != '' && vppa_string) || (videoWindow == 'public' || videoWindow == '') ) {
+            $(this).html('<div class="embed-container video-wrap no-content nocontent"><iframe id="partnerPlayer_'+ i +'" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allow="encrypted-media" allowfullscreen="allowfullscreen" src="//player.pbs.org/widget/partnerplayer/'+videoID+'/?chapterbar=false&endscreen=false'+vppa_string+'"></iframe></div>');
+            $(this).addClass('playing');
+          }
+        }
+      }
+    });
+    // end passport player.
+
+
     if (user){
       // if somehow still on loginform after logging in, redirect to userinfo page
       if (window.location == loginform) { window.location = userinfolink; }
@@ -218,22 +240,6 @@ jQuery(document).ready(function($) {
           $(".pbs_passport_authenticate a.learn-more").html('<a href="' + vppalink + '" class="learn-more"><button class="learn-more">REVIEW AND ACCEPT TERMS TO WATCH</button></a>').off("click", learnMorePassport).on("click", acceptVPPAPBS);
         }
       }
-		
-	  	//passport player.
-      if (userPBSLoginStatus.memberStatus == 'valid' && userPBSLoginStatus.VPPAStatus == 'valid'){
-        $(".passportcoveplayer").each(function (i) {
-          if (typeof($(this).data('window')) !== 'undefined') {
-            var videoWindow = $(this).data('window');
-            var videoID = $(this).data('media'); 
-            if (videoWindow != 'public' && videoWindow != '' && !$(this).hasClass("playing")) {
-              $(this).html('<div class="embed-container video-wrap no-content nocontent"><iframe id="partnerPlayer_'+ i +'" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allow="encrypted-media" allowfullscreen="allowfullscreen" src="//player.pbs.org/widget/partnerplayer/'+videoID+'/?chapterbar=false&endscreen=false&uid='+user.pid+'&callsign='+station_call_letters_lc+'"></iframe></div>');
-              $(this).addClass('playing');
-            }
-          }
-        });
-      }
-	  	// end passport player.
-	  
     } else {
       $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_logged_in_hide').show();
       // putting a short delay on the following since it takes a little bit of time for the elements to render
