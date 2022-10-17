@@ -1,0 +1,37 @@
+name: Trigger WLIW AWS CodePipeline
+
+on:
+  push:
+    branches:
+    - 'dev'
+    - 'preprod'
+    - 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger WLIW DEV AWS CodePipeline
+        uses: zulhfreelancer/aws-codepipeline-action@v1.0.7
+        if: github.ref == 'refs/heads/dev'
+        with:
+          aws-region: "us-east-1"
+          aws-access-key: ${{ secrets.DEV_AWS_CODEPIPELINE_ACCESS_KEY }}
+          aws-secret-key: ${{ secrets.DEV_AWS_CODEPIPELINE_SECRET_KEY }}
+          pipeline-name: "wliw"
+      - name: Trigger WLIW PREPROD AWS CodePipeline
+        uses: zulhfreelancer/aws-codepipeline-action@v1.0.7
+        if: github.ref == 'refs/heads/preprod'
+        with:
+          aws-region: "us-east-1"
+          aws-access-key: ${{ secrets.PREPROD_AWS_CODEPIPELINE_ACCESS_KEY }}
+          aws-secret-key: ${{ secrets.PREPROD_AWS_CODEPIPELINE_SECRET_KEY }}
+          pipeline-name: "wliw"
+      - name: Trigger WLIW PROD AWS CodePipeline
+        uses: zulhfreelancer/aws-codepipeline-action@v1.0.7
+        if: github.ref == 'refs/heads/main'
+        with:
+          aws-region: "us-east-1"
+          aws-access-key: ${{ secrets.PROD_AWS_CODEPIPELINE_ACCESS_KEY }}
+          aws-secret-key: ${{ secrets.PROD_AWS_CODEPIPELINE_SECRET_KEY }}
+          pipeline-name: "wliw"
