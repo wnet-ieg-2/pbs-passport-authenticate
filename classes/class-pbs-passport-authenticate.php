@@ -23,7 +23,7 @@ class PBS_Passport_Authenticate {
 		$this->assets_url = esc_url( trailingslashit( plugins_url( '/assets/', $file ) ) );
     $this->token = 'pbs_passport_authenticate';
     $this->defaults = get_option($this->token);
-    $this->version = '0.3.1.0';
+    $this->version = '0.3.1.1';
 
 		// Load public-facing style sheet and JavaScript.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
