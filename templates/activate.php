@@ -92,10 +92,14 @@ if (!empty($return['errors'])){
 <h3>How do I find my activation code?</h3>
 
 <p>If you are an active member of <?php echo $station_nice_name; ?> ($60+ annual, or $5 monthly), look for an email from "<?php echo $station_nice_name; ?> Passport" which contains your activation code.</p>  
-<?php if (class_exists('WNET_Passport_Already_Member')) { ?>
 <h3>Don't have an activation code?</h3>
-<p>If you don't have an email from us,<br/> <a href="<?php echo site_url('pbsoauth/alreadymember/'); ?>">please click here</a>.</p>
-<?php } ?>
+<?php
+$memberlookup_url = "https://www.pbs.org/passport/lookup/";   
+if (class_exists('WNET_Passport_Already_Member')) {
+  $memberlookup_url = site_url('pbsoauth/alreadymember/');
+}
+?>
+<p>If you don't have an email from us,<br/> <a href="<?php echo $memberlookup_url; ?>">please click here</a>.</p>
 
 
 
