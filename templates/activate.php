@@ -94,7 +94,7 @@ if (!empty($return['errors'])){
 <p>If you are an active member of <?php echo $station_nice_name; ?> ($60+ annual, or $5 monthly), look for an email from "<?php echo $station_nice_name; ?> Passport" which contains your activation code.</p>  
 <h3>Don't have an activation code?</h3>
 <?php
-$memberlookup_url = "https://www.pbs.org/passport/lookup/";   
+$memberlookup_url = 'https://www.pbs.org/passport/lookup/" target="_new';   
 if (class_exists('WNET_Passport_Already_Member')) {
   $memberlookup_url = site_url('pbsoauth/alreadymember/');
 }
