@@ -345,6 +345,7 @@ class PBS_LAAS_Client {
       die('the openssl library is required for this client to work');
     }
     if (! in_array(strtolower($this->encrypt_method), openssl_get_cipher_methods()) ){
+      error_log('available openssl ciphers:' . json_encode(openssl_get_cipher_methods()));
       die('invalid cipher method ' . $this->encrypt_method);
     }
 
@@ -360,7 +361,8 @@ class PBS_LAAS_Client {
     if (! function_exists('openssl_encrypt')){
       die('the openssl library is required for this client to work');
     }
-    if (! in_array($this->encrypt_method, openssl_get_cipher_methods()) ){
+    if (! in_array(strtolower($this->encrypt_method), openssl_get_cipher_methods()) ){
+      error_log('available openssl ciphers:' . json_encode(openssl_get_cipher_methods()));
       die('invalid cipher method ' . $this->encrypt_method);
     }
     $key = hash('sha256', $this->cryptkey);

@@ -50,7 +50,7 @@ function build_passport_player($video) {
     }
 	
 	
-    return '<div class="passportcoveplayer" data-window="'.$video->window.'" data-media="'.$video->tp_media_object_id.'" data-callsign="' . $call_letters . '"><div class="passport-'.$passportGated.'-video"><picture><source srcset="' . strtok($large_thumb, '?') . '?crop=1600x900&amp;format=webp" type="image/webp"><source srcset="' . strtok($large_thumb, '?') . '?crop=1200x675&amp;format=jpg" type="image/jpg"><img src="' . $large_thumb . '" width="1200" height="675" loading="eager" alt=""></picture>' . $passportOverlay . $passportError . '</div></div>';
+    return '<div class="passportcoveplayer" data-title="'.esc_attr($video->title).'" data-window="'.$video->window.'" data-media="'.$video->tp_media_object_id.'" data-callsign="' . $call_letters . '"><div class="passport-'.$passportGated.'-video"><picture><source srcset="' . strtok($large_thumb, '?') . '?crop=1600x900&amp;format=webp" type="image/webp"><source srcset="' . strtok($large_thumb, '?') . '?crop=1200x675&amp;format=jpg" type="image/jpg"><img src="' . $large_thumb . '" width="1200" height="675" loading="eager" alt=""></picture>' . $passportOverlay . $passportError . '</div></div>';
    }
 }
 
