@@ -22,6 +22,7 @@ if (isset ($mvaultinfo["membership_id"])) {
   $userinfo = $laas_client->validate_and_append_userinfo($userinfo);
 }
 
+define('DISABLE_PLEDGE', 1);
 get_header();
 ?>
 <div class='pbs-passport-authenticate-wrap cf'>

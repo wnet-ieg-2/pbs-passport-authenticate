@@ -19,6 +19,7 @@ This script also exposes the 'logout' method, which clears the tokens and cookie
 
 */
 show_admin_bar(false);
+define('DISABLE_PLEDGE', 1);
 remove_all_actions('wp_footer',1);
 remove_all_actions('wp_header',1);
 header('cache-control: no-cache');
