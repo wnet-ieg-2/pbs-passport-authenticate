@@ -30,6 +30,7 @@ if ($membership_id) {
   }
 }
 
+define('DISABLE_PLEDGE', 1);
 get_header();
 ?>
 <div class='pbs-passport-authenticate-wrap <?php if (empty($userinfo) && !$membership_id) {echo "wide"; }?> cf'>
