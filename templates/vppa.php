@@ -1,6 +1,7 @@
 <html>
 <head>
 <?php
+	define('DISABLE_PLEDGE', 1);
 $defaults = get_option('pbs_passport_authenticate');
 $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
 

@@ -4,6 +4,7 @@ activate.php
 
 */
 show_admin_bar(false);
+define('DISABLE_PLEDGE', 1);
 get_header();
 
 $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
