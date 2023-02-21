@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: PBS Passport Authenticate
- * Version: 0.3.1.0 -- collect VPPA data for members for non-Passport videos 
+ * Version: 0.3.1.2 -- collect VPPA data for members for non-Passport videos 
  * Plugin URI: https://github.com/tamw-wnet/pbs-passport-authenticate
  * Description: PBS Passport Authenticate
  * Author: William Tam, Brian Santalone
