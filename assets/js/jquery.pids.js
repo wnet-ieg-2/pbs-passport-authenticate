@@ -146,7 +146,6 @@ jQuery(document).ready(function($) {
     if (userPBSLoginStatus.memberStatus == 'valid' && userPBSLoginStatus.VPPAStatus == 'valid'){
       vppa_string = '&uid='+user.pid+'&callsign='+station_call_letters_lc;
       // value above is a signifier that the person is logged in and we can collect their data
-      document.cookie='pbsoauth_pid=' + user.pid + ';domain=' + window.location.hostname + ';path=/; Secure';
     }
     $(".passportcoveplayer").each(function (i) {
       if (typeof($(this).data('window')) !== 'undefined') {
@@ -262,7 +261,6 @@ jQuery(document).ready(function($) {
       type: 'POST',
       dataType: 'json',
       success: function(response) {
-        document.cookie='pbsoauth_pid="";domain=' + window.location.hostname + ';path=/; Secure;expires=Thu, 01 Jan 1970 00:00:01 GMT';
         window.location.href = window.location.protocol + '//' + window.location.host;
       }
     });
