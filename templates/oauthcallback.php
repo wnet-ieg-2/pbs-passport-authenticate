@@ -12,6 +12,7 @@ If the 'rememberme' variable was true, those tokens are also stored in an encryp
 
 */
 show_admin_bar(false);
+define('DISABLE_PLEDGE', 1);
 remove_all_actions('wp_footer',1);
 remove_all_actions('wp_header',1);
 

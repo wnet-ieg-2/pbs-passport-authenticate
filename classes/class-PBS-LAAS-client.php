@@ -240,7 +240,7 @@ class PBS_LAAS_Client {
   }
 
   public function logout() {
-     setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, true, true);
+     setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, true, false);
      setcookie($this->tokeninfo_cookiename, NULL, -1, "/", $this->domain, true, true);
   }
 
@@ -541,12 +541,12 @@ class PBS_LAAS_Client {
         }
       }
       $userinfo_json = json_encode($userinfo_clean, JSON_UNESCAPED_UNICODE);
-      setcookie($this->userinfo_cookiename, $userinfo_json, strtotime("+1 hour"), "/", $this->domain, true, true);
+      setcookie($this->userinfo_cookiename, $userinfo_json, strtotime("+1 hour"), "/", $this->domain, true, false);
       // return the profile info if there was any
       return $userinfo_clean;
     } else {
       //no pid in userinfo means no data from userinfo, so we're not authenticated
-      setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, true, true);
+      setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, true, false);
       return false;
     }
   }
