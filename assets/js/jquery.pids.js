@@ -134,6 +134,11 @@ jQuery(document).ready(function($) {
     }
     // set the global object value 
     userPBSLoginStatus = currentarray;
+    // push a dataLayer event to GTM
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push({ 'event': 'passport_login_status', 'memberstatus': currentarray.memberStatus });
+    console.log(dataLayer);
+    // and done
     return currentarray;
   }
 

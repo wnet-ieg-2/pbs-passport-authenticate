@@ -22,6 +22,8 @@ jQuery(document).ready(function($) {
     var logintype = $(this).closest('li').attr("class");
     if (logintype) {
       document.cookie='pbsoauth_loginprovider=' + logintype + ';domain=' + window.location.hostname + ';path=/';
+      window.dataLayer = window.dataLayer || [];
+      dataLayer.push({ 'event': 'login', 'method': logintype });
     }
     window.location.href = $(this).attr('href');
   }); 
