@@ -385,7 +385,7 @@ class PBS_LAAS_Client {
     }
   
     // decrypt encrypted tokeninfo
-    $decrypted = $this->decrypt($tokeninfo);
+    $decrypted = !empty($tokeninfo) ? $this->decrypt($tokeninfo) : false;
     if ($decrypted) {
       $tokeninfo = $decrypted;
     } 
