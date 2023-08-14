@@ -68,12 +68,16 @@ $mvaultinfo = array();
 if (isset($_REQUEST["membership_id"])){
   $mvault_id = $_REQUEST["membership_id"];
   $mvaultinfo = $mvault_client->activate($mvault_id, $pbs_uid);
-  $errors['activate'] = $mvaultinfo['errors'];
+  if (isset($mvaultinfo['errors'])) {
+    $errors['activate'] = $mvaultinfo['errors'];
+  }
 }
 if (! isset($mvaultinfo["membership_id"])) {
   // get the mvault record if available
-  $mvaultinfo = $mvault_client->get_membership_by_uid($pbs_uid);  
-  $errors['byuid'] = $mvaultinfo['errors'];
+  $mvaultinfo = $mvault_client->get_membership_by_uid($pbs_uid);
+  if (isset($mvaultinfo['errors'])) { 
+    $errors['byuid'] = $mvaultinfo['errors'];
+  }
 }
 // preset these for later cleanup
 $userinfo["membership_info"] = array("offer" => null, "status" => "Off");
