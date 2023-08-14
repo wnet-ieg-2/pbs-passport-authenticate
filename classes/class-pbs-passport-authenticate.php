@@ -23,7 +23,7 @@ class PBS_Passport_Authenticate {
 		$this->assets_url = esc_url( trailingslashit( plugins_url( '/assets/', $file ) ) );
     $this->token = 'pbs_passport_authenticate';
     $this->defaults = get_option($this->token);
-    $this->version = '0.3.1.4';
+    $this->version = '0.3.1.5';
 
 		// Load public-facing style sheet and JavaScript.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -90,8 +90,9 @@ class PBS_Passport_Authenticate {
 	public function ppa_body_classes( $classes ) {
 		if (!empty(get_query_var('pbsoauth'))) {
 			if (in_array(get_query_var('pbsoauth'), array('authenticate','callback','loginform','activate','userinfo','vppa' ))) {
-				$classes[] = 'pbsoauth';	
-				if ($classes[0] == 'home') { unset($classes[0]); }
+				$classes[] = 'pbsoauth';
+        #jic the first element in $classes is 'home' remove it
+				if (reset($classes) == 'home') { array_shift($classes); }
 			}
 		}
     	return $classes;
