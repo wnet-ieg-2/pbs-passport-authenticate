@@ -184,7 +184,7 @@ class PBS_LAAS_Client {
     }
     $updated_tokeninfo = $this->update_pbs_tokeninfo($current_tokeninfo);
 
-    $access_token = $updated_tokeninfo['access_token'];
+    $access_token = isset($updated_tokeninfo['access_token']) ? $updated_tokeninfo['access_token'] : false;
 
     if (! $access_token) {
       // they're not logged in
@@ -378,6 +378,7 @@ class PBS_LAAS_Client {
 
 
   private function retrieve_encrypted_tokeninfo() {
+    $tokeninfo = false;
 
     // check for encrypted tokeninfo in cookie
     if (isset($_COOKIE[$this->tokeninfo_cookiename])){
@@ -389,8 +390,9 @@ class PBS_LAAS_Client {
     if ($decrypted) {
       $tokeninfo = $decrypted;
     } 
- 
-    $tokeninfo = json_decode($tokeninfo, true);
+    if (!empty($tokeninfo)) { 
+      $tokeninfo = json_decode($tokeninfo, true);
+    }
     return $tokeninfo;
   }
 
