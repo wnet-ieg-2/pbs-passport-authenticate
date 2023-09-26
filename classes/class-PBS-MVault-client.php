@@ -13,7 +13,6 @@ class PBS_MVault_Client {
     $this->station = $station_id; // note that call letters are a supported legacy id
     $this->mvault_url = $mvault_url . $this->station;
     $this->auth_string = $this->client_id . ":" . $this->client_secret;
-    date_default_timezone_set('UTC');
   }
 
 
