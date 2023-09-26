@@ -238,7 +238,15 @@ class PBS_Passport_Authenticate {
   public function obscured_login_account($mvaultinfo) {
     $profile_email = !empty($mvaultinfo['pbs_profile']['email']) ? $mvaultinfo['pbs_profile']['email'] : false;
     if ($profile_email) {
-       return preg_replace("/(.)(.*@)(.)(.*)\.(\w)\w+$/", "$1****@$3****.$5**", $profile_email);
+      $parts = explode('@', $profile_email);
+      $address_parts = explode('.', $parts[1]);
+      $obscured_email = substr($parts[0], 0, 1) . str_repeat('*', ( strlen($parts[0])-1 ) ) . '@';
+      $domainsep = "";
+      foreach ($address_parts as $part) {
+        $obscured_email .= $domainsep . substr($part, 0, 1) . str_repeat('*', ( strlen($part)-1 ) );
+        $domainsep = '.';
+      }
+      return $obscured_email;
     } 
     return false;
   } 
