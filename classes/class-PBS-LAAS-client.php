@@ -94,7 +94,6 @@ class PBS_LAAS_Client {
 
 
     $this->set_rememberme_state();
-    date_default_timezone_set('UTC');
   } 
 
 
