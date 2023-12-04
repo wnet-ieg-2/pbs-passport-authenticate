@@ -94,6 +94,9 @@ if (isset ($mvaultinfo["membership_id"])) {
   // what they last used on the website is better option
   $login_provider = !empty($_COOKIE['pbsoauth_loginprovider']) ? $_COOKIE['pbsoauth_loginprovider'] : $login_provider;
   $vppa_link = $login_provider ? $vppa_links[$login_provider] : false;
+  if (empty($_COOKIE['pbsoauth_loginprovider']) && !empty($mvaultinfo["pbs_profile"]["login_provider"])) {
+    setcookie('pbsoauth_loginprovider', $login_provider, strtotime("+1 hour"), "/", $_SERVER['HTTP_HOST'], true, false);
+  }
 }
 $success = $laas_client->validate_and_append_userinfo($userinfo);
 if ($success) {
