@@ -205,7 +205,7 @@ jQuery(document).ready(function($) {
             portal_list_entry = '<li><a href="' + userinfolink + '">USER STATUS</a></li>';
             if (portallink.length > 0) {
               if (userPBSLoginStatus.memberStatus == 'valid' || userPBSLoginStatus.memberStatus == 'expired') {
-                portal_list_entry .= '<li><a href="' + portallink + '" target=_new >MEMBER PORTAL</a></li>';
+                portal_list_entry += '<li><a href="' + portallink + '" target=_new >MEMBER PORTAL</a></li>';
               }
             }
              welcomestring = '<a href="#" class="toggle-user-drop userlink">' + thumbimage + '<span class="name">' + user.first_name + '</span></a> <ul class="user-drop">'+ portal_list_entry + '<li><a  class="signout">SIGN OUT</a></li></ul>';
