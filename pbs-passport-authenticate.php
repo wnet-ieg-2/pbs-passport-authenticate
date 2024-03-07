@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: PBS Passport Authenticate
- * Version: 0.3.2.1 -- donor portal link access tweak
+ * Version: 0.3.2.2 -- donor portal link access tweak
  * Plugin URI: https://github.com/tamw-wnet/pbs-passport-authenticate
  * Description: PBS Passport Authenticate
  * Author: William Tam, Brian Santalone

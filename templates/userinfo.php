@@ -61,8 +61,12 @@ echo "<div class='ppa-primary userinfo-block'>";
 if ( !empty($userinfo['membership_info']['offer']) && $userinfo['membership_info']['status'] == "On" && $userinfo['vppa_status'] == 'valid') {
 
 	echo "<p class='passport-status'>$station_nice_name Passport <i class='fa fa-check-circle passport-green'></i></p>";
-	if (!empty($watch_url)) {echo "<div class='activate-options cf'><ul><li class='service-login-link watch'><p><a href='$watch_url'><button class='pp-button-blue'>Watch Programs</button></a></p></li></ul></div>";}
-  if (!empty($donor_portal_url)) {echo "<div class='activate-options cf'><ul><li class='service-login-link watch'><p><a href='$donor_portal_url'><button class='pp-button-blue'>Member Portal</button></a></p></li></ul></div>";}
+  echo "<div class='activate-options cf'><ul>";
+	if (!empty($watch_url)) {
+    echo "<li class='service-login-link watch'><p><a href='$watch_url'><button class='pp-button-blue'>Watch Programs</button></a></p></li>";}
+  if (!empty($donor_portal_url)) {echo "<li class='service-login-link watch'><p><a href='$donor_portal_url' target=_new><button class='pp-button-blue'>Member Portal</button></a></p></li>";
+  }
+  echo "</ul></div>";
 
 }
 
@@ -119,8 +123,9 @@ elseif ( $userinfo['vppa_status'] != 'valid' && $userinfo['membership_info']['st
 else {
   echo "<div class='passport-username'><strong>MEMBER:</strong> " . $userinfo['first_name'] . " " . $userinfo['last_name'] . "</div>";
 	echo "<p class='passport-status'><strong>STATUS:</strong> Expired <i class='fa fa-times-circle passport-red'></i></p>";
-	if (!empty($join_url)) {echo "<p>Your $station_nice_name Passport membership has expired.  Please renew your $station_nice_name membership to continue enjoying $station_nice_name Passport content.</p><div class='activate-options cf'><ul><li class='service-login-link watch'><a href='$join_url'><button class='pp-button-blue'>Renew Membership</button></a></li></ul></div>";}
-  if (!empty($donor_portal_url)) {echo "<div class='activate-options cf'><ul><li class='service-login-link watch'><p><a href='$donor_portal_url'><button class='pp-button-blue'>Member Portal</button></a></p></li></ul></div>";}
+	if (!empty($join_url)) {echo "<p>Your $station_nice_name Passport membership has expired.  Please renew your $station_nice_name membership to continue enjoying $station_nice_name Passport content.</p><div class='activate-options cf'><ul><li class='service-login-link watch'><a href='$join_url'><button class='pp-button-blue'>Renew Membership</button></a></li>";
+    if (!empty($donor_portal_url)) {echo "<li class='service-login-link watch'><a href='$donor_portal_url' target=_new><button class='pp-button-blue'>Member Portal</button></a></li>";}
+  echo "</ul></div>";}
 }
 
 
