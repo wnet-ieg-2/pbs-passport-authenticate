@@ -202,7 +202,7 @@ jQuery(document).ready(function($) {
         if ($(".pbs_passport_authenticate div.messages-new")[0]){
             // new version of messages with drop down menu...
             if (user.thumbnail_URL) {thumbimage = "<span><img src='" + user.thumbnail_URL + "' alt='' /></span>";}
-            portal_list_entry = '<li><a href="' + userinfolink + '">USER STATUS</a></li>';
+            portal_list_entry = '<li><a href="' + userinfolink + '">USER PROFILE</a></li>';
             if (portallink.length > 0) {
               if (userPBSLoginStatus.memberStatus == 'valid' || userPBSLoginStatus.memberStatus == 'expired') {
                 portal_list_entry += '<li><a href="' + portallink + '" target=_new >MEMBER PORTAL</a></li>';
