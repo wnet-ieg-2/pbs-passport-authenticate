@@ -27,7 +27,7 @@ jQuery(document).ready(function($) {
       portallink = pbs_passport_authenticate_args.portallink;
     }
     if (typeof pbs_passport_authenticate_args.subscriptionslink !== "undefined"){
-      portallink = pbs_passport_authenticate_args.subscriptionslink;
+      subscriptionslink = pbs_passport_authenticate_args.subscriptionslink;
     }
 
   }
