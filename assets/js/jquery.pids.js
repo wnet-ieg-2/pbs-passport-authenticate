@@ -9,6 +9,7 @@ jQuery(document).ready(function($) {
   var learnmorelink = '/passport/';
   var vppalink = '/pbsoauth/vppa/';
   var portallink = '';
+  var subscriptionslink = '';
 
   if (typeof pbs_passport_authenticate_args !== "undefined"){
     authenticate_script = pbs_passport_authenticate_args.laas_authenticate_script;
@@ -25,6 +26,10 @@ jQuery(document).ready(function($) {
     if (typeof pbs_passport_authenticate_args.portallink !== "undefined"){
       portallink = pbs_passport_authenticate_args.portallink;
     }
+    if (typeof pbs_passport_authenticate_args.subscriptionslink !== "undefined"){
+      portallink = pbs_passport_authenticate_args.subscriptionslink;
+    }
+
   }
 
   /* in case the loginform url has no protocol */
@@ -202,11 +207,14 @@ jQuery(document).ready(function($) {
         if ($(".pbs_passport_authenticate div.messages-new")[0]){
             // new version of messages with drop down menu...
             if (user.thumbnail_URL) {thumbimage = "<span><img src='" + user.thumbnail_URL + "' alt='' /></span>";}
-            portal_list_entry = '<li><a href="' + userinfolink + '">USER PROFILE</a></li>';
+            portal_list_entry = '<li><a href="' + userinfolink + '">PASSPORT</a></li>';
             if (portallink.length > 0) {
               if (userPBSLoginStatus.memberStatus == 'valid' || userPBSLoginStatus.memberStatus == 'expired') {
-                portal_list_entry += '<li><a href="' + portallink + '" target=_new >MEMBER PORTAL</a></li>';
+                portal_list_entry = '<li><a href="' + portallink + '" target=_new >MY MEMBERSHIP</a></li>' + portal_list_entry;
               }
+            }
+            if (subscriptionslink.length > 0) {
+               portal_list_entry += '<li><a href="' + subscriptionslink + '" target=_new >EMAIL SETTINGS</a></li>';
             }
              welcomestring = '<a href="#" class="toggle-user-drop userlink">' + thumbimage + '<span class="name">' + user.first_name + '</span></a> <ul class="user-drop">'+ portal_list_entry + '<li><a  class="signout">SIGN OUT</a></li></ul>';
             $('.pbs_passport_authenticate div.messages-new').html(welcomestring);

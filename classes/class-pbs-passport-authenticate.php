@@ -23,7 +23,7 @@ class PBS_Passport_Authenticate {
 		$this->assets_url = esc_url( trailingslashit( plugins_url( '/assets/', $file ) ) );
     $this->token = 'pbs_passport_authenticate';
     $this->defaults = get_option($this->token);
-    $this->version = '0.3.2.2';
+    $this->version = '0.3.2.3';
 
 		// Load public-facing style sheet and JavaScript.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -119,6 +119,7 @@ class PBS_Passport_Authenticate {
     $args['vppalink'] =  site_url('pbsoauth/vppa/');
     $args['station_call_letters_lc'] = strtolower($defaults['station_call_letters']);
     $args['portallink'] = !empty($defaults['donor_portal_url']) ? $defaults['donor_portal_url'] : '';
+    $args['subscriptionslink'] = !empty($defaults['subscriptions_portal_url']) ? $defaults['subscriptions_portal_url'] : '';
     $json_args = json_encode($args);
     $button = '<div class="pbs_passport_authenticate"><button class="launch">' . $args['login_text'] .  '</button><div class="messages"></div></div>';
     $jsonblock = '<script language="javascript">var pbs_passport_authenticate_args = ' . $json_args . '; </script>';
