@@ -214,7 +214,7 @@ jQuery(document).ready(function($) {
               }
             }
             if (subscriptionslink.length > 0) {
-               portal_list_entry += '<li><a href="' + subscriptionslink + '" target=_new >EMAIL SETTINGS</a></li>';
+               portal_list_entry += '<li><a href="' + subscriptionslink + '">EMAIL SETTINGS</a></li>';
             }
              welcomestring = '<a href="#" class="toggle-user-drop userlink">' + thumbimage + '<span class="name">' + user.first_name + '</span></a> <ul class="user-drop">'+ portal_list_entry + '<li><a  class="signout">SIGN OUT</a></li></ul>';
             $('.pbs_passport_authenticate div.messages-new').html(welcomestring);
