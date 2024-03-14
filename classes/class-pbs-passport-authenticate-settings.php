@@ -60,7 +60,7 @@ class PBS_Passport_Authenticate_Settings {
     add_settings_field( 'watch_url', 'Watch Programs URL', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'watch_url', 'class' => 'regular-text', 'label' => 'Link to your watch programs landing page.'  ) );
     add_settings_field( 'landing_page_url', 'Post-Login Landing Page URL', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'landing_page_url', 'class' => 'regular-text', 'label' => 'URL a member is sent to after successfully logging in if not clicking in from a video page (or some other page that sets the "login_referrer" cookie).  Defaults to your site home page.'  ) );
     add_settings_field( 'donor_portal_url', 'Donor Portal URL', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'donor_portal_url', 'class' => 'regular-text', 'label' => 'URL for your Donor Portal.  Leave blank if you do not have a donor portal.'  ) );
-
+    add_settings_field( 'subscriptions_portal_url', 'Subscriptions Portal URL', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'general_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'subscriptions_portal_url', 'class' => 'regular-text', 'label' => 'URL for your Email Subcriptions Portal.  Leave blank if you do not have an email management portal.'  ) );
 
     add_settings_section('pbslaas_settings', 'PBS LAAS settings', array( $this, 'settings_section_callback'), 'pbs_passport_authenticate');
 
