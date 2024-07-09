@@ -32,6 +32,11 @@ if (!empty($_COOKIE["pbsoauth_login_referrer"])){
   setcookie( 'pbsoauth_login_referrer', '', 1, '/', $_SERVER['HTTP_HOST']);
 }
 
+$code_verifier = '';
+if (!empty($_COOKIE["pkce_code_verifier"])){
+  $code_verifier = $_COOKIE["pkce_code_verifier"];
+  setcookie( 'pkce_code_verifier', '', 1, '/', $_SERVER['HTTP_HOST']);
+}
 $membership_id = false;
 
 // where to direct a logged in visitor who isn't a member
@@ -66,7 +71,7 @@ $nonce = false;
 $errors = array();
 if (isset($_GET["code"])){
   $code = $_GET["code"];
-  $userinfo = $laas_client->authenticate($code, $rememberme, $nonce);
+  $userinfo = $laas_client->authenticate($code, $rememberme, $nonce, $code_verifier);
 }
 
 // now we either have userinfo or null.
