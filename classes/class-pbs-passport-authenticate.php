@@ -11,32 +11,32 @@ class PBS_Passport_Authenticate {
 	private $dir;
 	private $file;
 	private $assets_dir;
-  private $token;
-  private $defaults;
+	private $token;
+	private $defaults;
 	public $assets_url;
-  public $version;
+	public $version;
 
 	public function __construct($file) {
 		$this->dir = dirname( $file );
 		$this->file = $file;
 		$this->assets_dir = trailingslashit( $this->dir ) . 'assets';
 		$this->assets_url = esc_url( trailingslashit( plugins_url( '/assets/', $file ) ) );
-    $this->token = 'pbs_passport_authenticate';
-    $this->defaults = get_option($this->token);
-    $this->version = '0.3.2.4';
+	    $this->token = 'pbs_passport_authenticate';
+    	$this->defaults = get_option($this->token);
+    	$this->version = '0.4.1';
 
 		// Load public-facing style sheet and JavaScript.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
-    // Setup the shortcode
-    add_shortcode( 'pbs-passport-authenticate', array($this, 'do_shortcode') );
+		// Setup the shortcode
+		add_shortcode( 'pbs-passport-authenticate', array($this, 'do_shortcode') );
 
-    // Setup the rewrite rules and query vars to make our endpoints work
-    add_action( 'init', array($this, 'setup_rewrite_rules') );
-    add_filter( 'query_vars', array($this, 'register_query_vars') );
-    add_action( 'template_include', array($this, 'rewrite_templates') );
+		// Setup the rewrite rules and query vars to make our endpoints work
+		add_action( 'init', array($this, 'setup_rewrite_rules') );
+		add_filter( 'query_vars', array($this, 'register_query_vars') );
+		add_action( 'template_include', array($this, 'rewrite_templates') );
 		
-	add_filter( 'body_class', array($this, 'ppa_body_classes') );	
+		add_filter( 'body_class', array($this, 'ppa_body_classes') );	
 	}
 
   public function enqueue_scripts() {
@@ -184,6 +184,28 @@ class PBS_Passport_Authenticate {
     return $laas_client;
   }
 
+	public function get_pmsso_client($args = null){
+		$defaults = $this->defaults;
+		$redirect_uri = ( !empty($args['redirect_uri']) ? $args['redirect_uri'] : site_url('pbsoauth/callback/') );
+    	$client_id = ( !empty($args['pmsso_client_id']) ? $args['pmsso_client_id'] : $defaults['pmsso_client_id'] );
+		$customer_id = ( !empty($args['pmsso_customer_id']) ? $args['pmsso_customer_id'] : $defaults['pmsso_customer_id'] );
+    	$client_secret = ( !empty($args['pmsso_client_secret']) ? $args['pmsso_client_secret'] : null );
+		$app_id = ( !empty($args['pmsso_app_id']) ? $args['pmsso_app_id'] : $defaults['pmsso_app_id'] );
+
+		$pmsso_args = array(
+			'client_id' => $client_id,
+			'app_id' => $app_id,
+			'customer_id' => $customer_id,
+			'client_secret' => $client_secret,
+			'redirect_uri' => $redirect_uri,
+			'tokeninfo_cookiename' => $defaults['tokeninfo_cookiename'],
+			'userinfo_cookiename' => 'pbs_passport_userinfo',
+			'cryptkey' => $defaults['cryptkey']
+		);
+		$pmsso_client = new PMSSO_Client($pmsso_args);
+		return $pmsso_client;
+    }
+
   public function get_mvault_client(){
     $defaults = $this->defaults;
     $station_id = ( !empty($defaults['station_id']) ? $defaults['station_id'] : $defaults['station_call_letters'] );
@@ -270,13 +292,17 @@ class PBS_Passport_Authenticate {
   }
 
   public function get_membership_from_access_token($access_token = '', $client_args = array()){
-    /* this function consolidates mvault and laas lookups to return a combined/useinfo membership object
-     * should have been built years ago! */
+	/* this function consolidates mvault and laas/pmsso lookups to return a combined/useinfo membership object */
     if (!$access_token) {
       return array('errors' => 'no access token provided');
     }
-    $laas_client = $this->get_laas_client($client_args);
-    $userinfo = $laas_client->get_latest_pbs_userinfo($access_token);
+	$userinfo = array();
+	if (isset($client_args['use_pmsso']) && ($client_args['use_pmsso'] == true)) {
+		$auth_client = $this->get_pmsso_client($client_args);
+	} else {
+		$auth_client = $this->get_laas_client($client_args);
+	}
+	$userinfo = $auth_client->get_latest_pbs_userinfo($access_token);
     $pid = !empty($userinfo["pid"]) ? $userinfo["pid"] : false;
     if (!$pid) {
       return array('errors' => 'bad login');

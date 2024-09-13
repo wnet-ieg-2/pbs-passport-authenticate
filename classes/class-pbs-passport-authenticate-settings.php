@@ -70,6 +70,16 @@ class PBS_Passport_Authenticate_Settings {
     add_settings_field( 'scope', 'OAuth Scope', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pbslaas_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'scope', 'class' => 'regular-text', 'label' => 'Scope for your OAuth grant.  Provided by PBS, will typically look like "account wxyz". Case-sensitive.  Leave blank if you don\'t know it for certain.') );
 
 
+    add_settings_section('pmsso_settings', 'Public Media SSO settings', array( $this, 'settings_section_callback'), 'pbs_passport_authenticate');
+
+    add_settings_field( 'pmsso_customerid', 'Customer ID', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pmsso_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'pmsso_customerid', 'class' => 'regular-text', 'label' => 'the customerID will be a long hex string and appears right after the https://login.publicmediasignin.org/ link eg https://login.publicmediasignin.org/CUSTOMERID/auth-ui/ .', 'default' => '' ) );
+
+    add_settings_field( 'pmsso_client_id', 'Client ID', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pmsso_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'pmsso_client_id', 'class' => 'regular-text', 'label' => 'the Client ID will be a long hex string and appears at the end of the https://login.publicmediasignin.org/ link eg https://login.publicmediasignin.org/CUSTOMERID/auth-ui/profile/?client_id=CLIENTID .', 'default' => '' ) );
+
+    add_settings_field( 'pmsso_client_secret', 'Client Secret', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pmsso_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'pmsso_client_secret', 'class' => 'regular-text', 'label' => 'OPTIONAL: CONFIDENTIAL CLIENT ONLY.  Leave blank unless issued a "confidential client" which is a very special odd case.', 'default' => '' ) );
+
+    add_settings_field( 'pmsso_app_id', 'Application ID', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pmsso_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'pmsso_app_id', 'class' => 'regular-text', 'label' => 'the Application ID will be a short cleartext string provided directly by PBS such as "thirteen" .', 'default' => '' ) );
+
     add_settings_section('mvault_settings', 'Membership Vault settings', array( $this, 'settings_section_callback'), 'pbs_passport_authenticate');
 
     add_settings_field( 'mvault_endpoint', 'MVault API Endpoint', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'mvault_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'mvault_endpoint', 'class' => 'regular-text', 'label' => 'Membership Vault API URL. This should only change if authenticating against a dev endpoint.', 'default' => 'https://mvault.services.pbs.org/api/' ) );
