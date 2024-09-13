@@ -85,7 +85,7 @@ echo "</div>";
   <?php } 
 		if ($use_pmsso) { 
 		?>
-		<ul><li class="pbs"><a href="<?php echo $pmsso_url; ?>">Sign in with PM SSO</a></li>
+		<ul><li class="pmsso"><a href="<?php echo $pmsso_url; ?>">Sign in with PM SSO</a></li>
 
 		<?php } else {
   ?>

@@ -61,13 +61,15 @@ jQuery(document).ready(function($) {
       window.dataLayer = window.dataLayer || [];
       dataLayer.push({ 'event': 'login', 'method': logintype });
     }
-    // generate and append the codeverifier
-    var code_verifier = generateRandomString();
-    document.cookie='pkce_code_verifier=' + code_verifier + ';domain=' + window.location.hostname + ';path=/';
-    var code_challenge = await pkceChallengeFromVerifier(code_verifier);
-    var encoded_code_challenge = encodeURIComponent(code_challenge);
-    var appended_href =  $(this).attr('href') + "&code_challenge=" + encoded_code_challenge + "&code_challenge_method=S256";
-
+	var appended_href =  $(this).attr('href');
+	if (logintype == 'pmsso') {
+	    // generate and append the codeverifier but only if pmsso
+    	var code_verifier = generateRandomString();
+	    document.cookie='pkce_code_verifier=' + code_verifier + ';domain=' + window.location.hostname + ';path=/';
+    	var code_challenge = await pkceChallengeFromVerifier(code_verifier);
+	    var encoded_code_challenge = encodeURIComponent(code_challenge);
+    	appended_href =  $(this).attr('href') + "&code_challenge=" + encoded_code_challenge + "&code_challenge_method=S256";
+	}
     // send them along their way
     window.location.href = appended_href;
   }); 
