@@ -559,14 +559,19 @@ class PMSSO_Client {
 
   public function derive_and_append_vppa_status($userinfo) {
     $vppa_status = 'false';
+	$userinfo['vppa'] = array();
     if (!empty($userinfo['vppa_last_updated'])) {
       $vppa_status = 'valid';
       if (strtotime($userinfo['vppa_last_updated']) < strtotime('-2 years') ){
         $vppa_status = 'expired';
       }
+	  $userinfo['vppa']['vppa_last_updated'] = $userinfo['vppa_last_updated'];
+	  unset ($userinfo['vppa_last_updated']);
       if ($userinfo['vppa_accepted'] !== true) {
         $vppa_status = 'rejected';
       }
+	  $userinfo['vppa']['vppa_accepted'] = $userinfo['vppa_accepted'];
+	  unset ($userinfo['vppa_accepted']);
     }
     $userinfo['vppa_status'] = $vppa_status;
     return $userinfo;
