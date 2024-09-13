@@ -80,6 +80,9 @@ class PBS_Passport_Authenticate_Settings {
 
     add_settings_field( 'pmsso_app_id', 'Application ID', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pmsso_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'pmsso_app_id', 'class' => 'regular-text', 'label' => 'the Application ID will be a short cleartext string provided directly by PBS such as "thirteen" .', 'default' => '' ) );
 
+	add_settings_field( 'pmsso_is_default', 'PMSSO is default', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pmsso_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'pmsso_is_default', 'class' => 'small-text', 'label' => 'Set this to true to make web login use PM SSO, and other clients to default to it', 'default' => 'false' ) );
+
+
     add_settings_section('mvault_settings', 'Membership Vault settings', array( $this, 'settings_section_callback'), 'pbs_passport_authenticate');
 
     add_settings_field( 'mvault_endpoint', 'MVault API Endpoint', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'mvault_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'mvault_endpoint', 'class' => 'regular-text', 'label' => 'Membership Vault API URL. This should only change if authenticating against a dev endpoint.', 'default' => 'https://mvault.services.pbs.org/api/' ) );

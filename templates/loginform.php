@@ -2,13 +2,22 @@
 $defaults = get_option('pbs_passport_authenticate');
 $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
 
+$use_pmsso = isset($defaults['pmsso_is_default']) ? $defaults['pmsso_is_default'] : false;
+
 wp_enqueue_script( 'pbs_passport_loginform_js' , $passport->assets_url . 'js/loginform_helpers.js', array('jquery'), $passport->version, true );
 
 $links = $passport->get_oauth_links(array('scope' => 'account vppa'));
 $pluginImageDir = $passport->assets_url . 'img';
 $station_nice_name = $defaults['station_nice_name'];
-$laas_client = $passport->get_laas_client();
-$userinfo = $laas_client->check_pbs_login();
+$auth_client = false;
+if ($use_pmsso) {
+	$auth_client = $passport->get_pmsso_client();
+	$userinfo = $auth_client->check_pmsso_login();
+	$pmsso_url = "https://login.publicmediasignin.org/" . $defaults['pmsso_customerid'] ."/login/authorize?client_id=" . $defaults['pmsso_client_id'] . "&redirect_uri=" . site_url('pbsoauth/callback/') .  "&scope=openid";
+} else {
+	$auth_client = $passport->get_laas_client();
+	$userinfo = $auth_client->check_pbs_login();
+} 
 $membership_id = (!empty($_REQUEST['membership_id']) ? $_REQUEST['membership_id'] : false);
 if ($membership_id) {
   $mvault_client = $passport->get_mvault_client();
@@ -17,16 +26,17 @@ if ($membership_id) {
     // then the membership_id is invalid so discard it
     $membership_id = false;  
   } else {
-    $links = $passport->get_oauth_links(array('scope' => 'account vppa'));
     $jwt = $passport->create_jwt(array("sub" => $membership_id, "not_member_path" => "pbsoauth/userinfo"));
-    foreach ($links as $type => $link){
-      $statestring = "&activation=true&state=";
-      if ($type == 'create_pbs') {
-        $statestring = urlencode($statestring);
-      }
-      $statestring .= $jwt;
-      $links[$type] = $link . $statestring; 
-    }
+	$pmsso_url .= "&state=" . $jwt;
+	$links = $passport->get_oauth_links(array('scope' => 'account vppa'));
+   	foreach ($links as $type => $link){
+    	$statestring = "&activation=true&state=";
+		if ($type == 'create_pbs') {
+       		$statestring = urlencode($statestring);
+      	}
+      	$statestring .= $jwt;
+      	$links[$type] = $link . $statestring; 
+	}
   }
 }
 
@@ -72,7 +82,13 @@ echo "</div>";
 	<h3>MEMBER SIGN IN</h3>
 	<p><strong>Members get extended access to PBS video on demand and more</strong></p>
  	<p>If you have already activated your <?php echo $station_nice_name; ?> Passport benefit, please sign in below.</p>
-  <?php } ?>
+  <?php } 
+		if ($use_pmsso) { 
+		?>
+		<ul><li class="pbs"><a href="<?php echo $pmsso_url; ?>">Sign in with PM SSO</a></li>
+
+		<?php } else {
+  ?>
 	<ul>
   <li class="pbs"><a href="<?php echo($links['pbs']); ?>" title="Sign in with PBS Account"><img src="<?php echo $pluginImageDir; ?>/sign-in-pbs.png" /></a>
   <?php if ($membership_id){ ?>
@@ -82,10 +98,11 @@ echo "</div>";
 	<li class="facebook"><a href="<?php echo($links['facebook']); ?>" title="Sign in with Facebook"><img src="<?php echo $pluginImageDir; ?>/sign-in-facebook.png" /></a></li>
   <li class="apple"><a href="<?php echo($links['apple']); ?>" title="Sign in with Apple"><img src="<?php echo $pluginImageDir; ?>/sign-in-apple.png" /></a></li>
 	</li>
+	<?php  } ?>
 	<li class="stay-logged-in"><input type="checkbox" id="pbsoauth_rememberme" name="pbsoauth_rememberme" value="true" checked /> Keep me logged in on this device</li>
 	</ul>
 	</div>
-	<?php } else { ?> 
+	<?php  } else { ?> 
   <p>You seem to already be signed in.  Wait one moment to be redirected to <a href="<?php echo site_url('pbsoauth/userinfo/'); ?>">your user profile page, or click here</a>.</p>
   <?php } ?>
 	</div><!-- .pp-narrow -->
