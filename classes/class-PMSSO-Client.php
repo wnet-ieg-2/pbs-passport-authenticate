@@ -171,7 +171,7 @@ class PMSSO_Client {
       $tokeninfo['messages'] = 'broke on code exchange';
       return $tokeninfo;
     }
-    $tokeninfo = $this->update_pbs_tokeninfo($tokeninfo);
+    $tokeninfo = $this->update_pmsso_tokeninfo($tokeninfo);
     return $tokeninfo;
   }
 
@@ -492,19 +492,20 @@ class PMSSO_Client {
     $ch = $this->build_curl_handle($url);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $customheaders);
     curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-    $userinfo_json = curl_exec($ch);
+    $response_json = curl_exec($ch);
     $info = curl_getinfo($ch);
     $errors = curl_error($ch);
     curl_close($ch);
-    $userinfo = json_decode($userinfo_json, true);
-    if (isset($userinfo['email'])){
+    $response = json_decode($response_json, true);
+	if (isset($response['profile'])) {
+    	$userinfo = $response['profile'];
       // append the VPPA status
       $userinfo = $this->derive_and_append_vppa_status($userinfo);
       return $userinfo;
     } else {
-      $userinfo['curlinfo'] = $info;
-      $userinfo['curlerrors'] = $errors;
-      return $userinfo;
+      $response['curlinfo'] = $info;
+      $response['curlerrors'] = $errors;
+      return $response;
     }
   }
 
@@ -558,12 +559,12 @@ class PMSSO_Client {
 
   public function derive_and_append_vppa_status($userinfo) {
     $vppa_status = 'false';
-    if (!empty($userinfo['vppa']['vppa_last_updated'])) {
+    if (!empty($userinfo['vppa_last_updated'])) {
       $vppa_status = 'valid';
-      if (strtotime($userinfo['vppa']['vppa_last_updated']) < strtotime('-2 years') ){
+      if (strtotime($userinfo['vppa_last_updated']) < strtotime('-2 years') ){
         $vppa_status = 'expired';
       }
-      if ($userinfo['vppa']['vppa_accepted'] !== true) {
+      if ($userinfo['vppa_accepted'] !== true) {
         $vppa_status = 'rejected';
       }
     }

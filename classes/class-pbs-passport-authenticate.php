@@ -188,7 +188,7 @@ class PBS_Passport_Authenticate {
 		$defaults = $this->defaults;
 		$redirect_uri = ( !empty($args['redirect_uri']) ? $args['redirect_uri'] : site_url('pbsoauth/callback/') );
     	$client_id = ( !empty($args['pmsso_client_id']) ? $args['pmsso_client_id'] : $defaults['pmsso_client_id'] );
-		$customer_id = ( !empty($args['pmsso_customer_id']) ? $args['pmsso_customer_id'] : $defaults['pmsso_customer_id'] );
+		$customer_id = ( !empty($args['pmsso_customerid']) ? $args['pmsso_customerid'] : $defaults['pmsso_customerid'] );
     	$client_secret = ( !empty($args['pmsso_client_secret']) ? $args['pmsso_client_secret'] : null );
 		$app_id = ( !empty($args['pmsso_app_id']) ? $args['pmsso_app_id'] : $defaults['pmsso_app_id'] );
 
