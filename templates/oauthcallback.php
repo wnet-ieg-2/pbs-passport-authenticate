@@ -20,10 +20,20 @@ $defaults = get_option('pbs_passport_authenticate');
 
 $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
 
-$laas_client = $passport->get_laas_client();
+$auth_client = false;
+// code verifier will only come from PMSSO
+$code_verifier = '';
+if (!empty($_COOKIE["pkce_code_verifier"])){
+  $code_verifier = $_COOKIE["pkce_code_verifier"];
+  setcookie( 'pkce_code_verifier', '', 1, '/', $_SERVER['HTTP_HOST']);
+  $auth_client = $passport->get_pmsso_client();
+} else {
+  $auth_client = $passport->get_laas_client();
+}
+
 
 // log any current session out
-$laas_client->logout();
+$auth_client->logout();
 
 
 $login_referrer = !empty($defaults['landing_page_url']) ? $defaults['landing_page_url'] : site_url();
@@ -32,11 +42,6 @@ if (!empty($_COOKIE["pbsoauth_login_referrer"])){
   setcookie( 'pbsoauth_login_referrer', '', 1, '/', $_SERVER['HTTP_HOST']);
 }
 
-$code_verifier = '';
-if (!empty($_COOKIE["pkce_code_verifier"])){
-  $code_verifier = $_COOKIE["pkce_code_verifier"];
-  setcookie( 'pkce_code_verifier', '', 1, '/', $_SERVER['HTTP_HOST']);
-}
 $membership_id = false;
 
 // where to direct a logged in visitor who isn't a member
@@ -71,7 +76,7 @@ $nonce = false;
 $errors = array();
 if (isset($_GET["code"])){
   $code = $_GET["code"];
-  $userinfo = $laas_client->authenticate($code, $rememberme, $nonce, $code_verifier);
+  $userinfo = $auth_client->authenticate($code, $rememberme, $nonce, $code_verifier);
 }
 
 // now we either have userinfo or null.
