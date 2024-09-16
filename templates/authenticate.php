@@ -47,7 +47,7 @@ $errors = array();
 if (isset($_REQUEST["logout"])){
   $userinfo = $auth_client->logout();
 } else {
-  $userinfo = $use_pmsso ? $auth_client->check_pmsso_login() : $laas_client->check_pbs_login();
+  $userinfo = $use_pmsso ? $auth_client->check_pmsso_login() : $auth_client->check_pbs_login();
   if (is_object($userinfo)) {
     $userinfo = get_object_vars($userinfo);
   }
