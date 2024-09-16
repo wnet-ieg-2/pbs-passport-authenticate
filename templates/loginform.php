@@ -13,7 +13,7 @@ $auth_client = false;
 if ($use_pmsso) {
 	$auth_client = $passport->get_pmsso_client();
 	$userinfo = $auth_client->check_pmsso_login();
-	$pmsso_url = "https://login.publicmediasignin.org/" . $defaults['pmsso_customerid'] ."/login/authorize?client_id=" . $defaults['pmsso_client_id'] . "&redirect_uri=" . site_url('pbsoauth/callback/') .  "&scope=openid&prompt=true&response_type=code";
+	$pmsso_url = "https://login.publicmediasignin.org/" . $defaults['pmsso_customerid'] ."/login/authorize?client_id=" . $defaults['pmsso_client_id'] . "&redirect_uri=" . site_url('pbsoauth/callback/') .  "&scope=openid&prompt=login&response_type=code";
 } else {
 	$auth_client = $passport->get_laas_client();
 	$userinfo = $auth_client->check_pbs_login();
