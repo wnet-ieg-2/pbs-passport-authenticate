@@ -24,7 +24,7 @@ remove_all_actions('wp_footer',1);
 remove_all_actions('wp_header',1);
 header('cache-control: no-cache');
 $defaults = get_option('pbs_passport_authenticate');
-
+$use_pmsso = isset($defaults['pmsso_is_default']) ? $defaults['pmsso_is_default'] : false;
 $required = array('laas_client_id', 'laas_client_secret', 'oauth2_endpoint', 'mvault_endpoint', 'mvault_client_id', 'mvault_client_secret');
 
 foreach ($required as $arg) {
@@ -35,16 +35,19 @@ foreach ($required as $arg) {
 
 $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
 
-$laas_client = $passport->get_laas_client();
-
+if (!$use_pmsso) {
+	$auth_client = $passport->get_laas_client();
+} else {
+	$auth_client = $passport->get_pmsso_client();
+}
 
 $rememberme = (isset($_POST["rememberme"])) ? $_POST["rememberme"] : false;
 $nonce = (isset($_POST["nonce"])) ? $_POST["nonce"] : false;
 $errors = array();
 if (isset($_REQUEST["logout"])){
-  $userinfo = $laas_client->logout();
+  $userinfo = $auth_client->logout();
 } else {
-  $userinfo = $laas_client->check_pbs_login();
+  $userinfo = $use_pmsso ? $auth_client->check_pmsso_login() : $laas_client->check_pbs_login();
   if (is_object($userinfo)) {
     $userinfo = get_object_vars($userinfo);
   }
@@ -98,7 +101,7 @@ if (isset ($mvaultinfo["membership_id"])) {
     setcookie('pbsoauth_loginprovider', $login_provider, strtotime("+1 hour"), "/", $_SERVER['HTTP_HOST'], true, false);
   }
 }
-$success = $laas_client->validate_and_append_userinfo($userinfo);
+$success = $auth_client->validate_and_append_userinfo($userinfo);
 if ($success) {
   $userinfo = $success;
 }
