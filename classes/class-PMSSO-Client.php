@@ -142,13 +142,11 @@ class PMSSO_Client {
       $tokeninfo['messages'] = 'broke on code response';
       return $tokeninfo;
     }
-	error_log('code exchange got an access_token');
     $tokeninfo = $this->update_pmsso_tokeninfo($tokeninfo);
     $access_token = $tokeninfo['access_token'];
     if (! isset($tokeninfo["access_token"]) ) {
       return $tokeninfo;
     }
-	error_log('able to update it');
     $this->save_encrypted_tokeninfo($tokeninfo);
 
     $userinfo = $this->get_latest_pbs_userinfo($access_token);
@@ -272,7 +270,6 @@ class PMSSO_Client {
       $return['curlerrors'] = $errors;
       $return['curlinfo'] = $info;
       $return['rawjson'] = $response_json;
-	  error_log(json_encode($return));
       return $return;
     }
   }
@@ -424,7 +421,6 @@ class PMSSO_Client {
 
   private function update_pmsso_tokeninfo($tokeninfo) {
     // We get a new access token if the current token has less than 5% of its life left
-	error_log('inbound tokeninfo is ' . json_encode($tokeninfo));
     // default lifespan of token is 10 hours, so 30 minutes.
     $token_expire_window = strtotime("+30 minute");
     if ( isset( $tokeninfo['expires_in'] ) && ( $tokeninfo['expires_in'] < 36000 ) ){
