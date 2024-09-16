@@ -254,6 +254,7 @@ class PMSSO_Client {
       'code' => $code,
       'client_id' => $this->client_id,
       'grant_type' => 'authorization_code',
+	  'redirect_uri' => $this->redirect_uri,
 	  'code_verifier' => $code_verifier
     );
 	$requestbody=http_build_query($postfields);
