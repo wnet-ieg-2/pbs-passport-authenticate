@@ -140,11 +140,11 @@ class PMSSO_Client {
     $this->rememberme = $rememberme;
 	error_log("in authenticate:  code is $code and code_verifier is $code_verifier");
     $tokeninfo = $this->get_code_response($code, $code_verifier);
+	error_log('got token info' . json_encode($tokeninfo));
     if (! isset($tokeninfo["access_token"]) ) {
       $tokeninfo['messages'] = 'broke on code response';
       return $tokeninfo;
     }
-   	error_log('got token info' . json_encode($tokeninfo)); 
     $tokeninfo = $this->update_pmsso_tokeninfo($tokeninfo);
      
     $access_token = $tokeninfo['access_token'];
