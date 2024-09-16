@@ -64,6 +64,7 @@ jQuery(document).ready(function($) {
 	var appended_href =  $(this).attr('href');
 	if (logintype == 'pmsso') {
 	    // generate and append the codeverifier but only if pmsso
+		console.log('setting verifier');
     	var code_verifier = generateRandomString();
 	    document.cookie='pkce_code_verifier=' + code_verifier + ';domain=' + window.location.hostname + ';path=/';
     	var code_challenge = await pkceChallengeFromVerifier(code_verifier);

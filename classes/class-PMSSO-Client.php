@@ -95,7 +95,7 @@ class PMSSO_Client {
     $this->encrypt_iv = (!empty($args['encrypt_iv']) ? $args['encrypt_iv'] : 'adsfafdsaafddsaf'); // LEGACY ONLY 
     $this->encrypt_method = (!empty($args['encrypt_method']) ? $args['encrypt_method'] : 'AES-256-CBC');
 
-
+	error_log('initialized PMSSO');
     $this->set_rememberme_state();
   } 
 
@@ -144,7 +144,7 @@ class PMSSO_Client {
       $tokeninfo['messages'] = 'broke on code response';
       return $tokeninfo;
     }
-    
+   	error_log('got token info' . json_encode($tokeninfo)); 
     $tokeninfo = $this->update_pmsso_tokeninfo($tokeninfo);
      
     $access_token = $tokeninfo['access_token'];
