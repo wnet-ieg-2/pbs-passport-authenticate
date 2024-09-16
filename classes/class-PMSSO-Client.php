@@ -138,7 +138,7 @@ class PMSSO_Client {
     $this->checknonce = $nonce;
 
     $this->rememberme = $rememberme;
-
+	error_log("in authenticate:  code is $code and code_verifier is $code_verifier");
     $tokeninfo = $this->get_code_response($code, $code_verifier);
     if (! isset($tokeninfo["access_token"]) ) {
       $tokeninfo['messages'] = 'broke on code response';
@@ -259,7 +259,7 @@ class PMSSO_Client {
     );
     $ch = $this->build_curl_handle($url);
     //construct the curl request
-
+	error_log("code response request to $url uses " . json_encode($postfields));
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
     $response_json = curl_exec($ch);
