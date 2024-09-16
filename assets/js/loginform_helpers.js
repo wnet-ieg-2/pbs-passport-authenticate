@@ -76,7 +76,7 @@ jQuery(document).ready(function($) {
   }); 
 
   // if pmsso exists, just add the pkce code challenge etc and redirect them
-  if ($(".passport-login-wrap li.pmsso a")) {
+  $(".passport-login-wrap li.pmsso a").each(async function() {
 	console.log('setting verifier');
 	var code_verifier = generateRandomString();
 	document.cookie='pkce_code_verifier=' + code_verifier + ';domain=' + window.location.hostname + ';path=/';
@@ -84,7 +84,7 @@ jQuery(document).ready(function($) {
 	var encoded_code_challenge = encodeURIComponent(code_challenge);
 	appended_href =  $(this).attr('href') + "&code_challenge=" + encoded_code_challenge + "&code_challenge_method=S256";
 	window.location.href = appended_href;
-  }
+  });
 
 });
 
