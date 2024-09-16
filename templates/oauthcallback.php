@@ -19,14 +19,14 @@ remove_all_actions('wp_header',1);
 $defaults = get_option('pbs_passport_authenticate');
 
 $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
-
+error_log('reading code: ' . ($_GET["code"]));
 $auth_client = false;
 // code verifier will only come from PMSSO
 $code_verifier = '';
 if (!empty($_COOKIE["pkce_code_verifier"])){
   error_log('code verifier cookie found');
   $code_verifier = $_COOKIE["pkce_code_verifier"];
-  setcookie( 'pkce_code_verifier', '', 1, '/', $_SERVER['HTTP_HOST']);
+  //setcookie( 'pkce_code_verifier', '', 1, '/', $_SERVER['HTTP_HOST']);
   $auth_client = $passport->get_pmsso_client();
 } else {
   $auth_client = $passport->get_laas_client();
