@@ -13,7 +13,7 @@ $pluginImageDir = $passport->assets_url . 'img';
 
 $defaults = get_option('pbs_passport_authenticate');
 $station_nice_name = $defaults['station_nice_name'];
-
+$use_pmsso = isset($defaults['pmsso_is_default']) ? $defaults['pmsso_is_default'] : false;
 // this script only takes two possible arguments
 
 $activation_token = (!empty($_REQUEST['activation_token']) ? str_replace(' ', '-', trim($_REQUEST['activation_token'])) : '');
@@ -41,15 +41,20 @@ if ($activation_token){
     if (empty($return['errors']) ){ 
       // nothing wrong with this account, so
       // see if we're already logged in
-      $laas_client = $passport->get_laas_client();
-      $userinfo = $laas_client->check_pbs_login();
+	  if (!$use_pmsso) {
+	      $auth_client = $passport->get_laas_client();
+    	  $userinfo = $auth_client->check_pbs_login();
+	  } else {
+		  $auth_client = $passport->get_pmsso_client();
+          $userinfo = $auth_client->check_pmsso_login();
+	  }
       if ($userinfo){
         // the user is logged in already.  Activate them!
         $pbs_uid = $userinfo["pid"];
         $mvault_client = $passport->get_mvault_client();
         $mvaultinfo = $mvault_client->activate($mvaultinfo['membership_id'], $pbs_uid);
         $userinfo["membership_info"] = $mvaultinfo;
-        $success = $laas_client->validate_and_append_userinfo($userinfo);
+        $success = $auth_client->validate_and_append_userinfo($userinfo);
         $login_referrer = site_url();
         if ( !empty($_COOKIE["pbsoauth_login_referrer"]) ){
           $login_referrer = $_COOKIE["pbsoauth_login_referrer"];
