@@ -258,6 +258,7 @@ class PMSSO_Client {
 	  'code_verifier' => $code_verifier
     );
 	$requestbody=http_build_query($postfields);
+	error_log("postfields are " . $requestbody);
     $ch = $this->build_curl_handle($url);
     //construct the curl request
     curl_setopt($ch, CURLOPT_POST, true);
