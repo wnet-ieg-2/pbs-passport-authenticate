@@ -252,16 +252,15 @@ class PMSSO_Client {
     $url = $this->oauthroot . 'login/token/';
     $postfields = array(
       'code' => $code,
-      'redirect_uri' => $this->redirect_uri,
       'client_id' => $this->client_id,
       'grant_type' => 'authorization_code',
 	  'code_verifier' => $code_verifier
     );
+	$requestbody=http_build_query($postfields);
     $ch = $this->build_curl_handle($url);
     //construct the curl request
-	error_log("code response request to $url uses " . json_encode($postfields));
     curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $requestbody);
     $response_json = curl_exec($ch);
     $info = curl_getinfo($ch);
     $errors = curl_error($ch);
