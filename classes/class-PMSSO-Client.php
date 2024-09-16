@@ -249,7 +249,7 @@ class PMSSO_Client {
 
 
   private function get_code_response($code='', $code_verifier=''){
-    $url = $this->oauthroot . 'login/token/';
+    $url = $this->oauthroot . 'login/token';
     $postfields = array(
       'code' => $code,
       'client_id' => $this->client_id,
@@ -274,6 +274,7 @@ class PMSSO_Client {
       $return['curlerrors'] = $errors;
       $return['curlinfo'] = $info;
       $return['rawjson'] = $response_json;
+	  error_log(json_encode($return));
       return $return;
     }
   }
