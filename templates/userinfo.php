@@ -1,14 +1,19 @@
 <?php
 $defaults = get_option('pbs_passport_authenticate');
 $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
-
+$use_pmsso = isset($defaults['pmsso_is_default']) ? $defaults['pmsso_is_default'] : false;
 $pluginImageDir = $passport->assets_url . 'img';
 $station_nice_name = $defaults['station_nice_name'];
-$laas_client = $passport->get_laas_client();
-$userinfo = $laas_client->check_pbs_login();
+if (!$use_pmsso) {
+	$auth_client = $passport->get_laas_client();
+	$userinfo = $auth_client->check_pbs_login();
+} else {
+	$auth_client = $passport->get_pmsso_client();
+	$userinfo = $auth_client->check_pmsso_login();
+}
 if (empty($userinfo['first_name'])) {
   // just in case, log them out, maybe they've got a bad cookie
-  $laas_client->logout();
+  $auth_client->logout();
   // not logged in, redirect to loginform
   wp_redirect(site_url('pbsoauth/loginform'));
   exit();
@@ -19,7 +24,7 @@ $mvaultinfo = $mvault_client->get_membership_by_uid($userinfo['pid']);
 $userinfo["membership_info"] = array("offer" => null, "status" => "Off");
 if (isset ($mvaultinfo["membership_id"])) {
   $userinfo["membership_info"] = $mvaultinfo;
-  $userinfo = $laas_client->validate_and_append_userinfo($userinfo);
+  $userinfo = $auth_client->validate_and_append_userinfo($userinfo);
 }
 
 define('DISABLE_PLEDGE', 1);
