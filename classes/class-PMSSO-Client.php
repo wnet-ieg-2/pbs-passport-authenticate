@@ -95,7 +95,6 @@ class PMSSO_Client {
     $this->encrypt_iv = (!empty($args['encrypt_iv']) ? $args['encrypt_iv'] : 'adsfafdsaafddsaf'); // LEGACY ONLY 
     $this->encrypt_method = (!empty($args['encrypt_method']) ? $args['encrypt_method'] : 'AES-256-CBC');
 
-	error_log('initialized PMSSO');
     $this->set_rememberme_state();
   } 
 
@@ -138,20 +137,18 @@ class PMSSO_Client {
     $this->checknonce = $nonce;
 
     $this->rememberme = $rememberme;
-	error_log("in authenticate:  code is $code and code_verifier is $code_verifier");
     $tokeninfo = $this->get_code_response($code, $code_verifier);
-	error_log('got token info' . json_encode($tokeninfo));
     if (! isset($tokeninfo["access_token"]) ) {
       $tokeninfo['messages'] = 'broke on code response';
       return $tokeninfo;
     }
+	error_log('code exchange got an access_token');
     $tokeninfo = $this->update_pmsso_tokeninfo($tokeninfo);
-     
     $access_token = $tokeninfo['access_token'];
     if (! isset($tokeninfo["access_token"]) ) {
       return $tokeninfo;
     }
-
+	error_log('able to update it');
     $this->save_encrypted_tokeninfo($tokeninfo);
 
     $userinfo = $this->get_latest_pbs_userinfo($access_token);
@@ -258,7 +255,6 @@ class PMSSO_Client {
 	  'code_verifier' => $code_verifier
     );
 	$requestbody=http_build_query($postfields);
-	error_log("postfields are " . $requestbody);
     $ch = $this->build_curl_handle($url);
     //construct the curl request
     curl_setopt($ch, CURLOPT_POST, true);
@@ -315,7 +311,7 @@ class PMSSO_Client {
   }
 
   public function generate_pmsso_access_token_from_refresh_token($refresh_token =''){
-    $url = $this->oauthroot . 'login/token/';
+    $url = $this->oauthroot . 'login/token';
     $postfields = array(
       'refresh_token' => $refresh_token,
       'client_id' => $this->client_id,
@@ -428,7 +424,7 @@ class PMSSO_Client {
 
   private function update_pmsso_tokeninfo($tokeninfo) {
     // We get a new access token if the current token has less than 5% of its life left
-
+	error_log('inbound tokeninfo is ' . json_encode($tokeninfo));
     // default lifespan of token is 10 hours, so 30 minutes.
     $token_expire_window = strtotime("+30 minute");
     if ( isset( $tokeninfo['expires_in'] ) && ( $tokeninfo['expires_in'] < 36000 ) ){
@@ -453,11 +449,6 @@ class PMSSO_Client {
 
     }
 
-    // validate the access token on general priniciple
-    $validate = $this->validate_pmsso_access_token($tokeninfo['access_token']);
-    if (! isset($validate['access_token'])){
-      return $validate;
-    }
     // calculate the expiration date and add to tokeninfo array if not previously set
     if (! isset($tokeninfo['expires_timestamp']) ){
       $tokeninfo['expires_timestamp'] = strtotime("+" . $tokeninfo['expires_in'] . " seconds");
