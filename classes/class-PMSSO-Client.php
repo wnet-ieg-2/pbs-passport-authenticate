@@ -238,6 +238,25 @@ class PMSSO_Client {
   }
 
   public function logout() {
+     $current_tokeninfo = $this->retrieve_encrypted_tokeninfo();
+	 if (isset($tokeninfo["access_token"]) ) {
+	 	$url = $this->oauthroot . 'login/token/revoke';
+		$postfields = array(
+			'client_id' => $this->client_id,
+			'token_type_hint' => 'access_token',
+			'token' => $tokeninfo["access_token"]
+		);
+		$requestbody=http_build_query($postfields);
+		$ch = $this->build_curl_handle($url);
+	    curl_setopt($ch, CURLOPT_POST, true);
+    	curl_setopt($ch, CURLOPT_POSTFIELDS, $requestbody);
+	    $response_json = curl_exec($ch);
+    	$info = curl_getinfo($ch);
+	    $errors = curl_error($ch);
+    	curl_close($ch);
+		error_log("token revoke response: " . $response_json);
+		error_log("revoke request info: " . json_encode($info));
+     }
      setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, true, false);
      setcookie($this->tokeninfo_cookiename, NULL, -1, "/", $this->domain, true, true);
   }
