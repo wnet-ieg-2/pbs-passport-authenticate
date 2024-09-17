@@ -332,8 +332,10 @@ class PMSSO_Client {
       }
       return $code_response;
     } else {
+	  error_log("failed to get access token from refresh token");
       $code_response['curlerrors'] = $errors;
       $code_response['curlinfo'] = $info;
+	  error_log(json_encode($code_response));
       return $code_response;
     }
   }
