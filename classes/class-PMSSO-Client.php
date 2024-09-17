@@ -330,6 +330,7 @@ class PMSSO_Client {
       if (isset($code_response['expires_in']) ){
         $code_response['expires_timestamp'] = strtotime("+" . $code_response['expires_in'] . " seconds");
       }
+	  error_log("got access token from refresh token");
       return $code_response;
     } else {
 	  error_log("failed to get access token from refresh token");
