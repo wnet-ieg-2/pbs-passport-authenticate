@@ -238,7 +238,7 @@ class PMSSO_Client {
   }
 
   public function logout() {
-     $current_tokeninfo = $this->retrieve_encrypted_tokeninfo();
+     $tokeninfo = $this->retrieve_encrypted_tokeninfo();
 	 if (isset($tokeninfo["access_token"]) ) {
 	 	$url = $this->oauthroot . 'login/token/revoke';
 		$postfields = array(
