@@ -8,6 +8,7 @@ define('DISABLE_PLEDGE', 1);
 get_header();
 
 $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
+$mvault_client = $passport->get_mvault_client();
 $pluginImageDir = $passport->assets_url . 'img';
 
 
@@ -51,17 +52,22 @@ if ($activation_token){
       if ($userinfo){
         // the user is logged in already.  Activate them!
         $pbs_uid = $userinfo["pid"];
-        $mvault_client = $passport->get_mvault_client();
-        $mvaultinfo = $mvault_client->activate($mvaultinfo['membership_id'], $pbs_uid);
-        $userinfo["membership_info"] = $mvaultinfo;
-        $success = $auth_client->validate_and_append_userinfo($userinfo);
-        $login_referrer = site_url();
-        if ( !empty($_COOKIE["pbsoauth_login_referrer"]) ){
-          $login_referrer = $_COOKIE["pbsoauth_login_referrer"];
-          setcookie( 'pbsoauth_login_referrer', '', 1, '/', $_SERVER['HTTP_HOST']);
-        }
-        wp_redirect($login_referrer);
-        exit();
+		// sanity check -- are they already activated?
+		$sanity_mvaultinfo = $mvault_client->get_membership_by_uid($pbs_uid);
+		if (isset($sanity_mvaultinfo['membership_id'])) {
+			$return['errors'] = array('message' => 'You are signed in and your account has already been activated. <a href="' . site_url('pbsoauth/userinfo')  . '">Your membership status is available here</a>.' . $obs_msg . 'You only need to activate your account the first time you use ' . $station_nice_name . ' Passport.<br /><br />', 'class' => 'info');
+		} else {
+    	    $mvaultinfo = $mvault_client->activate($mvaultinfo['membership_id'], $pbs_uid);
+        	$userinfo["membership_info"] = $mvaultinfo;
+	        $success = $auth_client->validate_and_append_userinfo($userinfo);
+    	    $login_referrer = site_url();
+        	if ( !empty($_COOKIE["pbsoauth_login_referrer"]) ){
+	          $login_referrer = $_COOKIE["pbsoauth_login_referrer"];
+    	      setcookie( 'pbsoauth_login_referrer', '', 1, '/', $_SERVER['HTTP_HOST']);
+        	}
+	        wp_redirect($login_referrer);
+    	    exit();
+		}
       }
       // if NOT logged in, redirect to the login page so they can activate there
       $loginuri = site_url('pbsoauth/loginform') . '?membership_id=' . $mvaultinfo['membership_id'];
