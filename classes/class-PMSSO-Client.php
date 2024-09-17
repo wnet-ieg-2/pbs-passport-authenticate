@@ -312,14 +312,14 @@ class PMSSO_Client {
     $postfields = array(
       'refresh_token' => $refresh_token,
       'client_id' => $this->client_id,
-      'client_secret' => $this->client_secret,
       'grant_type' => 'refresh_token'
     );
+	$requestbody = http_build_query($postfields);
     //construct the curl request
     $ch = $this->build_curl_handle($url);
 
     curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $requestbody);
     $response_json = curl_exec($ch);
     $info = curl_getinfo($ch);
     $errors = curl_error($ch);
