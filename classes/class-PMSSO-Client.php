@@ -280,6 +280,7 @@ class PMSSO_Client {
     $info = curl_getinfo($ch);
     $errors = curl_error($ch);
     curl_close($ch);
+	error_log("code response is :" . $response_json);
     $code_response = json_decode($response_json, true);
     if (isset($code_response["access_token"])){
       return $code_response;
