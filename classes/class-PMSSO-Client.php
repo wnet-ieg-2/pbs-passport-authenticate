@@ -254,8 +254,6 @@ class PMSSO_Client {
     	$info = curl_getinfo($ch);
 	    $errors = curl_error($ch);
     	curl_close($ch);
-		error_log("token revoke response: " . $response_json);
-		error_log("revoke request info: " . json_encode($info));
      }
      setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, true, false);
      setcookie($this->tokeninfo_cookiename, NULL, -1, "/", $this->domain, true, true);
@@ -539,10 +537,12 @@ class PMSSO_Client {
         'first_name' => $userinfo['first_name'],
         'last_name' => $userinfo['last_name'],
         'pid' => $userinfo['pid'],
-        'thumbnail_URL' => $userinfo['thumbnail_URL'],
         'vppa_status' => $userinfo['vppa_status'],
         'vppa' => $userinfo['vppa']
       );
+	  if (isset($userinfo['thumbnail_URL'])) {
+		$userinfo_clean['thumbnail_URL'] = $userinfo['thumbnail_URL'];
+	  }
       if (isset($userinfo['membership_info'])) {
         $userinfo_clean['membership_info'] = array(
           'offer' => $userinfo['membership_info']['offer'],
