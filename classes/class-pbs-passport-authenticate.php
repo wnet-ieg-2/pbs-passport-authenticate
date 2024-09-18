@@ -23,7 +23,7 @@ class PBS_Passport_Authenticate {
 		$this->assets_url = esc_url( trailingslashit( plugins_url( '/assets/', $file ) ) );
 	    $this->token = 'pbs_passport_authenticate';
     	$this->defaults = get_option($this->token);
-    	$this->version = '0.4.1';
+    	$this->version = '0.4.2';
 
 		// Load public-facing style sheet and JavaScript.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -46,6 +46,7 @@ class PBS_Passport_Authenticate {
     wp_enqueue_script( 'jquery.pids' );
     //only register this one, we'll enqueue it on just the loginform
     wp_register_script( 'pbs_passport_loginform_js' , $this->assets_url . 'js/loginform_helpers.js', array('jquery'), $this->version, true );
+	wp_register_script( 'pbs_passport_pkce_js' , $this->assets_url . 'js/pkce_loginform.js', array('jquery'), $this->version, true );
 
     //required styles
     wp_enqueue_style( 'pbs_passport_css', $this->assets_url . 'css/passport_styles.css', null, $this->version);
@@ -183,6 +184,17 @@ class PBS_Passport_Authenticate {
     $laas_client = new PBS_LAAS_Client($laas_args);
     return $laas_client;
   }
+
+	public function get_pmsso_link($args = null) {
+		/* this generates the basic PMSSO link but does NOT generate the code challenge/verifier -- those need to be appended */
+		$defaults = $this->defaults;
+		$redirect_uri = ( !empty($args['redirect_uri']) ? $args['redirect_uri'] : site_url('pbsoauth/callback/') );
+		$client_id = ( !empty($args['client_id']) ? $args['client_id'] : $defaults['pmsso_client_id'] );
+		$customerid = ( !empty($args['customer_id']) ? $args['customer_id'] : $defaults['pmsso_customerid'] );
+		$prompt = ( !empty($args['prompt']) ? $args['prompt'] : 'login' );
+		$pmsso_url = "https://login.publicmediasignin.org/" . $customerid  . "/login/authorize?client_id=" . $client_id . "&redirect_uri=" . $redirect_uri . "&scope=openid&response_type=code&prompt=" . $prompt;
+		return $pmsso_url;
+	}
 
 	public function get_pmsso_client($args = null){
 		$defaults = $this->defaults;

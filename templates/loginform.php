@@ -3,7 +3,6 @@ $defaults = get_option('pbs_passport_authenticate');
 $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
 
 $use_pmsso = isset($defaults['pmsso_is_default']) ? $defaults['pmsso_is_default'] : false;
-
 wp_enqueue_script( 'pbs_passport_loginform_js' , $passport->assets_url . 'js/loginform_helpers.js', array('jquery'), $passport->version, true );
 
 $links = $passport->get_oauth_links(array('scope' => 'account vppa'));
@@ -11,10 +10,12 @@ $pluginImageDir = $passport->assets_url . 'img';
 $station_nice_name = $defaults['station_nice_name'];
 $auth_client = false;
 if ($use_pmsso) {
+	wp_enqueue_script( 'pbs_passport_pkce_js' , $passport->assets_url . 'js/pkce_loginform.js', array('jquery'), $passport->version, true );
 	$auth_client = $passport->get_pmsso_client();
 	$userinfo = $auth_client->check_pmsso_login();
-	$pmsso_url = "https://login.publicmediasignin.org/" . $defaults['pmsso_customerid'] ."/login/authorize?client_id=" . $defaults['pmsso_client_id'] . "&redirect_uri=" . site_url('pbsoauth/callback/') .  "&scope=openid&prompt=login&response_type=code";
+	$pmsso_url = $passport->get_pmsso_link();
 } else {
+	wp_enqueue_script( 'pbs_passport_loginform_js' , $passport->assets_url . 'js/loginform_helpers.js', array('jquery'), $passport->version, true );
 	$auth_client = $passport->get_laas_client();
 	$userinfo = $auth_client->check_pbs_login();
 } 
@@ -38,6 +39,10 @@ if ($membership_id) {
       	$links[$type] = $link . $statestring; 
 	}
   }
+} else {
+	// not an activation, for PMSSO lets add a jwt state string for security
+	$jwt = $passport->create_jwt(array("not_member_path" => "pbsoauth/userinfo"));
+	$pmsso_url .= "&state=" . $jwt;
 }
 
 define('DISABLE_PLEDGE', 1);
