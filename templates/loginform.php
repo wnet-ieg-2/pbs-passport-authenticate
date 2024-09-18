@@ -3,7 +3,6 @@ $defaults = get_option('pbs_passport_authenticate');
 $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
 
 $use_pmsso = isset($defaults['pmsso_is_default']) ? $defaults['pmsso_is_default'] : false;
-wp_enqueue_script( 'pbs_passport_loginform_js' , $passport->assets_url . 'js/loginform_helpers.js', array('jquery'), $passport->version, true );
 
 $links = $passport->get_oauth_links(array('scope' => 'account vppa'));
 $pluginImageDir = $passport->assets_url . 'img';

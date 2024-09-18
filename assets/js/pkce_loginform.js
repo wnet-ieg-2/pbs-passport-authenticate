@@ -35,6 +35,7 @@ jQuery(document).ready(function($) {
 
   // if pmsso exists, just add the pkce code challenge etc and redirect them
   $(".passport-login-wrap li.pmsso a").each(async function() {
+  	document.cookie='pbsoauth_rememberme=true;domain=' + window.location.hostname + ';path=/';
 	var code_verifier = generateRandomString();
 	document.cookie='pkce_code_verifier=' + code_verifier + ';domain=' + window.location.hostname + ';path=/';
 	var code_challenge = await pkceChallengeFromVerifier(code_verifier);
