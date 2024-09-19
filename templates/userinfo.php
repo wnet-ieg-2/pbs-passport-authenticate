@@ -120,8 +120,13 @@ $station_nice_name Passport is a benefit for eligible members of $station_nice_n
 
 /* Valid member needs VPPA */
 elseif ( $userinfo['vppa_status'] != 'valid' && $userinfo['membership_info']['status'] == "On") {
-  wp_redirect(site_url('pbsoauth/vppa'));
-  exit;
+	if (!$use_pmsso) {
+		wp_redirect(site_url('pbsoauth/vppa'));
+		exit;
+	} else if (isset($userinfo['vppa_redirect']))}
+		wp_redirect($userinfo['vppa_redirect']);
+		exit;
+	}
 }
 
 /* expired member */

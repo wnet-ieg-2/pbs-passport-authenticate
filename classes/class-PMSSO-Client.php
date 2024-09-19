@@ -511,12 +511,48 @@ class PMSSO_Client {
     	$userinfo = $response['profile'];
       // append the VPPA status
       $userinfo = $this->derive_and_append_vppa_status($userinfo);
+	  $vppa_redirect = $this->get_vppa_redirect($access_token);
+	  if (!empty($vppa_redirect)) {
+		$userinfo['vppa_redirect'] = $vppa_redirect;
+	  }
       return $userinfo;
     } else {
       $response['curlinfo'] = $info;
       $response['curlerrors'] = $errors;
       return $response;
     }
+  }
+
+
+  public function get_vppa_redirect($access_token = '') {
+
+    // either returns false or, if needed, a vppa redirect that will allow the visitor to confirm their VPPA status
+    $url = 'https://profile.services.pbs.org/v2/login_resolve/';
+    $customheaders = array('Application-Id: ' . $this->app_id, 'Authorization: Bearer ' . $access_token);
+    $postfields = array(
+      'return_uri' => $this->redirect_uri,
+	  'handle_ux' => true
+    );
+    $requestbody = http_build_query($postfields);
+    //construct the curl request
+    $ch = $this->build_curl_handle($url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $requestbody);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $customheaders);
+    curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+  	$response_json = curl_exec($ch);
+    $info = curl_getinfo($ch);
+    $errors = curl_error($ch);
+    curl_close($ch);
+	$return = false;
+    $response = json_decode($response_json, true);
+	error_log("login_resolve response: " . $response_json);
+	if (isset($response['show_vppa_screen'])) {
+    	if (isset($response['vppa_redirect'])) {
+        	$return = $response['vppa_redirect'];
+		}
+    }
+	return $return;
   }
 
 

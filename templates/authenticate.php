@@ -86,8 +86,10 @@ if (! isset($mvaultinfo["membership_id"])) {
 $userinfo["membership_info"] = array("offer" => null, "status" => "Off");
 if (isset ($mvaultinfo["membership_id"])) {
   $userinfo["membership_info"] = $mvaultinfo;
-  // we may as well setup a VPPA link
-  $vppa_links = $passport->get_oauth_links(array('scope' => 'account vppa'));
+  if (!$use_pmsso) {
+	  // we may as well setup a VPPA link
+	  $vppa_links = $passport->get_oauth_links(array('scope' => 'account vppa'));
+  }
   // We will now attempt to determine what the users current login_provider is
   // mvault is fallback
   $login_provider = !empty($mvaultinfo["pbs_profile"]["login_provider"]) ? strtolower($mvaultinfo["pbs_profile"]["login_provider"]) : false; 
@@ -96,7 +98,9 @@ if (isset ($mvaultinfo["membership_id"])) {
   }
   // what they last used on the website is better option
   $login_provider = !empty($_COOKIE['pbsoauth_loginprovider']) ? $_COOKIE['pbsoauth_loginprovider'] : $login_provider;
-  $vppa_link = $login_provider ? $vppa_links[$login_provider] : false;
+  if (!$use_pmsso) {
+	  $vppa_link = $login_provider ? $vppa_links[$login_provider] : false;
+  }
   if (empty($_COOKIE['pbsoauth_loginprovider']) && !empty($mvaultinfo["pbs_profile"]["login_provider"])) {
     setcookie('pbsoauth_loginprovider', $login_provider, strtotime("+1 hour"), "/", $_SERVER['HTTP_HOST'], true, false);
   }
