@@ -326,14 +326,16 @@ class PBS_Passport_Authenticate {
     // get the full membership info if available
     $mvault_client = $this->get_mvault_client();
     $mvaultinfo = $mvault_client->get_membership_by_uid($pid);
-	$login_provider='';
-	if (isset($userinfo["provider"])) {
-		$login_provider = $userinfo["provider"];	
-    } else if (isset ($mvaultinfo["pbs_profile"]["email"])) {
-		$login_provider = $mvaultinfo["pbs_profile"]["login_provider"];
+	if (isset ($mvaultinfo["pbs_profile"]["email"])) {
+		$loginprovider = $mvaultinfo["pbs_profile"]["login_provider"];
+		if (isset($client_args['use_pmsso']) && ($client_args['use_pmsso'] == true)) {
+			if (isset($userinfo["provider"])) {
+				$loginprovider = $userinfo["provider"];
+			}
+		}
+		$mvaultinfo["pbs_profile"]["login_provider"] = $mvault_client->normalize_login_provider($loginprovider);
+    	$userinfo["membership_info"] = $mvaultinfo;
 	}
-    $mvaultinfo["pbs_profile"]["login_provider"] = $mvault_client->normalize_login_provider($login_provider);
-    $userinfo["membership_info"] = $mvaultinfo;
     return $userinfo; 
   }
 }
