@@ -123,7 +123,7 @@ elseif ( $userinfo['vppa_status'] != 'valid' && $userinfo['membership_info']['st
 	if (!$use_pmsso) {
 		wp_redirect(site_url('pbsoauth/vppa'));
 		exit;
-	} else if (isset($userinfo['vppa_redirect']))}
+	} else if (isset($userinfo['vppa_redirect'])){
 		wp_redirect($userinfo['vppa_redirect']);
 		exit;
 	}
