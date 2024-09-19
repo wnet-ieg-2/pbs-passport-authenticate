@@ -45,6 +45,19 @@ if ($membership_id) {
 }
 
 define('DISABLE_PLEDGE', 1);
+
+if ($use_pmsso) {
+	?>
+	<html><head>
+	<script type="text/javascript" src="<?php echo get_site_url(); ?>/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+	<script type="text/javascript" src="<?php echo($passport->assets_url); ?>js/pkce_loginform.js"></script>
+	</head>
+	<body>
+	<div class='passport-login-wrap'><li class="pmsso"><a href='<?php echo $pmsso_url; ?>'>Please Wait...</a></li></div>
+	</body></html>
+	<?php
+} else {
+
 get_header();
 ?>
 <div class='pbs-passport-authenticate-wrap <?php if (empty($userinfo) && !$membership_id) {echo "wide"; }?> cf'>
@@ -137,4 +150,6 @@ echo "</div>";
 </div>
 </div>
 </div>
-<?php get_footer();
+<?php 
+get_footer();
+}
