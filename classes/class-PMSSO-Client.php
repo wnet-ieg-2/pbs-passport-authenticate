@@ -278,7 +278,6 @@ class PMSSO_Client {
     $info = curl_getinfo($ch);
     $errors = curl_error($ch);
     curl_close($ch);
-	error_log("code response is :" . $response_json);
     $code_response = json_decode($response_json, true);
     if (isset($code_response["access_token"])){
       return $code_response;
@@ -348,7 +347,6 @@ class PMSSO_Client {
       if (isset($code_response['expires_in']) ){
         $code_response['expires_timestamp'] = strtotime("+" . $code_response['expires_in'] . " seconds");
       }
-	  error_log("got access token from refresh token");
       return $code_response;
     } else {
 	  error_log("failed to get access token from refresh token");
@@ -546,7 +544,6 @@ class PMSSO_Client {
     curl_close($ch);
 	$return = false;
     $response = json_decode($response_json, true);
-	error_log("login_resolve response: " . $response_json);
 	if (isset($response['show_vppa_screen'])) {
     	if (isset($response['vppa_redirect'])) {
         	$return = $response['vppa_redirect'];
