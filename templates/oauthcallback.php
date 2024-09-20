@@ -82,9 +82,6 @@ if (isset($_GET["code"])){
   	$code = $_GET["code"];
   	$userinfo = $auth_client->authenticate($code, $rememberme, $nonce, $code_verifier);
 } else {
-	// force a refresh of the userinfo
-	$userinfo_cookiename = !isset($defaults['userinfo_cookiename']) ? $defaults['userinfo_cookiename'] : 'pbs_passport_userinfo';
-	setcookie( $userinfo_cookiename, '', 1, '/', $_SERVER['HTTP_HOST']);
     if ($use_pmsso) {
         $userinfo = $auth_client->check_pmsso_login();
     } else {
