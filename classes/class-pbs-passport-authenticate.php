@@ -203,6 +203,7 @@ class PBS_Passport_Authenticate {
 		$customer_id = ( !empty($args['pmsso_customerid']) ? $args['pmsso_customerid'] : $defaults['pmsso_customerid'] );
     	$client_secret = ( !empty($args['pmsso_client_secret']) ? $args['pmsso_client_secret'] : null );
 		$app_id = ( !empty($args['pmsso_app_id']) ? $args['pmsso_app_id'] : $defaults['pmsso_app_id'] );
+		$station_id = ( !empty($defaults['station_id']) ? $defaults['station_id'] : false);
 
 		$pmsso_args = array(
 			'client_id' => $client_id,
@@ -214,6 +215,9 @@ class PBS_Passport_Authenticate {
 			'userinfo_cookiename' => 'pbs_passport_userinfo',
 			'cryptkey' => $defaults['cryptkey']
 		);
+		if (!empty($station_id)) {
+			$pmsso_args['station_id'] = $station_id;
+		}
 		$pmsso_client = new PMSSO_Client($pmsso_args);
 		return $pmsso_client;
     }

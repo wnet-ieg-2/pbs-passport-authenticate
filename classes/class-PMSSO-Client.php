@@ -75,6 +75,7 @@ class PMSSO_Client {
   private $encrypt_method;
   private $encrypt_iv;
   private $domain;
+  private $station_id;
   
 
   public function __construct($args){
@@ -84,6 +85,7 @@ class PMSSO_Client {
     $this->client_secret = isset($args['client_secret']) ? $args['client_secret'] : false;
     $this->redirect_uri = $args['redirect_uri'];
 	$this->oauthroot = 'https://login.publicmediasignin.org/' . $this->customer_id . '/';
+	$this->station_id = isset($args['station_id']) ? $args['station_id'] : false;
 
     // cookie stuff
     $this->tokeninfo_cookiename = $args['tokeninfo_cookiename'];
@@ -514,6 +516,9 @@ class PMSSO_Client {
       'return_uri' => $this->redirect_uri,
 	  'handle_ux' => true
     );
+	if (!empty($this->station_id)) {
+		$postfields['station_id'] = $this->station_id;
+	}
     $requestbody = http_build_query($postfields);
     //construct the curl request
     $ch = $this->build_curl_handle($url);
