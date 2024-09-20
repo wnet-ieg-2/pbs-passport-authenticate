@@ -33,6 +33,7 @@ if ($use_pmsso) {
   $auth_client = $passport->get_laas_client();
 }
 
+$mvault_client = $passport->get_mvault_client();
 
 $login_referrer = !empty($defaults['landing_page_url']) ? $defaults['landing_page_url'] : site_url();
 if (!empty($_COOKIE["pbsoauth_login_referrer"])){
@@ -82,11 +83,21 @@ if (isset($_GET["code"])){
   	$code = $_GET["code"];
   	$userinfo = $auth_client->authenticate($code, $rememberme, $nonce, $code_verifier);
 } else {
+	// only if VPPA redirect I think will there not be a 'code'
     if ($use_pmsso) {
         $userinfo = $auth_client->check_pmsso_login();
-    } else {
-        $userinfo = $auth_client->check_pbs_login();
-    }
+		// are they already activated?
+		if (isset($userinfo["pid"])) {
+			$mvaultinfo = $mvault_client->get_membership_by_uid($pbs_uid);
+			if (isset ($mvaultinfo["membership_id"])) {
+  				$userinfo["membership_info"] = $mvaultinfo;
+			}
+			// create and update the userinfo cookie
+			$success = $auth_client->validate_and_append_userinfo($userinfo);
+			wp_redirect($login_referrer);
+			exit();
+		}
+	}
 }
 
 // now we either have userinfo or null.
@@ -95,7 +106,6 @@ if (isset($userinfo["pid"])){
   $pbs_uid = $userinfo["pid"];
 
   // now we work with the mvault
-  $mvault_client = $passport->get_mvault_client();
   $mvaultinfo = array();
   if ($membership_id) {
     // this is an activation!
