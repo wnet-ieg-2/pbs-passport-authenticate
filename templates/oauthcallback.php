@@ -37,6 +37,10 @@ if ($use_pmsso) {
 $login_referrer = !empty($defaults['landing_page_url']) ? $defaults['landing_page_url'] : site_url();
 if (!empty($_COOKIE["pbsoauth_login_referrer"])){
   $login_referrer = $_COOKIE["pbsoauth_login_referrer"];
+  // prevent a possible loop
+  if (strpos($login_referrer, 'loginform')) {
+	$login_referrer = site_url();
+  }
   setcookie( 'pbsoauth_login_referrer', '', 1, '/', $_SERVER['HTTP_HOST']);
 }
 
