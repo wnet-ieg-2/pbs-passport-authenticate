@@ -493,32 +493,15 @@ class PMSSO_Client {
   }
 
   public function get_latest_pbs_userinfo($access_token = '') {
-
-    // get the profile info from the custom PBS endpoint
-    $url = 'https://profile.services.pbs.org/v2/user/profile/';
-    $customheaders = array('Application-Id: ' . $this->app_id, 'Authorization: Bearer ' . $access_token);
-    $ch = $this->build_curl_handle($url);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $customheaders);
-    curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-    $response_json = curl_exec($ch);
-    $info = curl_getinfo($ch);
-    $errors = curl_error($ch);
-    curl_close($ch);
-    $response = json_decode($response_json, true);
-	if (isset($response['profile'])) {
-    	$userinfo = $response['profile'];
-      // append the VPPA status
-      $userinfo = $this->derive_and_append_vppa_status($userinfo);
-	  $vppa_redirect = $this->get_vppa_redirect($access_token);
-	  if (!empty($vppa_redirect)) {
+  	// same name as old function but now a wrapper for other steps
+	// hit login resolve to provision PID and get the vppa_redirect if necessary
+	$vppa_redirect = $this->get_vppa_redirect($access_token);
+	// get the pbs profile info
+	$userinfo = $this->get_pbs_profile($access_token);
+	if (!empty($vppa_redirect)) {
 		$userinfo['vppa_redirect'] = $vppa_redirect;
-	  }
-      return $userinfo;
-    } else {
-      $response['curlinfo'] = $info;
-      $response['curlerrors'] = $errors;
-      return $response;
-    }
+ 	}
+    return $userinfo;
   }
 
 
@@ -552,6 +535,31 @@ class PMSSO_Client {
 	return $return;
   }
 
+  public function get_pbs_profile($access_token = '') {
+
+    // get the profile info from the custom PBS endpoint
+    $url = 'https://profile.services.pbs.org/v2/user/profile/';
+    $customheaders = array('Application-Id: ' . $this->app_id, 'Authorization: Bearer ' . $access_token);
+    $ch = $this->build_curl_handle($url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $customheaders);
+    curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+    $response_json = curl_exec($ch);
+    $info = curl_getinfo($ch);
+    $errors = curl_error($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
+    error_log("profile is : " . $response);
+    if (isset($response['profile'])) {
+        $userinfo = $response['profile'];
+      // append the VPPA status
+      $userinfo = $this->derive_and_append_vppa_status($userinfo);
+      return $userinfo;
+    } else {
+      $response['curlinfo'] = $info;
+      $response['curlerrors'] = $errors;
+      return $response;
+    }
+  }
 
   private function store_pbs_userinfo($userinfo) {
     if (isset($userinfo['pid'])){
