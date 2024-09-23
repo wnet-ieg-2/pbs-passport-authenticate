@@ -16,20 +16,16 @@ jQuery(document).ready(function($) {
     setPBSOAuthRememberMe();
   });
 
-  /* Various things to do when someone clicks on a login link */
-  $(".passport-login-wrap li a").on("click") {
+  /* set a loginprovider cookie when the person chooses one */
+  $(".passport-login-wrap li a").click(function(event) {
     event.preventDefault();
-    // set the loginprovider cookie
     var logintype = $(this).closest('li').attr("class");
     if (logintype) {
       document.cookie='pbsoauth_loginprovider=' + logintype + ';domain=' + window.location.hostname + ';path=/';
       window.dataLayer = window.dataLayer || [];
       dataLayer.push({ 'event': 'login', 'method': logintype });
     }
-	var appended_href =  $(this).attr('href');
-    // send them along their way
-    window.location.href = appended_href;
+    window.location.href = $(this).attr('href');
   }); 
 
 });
-
