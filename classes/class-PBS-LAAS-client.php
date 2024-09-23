@@ -33,7 +33,7 @@ the openssl_encrypt function.  Default is AES-256-CBC, but there are many choice
 
 Public Methods:
 
-authenticate($code, $rememberme, $nonce='', $code_exchange='')
+authenticate($code, $rememberme)
 Takes an oAuth grant code and use it to get access and refresh tokens from PBS 
 then stores tokens and userinfo in encrypted session variables.
 the second arg determines if this info is stored in encryped cookies for longer term.
@@ -129,13 +129,13 @@ class PBS_LAAS_Client {
 
 
 
-  public function authenticate($code= '', $rememberme='', $nonce='', $code_verifier= ''){
+  public function authenticate($code= '', $rememberme='', $nonce=''){
 
     $this->checknonce = $nonce;
 
     $this->rememberme = $rememberme;
 
-    $tokeninfo = $this->get_code_response($code, $code_verifier);
+    $tokeninfo = $this->get_code_response($code);
     if (! isset($tokeninfo["access_token"]) ) {
       $tokeninfo['messages'] = 'broke on code response';
       return $tokeninfo;
@@ -161,8 +161,8 @@ class PBS_LAAS_Client {
 
   }
 
-  public function code_exchange($code= '', $code_verifier= ''){
-    $tokeninfo = $this->get_code_response($code, $code_verifier);
+  public function code_exchange($code= ''){
+    $tokeninfo = $this->get_code_response($code);
     if (! isset($tokeninfo["access_token"]) ) {
       $tokeninfo['messages'] = 'broke on code exchange';
       return $tokeninfo;
@@ -244,7 +244,7 @@ class PBS_LAAS_Client {
   }
 
 
-  private function get_code_response($code='', $code_verifier=''){
+  private function get_code_response($code=''){
     $url = $this->oauthroot . 'token/';
     $postfields = array(
       'code' => $code,
@@ -253,9 +253,6 @@ class PBS_LAAS_Client {
       'client_secret' => $this->client_secret,
       'grant_type' => 'authorization_code'
     );
-    if (!empty($code_verifier)) {
-      $postfields['code_verifier'] = $code_verifier;
-    }
     $ch = $this->build_curl_handle($url);
     //construct the curl request
 
@@ -570,3 +567,4 @@ class PBS_LAAS_Client {
     return $userinfo;
   }
 }
+
