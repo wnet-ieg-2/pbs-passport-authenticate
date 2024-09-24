@@ -87,6 +87,7 @@ jQuery(document).ready(function($) {
     if ( typeof(user) !== "undefined" && typeof(user.membership_info) !== "undefined") {
         updateUserLoginStatusArray(user);
         updateLoginVisuals(user);
+		Cookies.set('pmsso_is_logged_in', true);
       } else {
         $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_logged_in_hide').hide();
         retrievePBSLoginInfoViaAJAX();
@@ -281,6 +282,7 @@ jQuery(document).ready(function($) {
 
   function logoutFromPBS(event) {
     event.preventDefault();
+	Cookies.remove('pmsso_is_logged_in');
     $.ajax({
       url: authenticate_script,
       data: 'logout=true',
