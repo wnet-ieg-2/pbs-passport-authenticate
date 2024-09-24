@@ -50,7 +50,7 @@ if ($use_pmsso) {
 	?>
 	<html><head>
 	<script type="text/javascript" src="<?php echo get_site_url(); ?>/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
-	<script type="text/javascript" src="<?php echo($passport->assets_url); ?>js/pkce_loginform.js"></script>
+	<script type="text/javascript" src="<?php echo($passport->assets_url); ?>js/pkce_loginform.js?ver=<?php echo($passport->version); ?>"></script>
 	<style>body {background: #000525; color: #fff; font: bold 1.125em sans-serif; margin: 0; padding: 0;} a {color: #fff;} svg {vertical-align: middle;} a {text-decoration: none; color: #2b92ff;} a:hover {text-decoration: underline; color: #2b92ff;} .svg-txt {vertical-align: middle;} .svg-spin { -webkit-animation: svg-spin 2s infinite linear; animation: svg-spin 2s infinite linear; } .passport-login-wrap {height: 100vh; display: flex; flex-wrap: wrap; flex-flow: row wrap; align-items: center; justify-content: center;} @keyframes svg-spin { 0% { -webkit-transform: rotate(0deg); transform: rotate(0deg);} 100% { -webkit-transform: rotate(359deg); transform: rotate(359deg); }}</style>
 	</head>
 	<body>
