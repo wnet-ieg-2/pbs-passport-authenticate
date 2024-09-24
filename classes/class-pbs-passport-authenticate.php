@@ -191,8 +191,11 @@ class PBS_Passport_Authenticate {
 		$redirect_uri = ( !empty($args['redirect_uri']) ? $args['redirect_uri'] : site_url('pbsoauth/callback/') );
 		$client_id = ( !empty($args['client_id']) ? $args['client_id'] : $defaults['pmsso_client_id'] );
 		$customerid = ( !empty($args['customer_id']) ? $args['customer_id'] : $defaults['pmsso_customerid'] );
-		$prompt = ( !empty($args['prompt']) ? $args['prompt'] : 'login' );
-		$pmsso_url = "https://login.publicmediasignin.org/" . $customerid  . "/login/authorize?client_id=" . $client_id . "&redirect_uri=" . $redirect_uri . "&scope=openid&response_type=code&prompt=" . $prompt;
+		$prompt = ( !empty($args['prompt']) ? $args['prompt'] : false);
+		$pmsso_url = "https://login.publicmediasignin.org/" . $customerid  . "/login/authorize?client_id=" . $client_id . "&redirect_uri=" . $redirect_uri . "&scope=openid&response_type=code";
+		if (!empty($prompt)) {
+			$pmsso_url .= "&prompt=" . $prompt;
+		}
 		return $pmsso_url;
 	}
 
