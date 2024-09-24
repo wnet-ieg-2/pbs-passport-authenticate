@@ -12,7 +12,7 @@ if ($use_pmsso) {
 	wp_enqueue_script( 'pbs_passport_pkce_js' , $passport->assets_url . 'js/pkce_loginform.js', array('jquery'), $passport->version, true );
 	$auth_client = $passport->get_pmsso_client();
 	$userinfo = $auth_client->check_pmsso_login();
-	$pmsso_url = $passport->get_pmsso_link();
+	$pmsso_url = $passport->get_pmsso_link(array('prompt' => 'login'));
 } else {
 	wp_enqueue_script( 'pbs_passport_loginform_js' , $passport->assets_url . 'js/loginform_helpers.js', array('jquery'), $passport->version, true );
 	$auth_client = $passport->get_laas_client();
