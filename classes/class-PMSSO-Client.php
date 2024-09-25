@@ -553,7 +553,6 @@ class PMSSO_Client {
     $errors = curl_error($ch);
     curl_close($ch);
     $response = json_decode($response_json, true);
-    error_log("profile is : " . $response_json);
     if (isset($response['profile'])) {
         $userinfo = $response['profile'];
       // append the VPPA status
