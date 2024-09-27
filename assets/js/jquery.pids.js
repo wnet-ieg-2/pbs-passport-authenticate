@@ -355,8 +355,7 @@ jQuery(document).ready(function($) {
 		}
 		// reload the page with the correct querystring
 		let urlwithoutqs = currentURL.split('?')[0];
-		console.log(urlwithoutqs + "?mvhash=" + correct_mvhash);
-		//window.location.replace(urlwithoutqs + "?mvhash=" + correct_mvhash);
+		window.location.replace(urlwithoutqs + "?mvhash=" + correct_mvhash);
 	}
 
     if (window.location.href.indexOf(userinfolink) > -1) {
