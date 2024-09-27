@@ -349,14 +349,16 @@ jQuery(document).ready(function($) {
 		const currentURL = window.location.href;
 		const searchParams = new URLSearchParams(currentURL);
 		if (searchParams.has("mvhash")) {
-			if (searchParams.get("mvhash") == correct_mvhash) {
+			console.log("found it");
+			let current_mvhash = searchParams.get("mvhash");
+			if (current_mvhash == correct_mvhash) {
 				console.log("cachebusting not required");
         		return;
 			}
 		}
 		// reload the page with the correct querystring
 		let urlwithoutqs = currentURL.split('?')[0];
-		window.location.replace(urlwithoutqs + "?mvhash=" + correct_mvhash);
+		//window.location.replace(urlwithoutqs + "?mvhash=" + correct_mvhash);
 	}
 
     if (window.location.href.indexOf(userinfolink) > -1) {
