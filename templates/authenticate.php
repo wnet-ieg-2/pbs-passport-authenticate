@@ -111,6 +111,9 @@ if ($success) {
 }
 $userinfo['errors'] = $errors;
 
+// store a cookie with the current hash of $mvaultinfo so we can use for cachebusting on the userinfo page
+$hashed_mvaultinfo = md5(json_encode($mvaultinfo));
+setcookie('pbsoauth_mvhash', $hashed_mvaultinfo, 0, "/", $_SERVER['HTTP_HOST'], true, false);
 
 // store it in its own cookie/session
 
