@@ -357,7 +357,7 @@ jQuery(document).ready(function($) {
 		}
 		// reload the page with the correct querystring
 		let urlwithoutqs = window.location.href.split('?')[0];
-		//window.location.replace(urlwithoutqs + "?mvhash=" + correct_mvhash);
+		window.location.replace(urlwithoutqs + "?mvhash=" + correct_mvhash);
 	}
 
     if (window.location.href.indexOf(userinfolink) > -1) {
