@@ -350,6 +350,7 @@ jQuery(document).ready(function($) {
 		const searchParams = new URLSearchParams(currentURL);
 		if (searchParams.has("mvhash")) {
 			if (searchParams.get("mvhash") == correct_mvhash) {
+				console.log("cachebusting not required");
         		return;
 			}
 		}
