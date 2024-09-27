@@ -346,7 +346,7 @@ jQuery(document).ready(function($) {
 			return;
 		}
 		const correct_mvhash = Cookies.get('pbsoauth_mvhash');	
-		const currentURL = window.location;
+		const currentURL = window.location.href;
 		const searchParams = new URLSearchParams(currentURL);
 		if (searchParams.has("mvhash")) {
 			if (searchParams.get("mvhash") == correct_mvhash) {
@@ -354,7 +354,7 @@ jQuery(document).ready(function($) {
 			}
 		}
 		// reload the page with the correct querystring
-		let urlwithoutqs = currentURL.href.split('?')[0];
+		let urlwithoutqs = currentURL.split('?')[0];
 		console.log(urlwithoutqs + "?mvhash=" + correct_mvhash);
 		//window.location.replace(urlwithoutqs + "?mvhash=" + correct_mvhash);
 	}
