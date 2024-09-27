@@ -339,30 +339,6 @@ jQuery(document).ready(function($) {
     /* [ END video placeholder to video swap ] ---------------------------------------------------------------- */
 	
 
-	/* force the userinfo page to have a querystring that matches the hash of the current mvault info */
-
-	function checkUserinfoQueryString() {
-		if (typeof(Cookies.get('pbsoauth_mvhash')) === undefined)) {
-			return;
-		}
-		const correct_mvhash = Cookies.get('pbsoauth_mvhash');	
-		const currentURL = window.location();
-		const searchParams = new URLSearchParams(currentURL);
-		if (searchParams.has("mvhash")) {
-			if (searchParams.get("mvhash") == correct_mvhash) {
-        		return;
-			}
-		}
-		// reload the page with the correct querystring
-		let urlwithoutqs = window.location.href.split('?')[0];
-		console.log(urlwithoutqs + "?mvhash=" + correct_mvhash);
-		//window.location.replace(urlwithoutqs + "?mvhash=" + correct_mvhash);
-	}
-
-    if (window.location.href.indexOf(userinfolink) > -1) {
-        checkUserinfoQueryString();
-    }
-
 	
 });
 
