@@ -531,6 +531,7 @@ class PBS_LAAS_Client {
           'offer' => $userinfo['membership_info']['offer'],
           'status' => $userinfo['membership_info']['status']
         );
+		$userinfo_clean['membership_info']['provisional'] = $userinfo['membership_info']['provisional'];
         if (isset($userinfo['membership_info']['expire_date'])) {
           $userinfo_clean['membership_info']['expire_date'] = $userinfo['membership_info']['expire_date'];
           // if theres an expire date there will be a grace period. set status = off if past grace period

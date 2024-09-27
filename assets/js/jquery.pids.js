@@ -129,6 +129,10 @@ jQuery(document).ready(function($) {
       currentarray.memberStatus = 'not_activated';
       if (obj.membership_info.status == 'On') {
         currentarray.memberStatus = 'valid';
+		currentarray.provisional = false;
+		if (obj.membership_info.provisional == true) {
+			currentarray.provisional = true;
+		}
         // but what about VPPA?
         currentarray.VPPAStatus = 'false';
         if (typeof(obj.vppa_status) !== 'undefined') {
@@ -139,6 +143,7 @@ jQuery(document).ready(function($) {
         // offer will be null if not activated, otherwise status is expired
         if (typeof user.membership_info.offer !== 'undefined' && user.membership_info.offer) {
           currentarray.memberStatus = 'expired';
+		  currentarray.provisional = false;
         }
       }
     }
@@ -211,7 +216,9 @@ jQuery(document).ready(function($) {
             portal_list_entry = '<li><a href="' + userinfolink + '">PASSPORT</a></li>';
             if (portallink.length > 0) {
               if (userPBSLoginStatus.memberStatus == 'valid' || userPBSLoginStatus.memberStatus == 'expired') {
-                portal_list_entry = '<li><a href="' + portallink + '" target=_new >MY MEMBERSHIP</a></li>' + portal_list_entry;
+			  	if (userPBSLoginStatus.provisional != true) {
+                	portal_list_entry = '<li><a href="' + portallink + '" target=_new >MY MEMBERSHIP</a></li>' + portal_list_entry;
+				}
               }
             }
             if (subscriptionslink.length > 0) {

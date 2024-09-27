@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: PBS Passport Authenticate
- * Version: 0.4.2.1 -- Public Media SSO streamlined support 
+ * Version: 0.4.2.2 -- suppres donor portal from provisional members
  * Plugin URI: https://github.com/tamw-wnet/pbs-passport-authenticate
  * Description: PBS Passport Authenticate
  * Author: William Tam, Brian Santalone
