@@ -41,10 +41,6 @@ jQuery(document).ready(function($) {
 
   var correct_mvhash = '';
   var userinfolink_base = userinfolink; // saving a backup of the original for a later issue
-  if (typeof Cookies.get('pbsoauth_mvhash') !== "undefined") {
-	correct_mvhash = Cookies.get('pbsoauth_mvhash');
-	userinfolink = userinfolink + "?mvhash=" + correct_mvhash;
-  }
  
   function loginToPBS(event) {
     event.preventDefault();
@@ -155,10 +151,17 @@ jQuery(document).ready(function($) {
     }
     // set the global object value 
     userPBSLoginStatus = currentarray;
+
+	// update the userinfo link with cachebusting
+	if (typeof Cookies.get('pbsoauth_mvhash') !== "undefined") {
+		correct_mvhash = Cookies.get('pbsoauth_mvhash');                                                                                                                                 userinfolink = userinfolink + "?mvhash=" + correct_mvhash;
+  	}
+
     // push a dataLayer event to GTM
     window.dataLayer = window.dataLayer || [];
     dataLayer.push({ 'event': 'passport_login_status', 'memberstatus': currentarray.memberStatus });
     console.log(dataLayer);
+
     // and done
     return currentarray;
   }
