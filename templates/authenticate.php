@@ -45,6 +45,7 @@ $rememberme = (isset($_POST["rememberme"])) ? $_POST["rememberme"] : false;
 $nonce = (isset($_POST["nonce"])) ? $_POST["nonce"] : false;
 $errors = array();
 if (isset($_REQUEST["logout"])){
+  setcookie('pbsoauth_mvhash', "", time() - 3600, "/", $_SERVER['HTTP_HOST'], true, false);
   $userinfo = $auth_client->logout();
 } else {
   $userinfo = $use_pmsso ? $auth_client->check_pmsso_login() : $auth_client->check_pbs_login();
