@@ -39,6 +39,12 @@ jQuery(document).ready(function($) {
     loginform = window.location.protocol + '//' + loginform;
   }
 
+  var correct_mvhash = '';
+  var userinfolink_base = userinfolink; // saving a backup of the original for a later issue
+  if (typeof(Cookies.get('pbsoauth_mvhash')) !== undefined) {
+	correct_mvhash = Cookies.get('pbsoauth_mvhash');
+	userinfolink = userinfolink + "?mvhash=" + correct_mvhash;
+  }
  
   function loginToPBS(event) {
     event.preventDefault();
@@ -348,7 +354,6 @@ jQuery(document).ready(function($) {
 		const correct_mvhash = Cookies.get('pbsoauth_mvhash');	
 		let searchParams = new URLSearchParams(window.location.search);
 		if (searchParams.has("mvhash")) {
-			console.log("found it");
 			let current_mvhash = searchParams.get("mvhash");
 			if (current_mvhash == correct_mvhash) {
 				console.log("cachebusting not required");
@@ -360,7 +365,7 @@ jQuery(document).ready(function($) {
 		window.location.replace(urlwithoutqs + "?mvhash=" + correct_mvhash);
 	}
 
-    if (window.location.href.indexOf(userinfolink) > -1) {
+    if (window.location.href.indexOf(userinfolink_base) > -1) {
         checkUserinfoQueryString();
     }
 
