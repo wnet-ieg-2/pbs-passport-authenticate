@@ -41,7 +41,7 @@ jQuery(document).ready(function($) {
 
   var correct_mvhash = '';
   var userinfolink_base = userinfolink; // saving a backup of the original for a later issue
-  if (typeof(Cookies.get('pbsoauth_mvhash')) !== undefined) {
+  if (typeof Cookies.get('pbsoauth_mvhash') !== "undefined") {
 	correct_mvhash = Cookies.get('pbsoauth_mvhash');
 	userinfolink = userinfolink + "?mvhash=" + correct_mvhash;
   }
@@ -348,15 +348,14 @@ jQuery(document).ready(function($) {
 	/* force the userinfo page to have a querystring that matches the hash of the current mvault info */
 
 	function checkUserinfoQueryString() {
-		if (typeof(Cookies.get('pbsoauth_mvhash')) === undefined) {
+		if (typeof(Cookies.get('pbsoauth_mvhash')) === "undefined") {
 			return;
 		}
-		const correct_mvhash = Cookies.get('pbsoauth_mvhash');	
+		correct_mvhash = Cookies.get('pbsoauth_mvhash');	
 		let searchParams = new URLSearchParams(window.location.search);
 		if (searchParams.has("mvhash")) {
 			let current_mvhash = searchParams.get("mvhash");
 			if (current_mvhash == correct_mvhash) {
-				console.log("cachebusting not required");
         		return;
 			}
 		}
