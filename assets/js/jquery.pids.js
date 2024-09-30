@@ -298,8 +298,8 @@ jQuery(document).ready(function($) {
 
   function logoutFromPBS(event) {
     event.preventDefault();
+	document.cookie='pbsoauth_mvhash=0;domain=' + window.location.hostname + '; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; max-age=0;';
 	Cookies.remove('pmsso_is_logged_in', {path: '/', domain: window.location.hostname, secure: true});
-	Cookies.remove('pbsoauth_mvhash', {path: '/', domain: window.location.hostname, secure: true});
     $.ajax({
       url: authenticate_script,
       data: 'logout=true',
