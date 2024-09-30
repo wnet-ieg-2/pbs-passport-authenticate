@@ -296,6 +296,7 @@ jQuery(document).ready(function($) {
   function logoutFromPBS(event) {
     event.preventDefault();
 	Cookies.remove('pmsso_is_logged_in');
+	Cookies.remove('pbsoauth_mvhash');
     $.ajax({
       url: authenticate_script,
       data: 'logout=true',
