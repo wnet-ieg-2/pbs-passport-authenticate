@@ -104,7 +104,6 @@ if (isset($_GET["code"])){
 if (isset($userinfo["pid"])){
 
   $pbs_uid = $userinfo["pid"];
-  error_log("membership_id exists $membership_id and : " .json_encode($userinfo));
   // now we work with the mvault
   $mvaultinfo = array();
   if ($membership_id) {

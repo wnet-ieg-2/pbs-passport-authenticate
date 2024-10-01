@@ -59,7 +59,6 @@ if ($activation_token){
 		} else {
     	    $mvaultinfo = $mvault_client->activate($mvaultinfo['membership_id'], $pbs_uid);
 			// handle vppa_assent inline for pmsso
-			error_log(json_encode($userinfo));
 			if (isset($userinfo["vppa_redirect"])) {
 				wp_redirect($userinfo["vppa_redirect"]);
 				exit();
