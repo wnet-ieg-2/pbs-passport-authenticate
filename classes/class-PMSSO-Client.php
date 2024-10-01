@@ -515,10 +515,11 @@ class PMSSO_Client {
     $customheaders = array('Application-Id: ' . $this->app_id, 'Authorization: Bearer ' . $access_token);
     $postfields = array(
       'return_uri' => $this->redirect_uri,
-	  'handle_ux' => true
+	  'handle_ux' => true,
+	  'activation' => true
     );
 	if (!empty($this->station_id)) {
-		$postfields['station_id'] = $this->station_id;
+		$postfields['station'] = $this->station_id;
 	}
     $requestbody = http_build_query($postfields);
     //construct the curl request
