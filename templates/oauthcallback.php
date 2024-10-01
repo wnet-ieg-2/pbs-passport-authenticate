@@ -113,6 +113,13 @@ if (isset($userinfo["pid"])){
     if (isset($mvaultinfo["membership_id"])) {
       $mvaultinfo = $mvault_client->activate($membership_id, $pbs_uid);
     }
+	// handle VPPA assent during activation
+	if (isset($userinfo["vppa_redirect"])) {
+		// reset the login_referrer again
+		setcookie( 'pbsoauth_login_referrer', $login_referrer, 0, '/', $_SERVER['HTTP_HOST']);
+		wp_redirect($userinfo["vppa_redirect"]);
+		exit();
+	}
   }
   // is the person activated now?
   if (!isset($mvaultinfo["membership_id"])) {
