@@ -58,6 +58,11 @@ if ($activation_token){
 			$return['errors'] = array('message' => 'You are signed in and your account has already been activated. <a href="' . site_url('pbsoauth/userinfo')  . '">Your membership status is available here</a>.' . $obs_msg . 'You only need to activate your account the first time you use ' . $station_nice_name . ' Passport.<br /><br />', 'class' => 'info');
 		} else {
     	    $mvaultinfo = $mvault_client->activate($mvaultinfo['membership_id'], $pbs_uid);
+			// handle vppa_assent inline for pmsso
+			if (isset($userinfo["vppa_redirect"])) {
+				wp_redirect($userinfo["vppa_redirect"]);
+				exit();
+			}
         	$userinfo["membership_info"] = $mvaultinfo;
 	        $success = $auth_client->validate_and_append_userinfo($userinfo);
     	    $login_referrer = site_url();
