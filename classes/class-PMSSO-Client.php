@@ -503,6 +503,7 @@ class PMSSO_Client {
 	if (!empty($vppa_redirect)) {
 		$userinfo['vppa_redirect'] = $vppa_redirect;
  	}
+	error_log("get latest userinfo: " . json_encode($userinfo));
     return $userinfo;
   }
 
