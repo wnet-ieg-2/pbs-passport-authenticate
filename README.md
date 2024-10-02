@@ -23,7 +23,6 @@ In addition to the code itself, we will also be happy to provide limited support
 * One free phone call, scheduled in advance, with a duration of not longer than an hour, for initial installation and setup help;
 * Further email and phone consultation for installation and setup assistance can be arranged at a rate of $175/hour.   
 
-WNET IEG is also available to contract with stations for website design, visual and technical customizations.  Technical customizations could include such Passport-related features as automated COVE video integration, a Membership Vault Lookup Form or donation 'instant gratification' similar to what we've done on Thirteen.org.    Please visit http://ieg.wnet.org , review our services, and contact us if interested!
 
 
 
@@ -44,7 +43,7 @@ PBS Passport Authenticate includes the following files:
 
 ## Setup and Installation
 
-Before you install, you will need to file some support tickets with PBS to get credentials for two APIs that they provide.
+Before you install, you will need to file some support tickets with PBS to get credentials for some APIs that they provide.
 
 ### Public Media SSO
 Public Media Single-Sign-On is an Akamai-hosted OpenID Connect system shared between PBS and NPR.   This plugin integrates with that system to provide member logins on a local station website.   Visit https://docs.pbs.org/space/PMSSO/29392997/Public+Media+Single+Sign-On+(SSO) for more technical details.  This plugin uses the "public client" setup that by default they will setup.
