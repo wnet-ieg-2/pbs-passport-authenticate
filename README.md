@@ -46,7 +46,11 @@ PBS Passport Authenticate includes the following files:
 
 Before you install, you will need to file some support tickets with PBS to get credentials for two APIs that they provide.
 
-### PBS Account
+### Public Media SSO
+Public Media Single-Sign-On is an Akamai-hosted OpenID Connect system shared between PBS and NPR.   This plugin integrates with that system to provide member logins on a local station website.   Visit https://docs.pbs.org/space/PMSSO/29392997/Public+Media+Single+Sign-On+(SSO) for more technical details.  
+
+### PBS Account (deprecated but still supported by this plugin)
+*NOT NEEDED ANYMORE, But if you already have it setup this plugin will allow you to use both and switch over with a checkbox in the plugin settings.*
 This is PBS's 'Login as a service' (LAAS) API that the plugin uses to provide member logins on a local station website.   Visit https://docs.pbs.org/display/uua and review the documentation there, particularly "Integrating PBS Account with your website or app".   You will need to go to the PBS Digital Support site and request a PBS Account API keypair for your station, and that request will need to include the 'vppa' scope and a redirect URI for each website that will use that keypair; that URI will be in the form 'https://yourstation.org/pbsoauth/callback' (replacing 'yourstation.org' with the actual exact hostname).  The URI must be exact; 'Wildcard' domains aren't allowed, so if you have a redirect to send somebody from yourstation.org to www.yourstation.org , then use www.yourstation.org; and if your station can only be accessed via http (not https), then the protocol in the redirect URI must match.   If you have a dev server and a production server, include the matching redirect URIs for both -- there's no real limit to how many redirect URIs you can have, but each must be added.   
 
 ### Membership Vault API
@@ -58,7 +62,7 @@ If your station is a Passport station, you should already have a Membership Vaul
 3. Locate the menu item that reads *PBS Passport Authenticate*
 4. Click on *Activate*
 5. Navigate to *Settings* and select *PBS Passport Authenticate Settings* 
-6. Enter values for all fields, particularly the LAAS and MVault sections (see above).
+6. Enter values for all fields, particularly the PMSSO, LAAS and MVault sections (see above).
 7. It may be necessary to visit the 'Permalinks' settings page to make sure that the endpoints provided by the plugin resolve correctly.
 
 ## Usage
