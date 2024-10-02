@@ -21,7 +21,7 @@ In addition to the code itself, we will also be happy to provide limited support
 
 * Included installation instructions that should allow a person who is familiar with installing and configuring WordPress plugins to get setup;
 * One free phone call, scheduled in advance, with a duration of not longer than an hour, for initial installation and setup help;
-* Further email and phone consultation for installation and setup assistance can be arranged at a rate of $175/hour.   
+
 
 
 
