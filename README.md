@@ -47,7 +47,7 @@ PBS Passport Authenticate includes the following files:
 Before you install, you will need to file some support tickets with PBS to get credentials for two APIs that they provide.
 
 ### Public Media SSO
-Public Media Single-Sign-On is an Akamai-hosted OpenID Connect system shared between PBS and NPR.   This plugin integrates with that system to provide member logins on a local station website.   Visit https://docs.pbs.org/space/PMSSO/29392997/Public+Media+Single+Sign-On+(SSO) for more technical details.  
+Public Media Single-Sign-On is an Akamai-hosted OpenID Connect system shared between PBS and NPR.   This plugin integrates with that system to provide member logins on a local station website.   Visit https://docs.pbs.org/space/PMSSO/29392997/Public+Media+Single+Sign-On+(SSO) for more technical details.  This plugin uses the "public client" setup that by default they will setup.
 
 ### PBS Account (deprecated but still supported by this plugin)
 *NOT NEEDED ANYMORE, But if you already have it setup this plugin will allow you to use both and switch over with a checkbox in the plugin settings.*
