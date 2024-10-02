@@ -70,6 +70,19 @@ class PBS_Passport_Authenticate_Settings {
     add_settings_field( 'scope', 'OAuth Scope', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pbslaas_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'scope', 'class' => 'regular-text', 'label' => 'Scope for your OAuth grant.  Provided by PBS, will typically look like "account wxyz". Case-sensitive.  Leave blank if you don\'t know it for certain.') );
 
 
+    add_settings_section('pmsso_settings', 'Public Media SSO settings', array( $this, 'settings_section_callback'), 'pbs_passport_authenticate');
+
+    add_settings_field( 'pmsso_customerid', 'Customer ID', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pmsso_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'pmsso_customerid', 'class' => 'regular-text', 'label' => 'the customerID will be a long hex string and appears right after the https://login.publicmediasignin.org/ link eg https://login.publicmediasignin.org/CUSTOMERID/auth-ui/ .', 'default' => '' ) );
+
+    add_settings_field( 'pmsso_client_id', 'Client ID', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pmsso_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'pmsso_client_id', 'class' => 'regular-text', 'label' => 'the Client ID will be a long hex string and appears at the end of the https://login.publicmediasignin.org/ link eg https://login.publicmediasignin.org/CUSTOMERID/auth-ui/profile/?client_id=CLIENTID .', 'default' => '' ) );
+
+    add_settings_field( 'pmsso_client_secret', 'Client Secret', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pmsso_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'pmsso_client_secret', 'class' => 'regular-text', 'label' => 'OPTIONAL: CONFIDENTIAL CLIENT ONLY.  Leave blank unless issued a "confidential client" which is a very special odd case.', 'default' => '' ) );
+
+    add_settings_field( 'pmsso_app_id', 'Application ID', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pmsso_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'pmsso_app_id', 'class' => 'regular-text', 'label' => 'the Application ID will be a short cleartext string provided directly by PBS such as "thirteen" .', 'default' => '' ) );
+
+	add_settings_field( 'pmsso_is_default', 'PMSSO is default', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'pmsso_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'pmsso_is_default', 'class' => 'small-text', 'label' => 'Set this to true to make web login use PM SSO, and other clients to default to it', 'type' => 'checkbox', 'options' => array('TRUE')  ) );
+
+
     add_settings_section('mvault_settings', 'Membership Vault settings', array( $this, 'settings_section_callback'), 'pbs_passport_authenticate');
 
     add_settings_field( 'mvault_endpoint', 'MVault API Endpoint', array( $this, 'settings_field'), 'pbs_passport_authenticate', 'mvault_settings', array('setting' => 'pbs_passport_authenticate', 'field' => 'mvault_endpoint', 'class' => 'regular-text', 'label' => 'Membership Vault API URL. This should only change if authenticating against a dev endpoint.', 'default' => 'https://mvault.services.pbs.org/api/' ) );
@@ -93,16 +106,38 @@ class PBS_Passport_Authenticate_Settings {
 	public function settings_section_callback() { echo ' '; }
 
 	public function settings_field( $args ) {
-    // This is the default processor that will handle standard text input fields.  Because it accepts a class, it can be styled or even have jQuery things (like a calendar picker) integrated in it.  Pass in a 'default' argument only if you want a non-empty default value.
-    $settingname = esc_attr( $args['setting'] );
-    $setting = get_option($settingname);
-    $field = esc_attr( $args['field'] );
-    $label = esc_attr( $args['label'] );
-    $class = esc_attr( $args['class'] );
-    $type = ($args['type'] ? esc_attr( $args['type'] ) : 'text' );
-    $default = ($args['default'] ? esc_attr( $args['default'] ) : '' );
-    $value = (($setting[$field] && strlen(trim($setting[$field]))) ? $setting[$field] : $default);
-    echo '<input type="' . $type . '" name="' . $settingname . '[' . $field . ']" id="' . $settingname . '[' . $field . ']" class="' . $class . '" value="' . $value . '" /><p class="description">' . $label . '</p>';
+    	// This is the default processor that will handle standard text input fields.  Because it accepts a class, it can be styled or even have jQuery things (like a calendar picker) integrated in it.  Pass in a 'default' argument only if you want a non-empty default value.
+	    $settingname = esc_attr( $args['setting'] );
+    	$setting = get_option($settingname);
+	    $field = esc_attr( $args['field'] );
+    	$label = esc_attr( $args['label'] );
+	    $class = esc_attr( $args['class'] );
+    	$type = ($args['type'] ? esc_attr( $args['type'] ) : 'text' );
+		$options = (is_array($args['options']) ? $args['options'] : array('true', 'false') );
+		switch($type) {	
+    	  case "checkbox":
+        	// dont set a default for checkboxes
+	        $value = $setting[$field];
+    	    $values = ( is_array($value) ? $values = $value : array($value) );
+        	foreach($options as $option) {
+	          // each option can be an array but doesn't have to be
+    	      if (! is_array($option)) {
+        	    $option_label = $option;
+            	$option_value = $option;
+	          } else {
+    	        $option_label = (isset($option[label]) ? esc_attr($option[label]) : $option[0]);
+        	    $option_value = (isset($option[value]) ? esc_attr($option[value]) : $option[0]);
+	          }
+    	      $checked = in_array($option_value, $values) ? 'checked="checked"' : '';
+        	  echo '<span class="' . $class . '"><input type="checkbox" name="' . $settingname . '[' . $field . '][]" id="' . $settingname . '[' . $field . ']" value="' . $option_value . '" ' . $checked . ' />&nbsp;' . $option_label . ' </span> &nbsp; ';
+	        }
+    	    echo '<label for="' . $field . '"><p class="description">' . $label . '</p></label>';
+        	break;
+		case "text":
+			$default = ($args['default'] ? esc_attr( $args['default'] ) : '' );
+			$value = (($setting[$field] && strlen(trim($setting[$field]))) ? $setting[$field] : $default);
+			echo '<input type="' . $type . '" name="' . $settingname . '[' . $field . ']" id="' . $settingname . '[' . $field . ']" class="' . $class . '" value="' . $value . '" /><p class="description">' . $label . '</p>';
+		}
 	}
 
 

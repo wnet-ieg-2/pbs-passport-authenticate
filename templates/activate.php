@@ -8,12 +8,13 @@ define('DISABLE_PLEDGE', 1);
 get_header();
 
 $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
+$mvault_client = $passport->get_mvault_client();
 $pluginImageDir = $passport->assets_url . 'img';
 
 
 $defaults = get_option('pbs_passport_authenticate');
 $station_nice_name = $defaults['station_nice_name'];
-
+$use_pmsso = isset($defaults['pmsso_is_default']) ? $defaults['pmsso_is_default'] : false;
 // this script only takes two possible arguments
 
 $activation_token = (!empty($_REQUEST['activation_token']) ? str_replace(' ', '-', trim($_REQUEST['activation_token'])) : '');
@@ -41,22 +42,37 @@ if ($activation_token){
     if (empty($return['errors']) ){ 
       // nothing wrong with this account, so
       // see if we're already logged in
-      $laas_client = $passport->get_laas_client();
-      $userinfo = $laas_client->check_pbs_login();
+	  if (!$use_pmsso) {
+	      $auth_client = $passport->get_laas_client();
+    	  $userinfo = $auth_client->check_pbs_login();
+	  } else {
+		  $auth_client = $passport->get_pmsso_client();
+          $userinfo = $auth_client->check_pmsso_login();
+	  }
       if ($userinfo){
         // the user is logged in already.  Activate them!
         $pbs_uid = $userinfo["pid"];
-        $mvault_client = $passport->get_mvault_client();
-        $mvaultinfo = $mvault_client->activate($mvaultinfo['membership_id'], $pbs_uid);
-        $userinfo["membership_info"] = $mvaultinfo;
-        $success = $laas_client->validate_and_append_userinfo($userinfo);
-        $login_referrer = site_url();
-        if ( !empty($_COOKIE["pbsoauth_login_referrer"]) ){
-          $login_referrer = $_COOKIE["pbsoauth_login_referrer"];
-          setcookie( 'pbsoauth_login_referrer', '', 1, '/', $_SERVER['HTTP_HOST']);
-        }
-        wp_redirect($login_referrer);
-        exit();
+		// sanity check -- are they already activated?
+		$sanity_mvaultinfo = $mvault_client->get_membership_by_uid($pbs_uid);
+		if (isset($sanity_mvaultinfo['membership_id'])) {
+			$return['errors'] = array('message' => 'You are signed in and your account has already been activated. <a href="' . site_url('pbsoauth/userinfo')  . '">Your membership status is available here</a>.' . $obs_msg . 'You only need to activate your account the first time you use ' . $station_nice_name . ' Passport.<br /><br />', 'class' => 'info');
+		} else {
+    	    $mvaultinfo = $mvault_client->activate($mvaultinfo['membership_id'], $pbs_uid);
+			// handle vppa_assent inline for pmsso
+			if (isset($userinfo["vppa_redirect"])) {
+				wp_redirect($userinfo["vppa_redirect"]);
+				exit();
+			}
+        	$userinfo["membership_info"] = $mvaultinfo;
+	        $success = $auth_client->validate_and_append_userinfo($userinfo);
+    	    $login_referrer = site_url();
+        	if ( !empty($_COOKIE["pbsoauth_login_referrer"]) ){
+	          $login_referrer = $_COOKIE["pbsoauth_login_referrer"];
+    	      setcookie( 'pbsoauth_login_referrer', '', 1, '/', $_SERVER['HTTP_HOST']);
+        	}
+	        wp_redirect($login_referrer);
+    	    exit();
+		}
       }
       // if NOT logged in, redirect to the login page so they can activate there
       $loginuri = site_url('pbsoauth/loginform') . '?membership_id=' . $mvaultinfo['membership_id'];

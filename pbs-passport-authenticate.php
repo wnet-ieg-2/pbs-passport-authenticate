@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: PBS Passport Authenticate
- * Version: 0.3.2.4 -- subscription portal link tweak 
+ * Version: 0.4.2.4 -- faster cachebusting
  * Plugin URI: https://github.com/tamw-wnet/pbs-passport-authenticate
  * Description: PBS Passport Authenticate
  * Author: William Tam, Brian Santalone
@@ -28,6 +28,7 @@ require_once( 'build-passport-player.php' );
 require_once( 'classes/class-pbs-passport-authenticate.php' );
 require_once( 'classes/class-pbs-passport-authenticate-settings.php' );
 require_once('classes/class-PBS-LAAS-client.php');
+require_once('classes/class-PMSSO-Client.php');
 if (!class_exists('PBS_MVault_Client')) {
   require_once('classes/class-PBS-MVault-client.php');
 }

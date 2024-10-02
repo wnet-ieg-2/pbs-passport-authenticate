@@ -5,8 +5,30 @@
 $defaults = get_option('pbs_passport_authenticate');
 $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
 
+$use_pmsso = isset($defaults['pmsso_is_default']) ? $defaults['pmsso_is_default'] : false;
+
+
 $pluginImageDir = $passport->assets_url . 'img';
 $station_nice_name = $defaults['station_nice_name'];
+
+if ($use_pmsso) {
+	$auth_client = $passport->get_pmsso_client();
+	$userinfo = $auth_client->check_pmsso_login();
+	if (empty($userinfo['first_name'])) {
+		$auth_client->logout();
+		wp_redirect(site_url('pbsoauth/loginform'));
+		exit();
+	}
+	if (empty($userinfo['vppa_redirect'])) {
+		// they shouldn't be here, send them back to the homepage
+		wp_redirect(site_url('/'));
+		exit;
+	}
+	wp_redirect($userinfo['vppa_redirect']);
+	exit;
+}
+// the rest is the LAAS stuff
+
 $laas_client = $passport->get_laas_client();
 $userinfo = $laas_client->check_pbs_login();
 if (empty($userinfo['first_name'])) {

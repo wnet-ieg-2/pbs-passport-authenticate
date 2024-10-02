@@ -20,15 +20,28 @@ $defaults = get_option('pbs_passport_authenticate');
 
 $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
 
-$laas_client = $passport->get_laas_client();
+$use_pmsso = isset($defaults['pmsso_is_default']) ? $defaults['pmsso_is_default'] : false;
+$auth_client = false;
+$code_verifier = '';
+if (!empty($_COOKIE["pkce_code_verifier"])){
+  $code_verifier = $_COOKIE["pkce_code_verifier"];
+  setcookie( 'pkce_code_verifier', '', 1, '/', $_SERVER['HTTP_HOST']);
+}
+if ($use_pmsso) {
+  $auth_client = $passport->get_pmsso_client();
+} else {
+  $auth_client = $passport->get_laas_client();
+}
 
-// log any current session out
-$laas_client->logout();
-
+$mvault_client = $passport->get_mvault_client();
 
 $login_referrer = !empty($defaults['landing_page_url']) ? $defaults['landing_page_url'] : site_url();
 if (!empty($_COOKIE["pbsoauth_login_referrer"])){
   $login_referrer = $_COOKIE["pbsoauth_login_referrer"];
+  // prevent a possible loop
+  if (strpos($login_referrer, 'loginform')) {
+	$login_referrer = site_url();
+  }
   setcookie( 'pbsoauth_login_referrer', '', 1, '/', $_SERVER['HTTP_HOST']);
 }
 
@@ -65,17 +78,33 @@ $nonce = false;
 
 $errors = array();
 if (isset($_GET["code"])){
-  $code = $_GET["code"];
-  $userinfo = $laas_client->authenticate($code, $rememberme, $nonce);
+	// log any current session out
+  	$auth_client->logout();
+  	$code = $_GET["code"];
+  	$userinfo = $auth_client->authenticate($code, $rememberme, $nonce, $code_verifier);
+} else {
+	// only if VPPA redirect I think will there not be a 'code'
+    if ($use_pmsso) {
+        $userinfo = $auth_client->check_pmsso_login();
+		// are they already activated?
+		if (isset($userinfo["pid"])) {
+			$mvaultinfo = $mvault_client->get_membership_by_uid($pbs_uid);
+			if (isset ($mvaultinfo["membership_id"])) {
+  				$userinfo["membership_info"] = $mvaultinfo;
+			}
+			// create and update the userinfo cookie
+			$success = $auth_client->validate_and_append_userinfo($userinfo);
+			wp_redirect($login_referrer);
+			exit();
+		}
+	}
 }
 
 // now we either have userinfo or null.
 if (isset($userinfo["pid"])){
 
   $pbs_uid = $userinfo["pid"];
-
   // now we work with the mvault
-  $mvault_client = $passport->get_mvault_client();
   $mvaultinfo = array();
   if ($membership_id) {
     // this is an activation!
@@ -83,6 +112,13 @@ if (isset($userinfo["pid"])){
     if (isset($mvaultinfo["membership_id"])) {
       $mvaultinfo = $mvault_client->activate($membership_id, $pbs_uid);
     }
+	// handle VPPA assent during activation
+	if (isset($userinfo["vppa_redirect"])) {
+		// reset the login_referrer again
+		setcookie( 'pbsoauth_login_referrer', $login_referrer, 0, '/', $_SERVER['HTTP_HOST']);
+		wp_redirect($userinfo["vppa_redirect"]);
+		exit();
+	}
   }
   // is the person activated now?
   if (!isset($mvaultinfo["membership_id"])) {

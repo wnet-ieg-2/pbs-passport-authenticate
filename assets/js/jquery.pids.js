@@ -39,6 +39,8 @@ jQuery(document).ready(function($) {
     loginform = window.location.protocol + '//' + loginform;
   }
 
+  var correct_mvhash = '';
+  var userinfolink_base = userinfolink; // saving a backup of the original for a later issue
  
   function loginToPBS(event) {
     event.preventDefault();
@@ -87,6 +89,7 @@ jQuery(document).ready(function($) {
     if ( typeof(user) !== "undefined" && typeof(user.membership_info) !== "undefined") {
         updateUserLoginStatusArray(user);
         updateLoginVisuals(user);
+		Cookies.set('pmsso_is_logged_in', true, { path: '/' });
       } else {
         $('.pbs_passport_authenticate button.launch, .pbs_passport_authenticate_logged_in_hide').hide();
         retrievePBSLoginInfoViaAJAX();
@@ -128,6 +131,10 @@ jQuery(document).ready(function($) {
       currentarray.memberStatus = 'not_activated';
       if (obj.membership_info.status == 'On') {
         currentarray.memberStatus = 'valid';
+		currentarray.provisional = false;
+		if (obj.membership_info.provisional == true) {
+			currentarray.provisional = true;
+		}
         // but what about VPPA?
         currentarray.VPPAStatus = 'false';
         if (typeof(obj.vppa_status) !== 'undefined') {
@@ -138,15 +145,23 @@ jQuery(document).ready(function($) {
         // offer will be null if not activated, otherwise status is expired
         if (typeof user.membership_info.offer !== 'undefined' && user.membership_info.offer) {
           currentarray.memberStatus = 'expired';
+		  currentarray.provisional = false;
         }
       }
     }
     // set the global object value 
     userPBSLoginStatus = currentarray;
+
+	// update the userinfo link with cachebusting
+	if (typeof Cookies.get('pbsoauth_mvhash') !== "undefined") {
+		correct_mvhash = Cookies.get('pbsoauth_mvhash');                                                                                                                                 userinfolink = userinfolink + "?mvhash=" + correct_mvhash;
+  	}
+
     // push a dataLayer event to GTM
     window.dataLayer = window.dataLayer || [];
     dataLayer.push({ 'event': 'passport_login_status', 'memberstatus': currentarray.memberStatus });
     console.log(dataLayer);
+
     // and done
     return currentarray;
   }
@@ -210,7 +225,9 @@ jQuery(document).ready(function($) {
             portal_list_entry = '<li><a href="' + userinfolink + '">PASSPORT</a></li>';
             if (portallink.length > 0) {
               if (userPBSLoginStatus.memberStatus == 'valid' || userPBSLoginStatus.memberStatus == 'expired') {
-                portal_list_entry = '<li><a href="' + portallink + '" target=_new >MY MEMBERSHIP</a></li>' + portal_list_entry;
+			  	if (userPBSLoginStatus.provisional != true) {
+                	portal_list_entry = '<li><a href="' + portallink + '" target=_new >MY MEMBERSHIP</a></li>' + portal_list_entry;
+				}
               }
             }
             if (subscriptionslink.length > 0) {
@@ -281,6 +298,7 @@ jQuery(document).ready(function($) {
 
   function logoutFromPBS(event) {
     event.preventDefault();
+	Cookies.set('pmsso_is_logged_in', false, { path: '/' });
     $.ajax({
       url: authenticate_script,
       data: 'logout=true',
@@ -329,7 +347,30 @@ jQuery(document).ready(function($) {
     });
     /* [ END video placeholder to video swap ] ---------------------------------------------------------------- */
 	
-	
+
+	/* force the userinfo page to have a querystring that matches the hash of the current mvault info */
+
+	function checkUserinfoQueryString() {
+		if (typeof(Cookies.get('pbsoauth_mvhash')) === "undefined") {
+			return;
+		}
+		correct_mvhash = Cookies.get('pbsoauth_mvhash');	
+		let searchParams = new URLSearchParams(window.location.search);
+		if (searchParams.has("mvhash")) {
+			let current_mvhash = searchParams.get("mvhash");
+			if (current_mvhash == correct_mvhash) {
+        		return;
+			}
+		}
+		// reload the page with the correct querystring
+		let urlwithoutqs = window.location.href.split('?')[0];
+		window.location.replace(urlwithoutqs + "?mvhash=" + correct_mvhash);
+	}
+
+    if (window.location.href.indexOf(userinfolink_base) > -1) {
+        checkUserinfoQueryString();
+    }
+
 	
 });
 

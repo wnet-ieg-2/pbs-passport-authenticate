@@ -1,18 +1,18 @@
 <?php
 /*
-PBS_LAAS_Client
+PMSSO_Client
 developed by William Tam, WNET/Thirteen
 
-This class provides methods for working with PBS's Login As A Service (LAAS)
+This class provides methods for working with the Public Media Single Sign-On system
 
 Create a new client:
 
-$client = new PBS_LAAS_Client($args);
+$client = new PMSSO_Client($args);
 
 arguments:
-$client_id, $client_secret -- access keys from pbs.  The client_secret must be kept private.
+$client_id, $customer_id, $app_id -- will be provided by the PMSSO team
 
-$oauthroot -- the base URI of PBS's endpoint.  This is configurable so you can point at staging/dev URIs.
+$client_secret -- optional additional element for use with a 'confidential client'.  The client_secret must be kept private.
 
 $cryptkey -- unique key for encrypt/decrypt operations for the user's info.  This key must be kept private. 
 
@@ -33,7 +33,7 @@ the openssl_encrypt function.  Default is AES-256-CBC, but there are many choice
 
 Public Methods:
 
-authenticate($code, $rememberme)
+authenticate($code, $rememberme, $nonce='', $code_exchange='')
 Takes an oAuth grant code and use it to get access and refresh tokens from PBS 
 then stores tokens and userinfo in encrypted session variables.
 the second arg determines if this info is stored in encryped cookies for longer term.
@@ -61,10 +61,11 @@ $client->logout();
 
 */
 
-class PBS_LAAS_Client {
+class PMSSO_Client {
   private $client_id;
+  private $customer_id;
+  private $app_id;
   private $client_secret;
-  private $oauthroot;
   private $redirect_uri;
   private $tokeninfo_cookiename;
   private $userinfo_cookiename;
@@ -74,13 +75,17 @@ class PBS_LAAS_Client {
   private $encrypt_method;
   private $encrypt_iv;
   private $domain;
+  private $station_id;
   
 
   public function __construct($args){
     $this->client_id = $args['client_id'];
-    $this->client_secret = $args['client_secret'];
-    $this->oauthroot = $args['oauthroot'];
+    $this->customer_id = $args['customer_id'];
+	$this->app_id = $args['app_id'];
+    $this->client_secret = isset($args['client_secret']) ? $args['client_secret'] : false;
     $this->redirect_uri = $args['redirect_uri'];
+	$this->oauthroot = 'https://login.publicmediasignin.org/' . $this->customer_id . '/';
+	$this->station_id = isset($args['station_id']) ? $args['station_id'] : false;
 
     // cookie stuff
     $this->tokeninfo_cookiename = $args['tokeninfo_cookiename'];
@@ -91,7 +96,6 @@ class PBS_LAAS_Client {
     $this->cryptkey = $args['cryptkey'];
     $this->encrypt_iv = (!empty($args['encrypt_iv']) ? $args['encrypt_iv'] : 'adsfafdsaafddsaf'); // LEGACY ONLY 
     $this->encrypt_method = (!empty($args['encrypt_method']) ? $args['encrypt_method'] : 'AES-256-CBC');
-
 
     $this->set_rememberme_state();
   } 
@@ -105,6 +109,7 @@ class PBS_LAAS_Client {
     }
   }
 
+  /* TODO replace completely with WP_Request */
   private function build_curl_handle($url) {
     if (!function_exists('curl_init')){
       die('the curl library is required for this client to work');
@@ -129,25 +134,21 @@ class PBS_LAAS_Client {
 
 
 
-  public function authenticate($code= '', $rememberme='', $nonce=''){
+  public function authenticate($code= '', $rememberme='', $nonce='', $code_verifier= ''){
 
     $this->checknonce = $nonce;
 
     $this->rememberme = $rememberme;
-
-    $tokeninfo = $this->get_code_response($code);
+    $tokeninfo = $this->get_code_response($code, $code_verifier);
     if (! isset($tokeninfo["access_token"]) ) {
       $tokeninfo['messages'] = 'broke on code response';
       return $tokeninfo;
     }
-    
-    $tokeninfo = $this->update_pbs_tokeninfo($tokeninfo);
-     
+    $tokeninfo = $this->update_pmsso_tokeninfo($tokeninfo);
     $access_token = $tokeninfo['access_token'];
     if (! isset($tokeninfo["access_token"]) ) {
       return $tokeninfo;
     }
-
     $this->save_encrypted_tokeninfo($tokeninfo);
 
     $userinfo = $this->get_latest_pbs_userinfo($access_token);
@@ -161,18 +162,18 @@ class PBS_LAAS_Client {
 
   }
 
-  public function code_exchange($code= ''){
-    $tokeninfo = $this->get_code_response($code);
+  public function code_exchange($code= '', $code_verifier= ''){
+    $tokeninfo = $this->get_code_response($code, $code_verifier);
     if (! isset($tokeninfo["access_token"]) ) {
       $tokeninfo['messages'] = 'broke on code exchange';
       return $tokeninfo;
     }
-    $tokeninfo = $this->update_pbs_tokeninfo($tokeninfo);
+    $tokeninfo = $this->update_pmsso_tokeninfo($tokeninfo);
     return $tokeninfo;
   }
 
 
-  public function check_pbs_login() {
+  public function check_pmsso_login() {
 
     // use access tokens to get the most recent info
 
@@ -181,7 +182,7 @@ class PBS_LAAS_Client {
       // they're not logged in
       return false;
     }
-    $updated_tokeninfo = $this->update_pbs_tokeninfo($current_tokeninfo);
+    $updated_tokeninfo = $this->update_pmsso_tokeninfo($current_tokeninfo);
 
     $access_token = isset($updated_tokeninfo['access_token']) ? $updated_tokeninfo['access_token'] : false;
 
@@ -215,7 +216,7 @@ class PBS_LAAS_Client {
     * stuff, and saves it into the userinfo session/cookie
     */ 
     // are we logged into PBS? are the session/cookie still valid? 
-    $current_userinfo = $this->check_pbs_login();
+    $current_userinfo = $this->check_pmsso_login();
   
     if (! $current_userinfo) {
       return false;
@@ -230,7 +231,7 @@ class PBS_LAAS_Client {
   }
 
 
-  public function prompt_for_pbs_login() {
+  public function prompt_for_pmsso_login() {
 
     $userinfo = $this->retrieve_pbs_userinfo();
 
@@ -239,25 +240,42 @@ class PBS_LAAS_Client {
   }
 
   public function logout() {
+     $tokeninfo = $this->retrieve_encrypted_tokeninfo();
+	 if (isset($tokeninfo["access_token"]) ) {
+	 	$url = $this->oauthroot . 'login/token/revoke';
+		$postfields = array(
+			'client_id' => $this->client_id,
+			'token_type_hint' => 'access_token',
+			'token' => $tokeninfo["access_token"]
+		);
+		$requestbody=http_build_query($postfields);
+		$ch = $this->build_curl_handle($url);
+	    curl_setopt($ch, CURLOPT_POST, true);
+    	curl_setopt($ch, CURLOPT_POSTFIELDS, $requestbody);
+	    $response_json = curl_exec($ch);
+    	$info = curl_getinfo($ch);
+	    $errors = curl_error($ch);
+    	curl_close($ch);
+     }
      setcookie($this->userinfo_cookiename, NULL, -1, "/", $this->domain, true, false);
      setcookie($this->tokeninfo_cookiename, NULL, -1, "/", $this->domain, true, true);
   }
 
 
-  private function get_code_response($code=''){
-    $url = $this->oauthroot . 'token/';
+  private function get_code_response($code='', $code_verifier=''){
+    $url = $this->oauthroot . 'login/token';
     $postfields = array(
       'code' => $code,
-      'redirect_uri' => $this->redirect_uri,
       'client_id' => $this->client_id,
-      'client_secret' => $this->client_secret,
-      'grant_type' => 'authorization_code'
+      'grant_type' => 'authorization_code',
+	  'redirect_uri' => $this->redirect_uri,
+	  'code_verifier' => $code_verifier
     );
+	$requestbody=http_build_query($postfields);
     $ch = $this->build_curl_handle($url);
     //construct the curl request
-
     curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $requestbody);
     $response_json = curl_exec($ch);
     $info = curl_getinfo($ch);
     $errors = curl_error($ch);
@@ -277,7 +295,7 @@ class PBS_LAAS_Client {
 
 
 
-  public function validate_pbs_access_token($access_token = ''){
+  public function validate_pmsso_access_token($access_token = ''){
     // this function hits the tokeninfo endpoint and checks its validity
 
     /* NOTE:  the token-info endpoint has been disabled by PBS.  Instead we will see if we can successfully get userinfo.
@@ -308,19 +326,19 @@ class PBS_LAAS_Client {
     return array('access_token' => $access_token);
   }
 
-  public function generate_pbs_access_token_from_refresh_token($refresh_token =''){
-    $url = $this->oauthroot . 'token/';
+  public function generate_pmsso_access_token_from_refresh_token($refresh_token =''){
+    $url = $this->oauthroot . 'login/token';
     $postfields = array(
       'refresh_token' => $refresh_token,
       'client_id' => $this->client_id,
-      'client_secret' => $this->client_secret,
       'grant_type' => 'refresh_token'
     );
+	$requestbody = http_build_query($postfields);
     //construct the curl request
     $ch = $this->build_curl_handle($url);
 
     curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $postfields);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $requestbody);
     $response_json = curl_exec($ch);
     $info = curl_getinfo($ch);
     $errors = curl_error($ch);
@@ -333,8 +351,10 @@ class PBS_LAAS_Client {
       }
       return $code_response;
     } else {
+	  error_log("failed to get access token from refresh token");
       $code_response['curlerrors'] = $errors;
       $code_response['curlinfo'] = $info;
+	  error_log(json_encode($code_response));
       return $code_response;
     }
   }
@@ -420,9 +440,8 @@ class PBS_LAAS_Client {
     }
   }
 
-  private function update_pbs_tokeninfo($tokeninfo) {
+  private function update_pmsso_tokeninfo($tokeninfo) {
     // We get a new access token if the current token has less than 5% of its life left
-
     // default lifespan of token is 10 hours, so 30 minutes.
     $token_expire_window = strtotime("+30 minute");
     if ( isset( $tokeninfo['expires_in'] ) && ( $tokeninfo['expires_in'] < 36000 ) ){
@@ -437,7 +456,7 @@ class PBS_LAAS_Client {
 
 
       //  use the refresh token to get a new access token
-      $newtokeninfo = $this->generate_pbs_access_token_from_refresh_token($tokeninfo['refresh_token']);
+      $newtokeninfo = $this->generate_pmsso_access_token_from_refresh_token($tokeninfo['refresh_token']);
       if (! isset($newtokeninfo['refresh_token'])) {
         $newtokeninfo['messages'] = 'broke on generateing an access token from a refresh token';
         return $newtokeninfo;
@@ -447,11 +466,6 @@ class PBS_LAAS_Client {
 
     }
 
-    // validate the access token on general priniciple
-    $validate = $this->validate_pbs_access_token($tokeninfo['access_token']);
-    if (! isset($validate['access_token'])){
-      return $validate;
-    }
     // calculate the expiration date and add to tokeninfo array if not previously set
     if (! isset($tokeninfo['expires_timestamp']) ){
       $tokeninfo['expires_timestamp'] = strtotime("+" . $tokeninfo['expires_in'] . " seconds");
@@ -481,29 +495,76 @@ class PBS_LAAS_Client {
   }
 
   public function get_latest_pbs_userinfo($access_token = '') {
+  	// same name as old function but now a wrapper for other steps
+	// hit login resolve to provision PID and get the vppa_redirect if necessary
+	$vppa_redirect = $this->get_vppa_redirect($access_token);
+	// get the pbs profile info
+	$userinfo = $this->get_pbs_profile($access_token);
+	if (!empty($vppa_redirect)) {
+		$userinfo['vppa_redirect'] = $vppa_redirect;
+ 	}
+    return $userinfo;
+  }
 
-    // get the profile info from PBS
-    $url = $this->oauthroot . 'user/info/';
-    $customheaders = array('Authorization: Bearer ' . $access_token);
+
+  public function get_vppa_redirect($access_token = '') {
+
+    // either returns false or, if needed, a vppa redirect that will allow the visitor to confirm their VPPA status
+    $url = 'https://profile.services.pbs.org/v2/login_resolve/';
+    $customheaders = array('Application-Id: ' . $this->app_id, 'Authorization: Bearer ' . $access_token);
+    $postfields = array(
+      'return_uri' => $this->redirect_uri,
+	  'handle_ux' => true,
+	  'activation' => true
+    );
+	if (!empty($this->station_id)) {
+		$postfields['station'] = $this->station_id;
+	}
+    $requestbody = http_build_query($postfields);
+    //construct the curl request
     $ch = $this->build_curl_handle($url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $requestbody);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $customheaders);
     curl_setopt($ch, CURLINFO_HEADER_OUT, true);
-    $userinfo_json = curl_exec($ch);
+  	$response_json = curl_exec($ch);
     $info = curl_getinfo($ch);
     $errors = curl_error($ch);
     curl_close($ch);
-    $userinfo = json_decode($userinfo_json, true);
-    if (isset($userinfo['email'])){
+	$return = false;
+    $response = json_decode($response_json, true);
+	if (isset($response['show_vppa_screen'])) {
+    	if (isset($response['vppa_redirect'])) {
+        	$return = $response['vppa_redirect'];
+		}
+    }
+	return $return;
+  }
+
+  public function get_pbs_profile($access_token = '') {
+
+    // get the profile info from the custom PBS endpoint
+    $url = 'https://profile.services.pbs.org/v2/user/profile/';
+    $customheaders = array('Application-Id: ' . $this->app_id, 'Authorization: Bearer ' . $access_token);
+    $ch = $this->build_curl_handle($url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $customheaders);
+    curl_setopt($ch, CURLINFO_HEADER_OUT, true);
+    $response_json = curl_exec($ch);
+    $info = curl_getinfo($ch);
+    $errors = curl_error($ch);
+    curl_close($ch);
+    $response = json_decode($response_json, true);
+    if (isset($response['profile'])) {
+        $userinfo = $response['profile'];
       // append the VPPA status
       $userinfo = $this->derive_and_append_vppa_status($userinfo);
       return $userinfo;
     } else {
-      $userinfo['curlinfo'] = $info;
-      $userinfo['curlerrors'] = $errors;
-      return $userinfo;
+      $response['curlinfo'] = $info;
+      $response['curlerrors'] = $errors;
+      return $response;
     }
   }
-
 
   private function store_pbs_userinfo($userinfo) {
     if (isset($userinfo['pid'])){
@@ -522,10 +583,12 @@ class PBS_LAAS_Client {
         'first_name' => $userinfo['first_name'],
         'last_name' => $userinfo['last_name'],
         'pid' => $userinfo['pid'],
-        'thumbnail_URL' => $userinfo['thumbnail_URL'],
         'vppa_status' => $userinfo['vppa_status'],
         'vppa' => $userinfo['vppa']
       );
+	  if (isset($userinfo['thumbnail_URL'])) {
+		$userinfo_clean['thumbnail_URL'] = $userinfo['thumbnail_URL'];
+	  }
       if (isset($userinfo['membership_info'])) {
         $userinfo_clean['membership_info'] = array(
           'offer' => $userinfo['membership_info']['offer'],
@@ -555,17 +618,21 @@ class PBS_LAAS_Client {
 
   public function derive_and_append_vppa_status($userinfo) {
     $vppa_status = 'false';
-    if (!empty($userinfo['vppa']['vppa_last_updated'])) {
+	$userinfo['vppa'] = array();
+    if (!empty($userinfo['vppa_last_updated'])) {
       $vppa_status = 'valid';
-      if (strtotime($userinfo['vppa']['vppa_last_updated']) < strtotime('-2 years') ){
+      if (strtotime($userinfo['vppa_last_updated']) < strtotime('-2 years') ){
         $vppa_status = 'expired';
       }
-      if ($userinfo['vppa']['vppa_accepted'] !== true) {
+	  $userinfo['vppa']['vppa_last_updated'] = $userinfo['vppa_last_updated'];
+	  unset ($userinfo['vppa_last_updated']);
+      if ($userinfo['vppa_accepted'] !== true) {
         $vppa_status = 'rejected';
       }
+	  $userinfo['vppa']['vppa_accepted'] = $userinfo['vppa_accepted'];
+	  unset ($userinfo['vppa_accepted']);
     }
     $userinfo['vppa_status'] = $vppa_status;
     return $userinfo;
   }
 }
-

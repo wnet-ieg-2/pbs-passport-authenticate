@@ -2,13 +2,22 @@
 $defaults = get_option('pbs_passport_authenticate');
 $passport = new PBS_Passport_Authenticate(dirname(__FILE__));
 
-wp_enqueue_script( 'pbs_passport_loginform_js' , $passport->assets_url . 'js/loginform_helpers.js', array('jquery'), $passport->version, true );
+$use_pmsso = isset($defaults['pmsso_is_default']) ? $defaults['pmsso_is_default'] : false;
 
 $links = $passport->get_oauth_links(array('scope' => 'account vppa'));
 $pluginImageDir = $passport->assets_url . 'img';
 $station_nice_name = $defaults['station_nice_name'];
-$laas_client = $passport->get_laas_client();
-$userinfo = $laas_client->check_pbs_login();
+$auth_client = false;
+if ($use_pmsso) {
+	wp_enqueue_script( 'pbs_passport_pkce_js' , $passport->assets_url . 'js/pkce_loginform.js', array('jquery'), $passport->version, true );
+	$auth_client = $passport->get_pmsso_client();
+	$userinfo = $auth_client->check_pmsso_login();
+	$pmsso_url = $passport->get_pmsso_link(array('prompt' => 'login'));
+} else {
+	wp_enqueue_script( 'pbs_passport_loginform_js' , $passport->assets_url . 'js/loginform_helpers.js', array('jquery'), $passport->version, true );
+	$auth_client = $passport->get_laas_client();
+	$userinfo = $auth_client->check_pbs_login();
+} 
 $membership_id = (!empty($_REQUEST['membership_id']) ? $_REQUEST['membership_id'] : false);
 if ($membership_id) {
   $mvault_client = $passport->get_mvault_client();
@@ -17,20 +26,43 @@ if ($membership_id) {
     // then the membership_id is invalid so discard it
     $membership_id = false;  
   } else {
-    $links = $passport->get_oauth_links(array('scope' => 'account vppa'));
     $jwt = $passport->create_jwt(array("sub" => $membership_id, "not_member_path" => "pbsoauth/userinfo"));
-    foreach ($links as $type => $link){
-      $statestring = "&activation=true&state=";
-      if ($type == 'create_pbs') {
-        $statestring = urlencode($statestring);
-      }
-      $statestring .= $jwt;
-      $links[$type] = $link . $statestring; 
-    }
+	$pmsso_url .= "&state=" . $jwt;
+	$links = $passport->get_oauth_links(array('scope' => 'account vppa'));
+   	foreach ($links as $type => $link){
+    	$statestring = "&activation=true&state=";
+		if ($type == 'create_pbs') {
+       		$statestring = urlencode($statestring);
+      	}
+      	$statestring .= $jwt;
+      	$links[$type] = $link . $statestring; 
+	}
   }
+} else {
+	// not an activation, for PMSSO lets add a jwt state string for security
+	$jwt = $passport->create_jwt(array("not_member_path" => "pbsoauth/userinfo"));
+	$pmsso_url .= "&state=" . $jwt;
 }
 
 define('DISABLE_PLEDGE', 1);
+
+if ($use_pmsso) {
+	?>
+	<html><head>
+	<script type="text/javascript" src="<?php echo get_site_url(); ?>/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+	<script type="text/javascript" src="<?php echo($passport->assets_url); ?>js/pkce_loginform.js?ver=<?php echo($passport->version); ?>"></script>
+	<style>body {background: #000525; color: #fff; font: bold 1.125em sans-serif; margin: 0; padding: 0;} a {color: #fff;} svg {vertical-align: middle;} a {text-decoration: none; color: #2b92ff;} a:hover {text-decoration: underline; color: #2b92ff;} .svg-txt {vertical-align: middle;} .svg-spin { -webkit-animation: svg-spin 2s infinite linear; animation: svg-spin 2s infinite linear; } .passport-login-wrap {height: 100vh; display: flex; flex-wrap: wrap; flex-flow: row wrap; align-items: center; justify-content: center;} @keyframes svg-spin { 0% { -webkit-transform: rotate(0deg); transform: rotate(0deg);} 100% { -webkit-transform: rotate(359deg); transform: rotate(359deg); }}</style>
+	</head>
+	<body>
+	<div class='passport-login-wrap'><div class='login-inner'>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="width: 1em; height: 1em;" class="svg-spin"><path fill="#fff" d="M224 32c0-17.7 14.3-32 32-32C397.4 0 512 114.6 512 256c0 46.6-12.5 90.4-34.3 128c-8.8 15.3-28.4 20.5-43.7 11.7s-20.5-28.4-11.7-43.7c16.3-28.2 25.7-61 25.7-96c0-106-86-192-192-192c-17.7 0-32-14.3-32-32z"/><path fill="#2b92ff" d="M256 64C150 64 64 150 64 256s86 192 192 192c70.1 0 131.3-37.5 164.9-93.6l.1 .1c-6.9 14.9-1.5 32.8 13 41.2c15.3 8.9 34.9 3.6 43.7-11.7c.2-.3 .4-.6 .5-.9l0 0C434.1 460.1 351.1 512 256 512C114.6 512 0 397.4 0 256S114.6 0 256 0c-17.7 0-32 14.3-32 32s14.3 32 32 32z"/></svg>
+		<span class='svg-txt'><a href='<?php echo $pmsso_url; ?>' class="pmsso">Please Wait...</a></span>
+	</div></div>
+	</body></html>
+	<?php
+
+} else {
+
 get_header();
 ?>
 <div class='pbs-passport-authenticate-wrap <?php if (empty($userinfo) && !$membership_id) {echo "wide"; }?> cf'>
@@ -72,7 +104,13 @@ echo "</div>";
 	<h3>MEMBER SIGN IN</h3>
 	<p><strong>Members get extended access to PBS video on demand and more</strong></p>
  	<p>If you have already activated your <?php echo $station_nice_name; ?> Passport benefit, please sign in below.</p>
-  <?php } ?>
+  <?php } 
+		if ($use_pmsso) { 
+		?>
+		<ul><li><a href="<?php echo $pmsso_url; ?>" class="pmsso">Sign in with PM SSO</a></li>
+
+		<?php } else {
+  ?>
 	<ul>
   <li class="pbs"><a href="<?php echo($links['pbs']); ?>" title="Sign in with PBS Account"><img src="<?php echo $pluginImageDir; ?>/sign-in-pbs.png" /></a>
   <?php if ($membership_id){ ?>
@@ -82,10 +120,11 @@ echo "</div>";
 	<li class="facebook"><a href="<?php echo($links['facebook']); ?>" title="Sign in with Facebook"><img src="<?php echo $pluginImageDir; ?>/sign-in-facebook.png" /></a></li>
   <li class="apple"><a href="<?php echo($links['apple']); ?>" title="Sign in with Apple"><img src="<?php echo $pluginImageDir; ?>/sign-in-apple.png" /></a></li>
 	</li>
+	<?php  } ?>
 	<li class="stay-logged-in"><input type="checkbox" id="pbsoauth_rememberme" name="pbsoauth_rememberme" value="true" checked /> Keep me logged in on this device</li>
 	</ul>
 	</div>
-	<?php } else { ?> 
+	<?php  } else { ?> 
   <p>You seem to already be signed in.  Wait one moment to be redirected to <a href="<?php echo site_url('pbsoauth/userinfo/'); ?>">your user profile page, or click here</a>.</p>
   <?php } ?>
 	</div><!-- .pp-narrow -->
@@ -116,4 +155,6 @@ echo "</div>";
 </div>
 </div>
 </div>
-<?php get_footer();
+<?php 
+get_footer();
+}

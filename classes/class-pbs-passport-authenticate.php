@@ -11,32 +11,32 @@ class PBS_Passport_Authenticate {
 	private $dir;
 	private $file;
 	private $assets_dir;
-  private $token;
-  private $defaults;
+	private $token;
+	private $defaults;
 	public $assets_url;
-  public $version;
+	public $version;
 
 	public function __construct($file) {
 		$this->dir = dirname( $file );
 		$this->file = $file;
 		$this->assets_dir = trailingslashit( $this->dir ) . 'assets';
 		$this->assets_url = esc_url( trailingslashit( plugins_url( '/assets/', $file ) ) );
-    $this->token = 'pbs_passport_authenticate';
-    $this->defaults = get_option($this->token);
-    $this->version = '0.3.2.4';
+	    $this->token = 'pbs_passport_authenticate';
+    	$this->defaults = get_option($this->token);
+    	$this->version = '0.4.2.4';
 
 		// Load public-facing style sheet and JavaScript.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
-    // Setup the shortcode
-    add_shortcode( 'pbs-passport-authenticate', array($this, 'do_shortcode') );
+		// Setup the shortcode
+		add_shortcode( 'pbs-passport-authenticate', array($this, 'do_shortcode') );
 
-    // Setup the rewrite rules and query vars to make our endpoints work
-    add_action( 'init', array($this, 'setup_rewrite_rules') );
-    add_filter( 'query_vars', array($this, 'register_query_vars') );
-    add_action( 'template_include', array($this, 'rewrite_templates') );
+		// Setup the rewrite rules and query vars to make our endpoints work
+		add_action( 'init', array($this, 'setup_rewrite_rules') );
+		add_filter( 'query_vars', array($this, 'register_query_vars') );
+		add_action( 'template_include', array($this, 'rewrite_templates') );
 		
-	add_filter( 'body_class', array($this, 'ppa_body_classes') );	
+		add_filter( 'body_class', array($this, 'ppa_body_classes') );	
 	}
 
   public function enqueue_scripts() {
@@ -46,6 +46,7 @@ class PBS_Passport_Authenticate {
     wp_enqueue_script( 'jquery.pids' );
     //only register this one, we'll enqueue it on just the loginform
     wp_register_script( 'pbs_passport_loginform_js' , $this->assets_url . 'js/loginform_helpers.js', array('jquery'), $this->version, true );
+	wp_register_script( 'pbs_passport_pkce_js' , $this->assets_url . 'js/pkce_loginform.js', array('jquery'), $this->version, true );
 
     //required styles
     wp_enqueue_style( 'pbs_passport_css', $this->assets_url . 'css/passport_styles.css', null, $this->version);
@@ -184,6 +185,46 @@ class PBS_Passport_Authenticate {
     return $laas_client;
   }
 
+	public function get_pmsso_link($args = null) {
+		/* this generates the basic PMSSO link but does NOT generate the code challenge/verifier -- those need to be appended */
+		$defaults = $this->defaults;
+		$redirect_uri = ( !empty($args['redirect_uri']) ? $args['redirect_uri'] : site_url('pbsoauth/callback/') );
+		$client_id = ( !empty($args['client_id']) ? $args['client_id'] : $defaults['pmsso_client_id'] );
+		$customerid = ( !empty($args['customer_id']) ? $args['customer_id'] : $defaults['pmsso_customerid'] );
+		$prompt = ( !empty($args['prompt']) ? $args['prompt'] : false);
+		$pmsso_url = "https://login.publicmediasignin.org/" . $customerid  . "/login/authorize?client_id=" . $client_id . "&redirect_uri=" . $redirect_uri . "&scope=openid&response_type=code";
+		if (!empty($prompt)) {
+			$pmsso_url .= "&prompt=" . $prompt;
+		}
+		return $pmsso_url;
+	}
+
+	public function get_pmsso_client($args = null){
+		$defaults = $this->defaults;
+		$redirect_uri = ( !empty($args['redirect_uri']) ? $args['redirect_uri'] : site_url('pbsoauth/callback/') );
+    	$client_id = ( !empty($args['pmsso_client_id']) ? $args['pmsso_client_id'] : $defaults['pmsso_client_id'] );
+		$customer_id = ( !empty($args['pmsso_customerid']) ? $args['pmsso_customerid'] : $defaults['pmsso_customerid'] );
+    	$client_secret = ( !empty($args['pmsso_client_secret']) ? $args['pmsso_client_secret'] : null );
+		$app_id = ( !empty($args['pmsso_app_id']) ? $args['pmsso_app_id'] : $defaults['pmsso_app_id'] );
+		$station_id = ( !empty($defaults['station_id']) ? $defaults['station_id'] : false);
+
+		$pmsso_args = array(
+			'client_id' => $client_id,
+			'app_id' => $app_id,
+			'customer_id' => $customer_id,
+			'client_secret' => $client_secret,
+			'redirect_uri' => $redirect_uri,
+			'tokeninfo_cookiename' => $defaults['tokeninfo_cookiename'],
+			'userinfo_cookiename' => 'pbs_passport_userinfo',
+			'cryptkey' => $defaults['cryptkey']
+		);
+		if (!empty($station_id)) {
+			$pmsso_args['station_id'] = $station_id;
+		}
+		$pmsso_client = new PMSSO_Client($pmsso_args);
+		return $pmsso_client;
+    }
+
   public function get_mvault_client(){
     $defaults = $this->defaults;
     $station_id = ( !empty($defaults['station_id']) ? $defaults['station_id'] : $defaults['station_call_letters'] );
@@ -270,13 +311,17 @@ class PBS_Passport_Authenticate {
   }
 
   public function get_membership_from_access_token($access_token = '', $client_args = array()){
-    /* this function consolidates mvault and laas lookups to return a combined/useinfo membership object
-     * should have been built years ago! */
+	/* this function consolidates mvault and laas/pmsso lookups to return a combined/useinfo membership object */
     if (!$access_token) {
       return array('errors' => 'no access token provided');
     }
-    $laas_client = $this->get_laas_client($client_args);
-    $userinfo = $laas_client->get_latest_pbs_userinfo($access_token);
+	$userinfo = array();
+	if (isset($client_args['use_pmsso']) && ($client_args['use_pmsso'] == true)) {
+		$auth_client = $this->get_pmsso_client($client_args);
+	} else {
+		$auth_client = $this->get_laas_client($client_args);
+	}
+	$userinfo = $auth_client->get_latest_pbs_userinfo($access_token);
     $pid = !empty($userinfo["pid"]) ? $userinfo["pid"] : false;
     if (!$pid) {
       return array('errors' => 'bad login');
@@ -288,10 +333,16 @@ class PBS_Passport_Authenticate {
     // get the full membership info if available
     $mvault_client = $this->get_mvault_client();
     $mvaultinfo = $mvault_client->get_membership_by_uid($pid);
-    if (isset ($mvaultinfo["pbs_profile"]["email"])) {
-      $mvaultinfo["pbs_profile"]["login_provider"] = $mvault_client->normalize_login_provider($mvaultinfo["pbs_profile"]["login_provider"]);
-      $userinfo["membership_info"] = $mvaultinfo;
-    }
+	if (isset ($mvaultinfo["pbs_profile"]["email"])) {
+		$loginprovider = $mvaultinfo["pbs_profile"]["login_provider"];
+		if (isset($client_args['use_pmsso']) && ($client_args['use_pmsso'] == true)) {
+			if (isset($userinfo["provider"])) {
+				$loginprovider = $userinfo["provider"];
+			}
+		}
+		$mvaultinfo["pbs_profile"]["login_provider"] = $mvault_client->normalize_login_provider($loginprovider);
+    	$userinfo["membership_info"] = $mvaultinfo;
+	}
     return $userinfo; 
   }
 }
