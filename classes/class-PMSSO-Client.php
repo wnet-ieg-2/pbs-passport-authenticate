@@ -532,6 +532,7 @@ class PMSSO_Client {
     $errors = curl_error($ch);
     curl_close($ch);
 	$return = false;
+	error_log("postfields:  " . json_encode($postfields));
 	error_log("vppa stuff: " . $response_json);
     $response = json_decode($response_json, true);
 	if (isset($response['show_vppa_screen'])) {
