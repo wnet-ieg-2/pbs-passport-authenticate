@@ -15,8 +15,8 @@ if (empty($userinfo['pid'])) {
   // just in case, log them out, maybe they've got a bad cookie
   error_log("logging out for no pid: " .json_encode($userinfo));
   $auth_client->logout();
-  // not logged in, redirect to loginform
-  wp_redirect(site_url('pbsoauth/loginform'));
+  // not logged in, redirect to home
+  wp_redirect(site_url());
   exit();
 }
 $mvault_client = $passport->get_mvault_client();
