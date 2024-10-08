@@ -11,8 +11,9 @@ if (!$use_pmsso) {
 	$auth_client = $passport->get_pmsso_client();
 	$userinfo = $auth_client->check_pmsso_login();
 }
-if (empty($userinfo['first_name'])) {
+if (empty($userinfo['pid'])) {
   // just in case, log them out, maybe they've got a bad cookie
+  error_log("logging out for no pid: " .json_encode($userinfo));
   $auth_client->logout();
   // not logged in, redirect to loginform
   wp_redirect(site_url('pbsoauth/loginform'));
