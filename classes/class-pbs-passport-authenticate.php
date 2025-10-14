@@ -40,9 +40,9 @@ class PBS_Passport_Authenticate {
 	}
 
   public function enqueue_scripts() {
-    wp_register_script( 'js_cookie_js',  $this->assets_url . 'js/js.cookie.js', null, '2.0.4', true);
-    wp_enqueue_script( 'js_cookie_js');
-    wp_register_script( 'jquery.pids' , $this->assets_url . 'js/jquery.pids.js', array('jquery', 'js_cookie_js'), $this->version, true );
+    wp_register_script( 'js-cookie',  $this->assets_url . 'js/js.cookie.js', null, '2.0.4', true);
+    wp_enqueue_script( 'js-cookie');
+    wp_register_script( 'jquery.pids' , $this->assets_url . 'js/jquery.pids.js', array('jquery', 'js-cookie'), $this->version, true );
     wp_enqueue_script( 'jquery.pids' );
     //only register this one, we'll enqueue it on just the loginform
     wp_register_script( 'pbs_passport_loginform_js' , $this->assets_url . 'js/loginform_helpers.js', array('jquery'), $this->version, true );
