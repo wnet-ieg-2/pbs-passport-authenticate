@@ -85,7 +85,10 @@ jQuery(document).ready(function($) {
 
  
   function checkPBSLogin() {
-    user = Cookies.getJSON('pbs_passport_userinfo');
+    user = Cookies.get('pbs_passport_userinfo') || '{}';
+	// this isnt in cookie 3.0.5.
+	//  user = Cookies.get('pbs_passport_userinfo') || '{}';
+
     if ( typeof(user) !== "undefined" && typeof(user.membership_info) !== "undefined") {
         updateUserLoginStatusArray(user);
         updateLoginVisuals(user);
