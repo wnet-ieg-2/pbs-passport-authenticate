@@ -40,13 +40,10 @@ class PBS_Passport_Authenticate {
 	}
 
   public function enqueue_scripts() {
-    //wp_register_script( 'js-cookie',  $this->assets_url . 'js/js.cookie.js', null, '2.0.4', true);
-    //wp_enqueue_script( 'js-cookie');
-
-	wp_register_script( 'js-cookie',  '//cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.5/js.cookie.min.js', null, '3.0.5', true);
-	wp_enqueue_script( 'js-cookie' );
-	wp_script_add_data( 'js-cookie',  'integrity', 'sha512-nlp9/l96/EpjYBx7EP7pGASVXNe80hGhYAUrjeXnu/fyF5Py0/RXav4BBNs7n5Hx1WFhOEOWSAVjGeC3oKxDVQ==' );
-	wp_script_add_data( 'js-cookie',  'data-script-justification', 'Support file required for pbs-passport-authenticate plugin.' );
+   
+	//wp_register_script( 'js-cookie',  $this->assets_url . 'js/js.cookie204.js', null, '2.0.4', true);
+	wp_register_script( 'js-cookie',  $this->assets_url . 'js/js.cookie.js', null, '3.0.5', true);
+    wp_enqueue_script( 'js-cookie' );
 
     wp_register_script( 'jquery.pids' , $this->assets_url . 'js/jquery.pids.js', array('jquery', 'js-cookie'), $this->version, true );
     wp_enqueue_script( 'jquery.pids' );
