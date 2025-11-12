@@ -225,8 +225,6 @@ jQuery(document).ready(function($) {
 	  salutation = '';
 	  if (typeof user.first_name !== "undefined"){
 	  	salutation = user.first_name;
-	  }
-	    
 
         if ($(".pbs_passport_authenticate div.messages-new")[0]){
             // new version of messages with drop down menu...
@@ -255,7 +253,7 @@ jQuery(document).ready(function($) {
              welcomestring = thumbimage + '<a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + salutation + '</span></a> <a class="signout">Sign Out</a>';
             $('.pbs_passport_authenticate div.messages').html(welcomestring);
         }
-        
+       } 
         
       
         //bs: i need to be able to use this on js changed div....
