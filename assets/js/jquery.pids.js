@@ -219,8 +219,14 @@ jQuery(document).ready(function($) {
       thumbimage = '';
       if (user.thumbnail_URL) {
         thumbimage = "<a href='" + userinfolink + "' class='userthumb'><img src='" + user.thumbnail_URL + "' alt='' /></a>"; 
-      }	
-	
+      }
+	  
+	  // sanity check for greeting
+	  salutation = 'Your Info';
+	  if (typeof user.first_name !== "undefined"){
+	  	salutation = user.first_name;
+	  }
+	    
 
         if ($(".pbs_passport_authenticate div.messages-new")[0]){
             // new version of messages with drop down menu...
@@ -236,7 +242,7 @@ jQuery(document).ready(function($) {
             if (subscriptionslink.length > 0) {
                portal_list_entry += '<li><a href="' + subscriptionslink + '">EMAIL SUBSCRIPTIONS</a></li>';
             }
-             welcomestring = '<a href="#" class="toggle-user-drop userlink">' + thumbimage + '<span class="name">' + user.first_name + '</span></a> <ul class="user-drop">'+ portal_list_entry + '<li><a  class="signout">SIGN OUT</a></li></ul>';
+             welcomestring = '<a href="#" class="toggle-user-drop userlink">' + thumbimage + '<span class="name">' + salutation + '</span></a> <ul class="user-drop">'+ portal_list_entry + '<li><a  class="signout">SIGN OUT</a></li></ul>';
             $('.pbs_passport_authenticate div.messages-new').html(welcomestring);
 			
 			if (typeof makeNavObserverPids == 'function') { 	
@@ -246,7 +252,7 @@ jQuery(document).ready(function($) {
         }
         else {
             // old version of messages
-             welcomestring = thumbimage + '<a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + user.first_name + '</span></a> <a class="signout">Sign Out</a>';
+             welcomestring = thumbimage + '<a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + salutation + '</span></a> <a class="signout">Sign Out</a>';
             $('.pbs_passport_authenticate div.messages').html(welcomestring);
         }
         
