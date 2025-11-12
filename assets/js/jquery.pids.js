@@ -89,7 +89,6 @@ jQuery(document).ready(function($) {
 	// this isnt in cookie 3.0.5.
 	//  user = Cookies.get('pbs_passport_userinfo') || '{}';
 
-	console.log(user);
 
     if ( typeof(user) !== "undefined" && typeof(user.membership_info) !== "undefined") {
         updateUserLoginStatusArray(user);
@@ -159,7 +158,8 @@ jQuery(document).ready(function($) {
 
 	// update the userinfo link with cachebusting
 	if (typeof Cookies.get('pbsoauth_mvhash') !== "undefined") {
-		correct_mvhash = Cookies.get('pbsoauth_mvhash');                                                                                                                                 userinfolink = userinfolink + "?mvhash=" + correct_mvhash;
+		correct_mvhash = Cookies.get('pbsoauth_mvhash');
+		userinfolink = userinfolink + "?mvhash=" + correct_mvhash;
   	}
 
     // push a dataLayer event to GTM
@@ -223,10 +223,9 @@ jQuery(document).ready(function($) {
         thumbimage = "<a href='" + userinfolink + "' class='userthumb'><img src='" + user.thumbnail_URL + "' alt='' /></a>"; 
       }
 	  
-	  // sanity check for greeting
-	  salutation = '';
 	  if (typeof user.first_name !== "undefined"){
 	  	salutation = user.first_name;
+	  }
 
         if ($(".pbs_passport_authenticate div.messages-new")[0]){
             // new version of messages with drop down menu...
@@ -255,7 +254,6 @@ jQuery(document).ready(function($) {
              welcomestring = thumbimage + '<a href="' + userinfolink + '" class="' + passportIcon + '"><span class="welcome">' + salutation + '</span></a> <a class="signout">Sign Out</a>';
             $('.pbs_passport_authenticate div.messages').html(welcomestring);
         }
-       } 
         
       
         //bs: i need to be able to use this on js changed div....
