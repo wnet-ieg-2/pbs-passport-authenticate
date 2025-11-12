@@ -89,6 +89,8 @@ jQuery(document).ready(function($) {
 	// this isnt in cookie 3.0.5.
 	//  user = Cookies.get('pbs_passport_userinfo') || '{}';
 
+	console.log(user);
+
     if ( typeof(user) !== "undefined" && typeof(user.membership_info) !== "undefined") {
         updateUserLoginStatusArray(user);
         updateLoginVisuals(user);
@@ -129,7 +131,7 @@ jQuery(document).ready(function($) {
 
     // init the variable
     var currentarray = {memberStatus: 'not_logged_in'};
-    if (typeof(obj) !== 'undefined' && obj) {
+    if (typeof(obj) !== 'undefined' && obj && typeof(obj.membership_info) !== "undefined") {
       // logged in.  Dunno if activated tho
       currentarray.memberStatus = 'not_activated';
       if (obj.membership_info.status == 'On') {
