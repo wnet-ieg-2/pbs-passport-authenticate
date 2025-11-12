@@ -19,6 +19,9 @@ $use_pmsso = isset($defaults['pmsso_is_default']) ? $defaults['pmsso_is_default'
 
 $activation_token = (!empty($_REQUEST['activation_token']) ? str_replace(' ', '-', trim($_REQUEST['activation_token'])) : '');
 
+// make sure its a string that has only letters and dashes in it
+$activation_token = preg_replace('/[^A-Za-z\-]/', '', $activation_token); 
+
 if ($activation_token){
   $mvaultinfo = $passport->lookup_activation_token($activation_token);
   $return = array();
