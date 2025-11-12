@@ -222,7 +222,7 @@ jQuery(document).ready(function($) {
       }
 	  
 	  // sanity check for greeting
-	  salutation = 'Your Info';
+	  salutation = '';
 	  if (typeof user.first_name !== "undefined"){
 	  	salutation = user.first_name;
 	  }
