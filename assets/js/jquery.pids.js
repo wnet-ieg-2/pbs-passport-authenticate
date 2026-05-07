@@ -187,7 +187,7 @@ jQuery(document).ready(function($) {
         var videoID = $(this).data('media');
         if (!$(this).hasClass("playing")) {
           if ((videoWindow != 'public' && videoWindow != '' && vppa_string) || (videoWindow == 'public' || videoWindow == '') ) {
-            $(this).html('<div class="embed-container video-wrap no-content nocontent"><iframe id="partnerPlayer_'+ i +'" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allow="encrypted-media" allowfullscreen="allowfullscreen" src="//player.pbs.org/widget/partnerplayer/'+videoID+'/?chapterbar=false&endscreen=false'+vppa_string+'" style="aspect-ratio: 16/9;" loading="eager"></iframe></div>');
+            $(this).html('<div class="embed-container video-wrap no-content nocontent"><iframe id="partnerPlayer_'+ i +'" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" allow="encrypted-media" allowfullscreen="allowfullscreen" src="//player.pbs.org/widget/partnerplayer/'+videoID+'/?chapterbar=false&endscreen=false'+vppa_string+'" style="aspect-ratio: 16/9;" loading="eager" title="Video Player"></iframe></div>');
             $(this).addClass('playing');
             if (typeof(WNET_VPPA_Assent_Handler) == 'function'){
               WNET_VPPA_Assent_Handler(); 
