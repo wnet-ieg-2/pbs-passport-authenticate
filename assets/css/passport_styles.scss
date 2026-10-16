@@ -10,12 +10,12 @@ $blue: #008CB6;
 
 body.pbsoauth #pagewrapper {
 	background-color: #fff; max-width: 100% !important;
-	#page {max-width: 1200px; margin: 0 auto;}
+	#page {max-width: 1280px; margin: 0 auto;}
 }
 
 
 .pbs-passport-authenticate-wrap {
-    margin: 0 auto; padding: 1.5em 0; max-width: 1200px; background-color: #fff; color: #666; line-height: 1em; font: 400 1em 'Montserrat';
+    margin: 0 auto; padding: 1.5em 0; max-width: 1280px; background-color: #fff; color: #666; line-height: 1em; font: 400 1em 'Montserrat';
 
 	img { height: auto; max-width: 100%;}
 	a {color: $blue;}
@@ -223,7 +223,7 @@ body.pbsoauth #pagewrapper {
 
 
 
-@media screen and ( min-width: 769px ) and ( max-width: 1200px ) {
+@media screen and ( min-width: 769px ) and ( max-width: 1280px ) {
     .pbs-passport-authenticate-wrap {   padding-left: 1em; padding-right: 1em;}
 	
 }
