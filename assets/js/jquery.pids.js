@@ -223,6 +223,7 @@ jQuery(document).ready(function($) {
         thumbimage = "<a href='" + userinfolink + "' class='userthumb'><img src='" + user.thumbnail_URL + "' alt='' /></a>"; 
       }
 	  
+	  var salutation = "";
 	  if (typeof user.first_name !== "undefined"){
 	  	salutation = user.first_name;
 	  }
