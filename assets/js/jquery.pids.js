@@ -198,6 +198,16 @@ jQuery(document).ready(function($) {
     });
     // end passport player.
 
+    // other scripts call updateLoginVisuals(user) on their own schedule. If that happens before
+    // checkPBSLogin's AJAX call resolves, 'user' is still the raw cookie string, which is truthy
+    // and would render a blank logged-in userlink. Don't touch the login UI until status is known.
+    if (userPBSLoginStatus.memberStatus == 'pending') {
+      return;
+    }
+    // only treat as logged in if we have a real user object
+    if (!user || typeof user !== 'object' || !user.pid) {
+      user = null;
+    }
 
     if (user){
       // if somehow still on loginform after logging in, redirect to userinfo page
@@ -224,8 +234,8 @@ jQuery(document).ready(function($) {
       }
 	  
 	  var salutation = "";
-	  if (typeof user.first_name !== "undefined"){
-	  	salutation = user.first_name;
+	  if (typeof user.first_name === "string"){
+	  	salutation = $('<div>').text(user.first_name).html();
 	  }
 
         if ($(".pbs_passport_authenticate div.messages-new")[0]){
